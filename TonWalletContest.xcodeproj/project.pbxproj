@@ -1,0 +1,588 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */; };
+		61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD429D8F5AA00D4D030 /* ContentView.swift */; };
+		61153DD729D8F5AB00D4D030 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61153DD629D8F5AB00D4D030 /* Assets.xcassets */; };
+		61153DDA29D8F5AB00D4D030 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61153DD929D8F5AB00D4D030 /* Preview Assets.xcassets */; };
+		61153DE429D8F5AB00D4D030 /* TonWalletContestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DE329D8F5AB00D4D030 /* TonWalletContestTests.swift */; };
+		61153DEE29D8F5AB00D4D030 /* TonWalletContestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DED29D8F5AB00D4D030 /* TonWalletContestUITests.swift */; };
+		61153DF029D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DEF29D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		61153DE029D8F5AB00D4D030 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 61153DC729D8F5AA00D4D030 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61153DCE29D8F5AA00D4D030;
+			remoteInfo = TonWalletContest;
+		};
+		61153DEA29D8F5AB00D4D030 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 61153DC729D8F5AA00D4D030 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61153DCE29D8F5AA00D4D030;
+			remoteInfo = TonWalletContest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		61153DCF29D8F5AA00D4D030 /* TonWalletContest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TonWalletContest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletContestApp.swift; sourceTree = "<group>"; };
+		61153DD429D8F5AA00D4D030 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		61153DD629D8F5AB00D4D030 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		61153DD929D8F5AB00D4D030 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		61153DDF29D8F5AB00D4D030 /* TonWalletContestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TonWalletContestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		61153DE329D8F5AB00D4D030 /* TonWalletContestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletContestTests.swift; sourceTree = "<group>"; };
+		61153DE929D8F5AB00D4D030 /* TonWalletContestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TonWalletContestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		61153DED29D8F5AB00D4D030 /* TonWalletContestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletContestUITests.swift; sourceTree = "<group>"; };
+		61153DEF29D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletContestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		61153DCC29D8F5AA00D4D030 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61153DDC29D8F5AB00D4D030 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61153DE629D8F5AB00D4D030 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		61153DC629D8F5AA00D4D030 = {
+			isa = PBXGroup;
+			children = (
+				61153DD129D8F5AA00D4D030 /* TonWalletContest */,
+				61153DE229D8F5AB00D4D030 /* TonWalletContestTests */,
+				61153DEC29D8F5AB00D4D030 /* TonWalletContestUITests */,
+				61153DD029D8F5AA00D4D030 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		61153DD029D8F5AA00D4D030 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				61153DCF29D8F5AA00D4D030 /* TonWalletContest.app */,
+				61153DDF29D8F5AB00D4D030 /* TonWalletContestTests.xctest */,
+				61153DE929D8F5AB00D4D030 /* TonWalletContestUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		61153DD129D8F5AA00D4D030 /* TonWalletContest */ = {
+			isa = PBXGroup;
+			children = (
+				61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */,
+				61153DD429D8F5AA00D4D030 /* ContentView.swift */,
+				61153DD629D8F5AB00D4D030 /* Assets.xcassets */,
+				61153DD829D8F5AB00D4D030 /* Preview Content */,
+			);
+			path = TonWalletContest;
+			sourceTree = "<group>";
+		};
+		61153DD829D8F5AB00D4D030 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				61153DD929D8F5AB00D4D030 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		61153DE229D8F5AB00D4D030 /* TonWalletContestTests */ = {
+			isa = PBXGroup;
+			children = (
+				61153DE329D8F5AB00D4D030 /* TonWalletContestTests.swift */,
+			);
+			path = TonWalletContestTests;
+			sourceTree = "<group>";
+		};
+		61153DEC29D8F5AB00D4D030 /* TonWalletContestUITests */ = {
+			isa = PBXGroup;
+			children = (
+				61153DED29D8F5AB00D4D030 /* TonWalletContestUITests.swift */,
+				61153DEF29D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift */,
+			);
+			path = TonWalletContestUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		61153DCE29D8F5AA00D4D030 /* TonWalletContest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61153DF329D8F5AB00D4D030 /* Build configuration list for PBXNativeTarget "TonWalletContest" */;
+			buildPhases = (
+				61153DCB29D8F5AA00D4D030 /* Sources */,
+				61153DCC29D8F5AA00D4D030 /* Frameworks */,
+				61153DCD29D8F5AA00D4D030 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TonWalletContest;
+			productName = TonWalletContest;
+			productReference = 61153DCF29D8F5AA00D4D030 /* TonWalletContest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		61153DDE29D8F5AB00D4D030 /* TonWalletContestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61153DF629D8F5AB00D4D030 /* Build configuration list for PBXNativeTarget "TonWalletContestTests" */;
+			buildPhases = (
+				61153DDB29D8F5AB00D4D030 /* Sources */,
+				61153DDC29D8F5AB00D4D030 /* Frameworks */,
+				61153DDD29D8F5AB00D4D030 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				61153DE129D8F5AB00D4D030 /* PBXTargetDependency */,
+			);
+			name = TonWalletContestTests;
+			productName = TonWalletContestTests;
+			productReference = 61153DDF29D8F5AB00D4D030 /* TonWalletContestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		61153DE829D8F5AB00D4D030 /* TonWalletContestUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61153DF929D8F5AB00D4D030 /* Build configuration list for PBXNativeTarget "TonWalletContestUITests" */;
+			buildPhases = (
+				61153DE529D8F5AB00D4D030 /* Sources */,
+				61153DE629D8F5AB00D4D030 /* Frameworks */,
+				61153DE729D8F5AB00D4D030 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				61153DEB29D8F5AB00D4D030 /* PBXTargetDependency */,
+			);
+			name = TonWalletContestUITests;
+			productName = TonWalletContestUITests;
+			productReference = 61153DE929D8F5AB00D4D030 /* TonWalletContestUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		61153DC729D8F5AA00D4D030 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					61153DCE29D8F5AA00D4D030 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					61153DDE29D8F5AB00D4D030 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 61153DCE29D8F5AA00D4D030;
+					};
+					61153DE829D8F5AB00D4D030 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 61153DCE29D8F5AA00D4D030;
+					};
+				};
+			};
+			buildConfigurationList = 61153DCA29D8F5AA00D4D030 /* Build configuration list for PBXProject "TonWalletContest" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 61153DC629D8F5AA00D4D030;
+			productRefGroup = 61153DD029D8F5AA00D4D030 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				61153DCE29D8F5AA00D4D030 /* TonWalletContest */,
+				61153DDE29D8F5AB00D4D030 /* TonWalletContestTests */,
+				61153DE829D8F5AB00D4D030 /* TonWalletContestUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		61153DCD29D8F5AA00D4D030 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61153DDA29D8F5AB00D4D030 /* Preview Assets.xcassets in Resources */,
+				61153DD729D8F5AB00D4D030 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61153DDD29D8F5AB00D4D030 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61153DE729D8F5AB00D4D030 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		61153DCB29D8F5AA00D4D030 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */,
+				61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61153DDB29D8F5AB00D4D030 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61153DE429D8F5AB00D4D030 /* TonWalletContestTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61153DE529D8F5AB00D4D030 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61153DF029D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift in Sources */,
+				61153DEE29D8F5AB00D4D030 /* TonWalletContestUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		61153DE129D8F5AB00D4D030 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61153DCE29D8F5AA00D4D030 /* TonWalletContest */;
+			targetProxy = 61153DE029D8F5AB00D4D030 /* PBXContainerItemProxy */;
+		};
+		61153DEB29D8F5AB00D4D030 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61153DCE29D8F5AA00D4D030 /* TonWalletContest */;
+			targetProxy = 61153DEA29D8F5AB00D4D030 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		61153DF129D8F5AB00D4D030 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		61153DF229D8F5AB00D4D030 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		61153DF429D8F5AB00D4D030 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TonWalletContest/Preview Content\"";
+				DEVELOPMENT_TEAM = 8T58FH89LR;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ton.wallet.contest.elyahk.TonWalletContest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		61153DF529D8F5AB00D4D030 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TonWalletContest/Preview Content\"";
+				DEVELOPMENT_TEAM = 8T58FH89LR;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ton.wallet.contest.elyahk.TonWalletContest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		61153DF729D8F5AB00D4D030 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8T58FH89LR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ton.wallet.contest.elyahk.TonWalletContestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TonWalletContest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TonWalletContest";
+			};
+			name = Debug;
+		};
+		61153DF829D8F5AB00D4D030 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8T58FH89LR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ton.wallet.contest.elyahk.TonWalletContestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TonWalletContest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TonWalletContest";
+			};
+			name = Release;
+		};
+		61153DFA29D8F5AB00D4D030 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8T58FH89LR;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ton.wallet.contest.elyahk.TonWalletContestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TonWalletContest;
+			};
+			name = Debug;
+		};
+		61153DFB29D8F5AB00D4D030 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8T58FH89LR;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ton.wallet.contest.elyahk.TonWalletContestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TonWalletContest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		61153DCA29D8F5AA00D4D030 /* Build configuration list for PBXProject "TonWalletContest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61153DF129D8F5AB00D4D030 /* Debug */,
+				61153DF229D8F5AB00D4D030 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		61153DF329D8F5AB00D4D030 /* Build configuration list for PBXNativeTarget "TonWalletContest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61153DF429D8F5AB00D4D030 /* Debug */,
+				61153DF529D8F5AB00D4D030 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		61153DF629D8F5AB00D4D030 /* Build configuration list for PBXNativeTarget "TonWalletContestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61153DF729D8F5AB00D4D030 /* Debug */,
+				61153DF829D8F5AB00D4D030 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		61153DF929D8F5AB00D4D030 /* Build configuration list for PBXNativeTarget "TonWalletContestUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61153DFA29D8F5AB00D4D030 /* Debug */,
+				61153DFB29D8F5AB00D4D030 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 61153DC729D8F5AA00D4D030 /* Project object */;
+}
