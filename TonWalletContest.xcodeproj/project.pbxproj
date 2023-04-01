@@ -15,6 +15,8 @@
 		61153DEE29D8F5AB00D4D030 /* TonWalletContestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DED29D8F5AB00D4D030 /* TonWalletContestUITests.swift */; };
 		61153DF029D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DEF29D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift */; };
 		61153DFD29D8F60F00D4D030 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 61153DFC29D8F60F00D4D030 /* README.md */; };
+		61153E0029D8F76A00D4D030 /* SwiftyTON in Frameworks */ = {isa = PBXBuildFile; productRef = 61153DFF29D8F76A00D4D030 /* SwiftyTON */; };
+		61153E0329D8FA5400D4D030 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 61153E0229D8FA5400D4D030 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61153E0329D8FA5400D4D030 /* ComposableArchitecture in Frameworks */,
+				61153E0029D8F76A00D4D030 /* SwiftyTON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +150,10 @@
 			dependencies = (
 			);
 			name = TonWalletContest;
+			packageProductDependencies = (
+				61153DFF29D8F76A00D4D030 /* SwiftyTON */,
+				61153E0229D8FA5400D4D030 /* ComposableArchitecture */,
+			);
 			productName = TonWalletContest;
 			productReference = 61153DCF29D8F5AA00D4D030 /* TonWalletContest.app */;
 			productType = "com.apple.product-type.application";
@@ -218,6 +226,10 @@
 				Base,
 			);
 			mainGroup = 61153DC629D8F5AA00D4D030;
+			packageReferences = (
+				61153DFE29D8F76A00D4D030 /* XCRemoteSwiftPackageReference "SwiftyTON" */,
+				61153E0129D8FA5400D4D030 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 61153DD029D8F5AA00D4D030 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -587,6 +599,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		61153DFE29D8F76A00D4D030 /* XCRemoteSwiftPackageReference "SwiftyTON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/labraburn/SwiftyTON.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		61153E0129D8FA5400D4D030 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		61153DFF29D8F76A00D4D030 /* SwiftyTON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61153DFE29D8F76A00D4D030 /* XCRemoteSwiftPackageReference "SwiftyTON" */;
+			productName = SwiftyTON;
+		};
+		61153E0229D8FA5400D4D030 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61153E0129D8FA5400D4D030 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 61153DC729D8F5AA00D4D030 /* Project object */;
 }
