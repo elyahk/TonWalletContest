@@ -17,6 +17,7 @@
 		61153DFD29D8F60F00D4D030 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 61153DFC29D8F60F00D4D030 /* README.md */; };
 		61153E0029D8F76A00D4D030 /* SwiftyTON in Frameworks */ = {isa = PBXBuildFile; productRef = 61153DFF29D8F76A00D4D030 /* SwiftyTON */; };
 		61153E0329D8FA5400D4D030 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 61153E0229D8FA5400D4D030 /* ComposableArchitecture */; };
+		61153E0529D8FB0300D4D030 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153E0429D8FB0300D4D030 /* StartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		61153DED29D8F5AB00D4D030 /* TonWalletContestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletContestUITests.swift; sourceTree = "<group>"; };
 		61153DEF29D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletContestUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		61153DFC29D8F60F00D4D030 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		61153E0429D8FB0300D4D030 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				61153DD429D8F5AA00D4D030 /* ContentView.swift */,
 				61153DD629D8F5AB00D4D030 /* Assets.xcassets */,
 				61153DD829D8F5AB00D4D030 /* Preview Content */,
+				61153E0629D8FB0900D4D030 /* View */,
 			);
 			path = TonWalletContest;
 			sourceTree = "<group>";
@@ -132,6 +135,14 @@
 				61153DEF29D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift */,
 			);
 			path = TonWalletContestUITests;
+			sourceTree = "<group>";
+		};
+		61153E0629D8FB0900D4D030 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				61153E0429D8FB0300D4D030 /* StartView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61153E0529D8FB0300D4D030 /* StartView.swift in Sources */,
 				61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */,
 				61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */,
 			);
@@ -441,6 +453,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -470,6 +483,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
