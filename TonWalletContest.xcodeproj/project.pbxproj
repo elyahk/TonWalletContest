@@ -14,6 +14,7 @@
 		61153DE429D8F5AB00D4D030 /* TonWalletContestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DE329D8F5AB00D4D030 /* TonWalletContestTests.swift */; };
 		61153DEE29D8F5AB00D4D030 /* TonWalletContestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DED29D8F5AB00D4D030 /* TonWalletContestUITests.swift */; };
 		61153DF029D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DEF29D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift */; };
+		61153DFD29D8F60F00D4D030 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 61153DFC29D8F60F00D4D030 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		61153DE929D8F5AB00D4D030 /* TonWalletContestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TonWalletContestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61153DED29D8F5AB00D4D030 /* TonWalletContestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletContestUITests.swift; sourceTree = "<group>"; };
 		61153DEF29D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletContestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		61153DFC29D8F60F00D4D030 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		61153DC629D8F5AA00D4D030 = {
 			isa = PBXGroup;
 			children = (
+				61153DFC29D8F60F00D4D030 /* README.md */,
 				61153DD129D8F5AA00D4D030 /* TonWalletContest */,
 				61153DE229D8F5AB00D4D030 /* TonWalletContestTests */,
 				61153DEC29D8F5AB00D4D030 /* TonWalletContestUITests */,
@@ -231,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61153DFD29D8F60F00D4D030 /* README.md in Resources */,
 				61153DDA29D8F5AB00D4D030 /* Preview Assets.xcassets in Resources */,
 				61153DD729D8F5AB00D4D030 /* Assets.xcassets in Resources */,
 			);
