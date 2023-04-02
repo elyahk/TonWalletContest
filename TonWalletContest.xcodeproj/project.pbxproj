@@ -18,6 +18,7 @@
 		61153E0029D8F76A00D4D030 /* SwiftyTON in Frameworks */ = {isa = PBXBuildFile; productRef = 61153DFF29D8F76A00D4D030 /* SwiftyTON */; };
 		61153E0329D8FA5400D4D030 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 61153E0229D8FA5400D4D030 /* ComposableArchitecture */; };
 		61153E0529D8FB0300D4D030 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153E0429D8FB0300D4D030 /* StartView.swift */; };
+		61153E0929D8FBDC00D4D030 /* StartReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153E0829D8FBDC00D4D030 /* StartReducer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		61153DEF29D8F5AB00D4D030 /* TonWalletContestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletContestUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		61153DFC29D8F60F00D4D030 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		61153E0429D8FB0300D4D030 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		61153E0829D8FBDC00D4D030 /* StartReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartReducer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 		61153DD129D8F5AA00D4D030 /* TonWalletContest */ = {
 			isa = PBXGroup;
 			children = (
+				61153E0729D8FBC400D4D030 /* Reducer */,
 				61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */,
 				61153DD429D8F5AA00D4D030 /* ContentView.swift */,
 				61153DD629D8F5AB00D4D030 /* Assets.xcassets */,
@@ -143,6 +146,14 @@
 				61153E0429D8FB0300D4D030 /* StartView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		61153E0729D8FBC400D4D030 /* Reducer */ = {
+			isa = PBXGroup;
+			children = (
+				61153E0829D8FBDC00D4D030 /* StartReducer.swift */,
+			);
+			path = Reducer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61153E0529D8FB0300D4D030 /* StartView.swift in Sources */,
+				61153E0929D8FBDC00D4D030 /* StartReducer.swift in Sources */,
 				61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */,
 				61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */,
 			);

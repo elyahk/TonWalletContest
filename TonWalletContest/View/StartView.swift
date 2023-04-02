@@ -6,12 +6,23 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct StartView: View {
-    var body: some View {
-        NavigationView {
-            NavigationLink("Create Wallet App") {
+    let store: StoreOf<StartReducer>
 
+    init(store: StoreOf<StartReducer>) {
+        self.store = store
+    }
+
+    var body: some View {
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            NavigationView {
+                NavigationLink {
+
+                } label: {
+                    Text("Create My Wallet")
+                }
             }
         }
     }
@@ -19,6 +30,9 @@ struct StartView: View {
 
 struct StartView_Previews: PreviewProvider {
     static var previews: some View {
-        StartView()
+        StartView(store: .init(
+            initialState: .init(),
+            reducer: StartReducer()
+        ))
     }
 }
