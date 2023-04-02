@@ -105,7 +105,6 @@
 		61153DD129D8F5AA00D4D030 /* TonWalletContest */ = {
 			isa = PBXGroup;
 			children = (
-				61153E0729D8FBC400D4D030 /* Reducer */,
 				61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */,
 				61153DD429D8F5AA00D4D030 /* ContentView.swift */,
 				61153DD629D8F5AB00D4D030 /* Assets.xcassets */,
@@ -143,17 +142,18 @@
 		61153E0629D8FB0900D4D030 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				61153E0829D8FBDC00D4D030 /* StartReducer.swift */,
-				61153E0429D8FB0300D4D030 /* StartView.swift */,
+				61CC226129DA089400834E86 /* Start */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		61153E0729D8FBC400D4D030 /* Reducer */ = {
+		61CC226129DA089400834E86 /* Start */ = {
 			isa = PBXGroup;
 			children = (
+				61153E0829D8FBDC00D4D030 /* StartReducer.swift */,
+				61153E0429D8FB0300D4D030 /* StartView.swift */,
 			);
-			path = Reducer;
+			path = Start;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
