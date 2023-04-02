@@ -11,7 +11,7 @@ import ComposableArchitecture
 struct StartReducer: ReducerProtocol {
     struct State: Equatable {
         var destination: Destination?
-
+        var count: Int = 1
     }
 
     enum Destination {
@@ -20,6 +20,7 @@ struct StartReducer: ReducerProtocol {
 
     enum Action: Equatable {
         case createMyWalletTapped
+        case tappedPlusButton
     }
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -27,6 +28,10 @@ struct StartReducer: ReducerProtocol {
         case .createMyWalletTapped:
             state.destination = .congratulationView
             return .none
+        case .tappedPlusButton:
+            state.count += 1
+            return .none
+            
         }
     }
 }

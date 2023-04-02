@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import _SwiftUINavigationState
 
 struct StartView: View {
     let store: StoreOf<StartReducer>
