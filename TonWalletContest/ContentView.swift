@@ -10,6 +10,9 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
+            LottieView(name: "crystal", loop: .loop)
+                .frame(width: 200, height: 200, alignment: .center)
+                
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
