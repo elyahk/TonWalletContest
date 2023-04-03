@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13B0546929DB16DB006014C0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 13B0546829DB16DB006014C0 /* Lottie */; };
+		13B0547529DB175D006014C0 /* password.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546B29DB175D006014C0 /* password.json */; };
+		13B0547629DB175D006014C0 /* teacher.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546C29DB175D006014C0 /* teacher.json */; };
+		13B0547729DB175D006014C0 /* sad 2.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546D29DB175D006014C0 /* sad 2.json */; };
+		13B0547829DB175D006014C0 /* chik.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546E29DB175D006014C0 /* chik.json */; };
+		13B0547929DB175D006014C0 /* crystal.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546F29DB175D006014C0 /* crystal.json */; };
+		13B0547A29DB175D006014C0 /* crystalSlow.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0547029DB175D006014C0 /* crystalSlow.json */; };
+		13B0547B29DB175D006014C0 /* list.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0547129DB175D006014C0 /* list.json */; };
+		13B0547C29DB175D006014C0 /* boomstick.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0547229DB175D006014C0 /* boomstick.json */; };
+		13B0547D29DB175D006014C0 /* wheel.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0547329DB175D006014C0 /* wheel.json */; };
+		13B0547E29DB175D006014C0 /* party.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0547429DB175D006014C0 /* party.json */; };
+		13B0548029DB17EB006014C0 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0547F29DB17EB006014C0 /* LottieView.swift */; };
 		61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */; };
 		61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD429D8F5AA00D4D030 /* ContentView.swift */; };
 		61153DD729D8F5AB00D4D030 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61153DD629D8F5AB00D4D030 /* Assets.xcassets */; };
@@ -39,6 +51,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13B0546B29DB175D006014C0 /* password.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = password.json; sourceTree = "<group>"; };
+		13B0546C29DB175D006014C0 /* teacher.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = teacher.json; sourceTree = "<group>"; };
+		13B0546D29DB175D006014C0 /* sad 2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sad 2.json"; sourceTree = "<group>"; };
+		13B0546E29DB175D006014C0 /* chik.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chik.json; sourceTree = "<group>"; };
+		13B0546F29DB175D006014C0 /* crystal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crystal.json; sourceTree = "<group>"; };
+		13B0547029DB175D006014C0 /* crystalSlow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crystalSlow.json; sourceTree = "<group>"; };
+		13B0547129DB175D006014C0 /* list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = list.json; sourceTree = "<group>"; };
+		13B0547229DB175D006014C0 /* boomstick.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = boomstick.json; sourceTree = "<group>"; };
+		13B0547329DB175D006014C0 /* wheel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = wheel.json; sourceTree = "<group>"; };
+		13B0547429DB175D006014C0 /* party.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = party.json; sourceTree = "<group>"; };
+		13B0547F29DB17EB006014C0 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LottieView.swift; path = TonWalletContest/LottieView.swift; sourceTree = SOURCE_ROOT; };
 		61153DCF29D8F5AA00D4D030 /* TonWalletContest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TonWalletContest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletContestApp.swift; sourceTree = "<group>"; };
 		61153DD429D8F5AA00D4D030 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +84,7 @@
 			files = (
 				61153E0329D8FA5400D4D030 /* ComposableArchitecture in Frameworks */,
 				61153E0029D8F76A00D4D030 /* SwiftyTON in Frameworks */,
+				13B0546929DB16DB006014C0 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +105,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13B0546A29DB175D006014C0 /* JsonAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				13B0546B29DB175D006014C0 /* password.json */,
+				13B0546C29DB175D006014C0 /* teacher.json */,
+				13B0546D29DB175D006014C0 /* sad 2.json */,
+				13B0546E29DB175D006014C0 /* chik.json */,
+				13B0546F29DB175D006014C0 /* crystal.json */,
+				13B0547029DB175D006014C0 /* crystalSlow.json */,
+				13B0547129DB175D006014C0 /* list.json */,
+				13B0547229DB175D006014C0 /* boomstick.json */,
+				13B0547329DB175D006014C0 /* wheel.json */,
+				13B0547429DB175D006014C0 /* party.json */,
+			);
+			path = JsonAnimation;
+			sourceTree = "<group>";
+		};
 		61153DC629D8F5AA00D4D030 = {
 			isa = PBXGroup;
 			children = (
@@ -107,7 +148,9 @@
 			children = (
 				61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */,
 				61153DD429D8F5AA00D4D030 /* ContentView.swift */,
+				13B0547F29DB17EB006014C0 /* LottieView.swift */,
 				61153DD629D8F5AB00D4D030 /* Assets.xcassets */,
+				13B0546A29DB175D006014C0 /* JsonAnimation */,
 				61153DD829D8F5AB00D4D030 /* Preview Content */,
 				61153E0629D8FB0900D4D030 /* View */,
 			);
@@ -175,6 +218,7 @@
 			packageProductDependencies = (
 				61153DFF29D8F76A00D4D030 /* SwiftyTON */,
 				61153E0229D8FA5400D4D030 /* ComposableArchitecture */,
+				13B0546829DB16DB006014C0 /* Lottie */,
 			);
 			productName = TonWalletContest;
 			productReference = 61153DCF29D8F5AA00D4D030 /* TonWalletContest.app */;
@@ -251,6 +295,7 @@
 			packageReferences = (
 				61153DFE29D8F76A00D4D030 /* XCRemoteSwiftPackageReference "SwiftyTON" */,
 				61153E0129D8FA5400D4D030 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				13B0546729DB16DB006014C0 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 61153DD029D8F5AA00D4D030 /* Products */;
 			projectDirPath = "";
@@ -268,8 +313,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13B0547729DB175D006014C0 /* sad 2.json in Resources */,
+				13B0547829DB175D006014C0 /* chik.json in Resources */,
+				13B0547529DB175D006014C0 /* password.json in Resources */,
+				13B0547E29DB175D006014C0 /* party.json in Resources */,
+				13B0547D29DB175D006014C0 /* wheel.json in Resources */,
+				13B0547B29DB175D006014C0 /* list.json in Resources */,
+				13B0547629DB175D006014C0 /* teacher.json in Resources */,
+				13B0547A29DB175D006014C0 /* crystalSlow.json in Resources */,
 				61153DFD29D8F60F00D4D030 /* README.md in Resources */,
 				61153DDA29D8F5AB00D4D030 /* Preview Assets.xcassets in Resources */,
+				13B0547929DB175D006014C0 /* crystal.json in Resources */,
+				13B0547C29DB175D006014C0 /* boomstick.json in Resources */,
 				61153DD729D8F5AB00D4D030 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +352,7 @@
 			files = (
 				61153E0529D8FB0300D4D030 /* StartView.swift in Sources */,
 				61153E0929D8FBDC00D4D030 /* StartReducer.swift in Sources */,
+				13B0548029DB17EB006014C0 /* LottieView.swift in Sources */,
 				61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */,
 				61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */,
 			);
@@ -457,7 +513,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TonWalletContest/Preview Content\"";
-				DEVELOPMENT_TEAM = 8T58FH89LR;
+				DEVELOPMENT_TEAM = 3523U23689;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -487,7 +543,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TonWalletContest/Preview Content\"";
-				DEVELOPMENT_TEAM = 8T58FH89LR;
+				DEVELOPMENT_TEAM = 3523U23689;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -627,6 +683,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		13B0546729DB16DB006014C0 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		61153DFE29D8F76A00D4D030 /* XCRemoteSwiftPackageReference "SwiftyTON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/labraburn/SwiftyTON.git";
@@ -646,6 +710,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		13B0546829DB16DB006014C0 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 13B0546729DB16DB006014C0 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		61153DFF29D8F76A00D4D030 /* SwiftyTON */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 61153DFE29D8F76A00D4D030 /* XCRemoteSwiftPackageReference "SwiftyTON" */;
