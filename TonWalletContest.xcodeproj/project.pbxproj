@@ -19,6 +19,17 @@
 		61153E0329D8FA5400D4D030 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 61153E0229D8FA5400D4D030 /* ComposableArchitecture */; };
 		61153E0529D8FB0300D4D030 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153E0429D8FB0300D4D030 /* StartView.swift */; };
 		61153E0929D8FBDC00D4D030 /* StartReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153E0829D8FBDC00D4D030 /* StartReducer.swift */; };
+		6E3EC12729DB098B0050AA75 /* Recovery Phrase.tgs in Resources */ = {isa = PBXBuildFile; fileRef = 6E3EC11C29DB098A0050AA75 /* Recovery Phrase.tgs */; };
+		6E3EC12829DB098B0050AA75 /* Main.tgs in Resources */ = {isa = PBXBuildFile; fileRef = 6E3EC11D29DB098A0050AA75 /* Main.tgs */; };
+		6E3EC12929DB098B0050AA75 /* Too Bad.tgs in Resources */ = {isa = PBXBuildFile; fileRef = 6E3EC11E29DB098A0050AA75 /* Too Bad.tgs */; };
+		6E3EC12A29DB098B0050AA75 /* Password.tgs in Resources */ = {isa = PBXBuildFile; fileRef = 6E3EC11F29DB098A0050AA75 /* Password.tgs */; };
+		6E3EC12B29DB098B0050AA75 /* Created.tgs in Resources */ = {isa = PBXBuildFile; fileRef = 6E3EC12029DB098A0050AA75 /* Created.tgs */; };
+		6E3EC12C29DB098B0050AA75 /* Success.tgs in Resources */ = {isa = PBXBuildFile; fileRef = 6E3EC12129DB098A0050AA75 /* Success.tgs */; };
+		6E3EC12D29DB098B0050AA75 /* Waiting TON.tgs in Resources */ = {isa = PBXBuildFile; fileRef = 6E3EC12229DB098A0050AA75 /* Waiting TON.tgs */; };
+		6E3EC12E29DB098B0050AA75 /* Congratulations.tgs in Resources */ = {isa = PBXBuildFile; fileRef = 6E3EC12329DB098A0050AA75 /* Congratulations.tgs */; };
+		6E3EC12F29DB098B0050AA75 /* Start.tgs in Resources */ = {isa = PBXBuildFile; fileRef = 6E3EC12429DB098A0050AA75 /* Start.tgs */; };
+		6E3EC13029DB098B0050AA75 /* Loading.tgs in Resources */ = {isa = PBXBuildFile; fileRef = 6E3EC12529DB098A0050AA75 /* Loading.tgs */; };
+		6E3EC13129DB098B0050AA75 /* Test Time.tgs in Resources */ = {isa = PBXBuildFile; fileRef = 6E3EC12629DB098A0050AA75 /* Test Time.tgs */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +63,17 @@
 		61153DFC29D8F60F00D4D030 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		61153E0429D8FB0300D4D030 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		61153E0829D8FBDC00D4D030 /* StartReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartReducer.swift; sourceTree = "<group>"; };
+		6E3EC11C29DB098A0050AA75 /* Recovery Phrase.tgs */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Recovery Phrase.tgs"; sourceTree = "<group>"; };
+		6E3EC11D29DB098A0050AA75 /* Main.tgs */ = {isa = PBXFileReference; lastKnownFileType = file; path = Main.tgs; sourceTree = "<group>"; };
+		6E3EC11E29DB098A0050AA75 /* Too Bad.tgs */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Too Bad.tgs"; sourceTree = "<group>"; };
+		6E3EC11F29DB098A0050AA75 /* Password.tgs */ = {isa = PBXFileReference; lastKnownFileType = file; path = Password.tgs; sourceTree = "<group>"; };
+		6E3EC12029DB098A0050AA75 /* Created.tgs */ = {isa = PBXFileReference; lastKnownFileType = file; path = Created.tgs; sourceTree = "<group>"; };
+		6E3EC12129DB098A0050AA75 /* Success.tgs */ = {isa = PBXFileReference; lastKnownFileType = file; path = Success.tgs; sourceTree = "<group>"; };
+		6E3EC12229DB098A0050AA75 /* Waiting TON.tgs */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Waiting TON.tgs"; sourceTree = "<group>"; };
+		6E3EC12329DB098A0050AA75 /* Congratulations.tgs */ = {isa = PBXFileReference; lastKnownFileType = file; path = Congratulations.tgs; sourceTree = "<group>"; };
+		6E3EC12429DB098A0050AA75 /* Start.tgs */ = {isa = PBXFileReference; lastKnownFileType = file; path = Start.tgs; sourceTree = "<group>"; };
+		6E3EC12529DB098A0050AA75 /* Loading.tgs */ = {isa = PBXFileReference; lastKnownFileType = file; path = Loading.tgs; sourceTree = "<group>"; };
+		6E3EC12629DB098A0050AA75 /* Test Time.tgs */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Test Time.tgs"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +127,7 @@
 		61153DD129D8F5AA00D4D030 /* TonWalletContest */ = {
 			isa = PBXGroup;
 			children = (
+				6E3EC11A29DB09790050AA75 /* Resources */,
 				61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */,
 				61153DD429D8F5AA00D4D030 /* ContentView.swift */,
 				61153DD629D8F5AB00D4D030 /* Assets.xcassets */,
@@ -154,6 +177,32 @@
 				61153E0429D8FB0300D4D030 /* StartView.swift */,
 			);
 			path = Start;
+			sourceTree = "<group>";
+		};
+		6E3EC11A29DB09790050AA75 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6E3EC11B29DB098A0050AA75 /* Stickers */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6E3EC11B29DB098A0050AA75 /* Stickers */ = {
+			isa = PBXGroup;
+			children = (
+				6E3EC11C29DB098A0050AA75 /* Recovery Phrase.tgs */,
+				6E3EC11D29DB098A0050AA75 /* Main.tgs */,
+				6E3EC11E29DB098A0050AA75 /* Too Bad.tgs */,
+				6E3EC11F29DB098A0050AA75 /* Password.tgs */,
+				6E3EC12029DB098A0050AA75 /* Created.tgs */,
+				6E3EC12129DB098A0050AA75 /* Success.tgs */,
+				6E3EC12229DB098A0050AA75 /* Waiting TON.tgs */,
+				6E3EC12329DB098A0050AA75 /* Congratulations.tgs */,
+				6E3EC12429DB098A0050AA75 /* Start.tgs */,
+				6E3EC12529DB098A0050AA75 /* Loading.tgs */,
+				6E3EC12629DB098A0050AA75 /* Test Time.tgs */,
+			);
+			path = Stickers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,9 +317,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E3EC12829DB098B0050AA75 /* Main.tgs in Resources */,
 				61153DFD29D8F60F00D4D030 /* README.md in Resources */,
+				6E3EC12E29DB098B0050AA75 /* Congratulations.tgs in Resources */,
+				6E3EC12929DB098B0050AA75 /* Too Bad.tgs in Resources */,
+				6E3EC13029DB098B0050AA75 /* Loading.tgs in Resources */,
+				6E3EC12D29DB098B0050AA75 /* Waiting TON.tgs in Resources */,
+				6E3EC12729DB098B0050AA75 /* Recovery Phrase.tgs in Resources */,
+				6E3EC12C29DB098B0050AA75 /* Success.tgs in Resources */,
 				61153DDA29D8F5AB00D4D030 /* Preview Assets.xcassets in Resources */,
 				61153DD729D8F5AB00D4D030 /* Assets.xcassets in Resources */,
+				6E3EC12A29DB098B0050AA75 /* Password.tgs in Resources */,
+				6E3EC12B29DB098B0050AA75 /* Created.tgs in Resources */,
+				6E3EC13129DB098B0050AA75 /* Test Time.tgs in Resources */,
+				6E3EC12F29DB098B0050AA75 /* Start.tgs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
