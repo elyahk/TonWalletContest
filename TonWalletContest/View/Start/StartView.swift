@@ -20,6 +20,7 @@ struct StartView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationView {
                 VStack {
+                    Spacer()
                     LottieView(name: "crystal", loop: .loop)
                         .frame(width: 124, height: 124, alignment: .center)
                     Text("TON Wallet")
@@ -32,8 +33,9 @@ struct StartView: View {
                          without intermediaries.
                     """)
                     .multilineTextAlignment(.center)
+                    Spacer()
                     NavigationLink {
-
+                        #warning("action for reducer")
                     } label: {
                         Text("Create My Wallet")
                             .fontWeight(.semibold)
@@ -42,6 +44,15 @@ struct StartView: View {
                             .background(Color.accentColor)
                             .cornerRadius(12)
                     }
+                    NavigationLink {
+                        #warning("action for reducer")
+                    } label: {
+                        Text("Import Existing Wallet")
+                            .fontWeight(.semibold)
+                            .foregroundColor(.accentColor)
+                            .frame(width: 294, height: 50, alignment: .center)
+                    }
+                    .padding(.bottom, 30)
                 }
             }
         }
