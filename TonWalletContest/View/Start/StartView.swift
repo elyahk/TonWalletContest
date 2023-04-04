@@ -35,7 +35,10 @@ struct StartView: View {
                     .multilineTextAlignment(.center)
                     Spacer()
                     NavigationLink {
-                        #warning("action for reducer")
+                        CongratulationView(store: .init(
+                            initialState: .init(destination: .recoveryPhraseView),
+                            reducer: CongratulationReducer()
+                        )).navigationBarHidden(true)
                     } label: {
                         Text("Create My Wallet")
                             .fontWeight(.semibold)
@@ -43,6 +46,7 @@ struct StartView: View {
                             .frame(width: 294, height: 50, alignment: .center)
                             .background(Color.accentColor)
                             .cornerRadius(12)
+                            .padding(.horizontal, 48)
                     }
                     NavigationLink {
                         #warning("action for reducer")
@@ -50,7 +54,8 @@ struct StartView: View {
                         Text("Import Existing Wallet")
                             .fontWeight(.semibold)
                             .foregroundColor(.accentColor)
-                            .frame(width: 294, height: 50, alignment: .center)
+                            .frame(minWidth: 294, minHeight: 50, alignment: .center)
+                            .padding(.horizontal, 48)
                     }
                     .padding(.bottom, 30)
                 }
