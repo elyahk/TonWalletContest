@@ -19,10 +19,45 @@ struct StartView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationView {
-                NavigationLink {
-
-                } label: {
-                    Text("Create My Wallet")
+                VStack {
+                    Spacer()
+                    LottieView(name: "crystal", loop: .loop)
+                        .frame(width: 124, height: 124, alignment: .center)
+                    Text("TON Wallet")
+                        .fontWeight(.semibold)
+                        .font(.title)
+                        .padding(.bottom, 5)
+                    Text("""
+                        TON Wallet allows you to make fast and
+                         secure blockchain-based payments
+                         without intermediaries.
+                    """)
+                    .multilineTextAlignment(.center)
+                    Spacer()
+                    NavigationLink {
+                        CongratulationView(store: .init(
+                            initialState: .init(destination: .recoveryPhraseView),
+                            reducer: CongratulationReducer()
+                        )).navigationBarHidden(true)
+                    } label: {
+                        Text("Create My Wallet")
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .frame(width: 294, height: 50, alignment: .center)
+                            .background(Color.accentColor)
+                            .cornerRadius(12)
+                            .padding(.horizontal, 48)
+                    }
+                    NavigationLink {
+                        #warning("action for reducer")
+                    } label: {
+                        Text("Import Existing Wallet")
+                            .fontWeight(.semibold)
+                            .foregroundColor(.accentColor)
+                            .frame(minWidth: 294, minHeight: 50, alignment: .center)
+                            .padding(.horizontal, 48)
+                    }
+                    .padding(.bottom, 30)
                 }
             }
         }

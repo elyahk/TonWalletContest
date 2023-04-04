@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StartView(store: .init(
+                initialState: .init(),
+                reducer: StartReducer()
+            ))
         }
     }
 }
