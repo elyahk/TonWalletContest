@@ -5,6 +5,7 @@
 //  Created by eldorbek nusratov on 02/04/23.
 //
 import Foundation
+import SwiftyTON
 import ComposableArchitecture
 
 struct StartReducer: ReducerProtocol {
@@ -16,6 +17,7 @@ struct StartReducer: ReducerProtocol {
     enum Action: Equatable {
         case createMyWalletTapped
         case importMyWalletTapped
+        case keyCreated(key: Key)
         case createWallet(CongratulationReducer.Action)
         case importWallet(CongratulationReducer.Action)
     }
@@ -24,12 +26,19 @@ struct StartReducer: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .createMyWalletTapped:
-                state.walletCreate = .init()
-                return .none
+    
+                return .run { send in
+                    let key = try await TonWalletManager.shared.createKey()
+                    await send(.keyCreated(key: key))
+                }
                 
             case .importMyWalletTapped:
 //                state.destination = .createWallet(.init())
                 #warning("Implement opening import wallet screen")
+                return .none
+            case let .keyCreated(key: key):
+                state.walletCreate = .init(key: key)
+                print("Key created", key)
                 return .none
             case .createWallet, .importWallet:
                 return .none
