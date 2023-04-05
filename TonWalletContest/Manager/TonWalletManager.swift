@@ -134,3 +134,14 @@ class TonWalletManager {
 //        try await message.send() // send transaction
 //    }
 }
+
+
+extension Key {
+    static let demoKey: Key = try! .init(publicKey: "Pua9oBjA-siFCL6ViKk5hyw57jfuzSiZUvMwshrYv9m-MdVc", encryptedSecretKey: Data())
+}
+
+extension Array where Element == String {
+    static let words24: [String] = {
+        return (0...23).map { "Word \($0)" }
+    }()
+}

@@ -14,6 +14,7 @@ struct RecoveryPhraseReducer: ReducerProtocol {
         var id: UUID = .init()
         var key: Key
         var words: [String]
+        var buildType: BuildType = .real
     }
 
     enum Destination: Equatable {

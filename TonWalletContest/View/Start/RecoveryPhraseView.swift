@@ -22,3 +22,17 @@ struct RecoveryPhraseView: View {
         }
     }
 }
+
+struct RecoveryPhraseView_Previews: PreviewProvider {
+    static var previews: some View {
+        RecoveryPhraseView(store: .init(
+            initialState: .init(
+                key: .demoKey,
+                words: .words24,
+                buildType: .preview
+            ),
+            reducer: RecoveryPhraseReducer()
+        ))
+        
+    }
+}
