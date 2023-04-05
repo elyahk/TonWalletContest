@@ -34,20 +34,34 @@ struct StartView: View {
                     """)
                     .multilineTextAlignment(.center)
                     Spacer()
-                    NavigationLink {
-                        CongratulationView(store: .init(
-                            initialState: .init(destination: .recoveryPhraseView),
-                            reducer: CongratulationReducer()
-                        )).navigationBarHidden(true)
-                    } label: {
-                        Text("Create My Wallet")
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .frame(width: 294, height: 50, alignment: .center)
-                            .background(Color.accentColor)
-                            .cornerRadius(12)
-                            .padding(.horizontal, 48)
-                    }
+                    // Create My Wallet app
+                    NavigationLink(
+                        isActive: Binding(get: {
+                            viewStore.walletCreate != nil
+                        }, set: { isActive in
+                            if isActive {
+                                viewStore.send(.createMyWalletTapped)
+                            } else {
+                                
+                            }
+                        }),
+                        destination: {
+                            IfLetStore(self.store.scope(state: \.walletCreate, action: StartReducer.Action.createWallet), then: { viewStore in
+                                CongratulationView(store: viewStore)
+                                    .navigationBarHidden(true)
+                            })
+                        },
+                        label: {
+                            Text("Create My Wallet")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                                .frame(width: 294, height: 50, alignment: .center)
+                                .background(Color.accentColor)
+                                .cornerRadius(12)
+                                .padding(.horizontal, 48)
+                        }
+                    )
+                                       
                     NavigationLink {
                         #warning("action for reducer")
                     } label: {
