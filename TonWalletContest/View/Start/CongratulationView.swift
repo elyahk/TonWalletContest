@@ -10,7 +10,6 @@ import ComposableArchitecture
 import _SwiftUINavigationState
 
 struct CongratulationView: View {
-
     let store: StoreOf<CongratulationReducer>
 
     init(store: StoreOf<CongratulationReducer>) {
@@ -37,28 +36,39 @@ struct CongratulationView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                     Spacer()
-                    NavigationLink {
-                        #warning("action for reducer")
-                    } label: {
-                        Text("Proceed")
-                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                            .customButtonStyle()
-
-                    }
-                    .padding(.bottom, 90)
+                    NavigationLink(
+                        isActive: Binding(get: {
+                            viewStore.recoveryPhrase != nil
+                        }, set: { isActive in
+                            if isActive {
+                                viewStore.send(.proceedButtonTapped)
+                            } else {
+                                
+                            }
+                        }),
+                        destination: {
+                            IfLetStore(self.store.scope(state: \.recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase), then: { viewStore in
+                                RecoveryPhraseView(store: viewStore)
+                            })
+                        },
+                        label: {
+                            Text("Proceed")
+                                .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                                .customButtonStyle()
+                        }
+                    )
                 }
                 .navigationBarBackButtonHidden(true)
             }
         }
     }
 }
-
+//
 //struct CongratulationView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        CongratulationView(store: .init(
-//            initialState: .init(destination: .recoveryPhraseView),
+//            initialState: .init(key: .init()),
 //            reducer: CongratulationReducer()
 //        ))
 //    }
 //}
-
