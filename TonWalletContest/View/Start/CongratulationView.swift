@@ -8,9 +8,10 @@
 import SwiftUI
 import ComposableArchitecture
 import _SwiftUINavigationState
+import SwiftyTON
+
 
 struct CongratulationView: View {
-
     let store: StoreOf<CongratulationReducer>
 
     init(store: StoreOf<CongratulationReducer>) {
@@ -32,15 +33,27 @@ struct CongratulationView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                     Spacer()
-                    NavigationLink {
-#warning("action for reducer")
-                    } label: {
-                        Text("Proceed")
-                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                            .customBlueButtonStyle()
-
-                    }
-                    .padding(.bottom, 90)
+                    NavigationLink(
+                        isActive: Binding(get: {
+                            viewStore.recoveryPhrase != nil
+                        }, set: { isActive in
+                            if isActive {
+                                viewStore.send(.proceedButtonTapped)
+                            } else {
+                                
+                            }
+                        }),
+                        destination: {
+                            IfLetStore(self.store.scope(state: \.recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase), then: { viewStore in
+                                RecoveryPhraseView(store: viewStore)
+                            })
+                        },
+                        label: {
+                            Text("Proceed")
+                                .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                                .customButtonStyle()
+                        }
+                    )
                 }
                 .navigationBarBackButtonHidden(true)
             }
@@ -49,10 +62,15 @@ struct CongratulationView: View {
 }
 
 struct CongratulationView_Previews: PreviewProvider {
+    
     static var previews: some View {
         CongratulationView(store: .init(
-            initialState: .init(destination: .recoveryPhraseView),
+            initialState: .init(
+                key: try! .init(publicKey: "Pua9oBjA-siFCL6ViKk5hyw57jfuzSiZUvMwshrYv9m-MdVc", encryptedSecretKey: .init()),
+                buildType: .preview
+            ),
             reducer: CongratulationReducer()
         ))
+        
     }
 }

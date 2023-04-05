@@ -31,27 +31,59 @@ struct StartView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                     Spacer()
-                    NavigationLink {
-                        CongratulationView(store: .init(
-                            initialState: .init(destination: .recoveryPhraseView),
-                            reducer: CongratulationReducer()
-                        )).navigationBarHidden(true)
-                    } label: {
-                        Text("Create My Wallet")
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .frame(width: 294, height: 50, alignment: .center)
-                            .background(Color.accentColor)
-                            .cornerRadius(12)
-                            .padding(.horizontal, 48)
-                    }
-                    NavigationLink {
-                        #warning("action for reducer")
-                    } label: {
-                        Text("Import Existing Wallet")
-                            .frame(minWidth: 294, minHeight: 50, alignment: .center)
-                            .customBlankButtonStyle()
-                    }
+                    // Create My Wallet app
+                    NavigationLink(
+                        isActive: Binding(get: {
+                            viewStore.walletCreate != nil
+                        }, set: { isActive in
+                            if isActive {
+                                viewStore.send(.createMyWalletTapped)
+                            } else {
+                                
+                            }
+                        }),
+                        destination: {
+                            IfLetStore(self.store.scope(state: \.walletCreate, action: StartReducer.Action.createWallet), then: { viewStore in
+                                CongratulationView(store: viewStore)
+                                    .navigationBarHidden(true)
+                            })
+                        },
+                        label: {
+                            Text("Create My Wallet")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                                .frame(width: 294, height: 50, alignment: .center)
+                                .background(Color.accentColor)
+                                .cornerRadius(12)
+                                .padding(.horizontal, 48)
+                        }
+                    )
+                      
+                    NavigationLink(
+                        isActive: Binding(get: {
+                            viewStore.importWallet != nil
+                        }, set: { isActive in
+                            if isActive {
+                                viewStore.send(.importMyWalletTapped)
+                            } else {
+                                
+                            }
+                        }),
+                        destination: {
+                            IfLetStore(self.store.scope(state: \.importWallet, action: StartReducer.Action.importWallet), then: { viewStore in
+                                CongratulationView(store: viewStore)
+                                    .navigationBarHidden(true)
+                                #warning("Open ImportWallet screen when view will be ready!")
+                            })
+                        },
+                        label: {
+                            Text("Import Existing Wallet")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.accentColor)
+                                .frame(minWidth: 294, minHeight: 50, alignment: .center)
+                                .padding(.horizontal, 48)
+                        }
+                    )
                     .padding(.bottom, 30)
                 }
             }
@@ -67,3 +99,4 @@ struct StartView_Previews: PreviewProvider {
         ))
     }
 }
+//"Pua9oBjA-siFCL6ViKk5hyw57jfuzSiZUvMwshrYv9m-MdVc"
