@@ -27,12 +27,9 @@ struct StartView: View {
                         .fontWeight(.semibold)
                         .font(.title)
                         .padding(.bottom, 5)
-                    Text("""
-                        TON Wallet allows you to make fast and
-                         secure blockchain-based payments
-                         without intermediaries.
-                    """)
+                    Text("TON Wallet allows you to make fast and secure blockchain-based payments without intermediaries.")
                     .multilineTextAlignment(.center)
+                    .padding(.horizontal, 32)
                     Spacer()
                     // Create My Wallet app
                     NavigationLink(

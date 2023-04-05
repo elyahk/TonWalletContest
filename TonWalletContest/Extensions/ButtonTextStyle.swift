@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TextButtonStyle: ViewModifier {
+struct BlueTextButtonStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 17.0, weight: .semibold))
@@ -12,8 +12,8 @@ struct TextButtonStyle: ViewModifier {
 }
 
 extension View {
-    func customButtonStyle() -> some View {
+    func customBlueButtonStyle() -> some View {
         self
-            .modifier(TextButtonStyle())
+            .modifier(BlueTextButtonStyle())
     }
 }
