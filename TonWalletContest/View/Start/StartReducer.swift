@@ -10,7 +10,6 @@ import ComposableArchitecture
 struct StartReducer: ReducerProtocol {
     struct State: Equatable {
         var walletCreate: CongratulationReducer.State?
-        var count: Int = 1
     }
 
     enum Action: Equatable {
