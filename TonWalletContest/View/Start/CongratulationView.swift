@@ -51,7 +51,7 @@ struct CongratulationView: View {
                         label: {
                             Text("Proceed")
                                 .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                                .customButtonStyle()
+                                .customBlueButtonStyle()
                         }
                     )
                 }
