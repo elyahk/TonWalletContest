@@ -9,11 +9,17 @@ import Foundation
 import ComposableArchitecture
 import SwiftyTON
 
+enum BuildType: Equatable {
+    case preview
+    case real
+}
+
 struct CongratulationReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var recoveryPhrase: RecoveryPhraseReducer.State?
         var id: UUID = .init()
         var key: Key
+        var buildType: BuildType = .real
     }
 
     enum Action: Equatable {
@@ -25,9 +31,8 @@ struct CongratulationReducer: ReducerProtocol {
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .proceedButtonTapped:
-            let key = state.key
-            return .run { [key] send in
-                let words = try await TonWalletManager.shared.words(key: key)
+            return .run { [state] send in
+                let words = try await TonWalletManager.shared.words(key: state.key, buildType: state.buildType)
                 await send(.showWords(words))
             }
         case let .showWords(words):

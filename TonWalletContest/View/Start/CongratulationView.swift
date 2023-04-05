@@ -8,6 +8,8 @@
 import SwiftUI
 import ComposableArchitecture
 import _SwiftUINavigationState
+import SwiftyTON
+
 
 struct CongratulationView: View {
     let store: StoreOf<CongratulationReducer>
@@ -63,12 +65,17 @@ struct CongratulationView: View {
         }
     }
 }
-//
-//struct CongratulationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CongratulationView(store: .init(
-//            initialState: .init(key: .init()),
-//            reducer: CongratulationReducer()
-//        ))
-//    }
-//}
+
+struct CongratulationView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        CongratulationView(store: .init(
+            initialState: .init(
+                key: try! .init(publicKey: "Pua9oBjA-siFCL6ViKk5hyw57jfuzSiZUvMwshrYv9m-MdVc", encryptedSecretKey: .init()),
+                buildType: .preview
+            ),
+            reducer: CongratulationReducer()
+        ))
+        
+    }
+}
