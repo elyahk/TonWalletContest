@@ -15,6 +15,8 @@ enum WalletManagerErrors: Error {
 }
 
 class TonWalletManager {
+    static let shared: TonWalletManager = .init()
+    
     let passcode = "parole"
     let data = Data("parole".utf8)
 

@@ -53,11 +53,12 @@ struct CongratulationView: View {
     }
 }
 
-struct CongratulationView_Previews: PreviewProvider {
-    static var previews: some View {
-        CongratulationView(store: .init(
-            initialState: .init(destination: .recoveryPhraseView),
-            reducer: CongratulationReducer()
-        ))
-    }
-}
+//struct CongratulationView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CongratulationView(store: .init(
+//            initialState: .init(destination: .recoveryPhraseView),
+//            reducer: CongratulationReducer()
+//        ))
+//    }
+//}
+

@@ -7,11 +7,13 @@
 
 import Foundation
 import ComposableArchitecture
+import SwiftyTON
 
 struct CongratulationReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var destination: Destination?
         var id: UUID = .init()
+        var key: Key
     }
 
     enum Destination: Equatable {
@@ -28,5 +30,13 @@ struct CongratulationReducer: ReducerProtocol {
             state.destination = .recoveryPhraseView
             return .none
         }
+    }
+}
+
+// MARK: - For preview
+
+extension Key {
+    init() {
+        self.init()
     }
 }
