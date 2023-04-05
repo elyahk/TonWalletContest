@@ -9,8 +9,9 @@ import Foundation
 import ComposableArchitecture
 
 struct CongratulationReducer: ReducerProtocol {
-    struct State: Equatable {
-        var destination: Destination
+    struct State: Equatable, Identifiable {
+        var destination: Destination?
+        var id: UUID = .init()
     }
 
     enum Destination: Equatable {

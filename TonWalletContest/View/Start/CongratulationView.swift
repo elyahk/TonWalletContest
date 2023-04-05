@@ -41,12 +41,9 @@ struct CongratulationView: View {
                         #warning("action for reducer")
                     } label: {
                         Text("Proceed")
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .frame(minWidth: 294, minHeight: 50, alignment: .center)
-                            .background(Color.accentColor)
-                            .cornerRadius(12)
-                            .padding(.horizontal, 48)
+                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                            .customButtonStyle()
+
                     }
                     .padding(.bottom, 90)
                 }
