@@ -28,21 +28,16 @@ struct CongratulationView: View {
                         .fontWeight(.semibold)
                         .font(.title)
                         .padding(.bottom, 5)
-                    Text("""
-                        Your TON Wallet has just been created.
-                        Only you control it.
-
-                        To be able to always have access to it, please write down secret words and set up  a secure passcode.
-                    """)
+                    Text("Your TON Wallet has just been created. Only you control it.\n\nTo be able to always have access to it, please write down secret words and set up a secure passcode.")
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                     Spacer()
                     NavigationLink {
-                        #warning("action for reducer")
+#warning("action for reducer")
                     } label: {
                         Text("Proceed")
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                            .customButtonStyle()
+                            .customBlueButtonStyle()
 
                     }
                     .padding(.bottom, 90)

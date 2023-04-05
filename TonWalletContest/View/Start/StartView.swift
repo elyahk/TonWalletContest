@@ -27,12 +27,9 @@ struct StartView: View {
                         .fontWeight(.semibold)
                         .font(.title)
                         .padding(.bottom, 5)
-                    Text("""
-                        TON Wallet allows you to make fast and
-                         secure blockchain-based payments
-                         without intermediaries.
-                    """)
+                    Text("TON Wallet allows you to make fast and secure blockchain-based payments without intermediaries.")
                     .multilineTextAlignment(.center)
+                    .padding(.horizontal, 32)
                     Spacer()
                     NavigationLink {
                         CongratulationView(store: .init(
@@ -52,10 +49,8 @@ struct StartView: View {
                         #warning("action for reducer")
                     } label: {
                         Text("Import Existing Wallet")
-                            .fontWeight(.semibold)
-                            .foregroundColor(.accentColor)
                             .frame(minWidth: 294, minHeight: 50, alignment: .center)
-                            .padding(.horizontal, 48)
+                            .customBlankButtonStyle()
                     }
                     .padding(.bottom, 30)
                 }
