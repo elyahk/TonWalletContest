@@ -10,12 +10,14 @@ import ComposableArchitecture
 struct StartReducer: ReducerProtocol {
     struct State: Equatable {
         var walletCreate: CongratulationReducer.State?
+        var importWallet: CongratulationReducer.State?
     }
 
     enum Action: Equatable {
         case createMyWalletTapped
         case importMyWalletTapped
         case createWallet(CongratulationReducer.Action)
+        case importWallet(CongratulationReducer.Action)
     }
     
     var body: some ReducerProtocolOf<Self> {
@@ -27,8 +29,9 @@ struct StartReducer: ReducerProtocol {
                 
             case .importMyWalletTapped:
 //                state.destination = .createWallet(.init())
+                #warning("Implement opening import wallet screen")
                 return .none
-            case .createWallet:
+            case .createWallet, .importWallet:
                 return .none
             }
         }
