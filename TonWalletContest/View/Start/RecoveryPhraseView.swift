@@ -34,11 +34,13 @@ struct RecoveryPhraseView: View {
                         spacing: 15
                     ){
                         ForEach(Array(viewStore.words.enumerated()), id: \.1) { (index, word) in
-                            Text("\(index + 1). ")
-                                .foregroundColor(.gray)
-                            + Text(word.lowercased())
-                                .bold()
-                            //.frame(maxWidth: .infinity, alignment: .leading)
+                            HStack {
+                                Text("\(index + 1).")
+                                    .foregroundColor(.gray)
+                                    .multilineTextAlignment(.trailing)
+                                Text(word.lowercased())
+                                    .bold()
+                            }
                         }
                     }
                     .padding(.horizontal, 45)
