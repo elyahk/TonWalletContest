@@ -26,7 +26,7 @@ struct StartView: View {
                     Text("TON Wallet")
                         .fontWeight(.semibold)
                         .font(.title)
-                        .padding(.bottom, 5)
+                        .padding()
                     Text("TON Wallet allows you to make fast and secure blockchain-based payments without intermediaries.")
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
