@@ -32,4 +32,5 @@ struct RecoveryPhraseReducer: ReducerProtocol {
             return .none
         }
     }
+
 }

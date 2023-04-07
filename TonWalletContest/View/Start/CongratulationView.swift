@@ -20,7 +20,6 @@ struct CongratulationView: View {
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            NavigationView {
                 VStack {
                     Spacer()
                     LottieView(name: "boomstick", loop: .playOnce)
@@ -57,7 +56,6 @@ struct CongratulationView: View {
                     )
                 }
                 .navigationBarBackButtonHidden(true)
-            }
         }
     }
 }
