@@ -16,7 +16,6 @@ struct TestTimeView: View {
                     viewStore.send(.wordChanged(type: .word1, value: value))
                 }))
                 
-                
                 TextField("Title Key", text: Binding(get: { viewStore.state.word2 }, set: { value, _ in
                     viewStore.send(.wordChanged(type: .word2, value: value))
                 }))
@@ -24,7 +23,6 @@ struct TestTimeView: View {
                 TextField("Title Key", text: Binding(get: { viewStore.state.word3 }, set: { value, _ in
                     viewStore.send(.wordChanged(type: .word3, value: value))
                 }))
-                
                 
                 NavigationLink(
                     isActive: Binding(get: {
@@ -40,8 +38,7 @@ struct TestTimeView: View {
                         IfLetStore(
                             self.store.scope(state: \.passcode, action: TestTimeReducer.Action.passcode),
                             then: { viewStore in
-                                //                                TestTimeView(store: viewStore)
-                                Text("Passcode")
+                                PasscodeView(store: viewStore)
                             }
                         )
                     },
@@ -51,6 +48,9 @@ struct TestTimeView: View {
                             .customBlueButtonStyle()
                     }
                 )
+            }
+            .onAppear {
+                viewStore.send(.startTimer)
             }
         }
     }
