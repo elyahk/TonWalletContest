@@ -204,9 +204,37 @@
 		61153E0629D8FB0900D4D030 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				61CC226129DA089400834E86 /* Start */,
+				615017B529E0050800AF963D /* Authorazation */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		615017B329E004E500AF963D /* Congratulations */ = {
+			isa = PBXGroup;
+			children = (
+				13B0548329DC359C006014C0 /* CongratulationReducer.swift */,
+				13B0548129DC353D006014C0 /* CongratulationView.swift */,
+			);
+			path = Congratulations;
+			sourceTree = "<group>";
+		};
+		615017B429E004F400AF963D /* RecoveryPhrase */ = {
+			isa = PBXGroup;
+			children = (
+				6E38004629DE0464002D6868 /* RecoveryPhraseReducer.swift */,
+				6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */,
+			);
+			path = RecoveryPhrase;
+			sourceTree = "<group>";
+		};
+		615017B529E0050800AF963D /* Authorazation */ = {
+			isa = PBXGroup;
+			children = (
+				615017B429E004F400AF963D /* RecoveryPhrase */,
+				615017B329E004E500AF963D /* Congratulations */,
+				61CC226129DA089400834E86 /* Start */,
+			);
+			path = Authorazation;
 			sourceTree = "<group>";
 		};
 		61CC226129DA089400834E86 /* Start */ = {
@@ -214,10 +242,6 @@
 			children = (
 				61153E0829D8FBDC00D4D030 /* StartReducer.swift */,
 				61153E0429D8FB0300D4D030 /* StartView.swift */,
-				13B0548329DC359C006014C0 /* CongratulationReducer.swift */,
-				13B0548129DC353D006014C0 /* CongratulationView.swift */,
-				6E38004629DE0464002D6868 /* RecoveryPhraseReducer.swift */,
-				6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */,
 			);
 			path = Start;
 			sourceTree = "<group>";
