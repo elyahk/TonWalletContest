@@ -17,7 +17,7 @@ struct CongratulationView: View {
     init(store: StoreOf<CongratulationReducer>) {
         self.store = store
     }
-    
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
@@ -51,10 +51,8 @@ struct CongratulationView: View {
                         Text("Proceed")
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                             .customBlueButtonStyle()
-                            .padding(.bottom, 80)
-                    }
-
-                )
+                            .padding(.bottom, 90)
+                    })
             }
             .navigationBarBackButtonHidden(true)
         }
@@ -62,12 +60,13 @@ struct CongratulationView: View {
 }
 
 struct CongratulationView_Previews: PreviewProvider {
-    
     static var previews: some View {
         NavigationView {
             CongratulationView(store: .init(
                 initialState: .init(
-                    key: try! .init(publicKey: "Pua9oBjA-siFCL6ViKk5hyw57jfuzSiZUvMwshrYv9m-MdVc", encryptedSecretKey: .init()),
+                    key: try! .init(publicKey: "Pua9oBjA-siFCL6ViKk5hyw57jfuzSiZUvMwshrYv9m-MdVc",
+                                    encryptedSecretKey: .init()
+                                   ),
                     buildType: .preview
                 ),
                 reducer: CongratulationReducer()
