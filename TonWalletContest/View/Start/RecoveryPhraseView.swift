@@ -37,9 +37,10 @@ struct RecoveryPhraseView: View {
                             HStack {
                                 Text("\(index + 1).")
                                     .foregroundColor(.gray)
-                                    .multilineTextAlignment(.trailing)
+                                    .frame(width: 30, alignment: .trailing)
                                 Text(word.lowercased())
                                     .bold()
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
                     }
@@ -69,6 +70,7 @@ struct RecoveryPhraseView: View {
                     )
                 }
             }
+            .navigationBarColor(.white)
         }
     }
 }
@@ -84,5 +86,32 @@ struct RecoveryPhraseView_Previews: PreviewProvider {
             reducer: RecoveryPhraseReducer()
         ))
         
+    }
+}
+
+extension View {
+    func navigationBarColor(_ backgroundColor: UIColor) -> some View {
+        self.modifier(NavigationBarColorModifier(backgroundColor: backgroundColor))
+    }
+}
+
+struct NavigationBarColorModifier: ViewModifier {
+    var backgroundColor: UIColor
+
+    init(backgroundColor: UIColor) {
+        self.backgroundColor = backgroundColor
+        let coloredAppearance = UINavigationBarAppearance()
+        coloredAppearance.configureWithOpaqueBackground()
+        coloredAppearance.backgroundColor = backgroundColor
+        coloredAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        UINavigationBar.appearance().standardAppearance = coloredAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
+        UINavigationBar.appearance().compactAppearance = coloredAppearance
+        UINavigationBar.appearance().tintColor = .white
+    }
+
+    func body(content: Content) -> some View {
+        content
     }
 }
