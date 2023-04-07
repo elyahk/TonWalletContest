@@ -12,10 +12,12 @@ import ComposableArchitecture
 struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
-            StartView(store: .init(
-                initialState: .init(),
-                reducer: StartReducer()
-            ))
+            NavigationView {
+                StartView(store: .init(
+                    initialState: .init(),
+                    reducer: StartReducer()
+                ))
+            }
         }
     }
 }
