@@ -20,7 +20,6 @@ struct RecoveryPhraseView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 Text(viewStore.words.joined(separator: ", "))
-                
                 NavigationLink(
                     isActive: Binding(get: {
                         viewStore.testTime != nil
