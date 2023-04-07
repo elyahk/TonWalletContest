@@ -11,21 +11,62 @@ struct TestTimeView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            Text(viewStore.words.joined(separator: ", "))
+            VStack {
+                TextField("Title Key", text: Binding(get: { viewStore.state.word1 }, set: { value, _ in
+                    viewStore.send(.wordChanged(type: .word1, value: value))
+                }))
+                
+                
+                TextField("Title Key", text: Binding(get: { viewStore.state.word2 }, set: { value, _ in
+                    viewStore.send(.wordChanged(type: .word2, value: value))
+                }))
+                
+                TextField("Title Key", text: Binding(get: { viewStore.state.word3 }, set: { value, _ in
+                    viewStore.send(.wordChanged(type: .word3, value: value))
+                }))
+                
+                
+                NavigationLink(
+                    isActive: Binding(get: {
+                        viewStore.state.passcode != nil
+                    }, set: { isActive in
+                        if isActive {
+                            viewStore.send(.continueButtonTapped)
+                        } else {
+                            
+                        }
+                    }),
+                    destination: {
+                        IfLetStore(
+                            self.store.scope(state: \.passcode, action: TestTimeReducer.Action.passcode),
+                            then: { viewStore in
+                                //                                TestTimeView(store: viewStore)
+                                Text("Passcode")
+                            }
+                        )
+                    },
+                    label: {
+                        Text("Continue")
+                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                            .customBlueButtonStyle()
+                    }
+                )
+            }
         }
     }
 }
 
 struct TestTimeView_Previews: PreviewProvider {
     static var previews: some View {
-        TestTimeView(store: .init(
-            initialState: .init(
-                key: .demoKey,
-                words: .words24,
-                buildType: .preview
-            ),
-            reducer: TestTimeReducer()
-        ))
-        
+        NavigationView {
+            TestTimeView(store: .init(
+                initialState: .init(
+                    key: .demoKey,
+                    words: .words24,
+                    buildType: .preview
+                ),
+                reducer: TestTimeReducer()
+            ))
+        }
     }
 }
