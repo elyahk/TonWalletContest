@@ -2,8 +2,8 @@ import SwiftUI
 import ComposableArchitecture
 
 struct PasscodeView: View {
-    
     let store: StoreOf<PasscodeReducer>
+    @State var isKeyboardShown = true
     
     init(store: StoreOf<PasscodeReducer>) {
         self.store = store
@@ -12,7 +12,24 @@ struct PasscodeView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
-                Text("Text")
+                Spacer()
+                ZStack {
+                    CustomTextField(text: Binding(
+                        get: { viewStore.password },
+                        set: { value, _ in
+                            viewStore.send(.passwordAdded(password: value))
+                        }), isFirstResponder: true
+                    )
+                    .frame(maxWidth: .infinity, maxHeight: 60)
+
+                    Button("Title") {
+                        
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: 60)
+                    .background(Color.green)
+                }
+                
+                Button("Options") { }
             }
         }
     }
