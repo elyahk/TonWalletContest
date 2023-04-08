@@ -11,40 +11,35 @@ struct TestTimeView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack {
+            ScrollView {
                 LottieView(name: "teacher", loop: .loop)
                     .frame(width: 124, height: 124, alignment: .center)
                 Text("Test time!")
                     .fontWeight(.semibold)
                     .font(.title)
                     .padding()
-                Text("Let’s check that you wrote them down correctly. Please enter the words 5, 15 and 18.")
+                Text("Let’s check that you wrote them down correctly. Please enter the words 4, 15 and 18.")
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
+                    .padding(.bottom, 30)
                 #warning("we need to chang words number in a subheading")
-                HStack {
-                    Text("1. ")
-                        .foregroundColor(.gray)
-                        .padding(.leading, 16)
-                        .padding(.vertical, 15)
-                    TextField("", text: Binding(get: { viewStore.state.word1 }, set: { value, _ in
-                        viewStore.send(.wordChanged(type: .word1, value: value))
-                    }))
+                ForEach(viewStore.testWords.sorted(by: { $0.key < $1.key }), id: \.key) { (key, value) in
+                    HStack {
+                        Text("\(key). ")
+                            .foregroundColor(.gray)
+                            .padding(.vertical, 15)
+                            .frame(width: 40, alignment: .trailing)
+                        TextField("", text: Binding(get: { viewStore.state.word1 }, set: { value, _ in
+                            viewStore.send(.wordChanged(type: .word1, value: value))
+                        }))
+                        #warning("Need to change wordChanged value to dict keys")
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color("LightGray"))
+                    .cornerRadius(12)
+                    .padding(.horizontal, 48)
+                    .padding(.bottom, 10)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color("LightGray"))
-                .cornerRadius(12)
-                .padding(.horizontal, 48)
-
-                
-                TextField("Title Key", text: Binding(get: { viewStore.state.word2 }, set: { value, _ in
-                    viewStore.send(.wordChanged(type: .word2, value: value))
-                }))
-                
-                TextField("Title Key", text: Binding(get: { viewStore.state.word3 }, set: { value, _ in
-                    viewStore.send(.wordChanged(type: .word3, value: value))
-                }))
-                
                 NavigationLink(
                     isActive: Binding(get: {
                         viewStore.state.passcode != nil

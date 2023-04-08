@@ -11,6 +11,11 @@ struct TestTimeReducer: ReducerProtocol {
         var word1: String = ""
         var word2: String = ""
         var word3: String = ""
+        var testWords: [Int: String] = [
+            4: "hello",
+            12: "goodbye",
+            23: "tomorrow"
+        ]
         var passcode: PasscodeReducer.State?
         var isActive: Bool = false
         var buttonTappedAttempts: Int = 0
