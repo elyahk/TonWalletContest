@@ -64,14 +64,15 @@ struct RecoveryPhraseView: View {
                         if isActive {
                             viewStore.send(.doneButtonTapped)
                         } else {
-#warning("implement notification object")
+#warning("")
                         }
                     }),
                     destination: {
-                        IfLetStore(self.store.scope(state: \.testTime, action: RecoveryPhraseReducer.Action.testTime),
-                                   then: { viewStore in
-                            TestTimeView(store: viewStore)
-                        })
+                        IfLetStore(
+                            self.store.scope(state: \.testTime, action: RecoveryPhraseReducer.Action.testTime),
+                            then: { viewStore in
+                                TestTimeView(store: viewStore)
+                            })
                     },
                     label: {
                         Text("Done")
@@ -80,6 +81,9 @@ struct RecoveryPhraseView: View {
                             .padding(.bottom, 30)
                     }
                 )
+            }
+            .onAppear {
+                viewStore.send(.startTimer)
             }
         }
     }

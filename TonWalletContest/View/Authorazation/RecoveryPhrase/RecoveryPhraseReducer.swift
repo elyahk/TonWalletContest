@@ -16,24 +16,41 @@ struct RecoveryPhraseReducer: ReducerProtocol {
         var key: Key
         var words: [String]
         var buildType: BuildType = .real
+        var isActive: Bool = false
+        var buttonTappedAttempts: Int = 0
     }
 
     enum Action: Equatable {
         case testTime(TestTimeReducer.Action)
         case doneButtonTapped
+        case startTimer
+        case stopTimer
     }
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .doneButtonTapped:
-            state.testTime = .init(key: state.key, words: state.words)
+            if state.isActive {
+                state.testTime = .init(key: state.key, words: state.words)
+            } else if state.buttonTappedAttempts == 1 {
+                state.isActive = true
+                print("First tap time")
+            } else {
+                print("Second tap time")
+            }
             return .none
-//            return .run { [state] send in
-//                let words = try await TonWalletManager.shared.words(key: state.key, buildType: state.buildType)
-//                await send(.showWords(words))
-//            }
-        
         case .testTime:
+            return .none
+        case .startTimer:
+            print("Start timer")
+            state.buttonTappedAttempts += 1
+            return .run { send in
+                try await Task.sleep(nanoseconds: 30_000_000_000)
+                await send(.stopTimer)
+            }
+        case .stopTimer:
+            print("Stop timer")
+            state.isActive = true
             return .none
         }
     }
