@@ -65,9 +65,6 @@ struct TestTimeView: View {
                     }
                 )
             }
-            .onAppear {
-                viewStore.send(.startTimer)
-            }
         }
     }
 }
