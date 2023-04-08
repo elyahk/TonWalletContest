@@ -12,9 +12,25 @@ struct TestTimeView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
-                TextField("Title Key", text: Binding(get: { viewStore.state.word1 }, set: { value, _ in
-                    viewStore.send(.wordChanged(type: .word1, value: value))
-                }))
+                LottieView(name: "teacher", loop: .loop)
+                    .frame(width: 124, height: 124, alignment: .center)
+                Text("Test time!")
+                    .fontWeight(.semibold)
+                    .font(.title)
+                    .padding()
+                Text("Let’s check that you wrote them down correctly. Please enter the words 5, 15 and 18.")
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 32)
+                HStack {
+                    Text("1. ")
+                        .foregroundColor(.gray)
+                    TextField("Title Key", text: Binding(get: { viewStore.state.word1 }, set: { value, _ in
+                        viewStore.send(.wordChanged(type: .word1, value: value))
+                    }))
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 48)
+
                 
                 TextField("Title Key", text: Binding(get: { viewStore.state.word2 }, set: { value, _ in
                     viewStore.send(.wordChanged(type: .word2, value: value))
