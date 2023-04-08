@@ -34,6 +34,7 @@
 		61153E0329D8FA5400D4D030 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 61153E0229D8FA5400D4D030 /* ComposableArchitecture */; };
 		61153E0529D8FB0300D4D030 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153E0429D8FB0300D4D030 /* StartView.swift */; };
 		61153E0929D8FBDC00D4D030 /* StartReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153E0829D8FBDC00D4D030 /* StartReducer.swift */; };
+		6133A79D29E1623A008BDF34 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6133A79C29E1623A008BDF34 /* CustomTextField.swift */; };
 		615017B829E0055500AF963D /* TestTimeReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017B729E0055500AF963D /* TestTimeReducer.swift */; };
 		615017BA29E0056D00AF963D /* TestTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017B929E0056D00AF963D /* TestTimeView.swift */; };
 		615017BD29E0189500AF963D /* PasscodeReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017BC29E0189500AF963D /* PasscodeReducer.swift */; };
@@ -90,6 +91,7 @@
 		61153DFC29D8F60F00D4D030 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		61153E0429D8FB0300D4D030 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		61153E0829D8FBDC00D4D030 /* StartReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartReducer.swift; sourceTree = "<group>"; };
+		6133A79C29E1623A008BDF34 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		615017B729E0055500AF963D /* TestTimeReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTimeReducer.swift; sourceTree = "<group>"; };
 		615017B929E0056D00AF963D /* TestTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTimeView.swift; sourceTree = "<group>"; };
 		615017BC29E0189500AF963D /* PasscodeReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeReducer.swift; sourceTree = "<group>"; };
@@ -212,9 +214,18 @@
 		61153E0629D8FB0900D4D030 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6133A79B29E1622E008BDF34 /* CustomViews */,
 				615017B529E0050800AF963D /* Authorazation */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		6133A79B29E1622E008BDF34 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				6133A79C29E1623A008BDF34 /* CustomTextField.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		615017B329E004E500AF963D /* Congratulations */ = {
@@ -457,6 +468,7 @@
 				6E5D444529DC6406000F95CE /* ButtonTextStyle.swift in Sources */,
 				615017BD29E0189500AF963D /* PasscodeReducer.swift in Sources */,
 				131044FB29DE072500987E07 /* BlankTextButtonStyle.swift in Sources */,
+				6133A79D29E1623A008BDF34 /* CustomTextField.swift in Sources */,
 				13B0548429DC359C006014C0 /* CongratulationReducer.swift in Sources */,
 				13B0548029DB17EB006014C0 /* LottieView.swift in Sources */,
 				61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */,

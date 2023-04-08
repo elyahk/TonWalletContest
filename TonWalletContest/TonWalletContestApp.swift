@@ -13,9 +13,13 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                StartView(store: .init(
-                    initialState: .init(),
-                    reducer: StartReducer()
+                PasscodeView(store: .init(
+                    initialState: .init(
+                        key: .demoKey,
+                        words: .words24,
+                        buildType: .preview
+                    ),
+                    reducer: PasscodeReducer()
                 ))
             }
         }
