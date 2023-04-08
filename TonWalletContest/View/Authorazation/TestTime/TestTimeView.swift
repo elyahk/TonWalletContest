@@ -21,14 +21,19 @@ struct TestTimeView: View {
                 Text("Let’s check that you wrote them down correctly. Please enter the words 5, 15 and 18.")
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
+                #warning("we need to chang words number in a subheading")
                 HStack {
                     Text("1. ")
                         .foregroundColor(.gray)
-                    TextField("Title Key", text: Binding(get: { viewStore.state.word1 }, set: { value, _ in
+                        .padding(.leading, 16)
+                        .padding(.vertical, 15)
+                    TextField("", text: Binding(get: { viewStore.state.word1 }, set: { value, _ in
                         viewStore.send(.wordChanged(type: .word1, value: value))
                     }))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color("LightGray"))
+                .cornerRadius(12)
                 .padding(.horizontal, 48)
 
                 
