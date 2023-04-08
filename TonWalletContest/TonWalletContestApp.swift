@@ -16,8 +16,7 @@ struct TonWalletContestApp: App {
                 PasscodeView(store: .init(
                     initialState: .init(
                         key: .demoKey,
-                        words: .words24,
-                        buildType: .preview
+                        words: .words24
                     ),
                     reducer: PasscodeReducer()
                 ))
