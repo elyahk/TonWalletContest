@@ -18,28 +18,21 @@ struct CongratulationReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var recoveryPhrase: RecoveryPhraseReducer.State?
         var id: UUID = .init()
-        var key: Key
-        var buildType: BuildType = .real
+        var words: [String]
     }
 
     enum Action: Equatable {
         case recoveryPhrase(RecoveryPhraseReducer.Action)
         case proceedButtonTapped
         case dismissRecoveryPhrase
-        case showWords([String])
     }
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .proceedButtonTapped:
-            return .run { [state] send in
-                let words = try await TonWalletManager.shared.words(key: state.key, buildType: state.buildType)
-                await send(.showWords(words))
-            }
-        case let .showWords(words):
-            state.recoveryPhrase = .init(key: state.key, words: words, buildType: state.buildType)
+            state.recoveryPhrase = .init(key: .demoKey, words: state.words)
+            
             return .none
-        
         case .recoveryPhrase:
             return .none
         case .dismissRecoveryPhrase:

@@ -17,7 +17,7 @@ struct StartReducer: ReducerProtocol {
     enum Action: Equatable {
         case createMyWalletTapped
         case importMyWalletTapped
-        case keyCreated(key: Key)
+        case keyCreated(key: Key, words: [String])
         case createWallet(CongratulationReducer.Action)
         case importWallet(CongratulationReducer.Action)
     }
@@ -29,16 +29,17 @@ struct StartReducer: ReducerProtocol {
     
                 return .run { send in
                     let key = try await TonWalletManager.shared.createKey()
-                    await send(.keyCreated(key: key))
+                    let words = try await TonWalletManager.shared.words(key: key)
+
+                    await send(.keyCreated(key: key, words: words))
                 }
                 
             case .importMyWalletTapped:
 //                state.destination = .createWallet(.init())
                 #warning("Implement opening import wallet screen")
                 return .none
-            case let .keyCreated(key: key):
-                state.walletCreate = .init(key: key)
-                print("Key created", key)
+            case let .keyCreated(key: key, words: words):
+                state.walletCreate = .init(words: words)
                 return .none
             case .createWallet, .importWallet:
                 return .none

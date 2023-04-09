@@ -63,12 +63,7 @@ struct CongratulationView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             CongratulationView(store: .init(
-                initialState: .init(
-                    key: try! .init(publicKey: "Pua9oBjA-siFCL6ViKk5hyw57jfuzSiZUvMwshrYv9m-MdVc",
-                                    encryptedSecretKey: .init()
-                                   ),
-                    buildType: .preview
-                ),
+                initialState: .init(words: .words24),
                 reducer: CongratulationReducer()
             ))
         }
