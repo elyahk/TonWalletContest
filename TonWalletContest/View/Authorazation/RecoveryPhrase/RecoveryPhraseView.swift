@@ -64,7 +64,7 @@ struct RecoveryPhraseView: View {
                         if isActive {
                             viewStore.send(.doneButtonTapped)
                         } else {
-#warning("")
+                            viewStore.send(.dismissTestTimerView)
                         }
                     }),
                     destination: {

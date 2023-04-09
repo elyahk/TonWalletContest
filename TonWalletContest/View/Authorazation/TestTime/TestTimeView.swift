@@ -47,7 +47,7 @@ struct TestTimeView: View {
                         if isActive {
                             viewStore.send(.continueButtonTapped)
                         } else {
-                            
+                            viewStore.send(.dismissPasscodeView)
                         }
                     }),
                     destination: {

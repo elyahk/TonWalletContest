@@ -25,6 +25,7 @@ struct CongratulationReducer: ReducerProtocol {
     enum Action: Equatable {
         case recoveryPhrase(RecoveryPhraseReducer.Action)
         case proceedButtonTapped
+        case dismissRecoveryPhrase
         case showWords([String])
     }
 
@@ -36,10 +37,14 @@ struct CongratulationReducer: ReducerProtocol {
                 await send(.showWords(words))
             }
         case let .showWords(words):
-            state.recoveryPhrase = .init(key: state.key, words: words)
+            state.recoveryPhrase = .init(key: state.key, words: words, buildType: state.buildType)
             return .none
         
         case .recoveryPhrase:
+            return .none
+        case .dismissRecoveryPhrase:
+            state.recoveryPhrase = nil
+            
             return .none
         }
     }

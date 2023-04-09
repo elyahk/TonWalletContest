@@ -25,6 +25,7 @@ struct RecoveryPhraseReducer: ReducerProtocol {
         case doneButtonTapped
         case startTimer
         case stopTimer
+        case dismissTestTimerView
     }
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -45,12 +46,15 @@ struct RecoveryPhraseReducer: ReducerProtocol {
             print("Start timer")
             state.buttonTappedAttempts += 1
             return .run { send in
-                try await Task.sleep(nanoseconds: 30_000_000_000)
+                try await Task.sleep(nanoseconds: 1_000_000_000)
                 await send(.stopTimer)
             }
         case .stopTimer:
             print("Stop timer")
             state.isActive = true
+            return .none
+        case .dismissTestTimerView:
+            state.testTime = nil
             return .none
         }
     }

@@ -25,6 +25,7 @@ struct TestTimeReducer: ReducerProtocol {
         case continueButtonTapped
         case wordChanged(type: TextFieldType, value: String)
         case passcode(PasscodeReducer.Action)
+        case dismissPasscodeView
     }
     
     enum TextFieldType {
@@ -55,6 +56,10 @@ struct TestTimeReducer: ReducerProtocol {
             }
             return .none
         case .passcode:
+            return .none
+        case .dismissPasscodeView:
+            state.passcode = nil
+            
             return .none
         }
     }

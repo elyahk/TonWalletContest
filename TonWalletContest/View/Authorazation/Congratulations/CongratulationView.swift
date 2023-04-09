@@ -39,7 +39,7 @@ struct CongratulationView: View {
                         if isActive {
                             viewStore.send(.proceedButtonTapped)
                         } else {
-                            
+                            viewStore.send(.dismissRecoveryPhrase)
                         }
                     }),
                     destination: {
