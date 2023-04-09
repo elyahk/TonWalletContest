@@ -43,6 +43,8 @@ struct RecoveryPhraseReducer: ReducerProtocol {
         case .testTime:
             return .none
         case .startTimer:
+            guard state.isActive else { return .none }
+            
             print("Start timer")
             return .run { send in
                 try await Task.sleep(nanoseconds: 30_000_000_000)

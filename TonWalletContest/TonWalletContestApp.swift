@@ -13,10 +13,11 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                StartView(store: .init(
-                    initialState: .init(),
-                    reducer: StartReducer()
-                ))
+                RecoveryPhraseView(store: .init(initialState: .init(words: .words24), reducer: RecoveryPhraseReducer()))
+//                StartView(store: .init(
+//                    initialState: .init(),
+//                    reducer: StartReducer()
+//                ))
             }
         }
     }
