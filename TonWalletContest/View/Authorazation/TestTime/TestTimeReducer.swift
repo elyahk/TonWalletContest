@@ -8,12 +8,24 @@ struct TestTimeReducer: ReducerProtocol {
         var key: Int
         var expectedWord: String
         var recivedWord: String = ""
+        
+        func isCorrectRecieveddWord() -> Bool {
+            expectedWord == recivedWord
+        }
     }
     
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         var testWords: IdentifiedArrayOf<Word>
         var passcode: PasscodeReducer.State?
+        
+        func isCorrectRecieveddWords() -> Bool {
+            for word in testWords {
+                if !word.isCorrectRecieveddWord() { return false }
+            }
+            
+            return true
+        }
     }
 
     enum Action: Equatable {
@@ -26,7 +38,10 @@ struct TestTimeReducer: ReducerProtocol {
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .continueButtonTapped:
-            state.passcode = .init()
+            if state.isCorrectRecieveddWords() {
+                state.passcode = .init()
+            }
+            
             return .none
             
         case let .wordChanged(id, value):

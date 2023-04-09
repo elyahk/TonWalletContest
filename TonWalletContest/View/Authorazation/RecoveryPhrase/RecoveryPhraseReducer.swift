@@ -37,7 +37,7 @@ struct RecoveryPhraseReducer: ReducerProtocol {
                     return .none
                 }
                 
-                state.testTime = .init(testWords: IdentifiedArrayOf(uniqueElements: (words[0...2])))
+                state.testTime = .init(testWords: IdentifiedArrayOf(uniqueElements: (words[0...2].sorted { $0.key < $1.key } )))
             } else if state.buttonTappedAttempts == 2 {
                 state.isActive = true
             } else {
