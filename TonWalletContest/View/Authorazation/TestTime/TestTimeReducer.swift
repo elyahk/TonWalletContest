@@ -36,7 +36,7 @@ struct TestTimeReducer: ReducerProtocol {
         switch action {
         case .continueButtonTapped:
             if state.isActive {
-                state.passcode = .init(key: .demoKey, words: state.words)
+                state.passcode = .init()
             } else if state.buttonTappedAttempts == 0 {
                 // Show alert without skip button
             } else {

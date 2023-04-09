@@ -5,8 +5,6 @@ import SwiftyTON
 struct PasscodeReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
-        var key: Key
-        var words: [String]
         var passcode: String = ""
         var showKeyboad: Bool = true
         var confirmPasscode: ConfirmPasscodeReducer.State?
@@ -34,7 +32,7 @@ struct PasscodeReducer: ReducerProtocol {
             return .none
             
         case let .showConfirm(oldPasscode):
-            state.confirmPasscode = .init(key: state.key, words: state.words, oldPasscode: oldPasscode)
+            state.confirmPasscode = .init(oldPasscode: oldPasscode)
             return .none
             
         case .confirmPasscode:
@@ -46,8 +44,6 @@ struct PasscodeReducer: ReducerProtocol {
 struct ConfirmPasscodeReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
-        var key: Key
-        var words: [String]
         var oldPasscode: String
         var passcode: String = ""
         var showKeyboad: Bool = true
