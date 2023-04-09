@@ -5,9 +5,7 @@ import Foundation
 struct TestTimeReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
-        var key: Key
         var words: [String]
-        var buildType: BuildType = .real
         var word1: String = ""
         var word2: String = ""
         var word3: String = ""
@@ -38,7 +36,7 @@ struct TestTimeReducer: ReducerProtocol {
         switch action {
         case .continueButtonTapped:
             if state.isActive {
-                state.passcode = .init(key: state.key, words: state.words)
+                state.passcode = .init(key: .demoKey, words: state.words)
             } else if state.buttonTappedAttempts == 0 {
                 // Show alert without skip button
             } else {

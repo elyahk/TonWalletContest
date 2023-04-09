@@ -73,11 +73,7 @@ struct TestTimeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             TestTimeView(store: .init(
-                initialState: .init(
-                    key: .demoKey,
-                    words: .words24,
-                    buildType: .preview
-                ),
+                initialState: .init(words: .words24),
                 reducer: TestTimeReducer()
             ))
         }

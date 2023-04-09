@@ -32,7 +32,7 @@ struct RecoveryPhraseReducer: ReducerProtocol {
             state.buttonTappedAttempts += 1
 
             if state.isActive {
-                state.testTime = .init(key: .demoKey, words: state.words)
+                state.testTime = .init(words: state.words)
             } else if state.buttonTappedAttempts == 2 {
                 state.isActive = true
             } else {
