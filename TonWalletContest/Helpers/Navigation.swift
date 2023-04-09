@@ -42,67 +42,6 @@ extension ReducerProtocol {
   }
 }
 
-extension View {
-    func alertiOS14<Action>(
-        store: Store<AlertState<Action>?, AlertAction<Action>>
-    ) -> some View {
-        WithViewStore(
-            store,
-            observe: { $0 },
-            removeDuplicates: { ($0 != nil) == ($1 != nil) }
-        ) { viewStore in
-            self.alert(isPresented: Binding(
-                get: { viewStore.state != nil },
-                set: { isActive, _ in
-                    if !isActive {
-                        viewStore.send(.dismiss)
-                    }
-                }
-            )) {
-                if let state = viewStore.state {
-                    return Alert(
-                        title: Text(state.title),
-                        message: {
-                            guard let message = state.message else { return nil }
-                            return Text(message)
-                        }(),
-                        primaryButton: .cancel(),
-                        secondaryButton: .default(Text("TT"))
-                    )
-                } else {
-                    return Alert(title: Text("Unkown issue"))
-                }
-            }
-        }
-    }
-    
-    @available(iOS 15, *)
-    func alert<Action>(
-    store: Store<AlertState<Action>?, AlertAction<Action>>
-  ) -> some View {
-    WithViewStore(
-      store,
-      observe: { $0 },
-      removeDuplicates: { ($0 != nil) == ($1 != nil) }
-    ) { viewStore in
-      self.alert(
-        unwrapping: Binding( //viewStore.binding(send: .dismiss)
-          get: { viewStore.state },
-          set: { newState in
-            if viewStore.state != nil {
-              viewStore.send(.dismiss)
-            }
-          }
-        )
-      ) { action in
-        if let action {
-          viewStore.send(.presented(action))
-        }
-      }
-    }
-  }
-}
-
 @_spi(Reflection) import CasePaths
 private func isEphemeral<State>(_ state: State) -> Bool {
   if State.self is _EphemeralState.Type {
