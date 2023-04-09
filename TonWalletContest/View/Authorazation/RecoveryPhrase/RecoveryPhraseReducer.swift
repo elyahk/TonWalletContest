@@ -32,7 +32,12 @@ struct RecoveryPhraseReducer: ReducerProtocol {
             state.buttonTappedAttempts += 1
 
             if state.isActive {
-                state.testTime = .init(words: state.words)
+                let words = state.words.enumerated().shuffled().map { TestTimeReducer.Word(key: $0, expectedWord: $1) }
+                guard words.count > 3 else {
+                    return .none
+                }
+                
+                state.testTime = .init(testWords: IdentifiedArrayOf(uniqueElements: (words[0...2])))
             } else if state.buttonTappedAttempts == 2 {
                 state.isActive = true
             } else {
