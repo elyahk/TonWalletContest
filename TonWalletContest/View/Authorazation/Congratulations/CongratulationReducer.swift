@@ -9,11 +9,6 @@ import Foundation
 import ComposableArchitecture
 import SwiftyTON
 
-enum BuildType: Equatable {
-    case preview
-    case real
-}
-
 struct CongratulationReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var recoveryPhrase: RecoveryPhraseReducer.State?

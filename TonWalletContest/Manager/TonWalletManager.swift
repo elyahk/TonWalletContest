@@ -34,13 +34,9 @@ class TonWalletManager {
         return key
     }
     
-    func words(key: Key, buildType: BuildType = .real) async throws -> [String] {
-        switch buildType {
-        case .preview: return [""]
-        case .real:
-            let words = try await key.words(password: data)
-            return words
-        }
+    func words(key: Key) async throws -> [String] {
+        let words = try await key.words(password: data)
+        return words
     }
     
     func createWallet3(key: Key, revision: Wallet3.Revision = .r2) async throws -> Wallet3 {
