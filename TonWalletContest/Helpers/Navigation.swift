@@ -1,6 +1,12 @@
 import ComposableArchitecture
 import SwiftUI
-import _SwiftUINavigationState
+import SwiftUINavigation
+
+enum AlertAction<Action> {
+  case dismiss
+  case presented(Action)
+}
+extension AlertAction: Equatable where Action: Equatable {}
 
 enum PresentationAction<Action> {
   case dismiss
@@ -17,6 +23,21 @@ extension ReducerProtocol {
   {
     self.ifLet(stateKeyPath, action: actionCasePath) {
       EmptyReducer()
+    }
+  }
+}
+
+extension ReducerProtocol {
+  func alert<Action>(
+    state alertKeyPath: WritableKeyPath<State, AlertState<Action>?>,
+    action alertCasePath: CasePath<Self.Action, AlertAction<Action>>
+  ) -> some ReducerProtocolOf<Self> {
+    Reduce { state, action in
+      let effects = self.reduce(into: &state, action: action)
+      if alertCasePath ~= action {
+        state[keyPath: alertKeyPath] = nil
+      }
+      return effects
     }
   }
 }

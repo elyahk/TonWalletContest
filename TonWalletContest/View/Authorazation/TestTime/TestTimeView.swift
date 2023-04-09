@@ -2,7 +2,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct TestTimeView: View {
-    
+    @State var showingAlert: Bool = false
     let store: StoreOf<TestTimeReducer>
     
     init(store: StoreOf<TestTimeReducer>) {
@@ -47,6 +47,7 @@ struct TestTimeView: View {
                         viewStore.state.passcode != nil
                     }, set: { isActive in
                         if isActive {
+                            showingAlert = true
                             viewStore.send(.continueButtonTapped)
                         } else {
                             viewStore.send(.dismissPasscodeView)
@@ -67,6 +68,10 @@ struct TestTimeView: View {
                     }
                 )
             }
+            .alert(
+                self.store.scope(state: \.alert, action: TestTimeReducer.Action.alert),
+                dismiss: .dismiss
+            )
         }
     }
 }

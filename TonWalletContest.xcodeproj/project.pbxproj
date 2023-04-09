@@ -39,6 +39,7 @@
 		615017BA29E0056D00AF963D /* TestTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017B929E0056D00AF963D /* TestTimeView.swift */; };
 		615017BD29E0189500AF963D /* PasscodeReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017BC29E0189500AF963D /* PasscodeReducer.swift */; };
 		615017BF29E019A200AF963D /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017BE29E019A200AF963D /* PasscodeView.swift */; };
+		619D5DBA29E2A75300C01C7A /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 619D5DB929E2A75300C01C7A /* SwiftUINavigation */; };
 		6E38004729DE0464002D6868 /* RecoveryPhraseReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38004629DE0464002D6868 /* RecoveryPhraseReducer.swift */; };
 		6E38004929DE048E002D6868 /* RecoveryPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */; };
 		6E3EC13429DB0AB10050AA75 /* TonWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3EC13329DB0AB10050AA75 /* TonWalletManager.swift */; };
@@ -108,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				619D5DBA29E2A75300C01C7A /* SwiftUINavigation in Frameworks */,
 				61153E0329D8FA5400D4D030 /* ComposableArchitecture in Frameworks */,
 				61153E0029D8F76A00D4D030 /* SwiftyTON in Frameworks */,
 				13B0546929DB16DB006014C0 /* Lottie in Frameworks */,
@@ -330,6 +332,7 @@
 				61153DFF29D8F76A00D4D030 /* SwiftyTON */,
 				61153E0229D8FA5400D4D030 /* ComposableArchitecture */,
 				13B0546829DB16DB006014C0 /* Lottie */,
+				619D5DB929E2A75300C01C7A /* SwiftUINavigation */,
 			);
 			productName = TonWalletContest;
 			productReference = 61153DCF29D8F5AA00D4D030 /* TonWalletContest.app */;
@@ -407,6 +410,7 @@
 				61153DFE29D8F76A00D4D030 /* XCRemoteSwiftPackageReference "SwiftyTON" */,
 				61153E0129D8FA5400D4D030 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				13B0546729DB16DB006014C0 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				619D5DB829E2A75300C01C7A /* XCRemoteSwiftPackageReference "swiftui-navigation" */,
 			);
 			productRefGroup = 61153DD029D8F5AA00D4D030 /* Products */;
 			projectDirPath = "";
@@ -831,6 +835,14 @@
 				minimumVersion = 0.9.0;
 			};
 		};
+		619D5DB829E2A75300C01C7A /* XCRemoteSwiftPackageReference "swiftui-navigation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swiftui-navigation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -848,6 +860,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 61153E0129D8FA5400D4D030 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		619D5DB929E2A75300C01C7A /* SwiftUINavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 619D5DB829E2A75300C01C7A /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
+			productName = SwiftUINavigation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
