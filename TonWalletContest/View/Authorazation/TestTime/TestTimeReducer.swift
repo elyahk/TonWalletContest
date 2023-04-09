@@ -11,6 +11,11 @@ struct TestTimeReducer: ReducerProtocol {
         var word1: String = ""
         var word2: String = ""
         var word3: String = ""
+        var testWords: [Int: String] = [
+            4: "hello",
+            12: "goodbye",
+            23: "tomorrow"
+        ]
         var passcode: PasscodeReducer.State?
         var isActive: Bool = false
         var buttonTappedAttempts: Int = 0
@@ -20,8 +25,6 @@ struct TestTimeReducer: ReducerProtocol {
         case continueButtonTapped
         case wordChanged(type: TextFieldType, value: String)
         case passcode(PasscodeReducer.Action)
-        case startTimer
-        case stopTimer
     }
     
     enum TextFieldType {
@@ -40,7 +43,6 @@ struct TestTimeReducer: ReducerProtocol {
             } else {
                 // Show alert with skip button
             }
-
             return .none
         case let .wordChanged(type, value):
             switch type {
@@ -51,18 +53,6 @@ struct TestTimeReducer: ReducerProtocol {
             case .word3:
                 state.word3 = value
             }
-            return .none
-            
-        case .startTimer:
-            print("Start timer")
-            state.buttonTappedAttempts += 1
-            return .run { send in
-                try await Task.sleep(nanoseconds: 30_000_000_000)
-                await send(.stopTimer)
-            }
-        case .stopTimer:
-            print("Stop timer")
-            state.isActive = true
             return .none
         case .passcode:
             return .none
