@@ -31,22 +31,23 @@ struct RecoveryPhraseReducer: ReducerProtocol {
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .doneButtonTapped:
+            state.buttonTappedAttempts += 1
+
             if state.isActive {
                 state.testTime = .init(key: state.key, words: state.words)
-            } else if state.buttonTappedAttempts == 1 {
+            } else if state.buttonTappedAttempts == 2 {
                 state.isActive = true
-                print("First tap time")
             } else {
-                print("Second tap time")
+                
             }
+
             return .none
         case .testTime:
             return .none
         case .startTimer:
             print("Start timer")
-            state.buttonTappedAttempts += 1
             return .run { send in
-                try await Task.sleep(nanoseconds: 1_000_000_000)
+                try await Task.sleep(nanoseconds: 30_000_000_000)
                 await send(.stopTimer)
             }
         case .stopTimer:
