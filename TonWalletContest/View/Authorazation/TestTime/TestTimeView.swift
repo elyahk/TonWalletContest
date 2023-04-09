@@ -22,7 +22,7 @@ struct TestTimeView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                     .padding(.bottom, 30)
-#warning("we need to chang words number in a subheading")
+
                 ForEach(viewStore.testWords) { word in
                     HStack {
                         Text("\(word.key). ")
