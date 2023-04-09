@@ -11,11 +11,9 @@ import Foundation
 
 struct RecoveryPhraseReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
+        var words: [String]
         var testTime: TestTimeReducer.State?
         var id: UUID = .init()
-        var key: Key
-        var words: [String]
-        var buildType: BuildType = .real
         var isActive: Bool = false
         var buttonTappedAttempts: Int = 0
     }
@@ -34,7 +32,7 @@ struct RecoveryPhraseReducer: ReducerProtocol {
             state.buttonTappedAttempts += 1
 
             if state.isActive {
-                state.testTime = .init(key: state.key, words: state.words)
+                state.testTime = .init(key: .demoKey, words: state.words)
             } else if state.buttonTappedAttempts == 2 {
                 state.isActive = true
             } else {

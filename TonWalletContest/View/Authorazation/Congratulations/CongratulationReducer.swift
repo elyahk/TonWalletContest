@@ -30,7 +30,7 @@ struct CongratulationReducer: ReducerProtocol {
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .proceedButtonTapped:
-            state.recoveryPhrase = .init(key: .demoKey, words: state.words)
+            state.recoveryPhrase = .init(words: state.words)
             
             return .none
         case .recoveryPhrase:

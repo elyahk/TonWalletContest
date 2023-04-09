@@ -94,9 +94,7 @@ struct RecoveryPhraseView_Previews: PreviewProvider {
         NavigationView {
             RecoveryPhraseView(store: .init(
                 initialState: .init(
-                    key: .demoKey,
-                    words: .words24,
-                    buildType: .preview
+                    words: .words24
                 ),
                 reducer: RecoveryPhraseReducer()
             ))
