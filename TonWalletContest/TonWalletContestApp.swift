@@ -13,31 +13,11 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                //                TestTimeView(store: .init(
-                //                    initialState: .init(
-                //                        key: .demoKey,
-                //                        words: .words24,
-                //                        buildType: .preview
-                //                    ),
-                //                    reducer: TestTimeReducer()
-                //                ))
-
-                RecoveryPhraseView(store: .init(
-                    initialState: .init(
-                        key: .demoKey,
-                        words: .words24
-                    ),
-                    reducer: RecoveryPhraseReducer()
-                ))
-
-                //                PasscodeView(store: .init(
-                //                    initialState: .init(
-                //                        key: .demoKey,
-                //                        words: .words24,
-                //                        buildType: .preview
-                //                    ),
-                //                    reducer: xPasscodeReducer()
-                //                ))
+                RecoveryPhraseView(store: .init(initialState: .init(words: .words24), reducer: RecoveryPhraseReducer()))
+//                StartView(store: .init(
+//                    initialState: .init(),
+//                    reducer: StartReducer()
+//                ))
             }
         }
     }

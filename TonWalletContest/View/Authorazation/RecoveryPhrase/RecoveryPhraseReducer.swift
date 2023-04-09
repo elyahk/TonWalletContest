@@ -11,11 +11,9 @@ import Foundation
 
 struct RecoveryPhraseReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
+        var words: [String]
         var testTime: TestTimeReducer.State?
         var id: UUID = .init()
-        var key: Key
-        var words: [String]
-        var buildType: BuildType = .real
         var isActive: Bool = false
         var buttonTappedAttempts: Int = 0
     }
@@ -25,25 +23,34 @@ struct RecoveryPhraseReducer: ReducerProtocol {
         case doneButtonTapped
         case startTimer
         case stopTimer
+        case dismissTestTimerView
     }
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .doneButtonTapped:
+            state.buttonTappedAttempts += 1
+
             if state.isActive {
-                state.testTime = .init(key: state.key, words: state.words)
-            } else if state.buttonTappedAttempts == 1 {
+                let words = state.words.enumerated().shuffled().map { TestTimeReducer.Word(key: $0, expectedWord: $1) }
+                guard words.count > 3 else {
+                    return .none
+                }
+                
+                state.testTime = .init(testWords: IdentifiedArrayOf(uniqueElements: (words[0...2].sorted { $0.key < $1.key } )))
+            } else if state.buttonTappedAttempts == 2 {
                 state.isActive = true
-                print("First tap time")
             } else {
-                print("Second tap time")
+                
             }
+
             return .none
         case .testTime:
             return .none
         case .startTimer:
+            guard state.isActive else { return .none }
+            
             print("Start timer")
-            state.buttonTappedAttempts += 1
             return .run { send in
                 try await Task.sleep(nanoseconds: 30_000_000_000)
                 await send(.stopTimer)
@@ -51,6 +58,9 @@ struct RecoveryPhraseReducer: ReducerProtocol {
         case .stopTimer:
             print("Stop timer")
             state.isActive = true
+            return .none
+        case .dismissTestTimerView:
+            state.testTime = nil
             return .none
         }
     }

@@ -123,10 +123,7 @@ struct PasscodeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             PasscodeView(store: .init(
-                initialState: .init(
-                    key: .demoKey,
-                    words: .words24
-                ),
+                initialState: .init(),
                 reducer: PasscodeReducer()
             ))
         }

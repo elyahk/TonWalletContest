@@ -22,17 +22,19 @@ struct TestTimeView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                     .padding(.bottom, 30)
-                #warning("we need to chang words number in a subheading")
-                ForEach(viewStore.testWords.sorted(by: { $0.key < $1.key }), id: \.key) { (key, value) in
+
+                ForEach(viewStore.testWords) { word in
                     HStack {
-                        Text("\(key). ")
+                        Text("\(word.key). ")
                             .foregroundColor(.gray)
                             .padding(.vertical, 15)
                             .frame(width: 40, alignment: .trailing)
-                        TextField("", text: Binding(get: { viewStore.state.word1 }, set: { value, _ in
-                            viewStore.send(.wordChanged(type: .word1, value: value))
-                        }))
-                        #warning("Need to change wordChanged value to dict keys")
+                        TextField("", text: Binding(
+                            get: { word.recivedWord },
+                            set: { value, _ in
+                                viewStore.send(.wordChanged(id: word.id, value: value))
+                            }
+                        ))
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color("LightGray"))
@@ -47,7 +49,7 @@ struct TestTimeView: View {
                         if isActive {
                             viewStore.send(.continueButtonTapped)
                         } else {
-                            
+                            viewStore.send(.dismissPasscodeView)
                         }
                     }),
                     destination: {
@@ -73,13 +75,14 @@ struct TestTimeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             TestTimeView(store: .init(
-                initialState: .init(
-                    key: .demoKey,
-                    words: .words24,
-                    buildType: .preview
-                ),
+                initialState: .init(testWords: [
+                    .init(key: 5, expectedWord: "Hello"),
+                    .init(key: 10, expectedWord: "Xaxa"),
+                    .init(key: 14, expectedWord: "Tomorrow")
+                ]),
                 reducer: TestTimeReducer()
             ))
         }
     }
 }
+
