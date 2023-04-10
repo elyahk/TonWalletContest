@@ -32,13 +32,14 @@ struct CongratulationView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                 Spacer()
+                
                 NavigationLink(
                     isActive: Binding(get: {
                         viewStore.recoveryPhrase != nil
                     }, set: { isActive in
                         if isActive {
                             viewStore.send(.proceedButtonTapped)
-                        } else {
+                        } else if viewStore.recoveryPhrase != nil {
                             viewStore.send(.dismissRecoveryPhrase)
                         }
                     }),

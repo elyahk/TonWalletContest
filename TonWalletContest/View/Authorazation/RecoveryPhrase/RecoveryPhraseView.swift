@@ -57,13 +57,14 @@ struct RecoveryPhraseView: View {
                 .padding(.horizontal, 45)
                 .padding(.bottom, 40)
                 .padding(.top, 30)
+                
                 NavigationLink(
                     isActive: Binding(get: {
                         viewStore.testTime != nil
                     }, set: { isActive in
                         if isActive {
                             viewStore.send(.doneButtonTapped)
-                        } else {
+                        } else if viewStore.testTime != nil {
                             viewStore.send(.dismissTestTimerView)
                         }
                     }),

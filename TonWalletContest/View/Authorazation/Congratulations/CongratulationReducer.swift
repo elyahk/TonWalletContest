@@ -21,19 +21,26 @@ struct CongratulationReducer: ReducerProtocol {
         case proceedButtonTapped
         case dismissRecoveryPhrase
     }
-
-    func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-        switch action {
-        case .proceedButtonTapped:
-            state.recoveryPhrase = .init(words: state.words)
-            
-            return .none
-        case .recoveryPhrase:
-            return .none
-        case .dismissRecoveryPhrase:
-            state.recoveryPhrase = nil
-            
-            return .none
+    
+    var body: some ReducerProtocolOf<Self> {
+        Reduce<State, Action> { state, action in
+            switch action {
+            case .proceedButtonTapped:
+                print("proceedButtonTapped")
+                state.recoveryPhrase = .init(words: state.words)
+                
+                return .none
+            case .recoveryPhrase:
+                return .none
+                
+            case .dismissRecoveryPhrase:
+                state.recoveryPhrase = nil
+                
+                return .none
+            }
+        }
+        .ifLet(\.recoveryPhrase, action: /Action.recoveryPhrase) {
+            RecoveryPhraseReducer()
         }
     }
 }

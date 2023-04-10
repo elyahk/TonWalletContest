@@ -49,7 +49,7 @@ struct TestTimeView: View {
                         if isActive {
                             showingAlert = true
                             viewStore.send(.continueButtonTapped)
-                        } else {
+                        } else if viewStore.passcode != nil {
                             viewStore.send(.dismissPasscodeView)
                         }
                     }),

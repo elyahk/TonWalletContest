@@ -18,8 +18,9 @@ struct StartReducer: ReducerProtocol {
         case createMyWalletTapped
         case importMyWalletTapped
         case keyCreated(key: Key, words: [String])
-        case createWallet(CongratulationReducer.Action)
+        case createWallet(PresentationAction<CongratulationReducer.Action>)
         case importWallet(CongratulationReducer.Action)
+        case dissmisCreateWallet
     }
     
     var body: some ReducerProtocolOf<Self> {
@@ -38,9 +39,15 @@ struct StartReducer: ReducerProtocol {
 //                state.destination = .createWallet(.init())
                 #warning("Implement opening import wallet screen")
                 return .none
+                
             case let .keyCreated(key: key, words: words):
                 state.walletCreate = .init(words: words)
                 return .none
+                
+            case .dissmisCreateWallet:
+                state.walletCreate = nil
+                return .none
+                
             case .createWallet, .importWallet:
                 return .none
             }
