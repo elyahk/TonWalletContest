@@ -32,8 +32,8 @@ struct StartView: View {
                 Spacer()
                 // Create My Wallet app
                 NavigationLinkStore(
-                    store: self.store.scope(state: \.walletCreate, action: StartReducer.Action.createWallet),
-                    id: viewStore.walletCreate?.id
+                    store: self.store.scope(state: \.createWallet, action: StartReducer.Action.createWallet),
+                    id: viewStore.createWallet?.id
                 ) {
                     viewStore.send(.createMyWalletTapped)
                 } destination: { store in
@@ -50,8 +50,8 @@ struct StartView: View {
                 }
                 
                 NavigationLinkStore(
-                    store: self.store.scope(state: \.walletCreate, action: StartReducer.Action.createWallet),
-                    id: viewStore.walletCreate?.id
+                    store: self.store.scope(state: \.createWallet, action: StartReducer.Action.createWallet),
+                    id: viewStore.createWallet?.id
                 ) {
                     viewStore.send(.createMyWalletTapped)
                 } destination: { store in
