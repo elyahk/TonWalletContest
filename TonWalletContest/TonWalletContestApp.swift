@@ -17,7 +17,9 @@ struct TonWalletContestApp: App {
                 StartView(store: .init(
                     initialState: .init(),
                     reducer: StartReducer()
+                        ._printChanges()
                 ))
+                
             }
         }
     }

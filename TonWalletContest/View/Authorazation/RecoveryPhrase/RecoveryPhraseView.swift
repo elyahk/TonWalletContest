@@ -58,30 +58,18 @@ struct RecoveryPhraseView: View {
                 .padding(.bottom, 40)
                 .padding(.top, 30)
                 
-                NavigationLink(
-                    isActive: Binding(get: {
-                        viewStore.testTime != nil
-                    }, set: { isActive in
-                        if isActive {
-                            viewStore.send(.doneButtonTapped)
-                        } else if viewStore.testTime != nil {
-                            viewStore.send(.dismissTestTimerView)
-                        }
-                    }),
-                    destination: {
-                        IfLetStore(
-                            self.store.scope(state: \.testTime, action: RecoveryPhraseReducer.Action.testTime),
-                            then: { viewStore in
-                                TestTimeView(store: viewStore)
-                            })
-                    },
-                    label: {
-                        Text("Done")
-                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                            .customBlueButtonStyle()
-                            .padding(.bottom, 30)
-                    }
-                )
+                NavigationLinkStore(
+                    store: self.store.scope(state: \.testTime, action: RecoveryPhraseReducer.Action.testTime)
+                ) {
+                    viewStore.send(.doneButtonTapped)
+                } destination: { store in
+                    TestTimeView(store: store)
+                } label: {
+                    Text("Done")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customBlueButtonStyle()
+                        .padding(.bottom, 30)
+                }
             }
             .onAppear {
                 viewStore.send(.startTimer)

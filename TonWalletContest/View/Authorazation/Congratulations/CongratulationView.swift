@@ -33,27 +33,18 @@ struct CongratulationView: View {
                     .padding(.horizontal, 32)
                 Spacer()
                 
-                NavigationLink(
-                    isActive: Binding(get: {
-                        viewStore.recoveryPhrase != nil
-                    }, set: { isActive in
-                        if isActive {
-                            viewStore.send(.proceedButtonTapped)
-                        } else if viewStore.recoveryPhrase != nil {
-                            viewStore.send(.dismissRecoveryPhrase)
-                        }
-                    }),
-                    destination: {
-                        IfLetStore(self.store.scope(state: \.recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase), then: { viewStore in
-                            RecoveryPhraseView(store: viewStore)
-                        })
-                    },
-                    label: {
-                        Text("Proceed")
-                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                            .customBlueButtonStyle()
-                            .padding(.bottom, 90)
-                    })
+                NavigationLinkStore(
+                    store: self.store.scope(state: \.recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase)
+                ) {
+                    viewStore.send(.proceedButtonTapped)
+                } destination: { store in
+                    RecoveryPhraseView(store: store)
+                } label: {
+                    Text("Proceed")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customBlueButtonStyle()
+                        .padding(.bottom, 90)
+                }
             }
             .navigationBarBackButtonHidden(true)
         }

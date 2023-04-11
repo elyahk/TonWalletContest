@@ -15,98 +15,99 @@ enum PresentationAction<Action> {
 extension PresentationAction: Equatable where Action: Equatable {}
 
 extension ReducerProtocol {
-  func ifLet<ChildState: Identifiable, ChildAction>(
-    _ stateKeyPath: WritableKeyPath<State, ChildState?>,
-    action actionCasePath: CasePath<Action, PresentationAction<ChildAction>>
-  ) -> some ReducerProtocolOf<Self>
-  where ChildState: _EphemeralState
-  {
-    self.ifLet(stateKeyPath, action: actionCasePath) {
-      EmptyReducer()
-    }
-  }
-
-  func ifLet<ChildState: Identifiable, ChildAction>(
-    _ stateKeyPath: WritableKeyPath<State, ChildState?>,
-    action actionCasePath: CasePath<Action, PresentationAction<ChildAction>>,
-    @ReducerBuilder<ChildState, ChildAction> child: () -> some ReducerProtocol<ChildState, ChildAction>
-  ) -> some ReducerProtocolOf<Self> {
-    let child = child()
-    return Reduce<State, Action> { state, action in
-      switch (state[keyPath: stateKeyPath], actionCasePath.extract(from: action)) {
-      case (_, .none):
-        let childStateBefore = state[keyPath: stateKeyPath]
-        let effects = self.reduce(into: &state, action: action)
-        let childStateAfter = state[keyPath: stateKeyPath]
-        let cancelEffect: EffectTask<Action>
-        if
-          !(ChildState.self is _EphemeralState.Type),
-          let childStateBefore,
-          childStateBefore.id != childStateAfter?.id
-        {
-          cancelEffect = .cancel(id: childStateBefore.id)
-        } else {
-          cancelEffect = .none
+    func ifLet<ChildState: Identifiable, ChildAction>(
+        _ stateKeyPath: WritableKeyPath<State, ChildState?>,
+        action actionCasePath: CasePath<Action, PresentationAction<ChildAction>>
+    ) -> some ReducerProtocolOf<Self>
+    where ChildState: _EphemeralState
+    {
+        self.ifLet(stateKeyPath, action: actionCasePath) {
+            EmptyReducer()
         }
-        let onFirstAppearEffect: EffectTask<Action>
-        if
-          !(ChildState.self is _EphemeralState.Type),
-          let childStateAfter,
-          childStateAfter.id != childStateBefore?.id
-        {
-          onFirstAppearEffect = .run { send in
-            do {
-              try await withTaskCancellation(id:  DismissID(id: childStateAfter.id)) {
-                try await Task.never()
-              }
-            } catch is CancellationError {
-              await send(actionCasePath.embed(.dismiss))
+    }
+
+    func ifLet<ChildState: Identifiable, ChildAction>(
+        _ stateKeyPath: WritableKeyPath<State, ChildState?>,
+        action actionCasePath: CasePath<Action, PresentationAction<ChildAction>>,
+        @ReducerBuilder<ChildState, ChildAction> child: () -> some ReducerProtocol<ChildState, ChildAction>
+    ) -> some ReducerProtocolOf<Self> {
+        let child = child()
+        return Reduce { state, action in
+            switch (state[keyPath: stateKeyPath], actionCasePath.extract(from: action)) {
+
+            case (_, .none):
+                let childStateBefore = state[keyPath: stateKeyPath]
+                let effects = self.reduce(into: &state, action: action)
+                let childStateAfter = state[keyPath: stateKeyPath]
+                let cancelEffect: EffectTask<Action>
+                if
+                    let childStateBefore,
+                    !isEphemeral(childStateBefore),
+                    childStateBefore.id != childStateAfter?.id
+                {
+                cancelEffect = .cancel(id: childStateBefore.id)
+                } else {
+                    cancelEffect = .none
+                }
+                let onFirstAppearEffect: EffectTask<Action>
+                if
+                    let childStateAfter,
+                    !isEphemeral(childStateAfter),
+                    childStateAfter.id != childStateBefore?.id
+                {
+                onFirstAppearEffect = .run { send in
+                    do {
+                        try await withTaskCancellation(id:  DismissID(id: childStateAfter.id)) {
+                            try await Task.never()
+                        }
+                    } catch is CancellationError {
+                        await send(actionCasePath.embed(.dismiss))
+                    }
+                }
+                .cancellable(id: childStateAfter.id)
+                } else {
+                    onFirstAppearEffect = .none
+                }
+                return .merge(
+                    effects,
+                    cancelEffect,
+                    onFirstAppearEffect
+                )
+
+            case (.none, .some(.presented)), (.none, .some(.dismiss)):
+                XCTFail("A presentation action was sent while child state was nil.")
+                return self.reduce(into: &state, action: action)
+
+            case (.some(var childState), .some(.presented(let childAction))):
+                defer {
+                    if isEphemeral(childState) {
+                        state[keyPath: stateKeyPath] = nil
+                    }
+                }
+                let childEffects = child
+                    .dependency(\.dismiss, DismissEffect { [id = childState.id] in
+                        Task.cancel(id:  DismissID(id: id))
+                    })
+                    .reduce(into: &childState, action: childAction)
+                state[keyPath: stateKeyPath] = childState
+                let effects = self.reduce(into: &state, action: action)
+                return .merge(
+                    childEffects
+                        .map { actionCasePath.embed(.presented($0)) }
+                        .cancellable(id: childState.id),
+                    effects
+                )
+
+            case let (.some(childState), .some(.dismiss)):
+                let effects = self.reduce(into: &state, action: action)
+                state[keyPath: stateKeyPath] = nil
+                return .merge(
+                    effects,
+                    .cancel(id: childState.id)
+                )
             }
-          }
-          .cancellable(id: childStateAfter.id)
-        } else {
-          onFirstAppearEffect = .none
         }
-        return .merge(
-          effects,
-          cancelEffect,
-          onFirstAppearEffect
-        )
-          
-      case (.none, .some(.presented)), (.none, .some(.dismiss)):
-        XCTFail("A sheet action was sent while child state was nil.")
-        return self.reduce(into: &state, action: action)
-
-      case (.some(var childState), .some(.presented(let childAction))):
-        defer {
-          if ChildState.self is _EphemeralState.Type {
-            state[keyPath: stateKeyPath] = nil
-          }
-        }
-        let childEffects = child
-          .dependency(\.dismiss, DismissEffect { [id = childState.id] in
-            Task.cancel(id:  DismissID(id: id))
-          })
-          .reduce(into: &childState, action: childAction)
-        state[keyPath: stateKeyPath] = childState
-        let effects = self.reduce(into: &state, action: action)
-        return .merge(
-          childEffects
-            .map { actionCasePath.embed(.presented($0)) }
-            .cancellable(id: childState.id),
-          effects
-        )
-
-      case let (.some(childState), .some(.dismiss)):
-        let effects = self.reduce(into: &state, action: action)
-        state[keyPath: stateKeyPath] = nil
-        return .merge(
-          effects,
-          .cancel(id: childState.id)
-        )
-      }
     }
-  }
 }
 
 extension ReducerProtocol {
@@ -358,15 +359,14 @@ extension View {
 
 
 @available(*, deprecated)
-struct NavigationLinkStore<ChildState: Identifiable, ChildAction, Destination: View, Label: View>: View {
+struct NavigationLinkStore<ChildState: Equatable, ChildAction, Destination: View, Label: View>: View {
     let store: Store<ChildState?, PresentationAction<ChildAction>>
-    let id: ChildState.ID?
     let action: () -> Void
     @ViewBuilder let destination: (Store<ChildState, ChildAction>) -> Destination
     @ViewBuilder let label: Label
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0?.id }) { viewStore in
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationLink(
                 isActive: Binding(
                     get: { viewStore.state != nil },

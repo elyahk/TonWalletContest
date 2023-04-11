@@ -17,24 +17,19 @@ struct CongratulationReducer: ReducerProtocol {
     }
 
     enum Action: Equatable {
-        case recoveryPhrase(RecoveryPhraseReducer.Action)
+        case recoveryPhrase(PresentationAction<RecoveryPhraseReducer.Action>)
         case proceedButtonTapped
-        case dismissRecoveryPhrase
     }
     
     var body: some ReducerProtocolOf<Self> {
         Reduce<State, Action> { state, action in
             switch action {
             case .proceedButtonTapped:
-                print("proceedButtonTapped")
                 state.recoveryPhrase = .init(words: state.words)
                 
                 return .none
-            case .recoveryPhrase:
-                return .none
                 
-            case .dismissRecoveryPhrase:
-                state.recoveryPhrase = nil
+            case .recoveryPhrase:
                 
                 return .none
             }

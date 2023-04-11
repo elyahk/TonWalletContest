@@ -32,8 +32,7 @@ struct StartView: View {
                 Spacer()
                 // Create My Wallet app
                 NavigationLinkStore(
-                    store: self.store.scope(state: \.createWallet, action: StartReducer.Action.createWallet),
-                    id: viewStore.createWallet?.id
+                    store: self.store.scope(state: \.createWallet, action: StartReducer.Action.createWallet)
                 ) {
                     viewStore.send(.createMyWalletTapped)
                 } destination: { store in
@@ -50,13 +49,11 @@ struct StartView: View {
                 }
                 
                 NavigationLinkStore(
-                    store: self.store.scope(state: \.createWallet, action: StartReducer.Action.createWallet),
-                    id: viewStore.createWallet?.id
+                    store: self.store.scope(state: \.createWallet, action: StartReducer.Action.createWallet)
                 ) {
                     viewStore.send(.createMyWalletTapped)
                 } destination: { store in
                     CongratulationView(store: store)
-                        .navigationBarHidden(true)
                 } label: {
                     Text("Import Existing Wallet")
                         .fontWeight(.semibold)

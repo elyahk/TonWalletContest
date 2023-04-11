@@ -19,7 +19,7 @@ struct RecoveryPhraseReducer: ReducerProtocol {
     }
 
     enum Action: Equatable {
-        case testTime(TestTimeReducer.Action)
+        case testTime(PresentationAction<TestTimeReducer.Action>)
         case doneButtonTapped
         case startTimer
         case stopTimer
