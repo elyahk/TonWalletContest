@@ -35,7 +35,7 @@ struct RecoveryPhraseView: View {
                                 Text("\(index + 1).")
                                     .foregroundColor(.gray)
                                     .frame(width: 30, alignment: .trailing)
-                                Text(word.lowercased())
+                                Text(word)
                                     .bold()
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
@@ -47,7 +47,7 @@ struct RecoveryPhraseView: View {
                                 Text("\(index + 13).")
                                     .foregroundColor(.gray)
                                     .frame(width: 30, alignment: .trailing)
-                                Text(word.lowercased())
+                                Text(word)
                                     .bold()
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }

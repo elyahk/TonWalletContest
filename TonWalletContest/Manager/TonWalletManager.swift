@@ -138,6 +138,6 @@ extension Key {
 
 extension Array where Element == String {
     static let words24: [String] = {
-        return (0...23).map { "Word \($0)" }
+        return (0...23).map { "Word \($0 + 1)" }
     }()
 }

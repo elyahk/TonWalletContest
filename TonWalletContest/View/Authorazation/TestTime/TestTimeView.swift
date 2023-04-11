@@ -42,31 +42,22 @@ struct TestTimeView: View {
                     .padding(.horizontal, 48)
                     .padding(.bottom, 10)
                 }
-                NavigationLink(
-                    isActive: Binding(get: {
-                        viewStore.state.passcode != nil
-                    }, set: { isActive in
-                        if isActive {
-                            showingAlert = true
-                            viewStore.send(.continueButtonTapped)
-                        } else if viewStore.passcode != nil {
-                            viewStore.send(.dismissPasscodeView)
-                        }
-                    }),
-                    destination: {
-                        IfLetStore(
-                            self.store.scope(state: \.passcode, action: TestTimeReducer.Action.passcode),
-                            then: { viewStore in
-                                PasscodeView(store: viewStore)
-                            }
-                        )
-                    },
-                    label: {
-                        Text("Continue")
-                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                            .customBlueButtonStyle()
-                    }
-                )
+
+                NavigationLinkStore(
+                    self.store.scope(state: \.$passcode, action: TestTimeReducer.Action.passcode)
+                ) {
+                    viewStore.send(.continueButtonTapped)
+                } destination: { store in
+                    PasscodeView(store: store)
+                } label: {
+                    Text("Continue")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customBlueButtonStyle()
+                }
+
+                Button("Auto fill") {
+                    viewStore.send(.autoFillCorrectWords)
+                }
             }
             .alert(
                 self.store.scope(state: \.alert, action: TestTimeReducer.Action.alert),
