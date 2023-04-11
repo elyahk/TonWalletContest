@@ -831,8 +831,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.0;
+				branch = "navigation-beta";
+				kind = branch;
 			};
 		};
 		619D5DB829E2A75300C01C7A /* XCRemoteSwiftPackageReference "swiftui-navigation" */ = {

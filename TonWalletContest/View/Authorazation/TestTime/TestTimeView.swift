@@ -8,9 +8,17 @@ struct TestTimeView: View {
     init(store: StoreOf<TestTimeReducer>) {
         self.store = store
     }
-    
+
+    struct ViewState: Equatable {
+        var testWords: IdentifiedArrayOf<TestTimeReducer.Word>
+
+        init(state: TestTimeReducer.State) {
+            self.testWords = state.testWords
+        }
+    }
+
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(self.store, observe: ViewState.init) { viewStore in
             ScrollView {
                 LottieView(name: "teacher", loop: .loop)
                     .frame(width: 124, height: 124, alignment: .center)
@@ -42,31 +50,22 @@ struct TestTimeView: View {
                     .padding(.horizontal, 48)
                     .padding(.bottom, 10)
                 }
-                NavigationLink(
-                    isActive: Binding(get: {
-                        viewStore.state.passcode != nil
-                    }, set: { isActive in
-                        if isActive {
-                            showingAlert = true
-                            viewStore.send(.continueButtonTapped)
-                        } else {
-                            viewStore.send(.dismissPasscodeView)
-                        }
-                    }),
-                    destination: {
-                        IfLetStore(
-                            self.store.scope(state: \.passcode, action: TestTimeReducer.Action.passcode),
-                            then: { viewStore in
-                                PasscodeView(store: viewStore)
-                            }
-                        )
-                    },
-                    label: {
-                        Text("Continue")
-                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                            .customBlueButtonStyle()
-                    }
-                )
+
+                NavigationLinkStore(
+                    self.store.scope(state: \.$passcode, action: TestTimeReducer.Action.passcode)
+                ) {
+                    viewStore.send(.continueButtonTapped)
+                } destination: { store in
+                    PasscodeView(store: store)
+                } label: {
+                    Text("Continue")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customBlueButtonStyle()
+                }
+
+                Button("Auto fill") {
+                    viewStore.send(.autoFillCorrectWords)
+                }
             }
             .alert(
                 self.store.scope(state: \.alert, action: TestTimeReducer.Action.alert),

@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct StartReducer: ReducerProtocol {
     struct State: Equatable {
-        var walletCreate: CongratulationReducer.State?
+        @PresentationState var createWallet: CongratulationReducer.State?
         var importWallet: CongratulationReducer.State?
     }
 
@@ -18,7 +18,7 @@ struct StartReducer: ReducerProtocol {
         case createMyWalletTapped
         case importMyWalletTapped
         case keyCreated(key: Key, words: [String])
-        case createWallet(CongratulationReducer.Action)
+        case createWallet(PresentationAction<CongratulationReducer.Action>)
         case importWallet(CongratulationReducer.Action)
     }
     
@@ -38,14 +38,16 @@ struct StartReducer: ReducerProtocol {
 //                state.destination = .createWallet(.init())
                 #warning("Implement opening import wallet screen")
                 return .none
+                
             case let .keyCreated(key: key, words: words):
-                state.walletCreate = .init(words: words)
+                state.createWallet = .init(words: words)
                 return .none
+                
             case .createWallet, .importWallet:
                 return .none
             }
         }
-        .ifLet(\.walletCreate, action: /Action.createWallet) {
+        .ifLet(\.$createWallet, action: /Action.createWallet) {
             CongratulationReducer()
         }
     }

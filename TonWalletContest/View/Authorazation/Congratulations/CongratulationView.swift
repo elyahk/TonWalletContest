@@ -19,7 +19,6 @@ struct CongratulationView: View {
     }
 
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 Spacer()
                 LottieView(name: "boomstick", loop: .playOnce)
@@ -32,30 +31,21 @@ struct CongratulationView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                 Spacer()
-                NavigationLink(
-                    isActive: Binding(get: {
-                        viewStore.recoveryPhrase != nil
-                    }, set: { isActive in
-                        if isActive {
-                            viewStore.send(.proceedButtonTapped)
-                        } else {
-                            viewStore.send(.dismissRecoveryPhrase)
-                        }
-                    }),
-                    destination: {
-                        IfLetStore(self.store.scope(state: \.recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase), then: { viewStore in
-                            RecoveryPhraseView(store: viewStore)
-                        })
-                    },
-                    label: {
-                        Text("Proceed")
-                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                            .customBlueButtonStyle()
-                            .padding(.bottom, 90)
-                    })
+                
+                NavigationLinkStore(
+                    self.store.scope(state: \.$recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase)
+                ) {
+                    ViewStore(store).send(.proceedButtonTapped)
+                } destination: { store in
+                    RecoveryPhraseView(store: store)
+                } label: {
+                    Text("Proceed")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customBlueButtonStyle()
+                        .padding(.bottom, 90)
+                }
             }
             .navigationBarBackButtonHidden(true)
-        }
     }
 }
 

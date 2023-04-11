@@ -11,13 +11,12 @@ import _SwiftUINavigationState
 
 struct StartView: View {
     let store: StoreOf<StartReducer>
-    
+
     init(store: StoreOf<StartReducer>) {
         self.store = store
     }
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 Spacer()
                 LottieView(name: "crystal", loop: .loop)
@@ -31,60 +30,37 @@ struct StartView: View {
                     .padding(.horizontal, 32)
                 Spacer()
                 // Create My Wallet app
-                NavigationLink(
-                    isActive: Binding(get: {
-                        viewStore.walletCreate != nil
-                    }, set: { isActive in
-                        if isActive {
-                            viewStore.send(.createMyWalletTapped)
-                        } else {
-                            
-                        }
-                    }),
-                    destination: {
-                        IfLetStore(self.store.scope(state: \.walletCreate, action: StartReducer.Action.createWallet), then: { viewStore in
-                            CongratulationView(store: viewStore)
-                                .navigationBarHidden(true)
-                        })
-                    },
-                    label: {
-                        Text("Create My Wallet")
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .frame(width: 294, height: 50, alignment: .center)
-                            .background(Color.accentColor)
-                            .cornerRadius(12)
-                            .padding(.horizontal, 48)
-                    }
-                )
-                
-                NavigationLink(
-                    isActive: Binding(get: {
-                        viewStore.importWallet != nil
-                    }, set: { isActive in
-                        if isActive {
-                            viewStore.send(.importMyWalletTapped)
-                        } else {
-                            
-                        }
-                    }),
-                    destination: {
-                        IfLetStore(self.store.scope(state: \.importWallet, action: StartReducer.Action.importWallet), then: { viewStore in
-                            CongratulationView(store: viewStore)
-                                .navigationBarHidden(true)
-#warning("Open ImportWallet screen when view will be ready!")
-                        })
-                    },
-                    label: {
-                        Text("Import Existing Wallet")
-                            .fontWeight(.semibold)
-                            .foregroundColor(.accentColor)
-                            .frame(minWidth: 294, minHeight: 50, alignment: .center)
-                            .padding(.horizontal, 48)
-                    }
-                )
+                NavigationLinkStore (
+                    self.store.scope(state: \.$createWallet, action: StartReducer.Action.createWallet)
+                ) {
+                    ViewStore(store).send(.createMyWalletTapped)
+                } destination: { store in
+                    CongratulationView(store: store)
+                        .navigationBarHidden(true)
+                } label: {
+                    Text("Create My Wallet")
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(width: 294, height: 50, alignment: .center)
+                        .background(Color.accentColor)
+                        .cornerRadius(12)
+                        .padding(.horizontal, 48)
+                }
+
+                NavigationLinkStore (
+                    self.store.scope(state: \.$createWallet, action: StartReducer.Action.createWallet)
+                ) {
+                    ViewStore(store).send(.createMyWalletTapped)
+                } destination: { store in
+                    CongratulationView(store: store)
+                } label: {
+                    Text("Import Existing Wallet")
+                        .fontWeight(.semibold)
+                        .foregroundColor(.accentColor)
+                        .frame(minWidth: 294, minHeight: 50, alignment: .center)
+                        .padding(.horizontal, 48)
+                }
                 .padding(.bottom, 30)
-            }
         }
     }
 }

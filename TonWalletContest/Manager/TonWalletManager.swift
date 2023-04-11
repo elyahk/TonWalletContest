@@ -28,7 +28,7 @@ class TonWalletManager {
             throw WalletManagerErrors.unvalidURL
         }
         
-        SwiftyTON.configurate(with: .init(network: .main, logging: .plain, keystoreURL: url))
+        SwiftyTON.configurate(with: .init(network: .main, logging: .never, keystoreURL: url))
         let key = try await Key.create(password: passcodeData)
         
         return key
@@ -138,6 +138,6 @@ extension Key {
 
 extension Array where Element == String {
     static let words24: [String] = {
-        return (0...23).map { "Word \($0)" }
+        return (0...23).map { "Word \($0 + 1)" }
     }()
 }

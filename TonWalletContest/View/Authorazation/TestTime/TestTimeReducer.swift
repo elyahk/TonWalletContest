@@ -17,9 +17,9 @@ struct TestTimeReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         var testWords: IdentifiedArrayOf<Word>
-        var passcode: PasscodeReducer.State?
+        @PresentationState var passcode: PasscodeReducer.State?
         var alert: AlertState<Action.Alert>?
-        
+
         func isCorrectRecieveddWords() -> Bool {
             for word in testWords {
                 if !word.isCorrectRecieveddWord() { return false }
@@ -33,8 +33,8 @@ struct TestTimeReducer: ReducerProtocol {
         case alert(Alert)
         case continueButtonTapped
         case wordChanged(id: Word.ID, value: String)
-        case passcode(PasscodeReducer.Action)
-        case dismissPasscodeView
+        case passcode(PresentationAction<PasscodeReducer.Action>)
+        case autoFillCorrectWords
         
         enum Alert: String, Equatable {
             case skip = "Skip"
@@ -73,12 +73,17 @@ struct TestTimeReducer: ReducerProtocol {
                 
             case .passcode:
                 return .none
-                
-            case .dismissPasscodeView:
-                state.passcode = nil
+
+            case .autoFillCorrectWords:
+                state.testWords[0].recivedWord = state.testWords[0].expectedWord
+                state.testWords[1].recivedWord = state.testWords[1].expectedWord
+                state.testWords[2].recivedWord = state.testWords[2].expectedWord
                 
                 return .none
             }
+        }
+        .ifLet(\.$passcode, action: /TestTimeReducer.Action.passcode) {
+            PasscodeReducer()
         }
     }
 }
