@@ -19,7 +19,6 @@ struct CongratulationView: View {
     }
 
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 Spacer()
                 LottieView(name: "boomstick", loop: .playOnce)
@@ -36,7 +35,7 @@ struct CongratulationView: View {
                 NavigationLinkStore(
                     self.store.scope(state: \.$recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase)
                 ) {
-                    viewStore.send(.proceedButtonTapped)
+                    ViewStore(store).send(.proceedButtonTapped)
                 } destination: { store in
                     RecoveryPhraseView(store: store)
                 } label: {
@@ -47,7 +46,6 @@ struct CongratulationView: View {
                 }
             }
             .navigationBarBackButtonHidden(true)
-        }
     }
 }
 

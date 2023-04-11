@@ -11,13 +11,12 @@ import _SwiftUINavigationState
 
 struct StartView: View {
     let store: StoreOf<StartReducer>
-    
+
     init(store: StoreOf<StartReducer>) {
         self.store = store
     }
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 Spacer()
                 LottieView(name: "crystal", loop: .loop)
@@ -31,10 +30,10 @@ struct StartView: View {
                     .padding(.horizontal, 32)
                 Spacer()
                 // Create My Wallet app
-                NavigationLinkStore(
+                NavigationLinkStore (
                     self.store.scope(state: \.$createWallet, action: StartReducer.Action.createWallet)
                 ) {
-                    viewStore.send(.createMyWalletTapped)
+                    ViewStore(store).send(.createMyWalletTapped)
                 } destination: { store in
                     CongratulationView(store: store)
                         .navigationBarHidden(true)
@@ -47,22 +46,21 @@ struct StartView: View {
                         .cornerRadius(12)
                         .padding(.horizontal, 48)
                 }
-                
-//                NavigationLinkStore(
-//                    store: self.store.scope(state: \.createWallet, action: StartReducer.Action.createWallet)
-//                ) {
-//                    viewStore.send(.createMyWalletTapped)
-//                } destination: { store in
-//                    CongratulationView(store: store)
-//                } label: {
-//                    Text("Import Existing Wallet")
-//                        .fontWeight(.semibold)
-//                        .foregroundColor(.accentColor)
-//                        .frame(minWidth: 294, minHeight: 50, alignment: .center)
-//                        .padding(.horizontal, 48)
-//                }
-//                .padding(.bottom, 30)
-            }
+
+                NavigationLinkStore (
+                    self.store.scope(state: \.$createWallet, action: StartReducer.Action.createWallet)
+                ) {
+                    ViewStore(store).send(.createMyWalletTapped)
+                } destination: { store in
+                    CongratulationView(store: store)
+                } label: {
+                    Text("Import Existing Wallet")
+                        .fontWeight(.semibold)
+                        .foregroundColor(.accentColor)
+                        .frame(minWidth: 294, minHeight: 50, alignment: .center)
+                        .padding(.horizontal, 48)
+                }
+                .padding(.bottom, 30)
         }
     }
 }

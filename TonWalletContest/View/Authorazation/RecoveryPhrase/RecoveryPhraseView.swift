@@ -15,9 +15,9 @@ struct RecoveryPhraseView: View {
     init(store: StoreOf<RecoveryPhraseReducer>) {
         self.store = store
     }
-    
+
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(self.store, observe: \.words) { viewStore in
             ScrollView {
                 LottieView(name: "list", loop: .loop)
                     .frame(width: 124, height: 124, alignment: .center)
@@ -30,7 +30,7 @@ struct RecoveryPhraseView: View {
                     .padding(.horizontal, 32)
                 HStack(spacing: 50) {
                     VStack (spacing: 15) {
-                        ForEach(Array(viewStore.words[0...11].enumerated()), id: \.1) { (index, word) in
+                        ForEach(Array(viewStore.state[0...11].enumerated()), id: \.1) { (index, word) in
                             HStack {
                                 Text("\(index + 1).")
                                     .foregroundColor(.gray)
@@ -42,7 +42,7 @@ struct RecoveryPhraseView: View {
                         }
                     }
                     VStack (spacing: 15) {
-                        ForEach(Array(viewStore.words[12...23].enumerated()), id: \.1) { (index, word) in
+                        ForEach(Array(viewStore.state[12...23].enumerated()), id: \.1) { (index, word) in
                             HStack {
                                 Text("\(index + 13).")
                                     .foregroundColor(.gray)
