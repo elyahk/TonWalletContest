@@ -34,7 +34,7 @@ struct CongratulationView: View {
                 Spacer()
                 
                 NavigationLinkStore(
-                    store: self.store.scope(state: \.recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase)
+                    self.store.scope(state: \.$recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase)
                 ) {
                     viewStore.send(.proceedButtonTapped)
                 } destination: { store in

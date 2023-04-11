@@ -12,7 +12,7 @@ import Foundation
 struct RecoveryPhraseReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var words: [String]
-        var testTime: TestTimeReducer.State?
+        @PresentationState var testTime: TestTimeReducer.State?
         var id: UUID = .init()
         var isActive: Bool = false
         var buttonTappedAttempts: Int = 0
@@ -23,7 +23,6 @@ struct RecoveryPhraseReducer: ReducerProtocol {
         case doneButtonTapped
         case startTimer
         case stopTimer
-        case dismissTestTimerView
     }
 
     var body: some ReducerProtocolOf<Self> {
@@ -60,12 +59,9 @@ struct RecoveryPhraseReducer: ReducerProtocol {
                 print("Stop timer")
                 state.isActive = true
                 return .none
-            case .dismissTestTimerView:
-                state.testTime = nil
-                return .none
             }
         }
-        .ifLet(\.testTime, action: /Action.testTime) {
+        .ifLet(\.$testTime, action: /Action.testTime) {
             TestTimeReducer()
         }
     }

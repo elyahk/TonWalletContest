@@ -32,7 +32,7 @@ struct StartView: View {
                 Spacer()
                 // Create My Wallet app
                 NavigationLinkStore(
-                    store: self.store.scope(state: \.createWallet, action: StartReducer.Action.createWallet)
+                    self.store.scope(state: \.$createWallet, action: StartReducer.Action.createWallet)
                 ) {
                     viewStore.send(.createMyWalletTapped)
                 } destination: { store in
@@ -48,20 +48,20 @@ struct StartView: View {
                         .padding(.horizontal, 48)
                 }
                 
-                NavigationLinkStore(
-                    store: self.store.scope(state: \.createWallet, action: StartReducer.Action.createWallet)
-                ) {
-                    viewStore.send(.createMyWalletTapped)
-                } destination: { store in
-                    CongratulationView(store: store)
-                } label: {
-                    Text("Import Existing Wallet")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.accentColor)
-                        .frame(minWidth: 294, minHeight: 50, alignment: .center)
-                        .padding(.horizontal, 48)
-                }
-                .padding(.bottom, 30)
+//                NavigationLinkStore(
+//                    store: self.store.scope(state: \.createWallet, action: StartReducer.Action.createWallet)
+//                ) {
+//                    viewStore.send(.createMyWalletTapped)
+//                } destination: { store in
+//                    CongratulationView(store: store)
+//                } label: {
+//                    Text("Import Existing Wallet")
+//                        .fontWeight(.semibold)
+//                        .foregroundColor(.accentColor)
+//                        .frame(minWidth: 294, minHeight: 50, alignment: .center)
+//                        .padding(.horizontal, 48)
+//                }
+//                .padding(.bottom, 30)
             }
         }
     }

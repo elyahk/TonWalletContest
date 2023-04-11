@@ -11,7 +11,7 @@ import SwiftyTON
 
 struct CongratulationReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
-        var recoveryPhrase: RecoveryPhraseReducer.State?
+        @PresentationState var recoveryPhrase: RecoveryPhraseReducer.State?
         var id: UUID = .init()
         var words: [String]
     }
@@ -34,7 +34,7 @@ struct CongratulationReducer: ReducerProtocol {
                 return .none
             }
         }
-        .ifLet(\.recoveryPhrase, action: /Action.recoveryPhrase) {
+        .ifLet(\.$recoveryPhrase, action: /Action.recoveryPhrase) {
             RecoveryPhraseReducer()
         }
     }

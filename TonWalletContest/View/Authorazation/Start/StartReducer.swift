@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct StartReducer: ReducerProtocol {
     struct State: Equatable {
-        var createWallet: CongratulationReducer.State?
+        @PresentationState var createWallet: CongratulationReducer.State?
         var importWallet: CongratulationReducer.State?
     }
 
@@ -47,7 +47,7 @@ struct StartReducer: ReducerProtocol {
                 return .none
             }
         }
-        .ifLet(\.createWallet, action: /Action.createWallet) {
+        .ifLet(\.$createWallet, action: /Action.createWallet) {
             CongratulationReducer()
         }
     }
