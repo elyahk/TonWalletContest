@@ -8,9 +8,17 @@ struct TestTimeView: View {
     init(store: StoreOf<TestTimeReducer>) {
         self.store = store
     }
-    
+
+    struct ViewState: Equatable {
+        var testWords: IdentifiedArrayOf<TestTimeReducer.Word>
+
+        init(state: TestTimeReducer.State) {
+            self.testWords = state.testWords
+        }
+    }
+
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(self.store, observe: ViewState.init) { viewStore in
             ScrollView {
                 LottieView(name: "teacher", loop: .loop)
                     .frame(width: 124, height: 124, alignment: .center)

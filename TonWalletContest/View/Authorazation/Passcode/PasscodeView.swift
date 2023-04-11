@@ -8,24 +8,28 @@ struct PasscodeView: View {
     init(store: StoreOf<PasscodeReducer>) {
         self.store = store
     }
+
+    struct ViewState: Equatable {
+        var passcode: String = ""
+        var showKeyboad: Bool = true
+
+        init(state: PasscodeReducer.State) {
+            self.passcode = state.passcode
+            self.showKeyboad = state.showKeyboad
+        }
+    }
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(self.store, observe: ViewState.init) { viewStore in
             VStack {
-                NavigationLink(
-                    isActive: Binding(get: {
-                        viewStore.state.confirmPasscode != nil
-                    }, set: { _ in }),
-                    destination: {
-                        IfLetStore(self.store.scope(
-                            state: \.confirmPasscode, action: PasscodeReducer.Action.confirmPasscode)) { store in
-                                ConfirmPasscodeView(store: store)
-                            }
-                    },
-                    label: {
-                        Color.clear
-                    }
-                )
+                NavigationLinkStore(
+                    self.store.scope(state: \.$confirmPasscode, action: PasscodeReducer.Action.confirmPasscode)
+                ) {
+                } destination: { store in
+                    ConfirmPasscodeView(store: store)
+                } label: {
+                    Color.clear
+                }
 
                 ZStack {
                     LegacyTextField(
@@ -41,13 +45,6 @@ struct PasscodeView: View {
                             })
                     )
                     .frame(width: 10, height: 0)
-//                    .hidden()
-
-//                    Button("Title") {
-//                        sdf
-//                    }
-//                    .frame(maxWidth: .infinity, maxHeight: 60)
-//                    .background(Color.green)
                 }
                 
                 Button("Options") {
@@ -67,29 +64,28 @@ struct ConfirmPasscodeView: View {
     init(store: StoreOf<ConfirmPasscodeReducer>) {
         self.store = store
     }
-    
-    var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack {
-//                NavigationLink(
-//                    isActive: Binding(get: {
-//                        viewStore.state.confirmPasscode != nil
-//                    }, set: { _ in }),
-//                    destination: {
-//                        PasscodeView(store: .init(
-//                            initialState: viewStore.state, reducer: PasscodeReducer()))
-//                    },
-//                    label: {
-//                        Color.clear
-//                    }
-//                )
 
+    struct ViewState: Equatable {
+        var passcode: String = ""
+        var showKeyboad: Bool = true
+
+        init(state: ConfirmPasscodeReducer.State) {
+            self.passcode = state.passcode
+            self.showKeyboad = state.showKeyboad
+        }
+    }
+
+    var body: some View {
+        WithViewStore(self.store, observe: ViewState.init) { viewStore in
+            VStack {
+                Text("Confirm")
                 ZStack {
                     TextField("", text: Binding(
                         get: { viewStore.passcode },
                         set: { viewStore.send(.passwordAdded(password: $0)) }
                     ))
                     .hidden()
+
                     LegacyTextField(
                         text: Binding(
                             get: { viewStore.passcode },
@@ -103,16 +99,7 @@ struct ConfirmPasscodeView: View {
                             })
                     )
                     .frame(width: 10, height: 0)
-//                    .hidden()
-
-//                    Button("Title") {
-//                        sdf
-//                    }
-//                    .frame(maxWidth: .infinity, maxHeight: 60)
-//                    .background(Color.green)
                 }
-                
-                Button("Options") { }
             }
         }
     }
