@@ -222,7 +222,6 @@
 		61153E0629D8FB0900D4D030 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				615EDE2629EB437800D3A220 /* ImportPhrase */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
 				615017B529E0050800AF963D /* Authorazation */,
 			);
@@ -258,6 +257,7 @@
 		615017B529E0050800AF963D /* Authorazation */ = {
 			isa = PBXGroup;
 			children = (
+				615EDE2629EB437800D3A220 /* ImportPhrase */,
 				615017BB29E0188400AF963D /* Passcode */,
 				615017B629E0052200AF963D /* TestTime */,
 				615017B429E004F400AF963D /* RecoveryPhrase */,

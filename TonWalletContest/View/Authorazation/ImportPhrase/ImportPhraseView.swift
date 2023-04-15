@@ -22,13 +22,13 @@ struct ImportPhraseView: View {
     var body: some View {
         WithViewStore(self.store, observe: ViewState.init) { viewStore in
             ScrollView {
-                LottieView(name: "teacher", loop: .loop)
+                LottieView(name: "list", loop: .loop)
                     .frame(width: 124, height: 124, alignment: .center)
-                Text("Test time!")
+                Text("24 Secret Words")
                     .fontWeight(.semibold)
                     .font(.title)
                     .padding()
-                Text("Let’s check that you wrote them down correctly. Please enter the words 4, 15 and 18.")
+                Text("You can restore access to your wallet by entering 24 words you wrote when down you creating the wallet.")
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                     .padding(.bottom, 30)
@@ -66,10 +66,6 @@ struct ImportPhraseView: View {
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                         .customBlueButtonStyle()
                 }
-
-                Button("Auto fill") {
-                    viewStore.send(.autoFillCorrectWords)
-                }
             }
             .alert(
                 self.store.scope(
@@ -88,11 +84,7 @@ struct ImportPhraseView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ImportPhraseView(store: .init(
-                initialState: .init(testWords: [
-                    .init(key: 5, expectedWord: "Hello"),
-                    .init(key: 10, expectedWord: "Xaxa"),
-                    .init(key: 14, expectedWord: "Tomorrow")
-                ]),
+                initialState: .init(),
                 reducer: ImportPhraseReducer()
             ))
         }
