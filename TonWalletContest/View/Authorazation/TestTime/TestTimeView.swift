@@ -2,6 +2,8 @@ import SwiftUI
 import ComposableArchitecture
 
 struct TestTimeView: View {
+    @Environment(\.presentationMode) var presentationMode
+    
     @State var showingAlert: Bool = false
     let store: StoreOf<TestTimeReducer>
     
@@ -52,7 +54,9 @@ struct TestTimeView: View {
                 }
 
                 NavigationLinkStore(
-                    self.store.scope(state: \.$passcode, action: TestTimeReducer.Action.passcode)
+                    self.store.scope(state: \.$destination, action: TestTimeReducer.Action.destination),
+                    state: /TestTimeReducer.Destination.State.passcode,
+                    action: TestTimeReducer.Destination.Action.passcode
                 ) {
                     viewStore.send(.continueButtonTapped)
                 } destination: { store in
@@ -68,7 +72,12 @@ struct TestTimeView: View {
                 }
             }
             .alert(
-                self.store.scope(state: \.alert, action: TestTimeReducer.Action.alert),
+                self.store.scope(
+                    state: { guard case let .alert(state) = $0.destination else { return nil }
+                        return state
+                    },
+                    action: { TestTimeReducer.Action.destination(.presented(.alert($0)))}
+                ),
                 dismiss: .dismiss
             )
         }

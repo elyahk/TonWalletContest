@@ -12,6 +12,7 @@ import SwiftyTON
 
 
 struct CongratulationView: View {
+    @Environment(\.presentationMode) var presentationMode
     let store: StoreOf<CongratulationReducer>
     
     init(store: StoreOf<CongratulationReducer>) {

@@ -10,6 +10,7 @@ import ComposableArchitecture
 import _SwiftUINavigationState
 
 struct StartView: View {
+    @Environment(\.presentationMode) var presentationMode
     let store: StoreOf<StartReducer>
 
     init(store: StoreOf<StartReducer>) {
