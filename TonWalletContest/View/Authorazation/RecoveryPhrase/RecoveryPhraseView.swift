@@ -59,7 +59,9 @@ struct RecoveryPhraseView: View {
                 .padding(.top, 30)
                 
                 NavigationLinkStore(
-                    self.store.scope(state: \.$testTime, action: RecoveryPhraseReducer.Action.testTime)
+                    self.store.scope(state: \.$destination, action: RecoveryPhraseReducer.Action.destination),
+                    state: /RecoveryPhraseReducer.Destination.State.testTime,
+                    action: RecoveryPhraseReducer.Destination.Action.testTime
                 ) {
                     viewStore.send(.doneButtonTapped)
                 } destination: { store in
