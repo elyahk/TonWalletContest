@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct RecoveryPhraseView: View {
+    @Environment(\.presentationMode) var presentationMode
     
     let store: StoreOf<RecoveryPhraseReducer>
     
@@ -16,8 +17,18 @@ struct RecoveryPhraseView: View {
         self.store = store
     }
 
+    struct ViewState: Equatable {
+        var words: [String]
+        var destination: RecoveryPhraseReducer.Destination.State?
+
+        init(state: RecoveryPhraseReducer.State) {
+            self.words = state.words
+            self.destination = state.destination
+        }
+    }
+
     var body: some View {
-        WithViewStore(self.store, observe: \.words) { viewStore in
+        WithViewStore(self.store, observe: ViewState.init) { viewStore in
             ScrollView {
                 LottieView(name: "list", loop: .loop)
                     .frame(width: 124, height: 124, alignment: .center)
@@ -30,7 +41,7 @@ struct RecoveryPhraseView: View {
                     .padding(.horizontal, 32)
                 HStack(spacing: 50) {
                     VStack (spacing: 15) {
-                        ForEach(Array(viewStore.state[0...11].enumerated()), id: \.1) { (index, word) in
+                        ForEach(Array(viewStore.state.words[0...11].enumerated()), id: \.1) { (index, word) in
                             HStack {
                                 Text("\(index + 1).")
                                     .foregroundColor(.gray)
@@ -42,7 +53,7 @@ struct RecoveryPhraseView: View {
                         }
                     }
                     VStack (spacing: 15) {
-                        ForEach(Array(viewStore.state[12...23].enumerated()), id: \.1) { (index, word) in
+                        ForEach(Array(viewStore.state.words[12...23].enumerated()), id: \.1) { (index, word) in
                             HStack {
                                 Text("\(index + 13).")
                                     .foregroundColor(.gray)
@@ -83,7 +94,7 @@ struct RecoveryPhraseView: View {
                     },
                     action: { RecoveryPhraseReducer.Action.destination(.presented(.alert($0)))}
                 ),
-                dismiss: .ok
+                dismiss: .dismiss
             )
         }
     }

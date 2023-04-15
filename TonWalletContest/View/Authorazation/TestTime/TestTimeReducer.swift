@@ -6,8 +6,7 @@ struct TestTimeReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         var testWords: IdentifiedArrayOf<Word>
-        @PresentationState var passcode: PasscodeReducer.State?
-        var alert: AlertState<Action.Alert>?
+        @PresentationState var destination: Destination.State?
 
         func isCorrectRecieveddWords() -> Bool {
             for word in testWords {
@@ -19,48 +18,38 @@ struct TestTimeReducer: ReducerProtocol {
     }
     
     enum Action: Equatable {
-        case alert(Alert)
+        case destination(PresentationAction<Destination.Action>)
         case continueButtonTapped
         case wordChanged(id: Word.ID, value: String)
-        case passcode(PresentationAction<PasscodeReducer.Action>)
         case autoFillCorrectWords
         
-        enum Alert: String, Equatable {
-            case skip = "Skip"
-            case dismiss = "Ok, Sorry"
+        enum Alert: Equatable {
+            case seeWords
+            case dismiss
         }
     }
-    
+
+    @Dependency(\.dismiss) var presentationMode
     
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
             case .continueButtonTapped:
                 if state.isCorrectRecieveddWords() {
-                    state.passcode = .init()
+                    state.destination = .passcode(.init())
                 } else {
-                    state.alert = .init(
-                        title: TextState("Title"),
-                        message: TextState("Message"),
-                        primaryButton: .cancel(TextState(Action.Alert.dismiss.rawValue), action: .send(.dismiss)),
-                        secondaryButton: .default(TextState(Action.Alert.skip.rawValue), action: .send(.skip))
-                    )
+                    state.destination = .alert(.init(
+                        title: TextState("Incorrect words"),
+                        message: TextState("The secret words you have entered do not match the ones in the list."),
+                        primaryButton: .default(TextState("See words"), action: .send(.seeWords)),
+                        secondaryButton: .default(TextState("Try again"), action: .send(.dismiss))
+                    ))
                 }
                 
                 return .none
-                
-            case .alert(.skip):
-                print("Ok Sorry tapped")
-                return .none
-            case .alert(.dismiss):
-                state.alert = nil
-                return .none
-                
+
             case let .wordChanged(id, value):
                 state.testWords[id: id]?.recivedWord = value
-                return .none
-                
-            case .passcode:
                 return .none
 
             case .autoFillCorrectWords:
@@ -69,10 +58,20 @@ struct TestTimeReducer: ReducerProtocol {
                 state.testWords[2].recivedWord = state.testWords[2].expectedWord
                 
                 return .none
+
+            case .destination(.presented(.alert(.seeWords))):
+                return .fireAndForget { await self.presentationMode() }
+
+            case .destination(.presented(.alert(.dismiss))):
+                state.destination = nil
+                return .none
+
+            case .destination:
+                return .none
             }
         }
-        .ifLet(\.$passcode, action: /TestTimeReducer.Action.passcode) {
-            PasscodeReducer()
+        .ifLet(\.$destination, action: /Action.destination) {
+            Destination()
         }
     }
 }
@@ -93,12 +92,12 @@ extension TestTimeReducer {
 extension TestTimeReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
-            case testTime(TestTimeReducer.State)
-            case alert(AlertState<RecoveryPhraseReducer.Action.Alert>)
+            case passcode(PasscodeReducer.State)
+            case alert(AlertState<TestTimeReducer.Action.Alert>)
 
             var id: AnyHashable {
                 switch self {
-                case let .testTime(state):
+                case let .passcode(state):
                     return state.id
                 case let .alert(state):
                     return state.id
@@ -106,12 +105,13 @@ extension TestTimeReducer {
             }
         }
         enum Action: Equatable {
-            case testTime(TestTimeReducer.Action)
-            case alert(RecoveryPhraseReducer.Action.Alert)
+            case passcode(PasscodeReducer.Action)
+            case alert(TestTimeReducer.Action.Alert)
         }
+
         var body: some ReducerProtocolOf<Self> {
-            Scope(state: /State.testTime, action: /Action.testTime) {
-                TestTimeReducer()
+            Scope(state: /State.passcode, action: /Action.passcode) {
+                PasscodeReducer()
             }
         }
     }

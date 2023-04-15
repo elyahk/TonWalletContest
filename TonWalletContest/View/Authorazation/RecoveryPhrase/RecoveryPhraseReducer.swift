@@ -25,9 +25,9 @@ struct RecoveryPhraseReducer: ReducerProtocol {
         case startTimer
         case stopTimer
 
-        enum Alert: String, Equatable {
-            case ok = "Ok, sorry"
-            case skip = "Skip"
+        enum Alert: Equatable {
+            case dismiss
+            case skip
         }
     }
 
@@ -61,13 +61,6 @@ struct RecoveryPhraseReducer: ReducerProtocol {
 
                 return .none
 
-            case .destination(.presented(.alert(.ok))):
-                state.destination = nil
-                return .none
-
-            case .destination(.presented(.alert(.skip))):
-                return .run { await $0(.showTestTime) }
-
             case .showTestTime:
                 let words = state.words.enumerated().shuffled().map { TestTimeReducer.Word(key: $0, expectedWord: $1) }
                 guard words.count > 3 else {
@@ -76,6 +69,15 @@ struct RecoveryPhraseReducer: ReducerProtocol {
 
                 state.destination = .testTime(.init(testWords: IdentifiedArrayOf(uniqueElements: (words[0...2].sorted { $0.key < $1.key } ))))
                 return .none
+
+            case .destination(.presented(.alert(.dismiss))):
+                state.destination = nil
+                return .none
+
+            case .destination(.presented(.alert(.skip))):
+                return .run { await $0(.showTestTime) }
+
+
             case .destination:
                 return .none
             }
@@ -119,7 +121,7 @@ extension AlertState where Action == RecoveryPhraseReducer.Action.Alert {
             return AlertState {
                 TextState("Sure done?")
             } actions: {
-                ButtonState(role: .cancel, action: .send(.ok, animation: .default)) {
+                ButtonState(role: .cancel, action: .send(.dismiss, animation: .default)) {
                     TextState("Ok, sorry")
                 }
                 if showSkip {
@@ -134,7 +136,7 @@ extension AlertState where Action == RecoveryPhraseReducer.Action.Alert {
             return  AlertState(
                 title: TextState("Sure done?"),
                 message: TextState("You didn’t have enough time to write these words down."),
-                primaryButton: ButtonState(role: .cancel, action: .send(.ok, animation: .default)) {
+                primaryButton: ButtonState(role: .cancel, action: .send(.dismiss, animation: .default)) {
                     TextState("Ok, sorry")
                 },
                 secondaryButton: ButtonState(role: .none, action: .send(.skip, animation: .default)) {
