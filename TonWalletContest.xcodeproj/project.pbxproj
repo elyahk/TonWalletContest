@@ -222,6 +222,7 @@
 		61153E0629D8FB0900D4D030 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				615EDE2629EB437800D3A220 /* ImportPhrase */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
 				615017B529E0050800AF963D /* Authorazation */,
 			);
@@ -249,9 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				6E38004629DE0464002D6868 /* RecoveryPhraseReducer.swift */,
-				615EDE2229EB41F200D3A220 /* ImportPhraseReducer.swift */,
 				6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */,
-				615EDE2429EB420600D3A220 /* ImportPhraseView.swift */,
 			);
 			path = RecoveryPhrase;
 			sourceTree = "<group>";
@@ -285,6 +284,15 @@
 				615017BE29E019A200AF963D /* PasscodeView+Reducer.swift */,
 			);
 			path = Passcode;
+			sourceTree = "<group>";
+		};
+		615EDE2629EB437800D3A220 /* ImportPhrase */ = {
+			isa = PBXGroup;
+			children = (
+				615EDE2429EB420600D3A220 /* ImportPhraseView.swift */,
+				615EDE2229EB41F200D3A220 /* ImportPhraseReducer.swift */,
+			);
+			path = ImportPhrase;
 			sourceTree = "<group>";
 		};
 		61CC226129DA089400834E86 /* Start */ = {
