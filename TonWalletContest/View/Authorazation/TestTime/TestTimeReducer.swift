@@ -3,17 +3,6 @@ import SwiftyTON
 import Foundation
 
 struct TestTimeReducer: ReducerProtocol {
-    struct Word: Identifiable, Equatable {
-        var id: UUID = .init()
-        var key: Int
-        var expectedWord: String
-        var recivedWord: String = ""
-        
-        func isCorrectRecieveddWord() -> Bool {
-            expectedWord == recivedWord
-        }
-    }
-    
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         var testWords: IdentifiedArrayOf<Word>
@@ -84,6 +73,46 @@ struct TestTimeReducer: ReducerProtocol {
         }
         .ifLet(\.$passcode, action: /TestTimeReducer.Action.passcode) {
             PasscodeReducer()
+        }
+    }
+}
+
+extension TestTimeReducer {
+    struct Word: Identifiable, Equatable {
+        var id: UUID = .init()
+        var key: Int
+        var expectedWord: String
+        var recivedWord: String = ""
+
+        func isCorrectRecieveddWord() -> Bool {
+            expectedWord == recivedWord
+        }
+    }
+}
+
+extension TestTimeReducer {
+    struct Destination: ReducerProtocol {
+        enum State: Equatable, Identifiable {
+            case testTime(TestTimeReducer.State)
+            case alert(AlertState<RecoveryPhraseReducer.Action.Alert>)
+
+            var id: AnyHashable {
+                switch self {
+                case let .testTime(state):
+                    return state.id
+                case let .alert(state):
+                    return state.id
+                }
+            }
+        }
+        enum Action: Equatable {
+            case testTime(TestTimeReducer.Action)
+            case alert(RecoveryPhraseReducer.Action.Alert)
+        }
+        var body: some ReducerProtocolOf<Self> {
+            Scope(state: /State.testTime, action: /Action.testTime) {
+                TestTimeReducer()
+            }
         }
     }
 }
