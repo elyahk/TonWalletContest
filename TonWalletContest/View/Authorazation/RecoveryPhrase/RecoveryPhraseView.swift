@@ -81,8 +81,9 @@ struct RecoveryPhraseView: View {
                     state: { guard case let .alert(state) = $0.destination else { return nil }
                         return state
                     },
-                    action: { RecoveryPhraseReducer.Action.destination(.presented(.alert($0)))}),
-                dismiss: .skip
+                    action: { RecoveryPhraseReducer.Action.destination(.presented(.alert($0)))}
+                ),
+                dismiss: .ok
             )
         }
     }

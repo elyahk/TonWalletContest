@@ -21,6 +21,7 @@ struct RecoveryPhraseReducer: ReducerProtocol {
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
         case doneButtonTapped
+        case showTestTime
         case startTimer
         case stopTimer
 
@@ -50,29 +51,31 @@ struct RecoveryPhraseReducer: ReducerProtocol {
                 state.buttonTappedAttempts += 1
 
                 if state.isActive {
-                    let words = state.words.enumerated().shuffled().map { TestTimeReducer.Word(key: $0, expectedWord: $1) }
-                    guard words.count > 3 else {
-                        return .none
-                    }
 
-                    state.destination = .testTime(.init(testWords: IdentifiedArrayOf(uniqueElements: (words[0...2].sorted { $0.key < $1.key } ))))
+                    return .run { await $0(.showTestTime) }
                 } else if state.buttonTappedAttempts == 1 {
                     state.destination = .alert(.reminderTime(showSkip: false))
                 } else {
                     state.destination = .alert(.reminderTime(showSkip: true))
-                    state.isActive = true
                 }
 
                 return .none
 
             case .destination(.presented(.alert(.ok))):
-
+                state.destination = nil
                 return .none
 
             case .destination(.presented(.alert(.skip))):
+                return .run { await $0(.showTestTime) }
 
+            case .showTestTime:
+                let words = state.words.enumerated().shuffled().map { TestTimeReducer.Word(key: $0, expectedWord: $1) }
+                guard words.count > 3 else {
+                    return .none
+                }
+
+                state.destination = .testTime(.init(testWords: IdentifiedArrayOf(uniqueElements: (words[0...2].sorted { $0.key < $1.key } ))))
                 return .none
-
             case .destination:
                 return .none
             }
