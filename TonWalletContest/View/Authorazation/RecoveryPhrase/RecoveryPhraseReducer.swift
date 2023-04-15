@@ -24,35 +24,18 @@ struct RecoveryPhraseReducer: ReducerProtocol {
         case startTimer
         case stopTimer
 
-        enum Alert: Equatable {
+        enum Alert: String, Equatable {
+            case ok = "Ok, sorry"
+            case skip = "Skip"
         }
     }
 
     var body: some ReducerProtocolOf<Self> {
         Reduce<State, Action> { state, action in
             switch action {
-            case .doneButtonTapped:
-                state.buttonTappedAttempts += 1
-                
-                if state.isActive {
-                    let words = state.words.enumerated().shuffled().map { TestTimeReducer.Word(key: $0, expectedWord: $1) }
-                    guard words.count > 3 else {
-                        return .none
-                    }
-                    
-                    state.destination = .testTime(.init(testWords: IdentifiedArrayOf(uniqueElements: (words[0...2].sorted { $0.key < $1.key } ))))
-                } else if state.buttonTappedAttempts == 2 {
-                    state.isActive = true
-                } else {
-                    
-                }
-                
-                return .none
-            case .destination:
-                return .none
             case .startTimer:
                 guard state.isActive else { return .none }
-                
+
                 print("Start timer")
                 return .run { send in
                     try await Task.sleep(nanoseconds: 30_000_000_000)
@@ -61,6 +44,36 @@ struct RecoveryPhraseReducer: ReducerProtocol {
             case .stopTimer:
                 print("Stop timer")
                 state.isActive = true
+                return .none
+
+            case .doneButtonTapped:
+                state.buttonTappedAttempts += 1
+
+                if state.isActive {
+                    let words = state.words.enumerated().shuffled().map { TestTimeReducer.Word(key: $0, expectedWord: $1) }
+                    guard words.count > 3 else {
+                        return .none
+                    }
+
+                    state.destination = .testTime(.init(testWords: IdentifiedArrayOf(uniqueElements: (words[0...2].sorted { $0.key < $1.key } ))))
+                } else if state.buttonTappedAttempts == 1 {
+                    state.destination = .alert(.reminderTime(showSkip: false))
+                } else {
+                    state.destination = .alert(.reminderTime(showSkip: true))
+                    state.isActive = true
+                }
+
+                return .none
+
+            case .destination(.presented(.alert(.ok))):
+
+                return .none
+
+            case .destination(.presented(.alert(.skip))):
+
+                return .none
+
+            case .destination:
                 return .none
             }
         }
@@ -93,6 +106,38 @@ extension RecoveryPhraseReducer {
             Scope(state: /State.testTime, action: /Action.testTime) {
                 TestTimeReducer()
             }
+        }
+    }
+}
+
+extension AlertState where Action == RecoveryPhraseReducer.Action.Alert {
+    static func reminderTime(showSkip: Bool) -> Self {
+        if #available(iOS 15, *) {
+            return AlertState {
+                TextState("Sure done?")
+            } actions: {
+                ButtonState(role: .cancel, action: .send(.ok, animation: .default)) {
+                    TextState("Ok, sorry")
+                }
+                if showSkip {
+                    ButtonState(role: .none, action: .send(.skip, animation: .default)) {
+                        TextState("Skip")
+                    }
+                }
+            } message: {
+                TextState("You didn’t have enough time to write these words down.")
+            }
+        } else {
+            return  AlertState(
+                title: TextState("Sure done?"),
+                message: TextState("You didn’t have enough time to write these words down."),
+                primaryButton: ButtonState(role: .cancel, action: .send(.ok, animation: .default)) {
+                    TextState("Ok, sorry")
+                },
+                secondaryButton: ButtonState(role: .none, action: .send(.skip, animation: .default)) {
+                    TextState("Skip")
+                }
+            )
         }
     }
 }

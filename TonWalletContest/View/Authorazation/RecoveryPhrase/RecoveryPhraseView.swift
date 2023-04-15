@@ -76,6 +76,14 @@ struct RecoveryPhraseView: View {
             .onAppear {
                 viewStore.send(.startTimer)
             }
+            .alert(
+                self.store.scope(
+                    state: { guard case let .alert(state) = $0.destination else { return nil }
+                        return state
+                    },
+                    action: { RecoveryPhraseReducer.Action.destination(.presented(.alert($0)))}),
+                dismiss: .skip
+            )
         }
     }
 }
