@@ -7,6 +7,16 @@ struct ImportPhraseReducer: ReducerProtocol {
         var id: UUID = .init()
         var testWords: IdentifiedArrayOf<Word> = IdentifiedArrayOf(uniqueElements: (1...24).map { Word(key: $0) })
         @PresentationState var destination: Destination.State?
+
+        func isFilledAllWords() -> Bool {
+            for word in testWords {
+                if word.recivedWord.isEmpty {
+                    return false
+                }
+            }
+
+            return true
+        }
     }
 
     enum Action: Equatable {
@@ -15,6 +25,7 @@ struct ImportPhraseReducer: ReducerProtocol {
         case wordChanged(id: Word.ID, value: String)
         case autoFillCorrectWords
         case failureButtonTapped
+        case showAlert
 
         enum Alert: Equatable {
             case seeWords
@@ -27,22 +38,26 @@ struct ImportPhraseReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .showAlert:
+                state.destination = .alert(.init(
+                    title: TextState("Incorrect words"),
+                    message: TextState("The secret words you have entered do not match the ones in the list."),
+                    primaryButton: .default(TextState("See words"), action: .send(.seeWords)),
+                    secondaryButton: .default(TextState("Try again"), action: .send(.dismiss))
+                ))
+                return .none
+
             case .failureButtonTapped:
                 state.destination = .failurePhrase(.init())
                 return .none
-            case .continueButtonTapped:
-//                if state.isCorrectRecieveddWords() {
-//                    state.destination = .passcode(.init())
-//                } else {
-//                    state.destination = .alert(.init(
-//                        title: TextState("Incorrect words"),
-//                        message: TextState("The secret words you have entered do not match the ones in the list."),
-//                        primaryButton: .default(TextState("See words"), action: .send(.seeWords)),
-//                        secondaryButton: .default(TextState("Try again"), action: .send(.dismiss))
-//                    ))
-//                }
 
-                return .none
+            case .continueButtonTapped:
+
+                return .run { [state] send in
+                    if !state.isFilledAllWords() {
+                        await send(.showAlert)
+                    }
+                }
 
             case let .wordChanged(id, value):
                 state.testWords[id: id]?.recivedWord = value
