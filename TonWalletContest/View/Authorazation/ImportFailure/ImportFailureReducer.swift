@@ -8,7 +8,6 @@ struct ImportFailureReducer: ReducerProtocol {
         @PresentationState var destination: Destination.State?
     }
 
-    #warning("Remove inderect")
     indirect enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
         case createNewWalletTapped

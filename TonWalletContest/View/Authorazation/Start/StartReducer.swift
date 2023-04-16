@@ -11,16 +11,14 @@ import ComposableArchitecture
 struct StartReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
-        @PresentationState var createWallet: CongratulationReducer.State?
-        var importWallet: CongratulationReducer.State?
+        @PresentationState var destination: Destination.State?
     }
 
     enum Action: Equatable {
         case createMyWalletTapped
         case importMyWalletTapped
         case keyCreated(key: Key, words: [String])
-        case createWallet(PresentationAction<CongratulationReducer.Action>)
-        case importWallet(CongratulationReducer.Action)
+        case destination(PresentationAction<Destination.Action>)
     }
     
     var body: some ReducerProtocolOf<Self> {
@@ -36,20 +34,51 @@ struct StartReducer: ReducerProtocol {
                 }
                 
             case .importMyWalletTapped:
-//                state.destination = .createWallet(.init())
-                #warning("Implement opening import wallet screen")
+                state.destination = .importWords(.init())
                 return .none
                 
             case let .keyCreated(key: key, words: words):
-                state.createWallet = .init(words: words)
+                state.destination = .createWallet(.init(words: words))
                 return .none
                 
-            case .createWallet, .importWallet:
+            case .destination:
                 return .none
             }
         }
-        .ifLet(\.$createWallet, action: /Action.createWallet) {
-            CongratulationReducer()
+        .ifLet(\.$destination, action: /Action.destination) {
+            Destination()
+        }
+    }
+}
+
+extension StartReducer {
+    struct Destination: ReducerProtocol {
+        enum State: Equatable, Identifiable {
+            case createWallet(CongratulationReducer.State)
+            case importWords(ImportPhraseReducer.State)
+
+            var id: AnyHashable {
+                switch self {
+                case let .createWallet(state):
+                    return state.id
+                case let .importWords(state):
+                    return state.id
+                }
+            }
+        }
+
+        enum Action: Equatable {
+            case createWallet(CongratulationReducer.Action)
+            case importWords(ImportPhraseReducer.Action)
+        }
+
+        var body: some ReducerProtocolOf<Self> {
+            Scope(state: /State.createWallet, action: /Action.createWallet) {
+                CongratulationReducer()
+            }
+            Scope(state: /State.importWords, action: /Action.importWords) {
+                ImportPhraseReducer()
+            }
         }
     }
 }

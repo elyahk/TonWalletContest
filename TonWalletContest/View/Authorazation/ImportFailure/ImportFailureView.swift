@@ -51,6 +51,7 @@ struct ImportFailureView: View {
                 ViewStore(store).send(.createNewWalletTapped)
             } destination: { store in
                 StartView(store: store)
+                    .navigationBarBackButtonHidden()
             } label: {
                 Text("Create a new empty wallet instead")
                     .fontWeight(.semibold)
