@@ -43,7 +43,7 @@ struct ImportPhraseView: View {
                 } destination: { store in
                     ImportFailureView(store: store)
                 } label: {
-                    Text("Import Existing Wallet")
+                    Text("I don’t have those")
                         .font(.body)
                         .foregroundColor(.accentColor)
                         .frame(alignment: .center)
