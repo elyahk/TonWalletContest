@@ -14,6 +14,7 @@ struct ImportPhraseReducer: ReducerProtocol {
         case continueButtonTapped
         case wordChanged(id: Word.ID, value: String)
         case autoFillCorrectWords
+        case failureButtonTapped
 
         enum Alert: Equatable {
             case seeWords
@@ -26,6 +27,9 @@ struct ImportPhraseReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .failureButtonTapped:
+                state.destination = .failurePhrase(.init())
+                return .none
             case .continueButtonTapped:
 //                if state.isCorrectRecieveddWords() {
 //                    state.destination = .passcode(.init())
@@ -77,6 +81,7 @@ extension ImportPhraseReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
             case passcode(PasscodeReducer.State)
+            case failurePhrase(ImportFailureReducer.State)
             case alert(AlertState<ImportPhraseReducer.Action.Alert>)
 
             var id: AnyHashable {
@@ -85,17 +90,23 @@ extension ImportPhraseReducer {
                     return state.id
                 case let .alert(state):
                     return state.id
+                case let .failurePhrase(state):
+                    return state.id
                 }
             }
         }
         enum Action: Equatable {
             case passcode(PasscodeReducer.Action)
             case alert(ImportPhraseReducer.Action.Alert)
+            case failurePhrase(ImportFailureReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
             Scope(state: /State.passcode, action: /Action.passcode) {
                 PasscodeReducer()
+            }
+            Scope(state: /State.failurePhrase, action: /Action.failurePhrase) {
+                ImportFailureReducer()
             }
         }
     }

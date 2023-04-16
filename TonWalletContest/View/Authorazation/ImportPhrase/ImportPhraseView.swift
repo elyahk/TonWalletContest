@@ -24,14 +24,32 @@ struct ImportPhraseView: View {
             ScrollView {
                 LottieView(name: "list", loop: .loop)
                     .frame(width: 124, height: 124, alignment: .center)
+                    .padding(.bottom, 20)
                 Text("24 Secret Words")
                     .fontWeight(.semibold)
                     .font(.title)
-                    .padding()
+                    .padding(.bottom, 12)
                 Text("You can restore access to your wallet by entering 24 words you wrote when down you creating the wallet.")
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 12)
+
+                NavigationLinkStore(
+                    self.store.scope(state: \.$destination, action: ImportPhraseReducer.Action.destination),
+                    state: /ImportPhraseReducer.Destination.State.failurePhrase,
+                    action: ImportPhraseReducer.Destination.Action.failurePhrase
+                ) {
+                    viewStore.send(.failureButtonTapped)
+                } destination: { store in
+                    ImportFailureView(store: store)
+                } label: {
+                    Text("Import Existing Wallet")
+                        .font(.body)
+                        .foregroundColor(.accentColor)
+                        .frame(alignment: .center)
+                        .padding(.horizontal, 31)
+                        .padding(.bottom, 36)
+                }
 
                 ForEach(viewStore.testWords) { word in
                     HStack {
