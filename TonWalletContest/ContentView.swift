@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let tonManager = TonWalletManager()
+    let tonManager = TonWalletManager.shared
     var body: some View {
         VStack {
             LottieView(name: "crystal", loop: .loop)

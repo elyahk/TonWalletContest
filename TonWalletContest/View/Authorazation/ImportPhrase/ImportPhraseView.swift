@@ -84,6 +84,10 @@ struct ImportPhraseView: View {
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                         .customBlueButtonStyle()
                 }
+
+                Button("Autofill") {
+                    viewStore.send(.autoFillCorrectWords)
+                }
             }
             .alert(
                 self.store.scope(

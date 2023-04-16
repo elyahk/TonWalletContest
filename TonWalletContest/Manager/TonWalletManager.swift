@@ -16,6 +16,14 @@ enum WalletManagerErrors: Error {
 
 class TonWalletManager {
     static let shared: TonWalletManager = .init()
+
+    private init() {
+        guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            fatalError("Could not create url. TonWalletManager error")
+        }
+
+        SwiftyTON.configurate(with: .init(network: .main, logging: .info, keystoreURL: url))
+    }
     
     let passcode = "parole"
     let data = Data("parole".utf8)
@@ -23,20 +31,22 @@ class TonWalletManager {
     func createKey() async throws -> Key {
         // Create local passcode
         // Configurate SwiftyTON with mainnet
-        guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
-              let passcodeData = passcode.data(using: .utf8) else {
-            throw WalletManagerErrors.unvalidURL
-        }
-        
-        SwiftyTON.configurate(with: .init(network: .main, logging: .never, keystoreURL: url))
-        let key = try await Key.create(password: passcodeData)
+
+        let key = try await Key.create(password: data)
         
         return key
     }
     
     func words(key: Key) async throws -> [String] {
         let words = try await key.words(password: data)
+        print(words)
         return words
+    }
+
+    func importWords(_ words: [String]) async throws -> Key {
+        let key = try await Key.import(password: data, words: words)
+
+        return key
     }
     
     func createWallet3(key: Key, revision: Wallet3.Revision = .r2) async throws -> Wallet3 {
@@ -138,6 +148,6 @@ extension Key {
 
 extension Array where Element == String {
     static let words24: [String] = {
-        return (0...23).map { "Word \($0 + 1)" }
+        return ["spike", "rifle", "mother", "clown", "crucial", "endorse", "orbit", "music", "slight", "vocal", "ranch", "moon", "author", "million", "appear", "fine", "quiz", "century", "mixture", "blur", "census", "hub", "cereal", "govern"]
     }()
 }

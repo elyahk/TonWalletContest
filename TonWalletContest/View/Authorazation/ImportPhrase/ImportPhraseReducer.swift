@@ -26,6 +26,7 @@ struct ImportPhraseReducer: ReducerProtocol {
         case autoFillCorrectWords
         case failureButtonTapped
         case showAlert
+        case successfullyImported(key: Key)
 
         enum Alert: Equatable {
             case seeWords
@@ -38,6 +39,10 @@ struct ImportPhraseReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .successfullyImported(let key):
+                state.destination = .passcode(.init())
+
+                return .none
             case .showAlert:
                 state.destination = .alert(.init(
                     title: TextState("Incorrect words"),
@@ -54,7 +59,15 @@ struct ImportPhraseReducer: ReducerProtocol {
             case .continueButtonTapped:
 
                 return .run { [state] send in
-                    if !state.isFilledAllWords() {
+                    guard state.isFilledAllWords() else {
+                        await send(.showAlert)
+                        return
+                    }
+                    do {
+                        let key = try await TonWalletManager.shared.importWords(state.testWords.map { $0.recivedWord })
+                        await send(.successfullyImported(key: key))
+                    } catch {
+                        print(error)
                         await send(.showAlert)
                     }
                 }
@@ -64,8 +77,11 @@ struct ImportPhraseReducer: ReducerProtocol {
                 return .none
 
             case .autoFillCorrectWords:
+                for (index, _) in state.testWords.enumerated() {
+                    state.testWords[index].recivedWord = Array<String>.words24[index]
+                }
 
-                return .none
+                return .run { await $0.send(.continueButtonTapped) }
 
             case .destination(.presented(.alert(.seeWords))):
                 return .fireAndForget { await self.presentationMode() }
