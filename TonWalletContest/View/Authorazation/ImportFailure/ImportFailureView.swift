@@ -11,71 +11,54 @@ struct ImportFailureView: View {
         self.store = store
     }
 
-    struct ViewState: Equatable {
-        var testWords: IdentifiedArrayOf<ImportFailureReducer.Word>
-
-        init(state: ImportFailureReducer.State) {
-            self.testWords = state.testWords
-        }
-    }
-
     var body: some View {
-        WithViewStore(self.store, observe: ViewState.init) { viewStore in
-            ScrollView {
-                LottieView(name: "list", loop: .loop)
-                    .frame(width: 124, height: 124, alignment: .center)
-                Text("24 Secret Words")
+        VStack {
+            Spacer()
+            LottieView(name: "sad", loop: .playOnce)
+                .frame(width: 124, height: 124, alignment: .center)
+            Text("Too Bad!")
+                .fontWeight(.semibold)
+                .font(.title)
+                .padding(.bottom, 5)
+            Text("Without the secret words you can’t restore access to the wallet.")
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+            Spacer()
+            // Create My Wallet app
+            NavigationLinkStore (
+                self.store.scope(state: \.$destination, action: ImportFailureReducer.Action.destination),
+                state: /ImportFailureReducer.Destination.State.importWords,
+                action: ImportFailureReducer.Destination.Action.importWords
+            ) {
+                ViewStore(store).send(.importWordsTapped)
+            } destination: { store in
+                ImportPhraseView(store: store)
+            } label: {
+                Text("Enter 24 secret words")
                     .fontWeight(.semibold)
-                    .font(.title)
-                    .padding()
-                Text("You can restore access to your wallet by entering 24 words you wrote when down you creating the wallet.")
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 32)
-                    .padding(.bottom, 30)
-
-                ForEach(viewStore.testWords) { word in
-                    HStack {
-                        Text("\(word.key). ")
-                            .foregroundColor(.gray)
-                            .padding(.vertical, 15)
-                            .frame(width: 40, alignment: .trailing)
-                        TextField("", text: Binding(
-                            get: { word.recivedWord },
-                            set: { value, _ in
-                                viewStore.send(.wordChanged(id: word.id, value: value))
-                            }
-                        ))
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color("LightGray"))
+                    .foregroundColor(.white)
+                    .frame(width: 294, height: 50, alignment: .center)
+                    .background(Color.accentColor)
                     .cornerRadius(12)
                     .padding(.horizontal, 48)
-                    .padding(.bottom, 10)
-                }
-
-                NavigationLinkStore(
-                    self.store.scope(state: \.$destination, action: ImportFailureReducer.Action.destination),
-                    state: /ImportFailureReducer.Destination.State.passcode,
-                    action: ImportFailureReducer.Destination.Action.passcode
-                ) {
-                    viewStore.send(.continueButtonTapped)
-                } destination: { store in
-                    PasscodeView(store: store)
-                } label: {
-                    Text("Continue")
-                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                        .customBlueButtonStyle()
-                }
             }
-            .alert(
-                self.store.scope(
-                    state: { guard case let .alert(state) = $0.destination else { return nil }
-                        return state
-                    },
-                    action: { ImportFailureReducer.Action.destination(.presented(.alert($0)))}
-                ),
-                dismiss: .dismiss
-            )
+
+            NavigationLinkStore (
+                self.store.scope(state: \.$destination, action: ImportFailureReducer.Action.destination),
+                state: /ImportFailureReducer.Destination.State.createWallet,
+                action: ImportFailureReducer.Destination.Action.createWallet
+            ) {
+                ViewStore(store).send(.createNewWalletTapped)
+            } destination: { store in
+                StartView(store: store)
+            } label: {
+                Text("Create a new empty wallet instead")
+                    .fontWeight(.semibold)
+                    .foregroundColor(.accentColor)
+                    .frame(minWidth: 294, minHeight: 50, alignment: .center)
+                    .padding(.horizontal, 48)
+            }
+            .padding(.bottom, 30)
         }
     }
 }

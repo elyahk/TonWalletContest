@@ -9,7 +9,8 @@ import SwiftyTON
 import ComposableArchitecture
 
 struct StartReducer: ReducerProtocol {
-    struct State: Equatable {
+    struct State: Equatable, Identifiable {
+        var id: UUID = .init()
         @PresentationState var createWallet: CongratulationReducer.State?
         var importWallet: CongratulationReducer.State?
     }

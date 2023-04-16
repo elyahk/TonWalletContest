@@ -11,7 +11,7 @@
 		13B0546929DB16DB006014C0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 13B0546829DB16DB006014C0 /* Lottie */; };
 		13B0547529DB175D006014C0 /* password.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546B29DB175D006014C0 /* password.json */; };
 		13B0547629DB175D006014C0 /* teacher.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546C29DB175D006014C0 /* teacher.json */; };
-		13B0547729DB175D006014C0 /* sad 2.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546D29DB175D006014C0 /* sad 2.json */; };
+		13B0547729DB175D006014C0 /* sad.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546D29DB175D006014C0 /* sad.json */; };
 		13B0547829DB175D006014C0 /* chik.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546E29DB175D006014C0 /* chik.json */; };
 		13B0547929DB175D006014C0 /* crystal.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546F29DB175D006014C0 /* crystal.json */; };
 		13B0547A29DB175D006014C0 /* crystalSlow.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0547029DB175D006014C0 /* crystalSlow.json */; };
@@ -74,7 +74,7 @@
 		131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankTextButtonStyle.swift; sourceTree = "<group>"; };
 		13B0546B29DB175D006014C0 /* password.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = password.json; sourceTree = "<group>"; };
 		13B0546C29DB175D006014C0 /* teacher.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = teacher.json; sourceTree = "<group>"; };
-		13B0546D29DB175D006014C0 /* sad 2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sad 2.json"; sourceTree = "<group>"; };
+		13B0546D29DB175D006014C0 /* sad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sad.json; sourceTree = "<group>"; };
 		13B0546E29DB175D006014C0 /* chik.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chik.json; sourceTree = "<group>"; };
 		13B0546F29DB175D006014C0 /* crystal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crystal.json; sourceTree = "<group>"; };
 		13B0547029DB175D006014C0 /* crystalSlow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crystalSlow.json; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 			children = (
 				13B0546B29DB175D006014C0 /* password.json */,
 				13B0546C29DB175D006014C0 /* teacher.json */,
-				13B0546D29DB175D006014C0 /* sad 2.json */,
+				13B0546D29DB175D006014C0 /* sad.json */,
 				13B0546E29DB175D006014C0 /* chik.json */,
 				13B0546F29DB175D006014C0 /* crystal.json */,
 				13B0547029DB175D006014C0 /* crystalSlow.json */,
@@ -470,7 +470,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B0547729DB175D006014C0 /* sad 2.json in Resources */,
+				13B0547729DB175D006014C0 /* sad.json in Resources */,
 				13B0547829DB175D006014C0 /* chik.json in Resources */,
 				13B0547529DB175D006014C0 /* password.json in Resources */,
 				13B0547E29DB175D006014C0 /* party.json in Resources */,
