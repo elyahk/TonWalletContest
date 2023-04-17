@@ -24,6 +24,7 @@ struct TestTimeView: View {
             ScrollView {
                 LottieView(name: "teacher", loop: .loop)
                     .frame(width: 124, height: 124, alignment: .center)
+                    .padding(.top, 46)
                 Text("Test time!")
                     .fontWeight(.semibold)
                     .font(.title)

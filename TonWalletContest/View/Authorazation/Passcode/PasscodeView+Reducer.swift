@@ -73,6 +73,39 @@ struct PasscodeView: View {
     var body: some View {
         WithViewStore(self.store, observe: ViewState.init) { viewStore in
             VStack {
+                Spacer()
+                LottieView(name: "password", loop: .playOnce)
+                    .frame(width: 124, height: 124, alignment: .center)
+                    .padding([.top], 46)
+                Text("Set a Passcode")
+                    .fontWeight(.semibold)
+                    .font(.title)
+                    .padding(.top, 20)
+                Text("Enter the 4 digits in the passcode.")
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 32)
+                    .padding(.top, 12)
+
+                HStack {
+                    Image(systemName: "circle")
+                        .resizable()
+                        .foregroundColor(Color.secondary)
+                        .frame(width: 16, height: 16)
+                    Image(systemName: "circle")
+                        .resizable()
+                        .foregroundColor(Color.secondary)
+                        .frame(width: 16, height: 16)
+                    Image(systemName: "circle")
+                        .resizable()
+                        .foregroundColor(Color.secondary)
+                        .frame(width: 16, height: 16)
+                    Image(systemName: "circle")
+                        .resizable()
+                        .foregroundColor(Color.secondary)
+                        .frame(width: 16, height: 16)
+                }
+                .padding(.top, 40)
+
                 NavigationLinkStore(
                     self.store.scope(state: \.$confirmPasscode, action: PasscodeReducer.Action.confirmPasscode)
                 ) {
@@ -95,6 +128,7 @@ struct PasscodeView: View {
                                     
                             })
                     )
+                    .keyboardType(.numberPad)
                     .frame(width: 10, height: 0)
                 }
                 

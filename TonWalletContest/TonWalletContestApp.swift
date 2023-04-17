@@ -13,9 +13,23 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-//                RecoveryPhraseView(store: .init(initialState: .init(words: .words24), reducer: RecoveryPhraseReducer()))
                 StartView(store: .init(
-                    initialState: .init(),
+                    initialState: .init(
+                        destination: .createWallet(
+                            .init(
+                                recoveryPhrase: .init(
+                                    destination: .testTime(
+                                        .init(
+                                            testWords: .words3(),
+                                            destination: .passcode(.init())
+                                        )
+                                    ),
+                                    words: .words24
+                                ),
+                                words: .words24
+                            )
+                        )
+                    ),
                     reducer: StartReducer()
                         ._printChanges()
                 ))
@@ -24,3 +38,5 @@ struct TonWalletContestApp: App {
         }
     }
 }
+
+

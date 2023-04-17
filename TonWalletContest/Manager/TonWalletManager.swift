@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyTON
+import IdentifiedCollections
 
 enum WalletManagerErrors: Error {
     case unvalidURL
@@ -150,4 +151,18 @@ extension Array where Element == String {
     static let words24: [String] = {
         return ["spike", "rifle", "mother", "clown", "crucial", "endorse", "orbit", "music", "slight", "vocal", "ranch", "moon", "author", "million", "appear", "fine", "quiz", "century", "mixture", "blur", "census", "hub", "cereal", "govern"]
     }()
+}
+
+extension IdentifiedArrayOf where Element == TestTimeReducer.Word {
+    static func words24() -> IdentifiedArrayOf<TestTimeReducer.Word> {
+        let words: Array<String> = .words24
+
+        return IdentifiedArrayOf(uniqueElements: words.enumerated().map { TestTimeReducer.Word(key: $0, expectedWord: $1) })
+    }
+
+    static func words3() -> IdentifiedArrayOf<TestTimeReducer.Word> {
+        let words: IdentifiedArrayOf<TestTimeReducer.Word> = .words24()
+
+        return IdentifiedArrayOf(words[0...2])
+    }
 }
