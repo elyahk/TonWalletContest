@@ -74,22 +74,7 @@ struct StartView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             StartView(store: .init(
-                initialState: .init(
-                    destination: .createWallet(
-                        .init(
-                            recoveryPhrase: .init(
-                                destination: .testTime(
-                                    .init(
-                                        testWords: .words3(),
-                                        destination: .passcode(.init())
-                                    )
-                                ),
-                                words: .words24
-                            ),
-                            words: .words24
-                        )
-                    )
-                ),
+                initialState: .init(),
                 reducer: StartReducer()
             ))
         }

@@ -7,13 +7,13 @@ struct ConfirmPasscodeReducer: ReducerProtocol {
         var oldPasscode: String
         var passcode: String = ""
         var showKeyboad: Bool = true
-        @PresentationState var faceID: FaceIDReducer.State?
+        @PresentationState var faceID: LocalAuthenticationReducer.State?
         var passcodes: [PasscodeReducer.Passcode] = [.empty, .empty, .empty, .empty]
     }
     
     enum Action: Equatable {
         case passwordAdded(password: String)
-        case faceID(PresentationAction<FaceIDReducer.Action>)
+        case faceID(PresentationAction<LocalAuthenticationReducer.Action>)
         case onAppear
     }
     
@@ -27,15 +27,23 @@ struct ConfirmPasscodeReducer: ReducerProtocol {
                 state.passcodes[index] = index >= count ? .empty : .fill
             }
             
-            if passcode == state.oldPasscode {
-                state.showKeyboad = false
-                state.faceID = .init()
+            if passcode.count == state.oldPasscode.count {
+                if passcode == state.oldPasscode {
+                    state.showKeyboad = false
+                    state.faceID = .init()
+                } else {
+                    return .run { await $0.send(.onAppear) }
+                }
             }
+            
             
             return .none
             
         case .onAppear:
             state.showKeyboad = true
+            state.passcode = ""
+            state.passcodes = [.empty, .empty, .empty, .empty]
+            
             return .none
             
         case .faceID:
@@ -54,7 +62,7 @@ struct ConfirmPasscodeView: View {
     struct ViewState: Equatable {
         var passcode: String = ""
         var showKeyboad: Bool = true
-        @PresentationState var faceID: FaceIDReducer.State?
+        @PresentationState var faceID: LocalAuthenticationReducer.State?
         var passcodes: [PasscodeReducer.Passcode]
         
         init(state: ConfirmPasscodeReducer.State) {
@@ -117,6 +125,7 @@ struct ConfirmPasscodeView: View {
                         Color.clear
                     }
                 }
+                .background(Color.white)
                 .onAppear {
                     viewStore.send(.onAppear)
                 }

@@ -13,9 +13,9 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                PasscodeView(store: .init(
+                LocalAuthenticationView(store: .init(
                     initialState: .init(),
-                    reducer: PasscodeReducer()
+                    reducer: LocalAuthenticationReducer()
                 ))
                 
 //                StartView(store: .init(
