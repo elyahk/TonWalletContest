@@ -47,6 +47,7 @@
 		619D5DBA29E2A75300C01C7A /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 619D5DB929E2A75300C01C7A /* SwiftUINavigation */; };
 		61DA64A729EBDE80009F8202 /* ImportFailureReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DA64A629EBDE80009F8202 /* ImportFailureReducer.swift */; };
 		61DA64A929EBDE9D009F8202 /* ImportFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DA64A829EBDE9D009F8202 /* ImportFailureView.swift */; };
+		6E11702929EEE9EE00DE473F /* FaceAndTouchIDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E11702829EEE9EE00DE473F /* FaceAndTouchIDView.swift */; };
 		6E38004729DE0464002D6868 /* RecoveryPhraseReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38004629DE0464002D6868 /* RecoveryPhraseReducer.swift */; };
 		6E38004929DE048E002D6868 /* RecoveryPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */; };
 		6E3EC13429DB0AB10050AA75 /* TonWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3EC13329DB0AB10050AA75 /* TonWalletManager.swift */; };
@@ -110,6 +111,7 @@
 		615EDE2A29EB4B1400D3A220 /* ImportSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSuccessView.swift; sourceTree = "<group>"; };
 		61DA64A629EBDE80009F8202 /* ImportFailureReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFailureReducer.swift; sourceTree = "<group>"; };
 		61DA64A829EBDE9D009F8202 /* ImportFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFailureView.swift; sourceTree = "<group>"; };
+		6E11702829EEE9EE00DE473F /* FaceAndTouchIDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceAndTouchIDView.swift; sourceTree = "<group>"; };
 		6E38004629DE0464002D6868 /* RecoveryPhraseReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseReducer.swift; sourceTree = "<group>"; };
 		6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseView.swift; sourceTree = "<group>"; };
 		6E3EC13329DB0AB10050AA75 /* TonWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletManager.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				615017B429E004F400AF963D /* RecoveryPhrase */,
 				615017B329E004E500AF963D /* Congratulations */,
 				61CC226129DA089400834E86 /* Start */,
+				6E11702829EEE9EE00DE473F /* FaceAndTouchIDView.swift */,
 			);
 			path = Authorazation;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E11702929EEE9EE00DE473F /* FaceAndTouchIDView.swift in Sources */,
 				61DA64A929EBDE9D009F8202 /* ImportFailureView.swift in Sources */,
 				6E3EC13429DB0AB10050AA75 /* TonWalletManager.swift in Sources */,
 				6E38004929DE048E002D6868 /* RecoveryPhraseView.swift in Sources */,

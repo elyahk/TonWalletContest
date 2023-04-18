@@ -143,9 +143,14 @@ struct PasscodeView: View {
                         Color.clear
                     }
                     
-                    Button("Options") {
+                    Button {
                         
+                    } label: {
+                        Text("Passcode options")
+                            .frame(height: 48)
+                            .padding(.bottom, 8)
                     }
+                    
                 }
                 .background(Color.white)
                 .onAppear {

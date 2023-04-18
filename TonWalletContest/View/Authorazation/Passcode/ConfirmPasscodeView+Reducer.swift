@@ -125,6 +125,7 @@ struct ConfirmPasscodeView: View {
                         Color.clear
                     }
                 }
+                .background(Color.white)
                 .onAppear {
                     viewStore.send(.onAppear)
                 }
