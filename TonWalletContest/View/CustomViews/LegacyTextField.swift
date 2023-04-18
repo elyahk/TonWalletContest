@@ -17,6 +17,9 @@ struct LegacyTextField: UIViewRepresentable {
         view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         view.addTarget(context.coordinator, action: #selector(Coordinator.textViewDidChange), for: .editingChanged)
         view.delegate = context.coordinator
+        view.keyboardType = .numberPad
+        view.inputAccessoryView = nil
+        view.spellCheckingType = .no
         return view
     }
 

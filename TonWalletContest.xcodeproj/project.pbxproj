@@ -187,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				6E3EC13229DB0A4D0050AA75 /* Manager */,
-				6EFE789B29DDBCB900F24732 /* Helpers */,
 				6E5D444329DC63EC000F95CE /* Extensions */,
 				61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */,
 				61153DD429D8F5AA00D4D030 /* ContentView.swift */,
@@ -345,13 +344,6 @@
 				131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		6EFE789B29DDBCB900F24732 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -13,26 +13,31 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                StartView(store: .init(
-                    initialState: .init(
-                        destination: .createWallet(
-                            .init(
-                                recoveryPhrase: .init(
-                                    destination: .testTime(
-                                        .init(
-                                            testWords: .words3(),
-                                            destination: .passcode(.init())
-                                        )
-                                    ),
-                                    words: .words24
-                                ),
-                                words: .words24
-                            )
-                        )
-                    ),
-                    reducer: StartReducer()
-                        ._printChanges()
+                PasscodeView(store: .init(
+                    initialState: .init(),
+                    reducer: PasscodeReducer()
                 ))
+                
+//                StartView(store: .init(
+//                    initialState: .init(
+//                        destination: .createWallet(
+//                            .init(
+//                                recoveryPhrase: .init(
+//                                    destination: .testTime(
+//                                        .init(
+//                                            testWords: .words3(),
+//                                            destination: .passcode(.init())
+//                                        )
+//                                    ),
+//                                    words: .words24
+//                                ),
+//                                words: .words24
+//                            )
+//                        )
+//                    ),
+//                    reducer: StartReducer()
+//                        ._printChanges()
+//                ))
                 
             }
         }
