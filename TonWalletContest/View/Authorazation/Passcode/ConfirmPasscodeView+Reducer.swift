@@ -27,15 +27,23 @@ struct ConfirmPasscodeReducer: ReducerProtocol {
                 state.passcodes[index] = index >= count ? .empty : .fill
             }
             
-            if passcode == state.oldPasscode {
-                state.showKeyboad = false
-                state.faceID = .init()
+            if passcode.count == state.oldPasscode.count {
+                if passcode == state.oldPasscode {
+                    state.showKeyboad = false
+                    state.faceID = .init()
+                } else {
+                    return .run { await $0.send(.onAppear) }
+                }
             }
+            
             
             return .none
             
         case .onAppear:
             state.showKeyboad = true
+            state.passcode = ""
+            state.passcodes = [.empty, .empty, .empty, .empty]
+            
             return .none
             
         case .faceID:

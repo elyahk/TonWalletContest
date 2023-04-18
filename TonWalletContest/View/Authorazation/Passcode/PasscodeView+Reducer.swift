@@ -19,6 +19,7 @@ struct PasscodeReducer: ReducerProtocol {
         case passwordAdded(password: String)
         case confirmPasscode(PresentationAction<ConfirmPasscodeReducer.Action>)
         case showConfirm(oldPasscode: String)
+        case onAppear
     }
     
     var body: some ReducerProtocolOf<Self> {
@@ -53,6 +54,12 @@ struct PasscodeReducer: ReducerProtocol {
                 
                 return .none
                 
+            case .onAppear:
+                state.showKeyboad = true
+                state.passcode = ""
+                state.passcodes = [.empty, .empty, .empty, .empty]
+                return .none
+
             case .confirmPasscode:
                 return .none
             }
@@ -141,6 +148,9 @@ struct PasscodeView: View {
                     }
                 }
                 .background(Color.white)
+                .onAppear {
+                    viewStore.send(.onAppear)
+                }
             }
         }
     }
