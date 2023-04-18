@@ -31,7 +31,7 @@ struct LocalAuthenticationView: View {
                 Spacer()
                 // Create My Wallet app
                 Button {
-                    print("")
+                    viewStore.send(.enableAuthenticationIDTapped)
                 } label: {
                     Text(viewStore.buttonTitle)
                         .fontWeight(.semibold)
@@ -47,7 +47,7 @@ struct LocalAuthenticationView: View {
                     state: /LocalAuthenticationReducer.Destination.State.readyToGo,
                     action: LocalAuthenticationReducer.Destination.Action.readyToGo
                 ) {
-                    ViewStore(store).send(.importWordsTapped)
+                    ViewStore(store).send(.skipTapped)
                 } destination: { store in
                     StartView(store: store)
                 } label: {
