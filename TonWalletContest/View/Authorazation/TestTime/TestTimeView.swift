@@ -13,9 +13,11 @@ struct TestTimeView: View {
 
     struct ViewState: Equatable {
         var testWords: IdentifiedArrayOf<TestTimeReducer.Word>
+        var presentableTestNumbers: String
 
         init(state: TestTimeReducer.State) {
             self.testWords = state.testWords
+            self.presentableTestNumbers = state.presentableTestNumbers
         }
     }
 
@@ -29,14 +31,14 @@ struct TestTimeView: View {
                     .fontWeight(.semibold)
                     .font(.title)
                     .padding()
-                Text("Let’s check that you wrote them down correctly. Please enter the words 4, 15 and 18.")
+                Text("Let’s check that you wrote them down correctly. Please enter the words \(viewStore.presentableTestNumbers).")
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                     .padding(.bottom, 30)
 
                 ForEach(viewStore.testWords) { word in
                     HStack {
-                        Text("\(word.key). ")
+                        Text("\(word.key + 1). ")
                             .foregroundColor(.gray)
                             .padding(.vertical, 15)
                             .frame(width: 40, alignment: .trailing)

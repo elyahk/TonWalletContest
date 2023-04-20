@@ -49,7 +49,8 @@ struct LocalAuthenticationView: View {
                 ) {
                     ViewStore(store).send(.skipTapped)
                 } destination: { store in
-                    StartView(store: store)
+                    ReadyToGoView(store: store)
+                        .navigationBarHidden(true)
                 } label: {
                     Text("Skip")
                         .font(.body)
