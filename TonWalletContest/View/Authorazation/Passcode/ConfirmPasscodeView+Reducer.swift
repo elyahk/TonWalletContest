@@ -120,7 +120,7 @@ struct ConfirmPasscodeView: View {
                         self.store.scope(state: \.$faceID, action: ConfirmPasscodeReducer.Action.faceID)
                     ) {
                     } destination: { store in
-                        Text("Face ID")
+                        LocalAuthenticationView(store: store)
                     } label: {
                         Color.clear
                     }
