@@ -7,6 +7,10 @@ struct TestTimeReducer: ReducerProtocol {
         var id: UUID = .init()
         var testWords: IdentifiedArrayOf<Word>
         @PresentationState var destination: Destination.State?
+        
+        var presentableTestNumbers: String {
+            "\(testWords[0].key + 1), \(testWords[1].key + 1) and \(testWords[2].key + 1)"
+        }
 
         func isCorrectRecieveddWords() -> Bool {
             for word in testWords {

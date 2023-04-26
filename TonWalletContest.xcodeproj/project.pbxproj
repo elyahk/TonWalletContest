@@ -51,6 +51,8 @@
 		6E38004929DE048E002D6868 /* RecoveryPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */; };
 		6E3EC13429DB0AB10050AA75 /* TonWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3EC13329DB0AB10050AA75 /* TonWalletManager.swift */; };
 		6E5D444529DC6406000F95CE /* ButtonTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5D444429DC6406000F95CE /* ButtonTextStyle.swift */; };
+		6EBB474E29F1303D00216832 /* ReadyToGoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBB474D29F1303D00216832 /* ReadyToGoView.swift */; };
+		6EBB475029F1304B00216832 /* ReadyToGoReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBB474F29F1304B00216832 /* ReadyToGoReducer.swift */; };
 		6ED77F7429EF0466004341AC /* LocalAuthenticationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED77F7329EF0466004341AC /* LocalAuthenticationReducer.swift */; };
 /* End PBXBuildFile section */
 
@@ -115,6 +117,8 @@
 		6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseView.swift; sourceTree = "<group>"; };
 		6E3EC13329DB0AB10050AA75 /* TonWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletManager.swift; sourceTree = "<group>"; };
 		6E5D444429DC6406000F95CE /* ButtonTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTextStyle.swift; sourceTree = "<group>"; };
+		6EBB474D29F1303D00216832 /* ReadyToGoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyToGoView.swift; sourceTree = "<group>"; };
+		6EBB474F29F1304B00216832 /* ReadyToGoReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyToGoReducer.swift; sourceTree = "<group>"; };
 		6ED77F7329EF0466004341AC /* LocalAuthenticationReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthenticationReducer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -264,6 +268,7 @@
 		615017B529E0050800AF963D /* Authorazation */ = {
 			isa = PBXGroup;
 			children = (
+				6EBB475129F1315900216832 /* ReadyToGo */,
 				6ED77F7229EF044B004341AC /* LocalAuthentication */,
 				61DA64A529EBDE68009F8202 /* ImportFailure */,
 				615EDE2729EB4AD800D3A220 /* ImportSuccess */,
@@ -346,6 +351,15 @@
 				131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6EBB475129F1315900216832 /* ReadyToGo */ = {
+			isa = PBXGroup;
+			children = (
+				6EBB474F29F1304B00216832 /* ReadyToGoReducer.swift */,
+				6EBB474D29F1303D00216832 /* ReadyToGoView.swift */,
+			);
+			path = ReadyToGo;
 			sourceTree = "<group>";
 		};
 		6ED77F7229EF044B004341AC /* LocalAuthentication */ = {
@@ -519,6 +533,7 @@
 				61153E0929D8FBDC00D4D030 /* StartReducer.swift in Sources */,
 				6E5D444529DC6406000F95CE /* ButtonTextStyle.swift in Sources */,
 				615EDE2329EB41F200D3A220 /* ImportPhraseReducer.swift in Sources */,
+				6EBB474E29F1303D00216832 /* ReadyToGoView.swift in Sources */,
 				615EDE2B29EB4B1400D3A220 /* ImportSuccessView.swift in Sources */,
 				131044FB29DE072500987E07 /* BlankTextButtonStyle.swift in Sources */,
 				6133A79D29E1623A008BDF34 /* LegacyTextField.swift in Sources */,
@@ -533,6 +548,7 @@
 				615EDE2529EB420600D3A220 /* ImportPhraseView.swift in Sources */,
 				13B0548229DC353D006014C0 /* CongratulationView.swift in Sources */,
 				6E38004729DE0464002D6868 /* RecoveryPhraseReducer.swift in Sources */,
+				6EBB475029F1304B00216832 /* ReadyToGoReducer.swift in Sources */,
 				6158D4E129EA88DB00AC467C /* ConfirmPasscodeView+Reducer.swift in Sources */,
 				61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */,
 			);
