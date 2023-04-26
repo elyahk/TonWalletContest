@@ -8,15 +8,30 @@
 import SwiftUI
 import ComposableArchitecture
 
+enum AppState: String {
+    case new
+    case keyCreated
+    case walletCreated
+}
+
 @main
 struct TonWalletContestApp: App {
+    @State var state: String = UserDefaults.standard.string(forKey: "state") ?? "new"
+
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                LocalAuthenticationView(store: .init(
-                    initialState: .init(),
-                    reducer: LocalAuthenticationReducer()
-                ))
+                switch AppState(rawValue: state) ?? .new {
+                case .new:
+                    StartView(store: .init(
+                        initialState: .init(),
+                        reducer: StartReducer()
+                    ))
+                case .keyCreated:
+                    CongratulationView(store: .init(initialState: .init(words: []), reducer: CongratulationReducer()))
+                case .walletCreated:
+                    Text("Wallet Created")
+                }
                 
 //                StartView(store: .init(
 //                    initialState: .init(
@@ -38,7 +53,6 @@ struct TonWalletContestApp: App {
 //                    reducer: StartReducer()
 //                        ._printChanges()
 //                ))
-                
             }
         }
     }

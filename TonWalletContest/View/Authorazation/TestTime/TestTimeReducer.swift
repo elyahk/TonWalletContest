@@ -37,6 +37,7 @@ struct TestTimeReducer: ReducerProtocol {
             case .continueButtonTapped:
                 if state.isCorrectRecieveddWords() {
                     state.destination = .passcode(.init())
+                    UserDefaults.standard.set(AppState.walletCreated.rawValue , forKey: "state")
                 } else {
                     state.destination = .alert(.init(
                         title: TextState("Incorrect words"),
