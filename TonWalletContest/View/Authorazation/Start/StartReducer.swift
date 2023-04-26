@@ -43,7 +43,9 @@ struct StartReducer: ReducerProtocol {
                 state.destination = .createWallet(.init(words: words))
                 UserDefaults.standard.set(AppState.keyCreated.rawValue , forKey: "state")
 
-                return .none
+                return .run { _ in
+                    try await TonKeyStore.shared.save(key: key)
+                }
                 
             case .destination:
                 return .none
