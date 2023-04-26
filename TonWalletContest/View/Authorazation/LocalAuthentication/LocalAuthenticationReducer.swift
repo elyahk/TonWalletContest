@@ -11,8 +11,7 @@ struct LocalAuthenticationReducer: ReducerProtocol {
         var description: String = "Face ID allows you to open your wallet faster without having to enter your password."
         var buttonTitle: String = "Enable Face ID"
         
-        init(destination: Destination.State? = nil) {
-            self.destination = destination
+        init() {
             let context = LAContext()
 
             switch context.biometryType {

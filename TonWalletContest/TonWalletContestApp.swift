@@ -21,17 +21,22 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                switch AppState(rawValue: state) ?? .new {
-                case .new:
-                    StartView(store: .init(
-                        initialState: .init(),
-                        reducer: StartReducer()
-                    ))
-                case .keyCreated:
-                    CongratulationView(store: .init(initialState: .init(words: []), reducer: CongratulationReducer()))
-                case .walletCreated:
-                    Text("Wallet Created")
-                }
+                StartView(store: .init(
+                    initialState: .init(),
+                    reducer: StartReducer()
+                ))
+
+//                switch AppState(rawValue: state) ?? .new {
+//                case .new:
+//                    StartView(store: .init(
+//                        initialState: .init(),
+//                        reducer: StartReducer()
+//                    ))
+//                case .keyCreated:
+//                    CongratulationView(store: .init(initialState: .init(words: []), reducer: CongratulationReducer()))
+//                case .walletCreated:
+//                    Text("Wallet Created")
+//                }
                 
 //                StartView(store: .init(
 //                    initialState: .init(

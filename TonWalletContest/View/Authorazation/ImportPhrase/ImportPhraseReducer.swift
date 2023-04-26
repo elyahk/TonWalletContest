@@ -27,6 +27,7 @@ struct ImportPhraseReducer: ReducerProtocol {
         case failureButtonTapped
         case showAlert
         case successfullyImported(key: Key)
+        case openMainView(wallet: Wallet3)
 
         enum Alert: Equatable {
             case seeWords
@@ -39,10 +40,17 @@ struct ImportPhraseReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
-            case .successfullyImported(let key):
-                state.destination = .passcode(.init())
-
+            case .openMainView(let wallet):
+                state.destination = .mainView(.init(wallet3: wallet))
                 return .none
+            case .successfullyImported(let key):
+//                state.destination = .passcode(.init())
+
+                return .run { send in
+                    let wallet = try await TonWalletManager.shared.createWallet3(key: key)
+                    await send(.openMainView(wallet: wallet))
+                }
+
             case .showAlert:
                 state.destination = .alert(.init(
                     title: TextState("Incorrect words"),
@@ -114,6 +122,7 @@ extension ImportPhraseReducer {
             case passcode(PasscodeReducer.State)
             case failurePhrase(ImportFailureReducer.State)
             case alert(AlertState<ImportPhraseReducer.Action.Alert>)
+            case mainView(MainViewReducer.State)
 
             var id: AnyHashable {
                 switch self {
@@ -123,6 +132,8 @@ extension ImportPhraseReducer {
                     return state.id
                 case let .failurePhrase(state):
                     return state.id
+                case .mainView(let state):
+                    return state.id
                 }
             }
         }
@@ -130,6 +141,7 @@ extension ImportPhraseReducer {
             case passcode(PasscodeReducer.Action)
             case alert(ImportPhraseReducer.Action.Alert)
             case failurePhrase(ImportFailureReducer.Action)
+            case mainView(MainViewReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
@@ -138,6 +150,9 @@ extension ImportPhraseReducer {
             }
             Scope(state: /State.failurePhrase, action: /Action.failurePhrase) {
                 ImportFailureReducer()
+            }
+            Scope(state: /State.mainView, action: /Action.mainView) {
+                MainViewReducer()
             }
         }
     }
