@@ -29,8 +29,10 @@ struct StartReducer: ReducerProtocol {
                 return .run { send in
                     let key = try await TonWalletManager.shared.createKey()
                     let words = try await TonWalletManager.shared.words(key: key)
-
                     await send(.keyCreated(key: key, words: words))
+
+                    let tonKeyStore = await TonKeyStore.shared
+                    try await tonKeyStore.save(key: key)
                 }
                 
             case .importMyWalletTapped:
@@ -39,7 +41,11 @@ struct StartReducer: ReducerProtocol {
                 
             case let .keyCreated(key: key, words: words):
                 state.destination = .createWallet(.init(words: words))
-                return .none
+                UserDefaults.standard.set(AppState.keyCreated.rawValue , forKey: "state")
+
+                return .run { _ in
+                    try await TonKeyStore.shared.save(key: key)
+                }
                 
             case .destination:
                 return .none
