@@ -26,4 +26,13 @@ class TonKeyStore: ObservableObject {
 
         return tonKey
     }
+
+    func save(key: Key) async throws {
+        let task = Task {
+            let data = try JSONEncoder().encode(key)
+            let outfile = try Self.fileURL()
+            try data.write(to: outfile)
+        }
+        _ = try await task.value
+    }
 }
