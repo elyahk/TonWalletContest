@@ -11,6 +11,7 @@ struct ReadyToGoReducer: ReducerProtocol {
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
         case viewWalletButtonTapped
+        case walletCreated(wallet3: Wallet3)
     }
 
     @Dependency(\.dismiss) var presentationMode
@@ -19,6 +20,21 @@ struct ReadyToGoReducer: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .viewWalletButtonTapped:
+                print("button tapped")
+
+                return .run { send in
+                    let key = try await TonKeyStore.shared.loadKey()
+                    print("Key created")
+
+                    if let key = key {
+                        let wallet = try await TonWalletManager.shared.createWallet3(key: key)
+                        print(wallet.contract.info)
+                        await send(.walletCreated(wallet3: wallet))
+                    }
+                }
+
+            case .walletCreated(let wallet3):
+                state.destination = .wallet(.init(wallet3: wallet3))
 
                 return .none
 
@@ -35,7 +51,7 @@ struct ReadyToGoReducer: ReducerProtocol {
 extension ReadyToGoReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
-            case wallet(PasscodeReducer.State)
+            case wallet(MainViewReducer.State)
 
             var id: AnyHashable {
                 switch self {
@@ -45,12 +61,12 @@ extension ReadyToGoReducer {
             }
         }
         enum Action: Equatable {
-            case wallet(PasscodeReducer.Action)
+            case wallet(MainViewReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
             Scope(state: /State.wallet, action: /Action.wallet) {
-                PasscodeReducer()
+                MainViewReducer()
             }
         }
     }

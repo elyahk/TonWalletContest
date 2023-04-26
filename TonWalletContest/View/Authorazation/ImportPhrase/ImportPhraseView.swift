@@ -85,6 +85,23 @@ struct ImportPhraseView: View {
                         .customBlueButtonStyle()
                 }
 
+                NavigationLinkStore (
+                    self.store.scope(state: \.$destination, action: ImportPhraseReducer.Action.destination),
+                    state: /ImportPhraseReducer.Destination.State.mainView,
+                    action: ImportPhraseReducer.Destination.Action.mainView
+                ) {
+                    //                    ViewStore(store).send(.importMyWalletTapped)
+                } destination: { store in
+                    MainView(store: store)
+                } label: {
+                    Text("MainView")
+                        .fontWeight(.semibold)
+                        .foregroundColor(.accentColor)
+                        .frame(minWidth: 294, minHeight: 50, alignment: .center)
+                        .padding(.horizontal, 48)
+                }
+                .padding(.bottom, 30)
+                
                 Button("Autofill") {
                     viewStore.send(.autoFillCorrectWords)
                 }

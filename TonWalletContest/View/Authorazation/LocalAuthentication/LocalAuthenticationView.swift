@@ -2,17 +2,29 @@ import SwiftUI
 import ComposableArchitecture
 
 struct LocalAuthenticationView: View {
-    @Environment(\.presentationMode) var presentationMode
-    
     @State var showingAlert: Bool = false
     let store: StoreOf<LocalAuthenticationReducer>
+
+    struct ViewState: Equatable {
+        var imageName: String
+        var title: String
+        var description: String
+        var buttonTitle: String
+
+        init(state: LocalAuthenticationReducer.State) {
+            self.imageName = state.imageName
+            self.title = state.title
+            self.description = state.description
+            self.buttonTitle = state.buttonTitle
+        }
+    }
     
     init(store: StoreOf<LocalAuthenticationReducer>) {
         self.store = store
     }
     
     var body: some View {
-        WithViewStore(self.store, observe: {$0}) { viewStore in
+        WithViewStore(self.store, observe: ViewState.init) { viewStore in
             VStack {
                 Spacer()
                 Image(systemName: viewStore.imageName)
@@ -47,7 +59,7 @@ struct LocalAuthenticationView: View {
                     state: /LocalAuthenticationReducer.Destination.State.readyToGo,
                     action: LocalAuthenticationReducer.Destination.Action.readyToGo
                 ) {
-                    ViewStore(store).send(.skipTapped)
+                    viewStore.send(.skipTapped)
                 } destination: { store in
                     ReadyToGoView(store: store)
                         .navigationBarHidden(true)

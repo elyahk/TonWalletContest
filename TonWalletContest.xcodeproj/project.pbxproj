@@ -44,6 +44,7 @@
 		615EDE2929EB4AF800D3A220 /* ImportSuccessReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EDE2829EB4AF800D3A220 /* ImportSuccessReducer.swift */; };
 		615EDE2B29EB4B1400D3A220 /* ImportSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EDE2A29EB4B1400D3A220 /* ImportSuccessView.swift */; };
 		61760F4929F9B0A100B2770C /* TonKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61760F4829F9B0A100B2770C /* TonKeyStore.swift */; };
+		61760F4C29F9BF1C00B2770C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61760F4B29F9BF1C00B2770C /* MainView.swift */; };
 		619D5DBA29E2A75300C01C7A /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 619D5DB929E2A75300C01C7A /* SwiftUINavigation */; };
 		61DA64A729EBDE80009F8202 /* ImportFailureReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DA64A629EBDE80009F8202 /* ImportFailureReducer.swift */; };
 		61DA64A929EBDE9D009F8202 /* ImportFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DA64A829EBDE9D009F8202 /* ImportFailureView.swift */; };
@@ -112,6 +113,7 @@
 		615EDE2829EB4AF800D3A220 /* ImportSuccessReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSuccessReducer.swift; sourceTree = "<group>"; };
 		615EDE2A29EB4B1400D3A220 /* ImportSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSuccessView.swift; sourceTree = "<group>"; };
 		61760F4829F9B0A100B2770C /* TonKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonKeyStore.swift; sourceTree = "<group>"; };
+		61760F4B29F9BF1C00B2770C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		61DA64A629EBDE80009F8202 /* ImportFailureReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFailureReducer.swift; sourceTree = "<group>"; };
 		61DA64A829EBDE9D009F8202 /* ImportFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFailureView.swift; sourceTree = "<group>"; };
 		6E11702829EEE9EE00DE473F /* LocalAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthenticationView.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 		61153E0629D8FB0900D4D030 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				61760F4A29F9BF0600B2770C /* MainView */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
 				615017B529E0050800AF963D /* Authorazation */,
 			);
@@ -318,6 +321,14 @@
 				615EDE2A29EB4B1400D3A220 /* ImportSuccessView.swift */,
 			);
 			path = ImportSuccess;
+			sourceTree = "<group>";
+		};
+		61760F4A29F9BF0600B2770C /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				61760F4B29F9BF1C00B2770C /* MainView.swift */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 		61CC226129DA089400834E86 /* Start */ = {
@@ -552,6 +563,7 @@
 				13B0548229DC353D006014C0 /* CongratulationView.swift in Sources */,
 				6E38004729DE0464002D6868 /* RecoveryPhraseReducer.swift in Sources */,
 				61760F4929F9B0A100B2770C /* TonKeyStore.swift in Sources */,
+				61760F4C29F9BF1C00B2770C /* MainView.swift in Sources */,
 				6EBB475029F1304B00216832 /* ReadyToGoReducer.swift in Sources */,
 				6158D4E129EA88DB00AC467C /* ConfirmPasscodeView+Reducer.swift in Sources */,
 				61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */,

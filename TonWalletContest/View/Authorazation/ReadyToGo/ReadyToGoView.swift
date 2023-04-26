@@ -24,11 +24,15 @@ struct ReadyToGoView: View {
             Spacer()
             // Create My Wallet app
             NavigationLinkStore (
-                self.store.scope(state: \.$destination, action: ReadyToGoReducer.Action.destination)
+                self.store.scope(
+                    state: \.$destination,
+                    action: ReadyToGoReducer.Action.destination),
+                state: /ReadyToGoReducer.Destination.State.wallet,
+                action: ReadyToGoReducer.Destination.Action.wallet
             ) {
-
+                ViewStore(store).send(.viewWalletButtonTapped)
             } destination: { store in
-                Text("View my wallet")
+                MainView(store: store)
             } label: {
                 Text("View my wallet")
                     .fontWeight(.semibold)
@@ -39,6 +43,9 @@ struct ReadyToGoView: View {
                     .padding([.leading, .trailing], 48)
                     .padding(.bottom, 124)
             }
+        }
+        .onAppear {
+            UserDefaults.standard.set(AppState.walletCreated.rawValue , forKey: "state")
         }
     }
 }
