@@ -85,7 +85,7 @@ struct LocalAuthenticationReducer: ReducerProtocol {
 extension LocalAuthenticationReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
-            case readyToGo(StartReducer.State)
+            case readyToGo(ReadyToGoReducer.State)
             case alert(AlertState<LocalAuthenticationReducer.Action.Alert>)
             
             var id: AnyHashable {
@@ -100,13 +100,13 @@ extension LocalAuthenticationReducer {
         }
         
         enum Action: Equatable {
-            case readyToGo(StartReducer.Action)
+            case readyToGo(ReadyToGoReducer.Action)
             case alert(LocalAuthenticationReducer.Action.Alert)
         }
         
         var body: some ReducerProtocolOf<Self> {
             Scope(state: /State.readyToGo, action: /Action.readyToGo) {
-                StartReducer()
+                ReadyToGoReducer()
             }
         }
     }

@@ -5,6 +5,9 @@
 //  Created by eldorbek nusratov on 02/04/23.
 //
 
+#warning("Fix numbers on TestView")
+
+
 import SwiftUI
 import ComposableArchitecture
 import _SwiftUINavigationState
