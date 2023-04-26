@@ -78,7 +78,7 @@ struct ImportPhraseReducer: ReducerProtocol {
 
             case .autoFillCorrectWords:
                 for (index, _) in state.testWords.enumerated() {
-                    state.testWords[index].recivedWord = Array<String>.words24[index]
+                    state.testWords[index].recivedWord = Array<String>.words24_withTon[index]
                 }
 
                 return .run { await $0.send(.continueButtonTapped) }
