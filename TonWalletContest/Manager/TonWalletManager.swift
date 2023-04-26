@@ -151,6 +151,10 @@ extension Array where Element == String {
     static let words24: [String] = {
         return ["spike", "rifle", "mother", "clown", "crucial", "endorse", "orbit", "music", "slight", "vocal", "ranch", "moon", "author", "million", "appear", "fine", "quiz", "century", "mixture", "blur", "census", "hub", "cereal", "govern"]
     }()
+
+    static let words24_withTon: [String] = {
+        return ["about", "group", "click", "shrug", "prevent", "camp", "fit", "mercy", "govern", "life", "cargo", "goose", "increase", "gossip", "fold", "machine", "certain", "bid",  "mystery", "daughter", "record", "staff", "denial", "junk"]
+    }()
 }
 
 extension IdentifiedArrayOf where Element == TestTimeReducer.Word {
