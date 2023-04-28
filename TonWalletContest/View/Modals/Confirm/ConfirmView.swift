@@ -16,7 +16,6 @@ struct ConfirmView: View {
         VStack {
             Spacer()
             List {
-
                 Section {
                     ZStack(alignment: .leading) {
                         if comment.isEmpty {
@@ -25,6 +24,7 @@ struct ConfirmView: View {
                                 .opacity(isTextEditor ? 0 : 1)
                         }
                         TextEditor(text: $comment)
+                            .padding(.all, 0)
                             .onTapGesture {
                                 isTextEditor = true
                             }
@@ -34,7 +34,6 @@ struct ConfirmView: View {
                     Text("COMMENT (OPTIONAL)")
                 } footer: {
                     VStack(alignment: .leading) {
-
                         Text("The comment is visible to everyone. You must include the note when sending to an exchange.")
                         if (numberCharacter - comment.count) > 50 {
                             Text("\(String(numberCharacter - comment.count)) characters left.")
