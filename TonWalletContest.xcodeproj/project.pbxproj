@@ -163,6 +163,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1352FFA329FBD711002799A9 /* Modals */ = {
+			isa = PBXGroup;
+			children = (
+				1352FF9B29FBCEC3002799A9 /* PendingView.swift */,
+				1352FFA129FBD541002799A9 /* SuccessView.swift */,
+			);
+			path = Modals;
+			sourceTree = "<group>";
+		};
 		13B0546A29DB175D006014C0 /* JsonAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,8 +258,7 @@
 				61760F4A29F9BF0600B2770C /* MainView */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
 				615017B529E0050800AF963D /* Authorazation */,
-				1352FF9B29FBCEC3002799A9 /* PendingView.swift */,
-				1352FFA129FBD541002799A9 /* SuccessView.swift */,
+				1352FFA329FBD711002799A9 /* Modals */,
 			);
 			path = View;
 			sourceTree = "<group>";
