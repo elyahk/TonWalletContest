@@ -10,14 +10,43 @@ import ComposableArchitecture
 
 struct ConfirmView: View {
     @State private var comment: String = ""
+    @State private var numberCharacter: Int = 300
+    @State private var isTextEditor = false
     var body: some View {
         VStack {
             Spacer()
             List {
-                Section(header: Text("COMMENT (OPTIONAL)"), footer: Text("The comment is visible to everyone. You must include the note when sending to an exchange.")){
-                    TextField("Description of the payment", text: $comment)
-                        .background(Color.white)
-                        .cornerRadius(12)
+
+                Section {
+                    ZStack(alignment: .leading) {
+                        if comment.isEmpty {
+                            Text("Description of the payment")
+                                .foregroundColor(.gray)
+                                .opacity(isTextEditor ? 0 : 1)
+                        }
+                        TextEditor(text: $comment)
+                            .onTapGesture {
+                                isTextEditor = true
+                            }
+                    }
+                    //                    TextField("Description of the payment", text: $comment, axis: .vertical)
+                } header: {
+                    Text("COMMENT (OPTIONAL)")
+                } footer: {
+                    VStack(alignment: .leading) {
+
+                        Text("The comment is visible to everyone. You must include the note when sending to an exchange.")
+                        if (numberCharacter - comment.count) > 50 {
+                            Text("\(String(numberCharacter - comment.count)) characters left.")
+                                .foregroundColor(.green)
+                        } else if (numberCharacter - comment.count) >= 0 {
+                            Text("\(String(numberCharacter - comment.count)) characters left.")
+                                .foregroundColor(.orange)
+                        } else {
+                            Text("Message size has been exceeded by \(String(-(numberCharacter - comment.count))) characters.")
+                                .foregroundColor(.red)
+                        }
+                    }
                 }
                 Section(header: Text("LABEL")) {
                     HStack {
