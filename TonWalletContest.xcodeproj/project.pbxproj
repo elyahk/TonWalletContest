@@ -10,6 +10,7 @@
 		131044FB29DE072500987E07 /* BlankTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */; };
 		1352FF9C29FBCEC3002799A9 /* PendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9B29FBCEC3002799A9 /* PendingView.swift */; };
 		1352FF9E29FBD2B9002799A9 /* money.json in Resources */ = {isa = PBXBuildFile; fileRef = 1352FF9D29FBD2B9002799A9 /* money.json */; };
+		1352FFA029FBD40C002799A9 /* WideBlueTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */; };
 		13B0546929DB16DB006014C0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 13B0546829DB16DB006014C0 /* Lottie */; };
 		13B0547529DB175D006014C0 /* password.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546B29DB175D006014C0 /* password.json */; };
 		13B0547629DB175D006014C0 /* teacher.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546C29DB175D006014C0 /* teacher.json */; };
@@ -81,6 +82,7 @@
 		131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankTextButtonStyle.swift; sourceTree = "<group>"; };
 		1352FF9B29FBCEC3002799A9 /* PendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingView.swift; sourceTree = "<group>"; };
 		1352FF9D29FBD2B9002799A9 /* money.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = money.json; sourceTree = "<group>"; };
+		1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideBlueTextButtonStyle.swift; sourceTree = "<group>"; };
 		13B0546B29DB175D006014C0 /* password.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = password.json; sourceTree = "<group>"; };
 		13B0546C29DB175D006014C0 /* teacher.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = teacher.json; sourceTree = "<group>"; };
 		13B0546D29DB175D006014C0 /* sad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sad.json; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 			isa = PBXGroup;
 			children = (
 				6E5D444429DC6406000F95CE /* ButtonTextStyle.swift */,
+				1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */,
 				131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */,
 			);
 			path = Extensions;
@@ -564,6 +567,7 @@
 				61DA64A729EBDE80009F8202 /* ImportFailureReducer.swift in Sources */,
 				61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */,
 				615017B829E0055500AF963D /* TestTimeReducer.swift in Sources */,
+				1352FFA029FBD40C002799A9 /* WideBlueTextButtonStyle.swift in Sources */,
 				615017BF29E019A200AF963D /* PasscodeView+Reducer.swift in Sources */,
 				615017BA29E0056D00AF963D /* TestTimeView.swift in Sources */,
 				615EDE2529EB420600D3A220 /* ImportPhraseView.swift in Sources */,

@@ -22,18 +22,27 @@ struct PendingView: View {
                 .padding(.horizontal, 32)
             Spacer()
 
-//            NavigationLinkStore(
-//                self.store.scope(state: \.$recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase)
-//            ) {
-//                ViewStore(store).send(.proceedButtonTapped)
-//            } destination: { store in
-//                RecoveryPhraseView(store: store)
-//            } label: {
-//                Text("Proceed")
-//                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-//                    .customBlueButtonStyle()
-//                    .padding(.bottom, 90)
-//            }
+            NavigationLink {
+                //
+            } label: {
+                Text("Proceed")
+                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                    .customWideBlueButtonStyle()
+                    .padding(.bottom)
+            }
+
+            //            NavigationLinkStore(
+            //                self.store.scope(state: \.$recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase)
+            //            ) {
+            //                ViewStore(store).send(.proceedButtonTapped)
+            //            } destination: { store in
+            //                RecoveryPhraseView(store: store)
+            //            } label: {
+            //                Text("Proceed")
+            //                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+            //                    .customBlueButtonStyle()
+            //                    .padding(.bottom, 90)
+            //            }
         }
     }
 }
