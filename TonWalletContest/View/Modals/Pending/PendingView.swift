@@ -29,24 +29,15 @@ struct PendingView: View {
                 .padding(.horizontal, 32)
             Spacer()
 
-            NavigationLink {
+            NavigationLinkStore() {
+                //
+            } destination: { store in
                 //
             } label: {
                 Text("View my wallet")
                     .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                     .customWideBlueButtonStyle()
                     .padding(.bottom)
-            }
-
-            NavigationLinkStore() {
-                //
-            } destination: { store in
-                //
-            } label: {
-                Text("Proceed")
-                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                    .customBlueButtonStyle()
-                    .padding(.bottom, 90)
             }
         }
     }

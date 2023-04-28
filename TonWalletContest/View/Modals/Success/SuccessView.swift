@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct SuccessView: View {
     var body: some View {
@@ -26,7 +27,9 @@ struct SuccessView: View {
                 .padding(.horizontal, 32)
             Spacer()
 
-            NavigationLink {
+            NavigationLinkStore() {
+                //
+            } destination: { store in
                 //
             } label: {
                 Text("View my wallet")
@@ -34,19 +37,6 @@ struct SuccessView: View {
                     .customWideBlueButtonStyle()
                     .padding(.bottom)
             }
-
-            //            NavigationLinkStore(
-            //                self.store.scope(state: \.$recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase)
-            //            ) {
-            //                ViewStore(store).send(.proceedButtonTapped)
-            //            } destination: { store in
-            //                RecoveryPhraseView(store: store)
-            //            } label: {
-            //                Text("Proceed")
-            //                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-            //                    .customBlueButtonStyle()
-            //                    .padding(.bottom, 90)
-            //            }
         }
     }
 }
