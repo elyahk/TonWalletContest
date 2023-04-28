@@ -52,6 +52,7 @@ struct CommentTextField: UIViewRepresentable {
             let attributedString = NSMutableAttributedString(string: text)
             attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: NSRange(location: numberCharacter, length: text.count - numberCharacter))
             uiView.attributedText = attributedString
+            uiView.font = UIFont.systemFont(ofSize: 16)
         } else {
             uiView.textColor = .black
         }
@@ -72,7 +73,5 @@ struct CommentTextField: UIViewRepresentable {
             parent.text = textView.text
             parent.isOverLimit = textView.text.count > parent.numberCharacter
         }
-
-        
     }
 }
