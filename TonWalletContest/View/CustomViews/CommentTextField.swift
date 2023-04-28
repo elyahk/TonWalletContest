@@ -8,32 +8,32 @@
 import Foundation
 import SwiftUI
 
-struct CommentTextFieldView: View {
-    @State private var comment = ""
-    @State private var isTextEditor = false
-    @State private var isOverLimit = false
-
-    var body: some View {
-        ZStack(alignment: .leading) {
-            CommentTextField(text: $comment, isOverLimit: $isOverLimit)
-                .onTapGesture {
-                    isTextEditor = true
-                }
-            //            TextEditor(text: $comment)
-            //                .padding(.all, 0)
-            //                .onTapGesture {
-            //                    isTextEditor = true
-            //                }
-
-        }
-    }
-}
+//struct CommentTextFieldView: View {
+//    @State private var comment = ""
+//    @State private var isTextEditor = false
+//    @State private var isOverLimit = false
+//
+//    var body: some View {
+//        ZStack(alignment: .leading) {
+//            CommentTextField(text: $comment, isOverLimit: $isOverLimit)
+//                .onTapGesture {
+//                    isTextEditor = true
+//                }
+//            //            TextEditor(text: $comment)
+//            //                .padding(.all, 0)
+//            //                .onTapGesture {
+//            //                    isTextEditor = true
+//            //                }
+//
+//        }
+//    }
+//}
 
 struct CommentTextField: UIViewRepresentable {
 
     @Binding var text: String
     @Binding var isOverLimit: Bool
-    private let numberCharacter: Int = 300
+    @Binding var numberCharacter: Int
 
     func makeUIView(context: Context) -> UITextView {
         let textView = UITextView()
@@ -43,8 +43,6 @@ struct CommentTextField: UIViewRepresentable {
         textView.backgroundColor = .clear
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.delegate = context.coordinator
-        textView.text = "Description of the payment"
-        textView.textColor = .gray
         return textView
     }
 
@@ -73,13 +71,6 @@ struct CommentTextField: UIViewRepresentable {
         func textViewDidChange(_ textView: UITextView) {
             parent.text = textView.text
             parent.isOverLimit = textView.text.count > parent.numberCharacter
-            if textView.text == "Description of the payment" {
-                textView.text = ""
-                textView.textColor = .black
-            } else if textView.text.isEmpty {
-                textView.text = "Description of the payment"
-                textView.textColor = .gray
-            }
         }
 
         

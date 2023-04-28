@@ -9,9 +9,12 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ConfirmView: View {
+
     @State private var comment: String = ""
     @State private var numberCharacter: Int = 300
     @State private var isTextEditor = false
+    @State private var isOverLimit = false
+
     var body: some View {
         VStack {
             Spacer()
@@ -23,11 +26,15 @@ struct ConfirmView: View {
                                 .foregroundColor(.gray)
                                 .opacity(isTextEditor ? 0 : 1)
                         }
-                        TextEditor(text: $comment)
-                            .padding(.all, 0)
+                        CommentTextField(text: $comment, isOverLimit: $isOverLimit, numberCharacter: $numberCharacter)
                             .onTapGesture {
                                 isTextEditor = true
                             }
+//                        TextEditor(text: $comment)
+//                            .padding(.all, 0)
+//                            .onTapGesture {
+//                                isTextEditor = true
+//                            }
                     }
                     //                    TextField("Description of the payment", text: $comment, axis: .vertical)
                 } header: {
