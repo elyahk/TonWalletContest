@@ -1,5 +1,5 @@
 //
-//  PendingView.swift
+//  SuccessView.swift
 //  TonWalletContest
 //
 //  Created by Viacheslav on 28/04/23.
@@ -7,17 +7,21 @@
 
 import SwiftUI
 
-struct PendingView: View {
+struct SuccessView: View {
     var body: some View {
         VStack {
             Spacer()
-            LottieView(name: "money", loop: .playOnce)
+            LottieView(name: "party", loop: .playOnce)
                 .frame(width: 124, height: 124, alignment: .center)
-            Text("Sending TON")
+            Text("Done")
                 .fontWeight(.semibold)
                 .font(.title)
                 .padding(.bottom, 5)
-            Text("Please wait a few seconds for your transaction to be processed…")
+            Text("2.2 Toncoin have been sent to")
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+                .padding(.bottom)
+            Text("Wallet address")
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
             Spacer()
@@ -47,8 +51,8 @@ struct PendingView: View {
     }
 }
 
-struct PendingView_Previews: PreviewProvider {
+struct SuccessView_Previews: PreviewProvider {
     static var previews: some View {
-        PendingView()
+        SuccessView()
     }
 }
