@@ -30,6 +30,7 @@
 		13FDFEC129FBFA7200402AF9 /* SuccessReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC029FBFA7200402AF9 /* SuccessReducer.swift */; };
 		13FDFEC429FC386600402AF9 /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC329FC386600402AF9 /* ConfirmView.swift */; };
 		13FDFEC629FC396400402AF9 /* ConfirmReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC529FC396400402AF9 /* ConfirmReducer.swift */; };
+		13FDFEC929FC5E8000402AF9 /* CommentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC829FC5E8000402AF9 /* CommentTextField.swift */; };
 		61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */; };
 		61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD429D8F5AA00D4D030 /* ContentView.swift */; };
 		61153DD729D8F5AB00D4D030 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61153DD629D8F5AB00D4D030 /* Assets.xcassets */; };
@@ -106,6 +107,7 @@
 		13FDFEC029FBFA7200402AF9 /* SuccessReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessReducer.swift; sourceTree = "<group>"; };
 		13FDFEC329FC386600402AF9 /* ConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmView.swift; sourceTree = "<group>"; };
 		13FDFEC529FC396400402AF9 /* ConfirmReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmReducer.swift; sourceTree = "<group>"; };
+		13FDFEC829FC5E8000402AF9 /* CommentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextField.swift; sourceTree = "<group>"; };
 		61153DCF29D8F5AA00D4D030 /* TonWalletContest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TonWalletContest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletContestApp.swift; sourceTree = "<group>"; };
 		61153DD429D8F5AA00D4D030 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				6133A79C29E1623A008BDF34 /* LegacyTextField.swift */,
+				13FDFEC829FC5E8000402AF9 /* CommentTextField.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1352FFA229FBD541002799A9 /* SuccessView.swift in Sources */,
+				13FDFEC929FC5E8000402AF9 /* CommentTextField.swift in Sources */,
 				6ED77F7429EF0466004341AC /* LocalAuthenticationReducer.swift in Sources */,
 				6E11702929EEE9EE00DE473F /* LocalAuthenticationView.swift in Sources */,
 				13FDFEC429FC386600402AF9 /* ConfirmView.swift in Sources */,
