@@ -6,8 +6,15 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct PendingView: View {
+    let store: StoreOf<PendingReducer>
+
+    init(store: StoreOf<PendingReducer>) {
+        self.store = store
+    }
+
     var body: some View {
         VStack {
             Spacer()
@@ -31,24 +38,25 @@ struct PendingView: View {
                     .padding(.bottom)
             }
 
-            //            NavigationLinkStore(
-            //                self.store.scope(state: \.$recoveryPhrase, action: CongratulationReducer.Action.recoveryPhrase)
-            //            ) {
-            //                ViewStore(store).send(.proceedButtonTapped)
-            //            } destination: { store in
-            //                RecoveryPhraseView(store: store)
-            //            } label: {
-            //                Text("Proceed")
-            //                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-            //                    .customBlueButtonStyle()
-            //                    .padding(.bottom, 90)
-            //            }
+            NavigationLinkStore() {
+                //
+            } destination: { store in
+                //
+            } label: {
+                Text("Proceed")
+                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                    .customBlueButtonStyle()
+                    .padding(.bottom, 90)
+            }
         }
     }
 }
 
 struct PendingView_Previews: PreviewProvider {
     static var previews: some View {
-        PendingView()
+        PendingView(store: .init(
+            initialState: .init(),
+            reducer: PendingReducer()
+        ))
     }
 }
