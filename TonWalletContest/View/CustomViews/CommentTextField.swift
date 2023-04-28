@@ -37,7 +37,7 @@ struct CommentTextField: UIViewRepresentable {
 
     func makeUIView(context: Context) -> UITextView {
         let textView = UITextView()
-        textView.isScrollEnabled = true
+        textView.isScrollEnabled = false
         textView.isEditable = true
         textView.isUserInteractionEnabled = true
         textView.backgroundColor = .clear

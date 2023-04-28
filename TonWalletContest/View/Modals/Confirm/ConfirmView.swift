@@ -11,7 +11,7 @@ import ComposableArchitecture
 struct ConfirmView: View {
 
     @State private var comment: String = ""
-    @State private var numberCharacter: Int = 300
+    @State private var numberCharacter: Int = 10
     @State private var isTextEditor = false
     @State private var isOverLimit = false
 
@@ -30,13 +30,13 @@ struct ConfirmView: View {
                             .onTapGesture {
                                 isTextEditor = true
                             }
-//                        TextEditor(text: $comment)
-//                            .padding(.all, 0)
-//                            .onTapGesture {
-//                                isTextEditor = true
-//                            }
                     }
-                    //                    TextField("Description of the payment", text: $comment, axis: .vertical)
+//                    TextEditor(text: $comment)
+                    //.padding(.all, 0)
+                    //.onTapGesture {
+                    //      isTextEditor = true
+                    //}
+                    //TextField("Description of the payment", text: $comment, axis: .vertical)
                 } header: {
                     Text("COMMENT (OPTIONAL)")
                 } footer: {
