@@ -19,6 +19,14 @@ public func generateInvoiceQrCode(invoice: String, completion: @escaping (UIImag
     })
 }
 
+public func generateInvoiceQrCode(invoice: String) async -> UIImage {
+    await withCheckedContinuation { continuation in
+        generateInvoiceQrCode(invoice: invoice) { image in
+            continuation.resume(returning: image)
+        }
+    }
+}
+
 public enum QrCodeIcon {
     case none
     case cutout
