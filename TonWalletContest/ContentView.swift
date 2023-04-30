@@ -14,13 +14,16 @@ struct ContentView: View {
     let tonManager = TonWalletManager.shared
     var body: some View {
         VStack {
-            LottieView(name: "crystal", loop: .loop)
-                .frame(width: 200, height: 200, alignment: .center)
+            ZStack {
+                Image(uiImage: image)
+                    .resizable()
+                    .foregroundColor(.accentColor)
+                    .frame(width: 220, height: 220)
 
-            Image(uiImage: image)
-                .resizable()
-                .frame(width: 300, height: 300)
-                .foregroundColor(.accentColor)
+                LottieView(name: "crystal", loop: .loop)
+                    .frame(width: 50.0, height: 50.0)
+            }
+            .frame(width: 220, height: 220)
 
             Image(systemName: "globe")
                 .imageScale(.large)
@@ -45,7 +48,7 @@ struct ContentView: View {
         }
         .padding()
         .onAppear {
-            generateInvoiceQrCode(invoice: "https:\\xaxa.com") { image in
+            generateInvoiceQrCode(invoice: "UQBFz01R2CU7YA8pevUaNIYEzi1mRo4cX-r3W2Dwx-WEAoKP") { image in
                 self.image = image
             }
         }

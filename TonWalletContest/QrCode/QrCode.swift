@@ -26,17 +26,17 @@ public enum QrCodeIcon {
     case custom(UIImage?)
 }
 
-private func floorToContextPixels(_ value: CGFloat, scale: CGFloat = 1.0) -> CGFloat {
-    let scale = scale
+private func floorToContextPixels(_ value: CGFloat, scale: CGFloat?) -> CGFloat {
+    let scale = scale ?? UIScreenScale
     return floor(value * scale) / scale
 }
 
-private func roundToContextPixels(_ value: CGFloat, scale: CGFloat = 1.0) -> CGFloat {
-    let scale = scale
+private func roundToContextPixels(_ value: CGFloat, scale: CGFloat?) -> CGFloat {
+    let scale = scale ?? UIScreenScale
     return round(value * scale) / scale
 }
 
-public func qrCodeCutout(size: Int, dimensions: CGSize, scale: CGFloat) -> (Int, CGRect, CGFloat) {
+public func qrCodeCutout(size: Int, dimensions: CGSize, scale: CGFloat?) -> (Int, CGRect, CGFloat) {
     var cutoutSize = Int(round(CGFloat(size) * 0.297))
     if size == 39 {
         cutoutSize = 11
@@ -90,8 +90,8 @@ public func qrCode(string: String, color: UIColor, backgroundColor: UIColor? = n
             let fittedSize = arguments.imageSize.aspectFilled(arguments.boundingSize).fitted(arguments.imageSize)
             let fittedRect = CGRect(origin: CGPoint(x: drawingRect.origin.x + (drawingRect.size.width - fittedSize.width) / 2.0, y: drawingRect.origin.y + (drawingRect.size.height - fittedSize.height) / 2.0), size: fittedSize)
 
-            let (cutoutSize, clipRect, side) = qrCodeCutout(size: size, dimensions: fittedSize, scale: arguments.scale ?? 1.0)
-            let padding: CGFloat = roundToContextPixels((arguments.drawingSize.width - CGFloat(side * CGFloat(size))) / 2.0, scale: arguments.scale ?? 1.0)
+            let (cutoutSize, clipRect, side) = qrCodeCutout(size: size, dimensions: fittedSize, scale: arguments.scale)
+            let padding: CGFloat = roundToContextPixels((arguments.drawingSize.width - CGFloat(side * CGFloat(size))) / 2.0, scale: arguments.scale)
 
             let cutout: (Int, Int)?
             if case .none = icon {
@@ -242,7 +242,7 @@ public func qrCode(string: String, color: UIColor, backgroundColor: UIColor? = n
                 c.setStrokeColor(color.cgColor)
                 c.setFillColor(color.cgColor)
 
-                let markerSide = floorToContextPixels(CGFloat(markerSize - 1) * squareSize.width * 1.05, scale: arguments.scale ?? 1.0)
+                let markerSide = floorToContextPixels(CGFloat(markerSize - 1) * squareSize.width * 1.05, scale: arguments.scale)
 
                 func drawMarker(x: CGFloat, y: CGFloat) {
                     var path = UIBezierPath(roundedRect: CGRect(x: x + squareSize.width / 2.0, y: y + squareSize.width / 2.0, width: markerSide, height: markerSide), cornerRadius: markerSide / 3.5)
