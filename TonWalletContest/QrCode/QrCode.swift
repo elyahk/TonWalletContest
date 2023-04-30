@@ -2,8 +2,22 @@ import Foundation
 import UIKit
 import CoreImage
 import CoreGraphics
-//import SwiftSignalKit
-//import Display
+
+public func generateInvoiceQrCode(invoice: String, completion: @escaping (UIImage) -> Void) {
+    let _ = (qrCode(string: invoice, color: .black, backgroundColor: .white, icon: .custom(UIImage(contentsOfFile: "Wallet/QrGem")))
+             |> map { _, generator -> UIImage? in
+        let imageSize = CGSize(width: 768.0, height: 768.0)
+        let context = generator(TransformImageArguments(corners: ImageCorners(), imageSize: imageSize, boundingSize: imageSize, intrinsicInsets: UIEdgeInsets(), scale: 1.0))
+        return context?.generateImage()
+    }
+             |> deliverOnMainQueue).start(next: { image in
+        guard let image = image else {
+            return
+        }
+
+        completion(image)
+    })
+}
 
 public enum QrCodeIcon {
     case none

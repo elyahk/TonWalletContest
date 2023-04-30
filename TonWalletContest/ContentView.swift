@@ -8,12 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @State var image: UIImage = .init(systemName: "globe") ?? .init()
+
     let tonManager = TonWalletManager.shared
     var body: some View {
         VStack {
             LottieView(name: "crystal", loop: .loop)
                 .frame(width: 200, height: 200, alignment: .center)
-                
+
+            Image(uiImage: image)
+                .resizable()
+                .frame(width: 300, height: 300)
+                .foregroundColor(.accentColor)
+
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
@@ -36,6 +44,11 @@ struct ContentView: View {
             }
         }
         .padding()
+        .onAppear {
+            generateInvoiceQrCode(invoice: "https:\\xaxa.com") { image in
+                self.image = image
+            }
+        }
     }
 }
 
