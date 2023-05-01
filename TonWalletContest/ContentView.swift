@@ -32,13 +32,10 @@ struct ContentView: View {
             Button("Create Key") {
                 Task {
                     do {
-                        let key = try await tonManager.createKey()
-                        await print(try key.words(password: tonManager.passcode.data(using: .utf8)!))
-                        
+                        let key = try await tonManager.importWords(.words24_withTon)
                         let wallet = try await tonManager.createWallet3(key: key, revision: .r2)
-                        let contract = wallet.contract
-                        print("Contract info: ", contract.info)
                         try await print("Walley public key", wallet.publicKey)
+                        try await tonManager.sendMoney(wallet: wallet, with: key, to: "EQAYaJl3BH5OHpkfRYbvwY0Gv42MeeN4Nl7uz1bivX06tFKn")
                     } catch {
                         print("Got error:", error.localizedDescription)
                     }
