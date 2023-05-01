@@ -10,7 +10,6 @@
 		131044FB29DE072500987E07 /* BlankTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */; };
 		1352FF9C29FBCEC3002799A9 /* PendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9B29FBCEC3002799A9 /* PendingView.swift */; };
 		1352FF9E29FBD2B9002799A9 /* money.json in Resources */ = {isa = PBXBuildFile; fileRef = 1352FF9D29FBD2B9002799A9 /* money.json */; };
-		1352FFA029FBD40C002799A9 /* WideBlueTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */; };
 		1352FFA229FBD541002799A9 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FFA129FBD541002799A9 /* SuccessView.swift */; };
 		13B0546929DB16DB006014C0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 13B0546829DB16DB006014C0 /* Lottie */; };
 		13B0547529DB175D006014C0 /* password.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546B29DB175D006014C0 /* password.json */; };
@@ -26,10 +25,7 @@
 		13B0548029DB17EB006014C0 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0547F29DB17EB006014C0 /* LottieView.swift */; };
 		13B0548229DC353D006014C0 /* CongratulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0548129DC353D006014C0 /* CongratulationView.swift */; };
 		13B0548429DC359C006014C0 /* CongratulationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0548329DC359C006014C0 /* CongratulationReducer.swift */; };
-		13FDFEBE29FBF60000402AF9 /* PendingReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEBD29FBF60000402AF9 /* PendingReducer.swift */; };
 		13FDFEC129FBFA7200402AF9 /* SuccessReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC029FBFA7200402AF9 /* SuccessReducer.swift */; };
-		13FDFEC429FC386600402AF9 /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC329FC386600402AF9 /* ConfirmView.swift */; };
-		13FDFEC629FC396400402AF9 /* ConfirmReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC529FC396400402AF9 /* ConfirmReducer.swift */; };
 		13FDFEC929FC5E8000402AF9 /* CommentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC829FC5E8000402AF9 /* CommentTextField.swift */; };
 		61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */; };
 		61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD429D8F5AA00D4D030 /* ContentView.swift */; };
@@ -113,6 +109,9 @@
 		61931DDA29FE707E00F54C64 /* DrawingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DD929FE707E00F54C64 /* DrawingContext.swift */; };
 		61931DDC29FE720400F54C64 /* UIKit+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DDB29FE720400F54C64 /* UIKit+Utils.swift */; };
 		619D5DBA29E2A75300C01C7A /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 619D5DB929E2A75300C01C7A /* SwiftUINavigation */; };
+		61B38D5A2A0001DF007BFE31 /* PendingReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEBD29FBF60000402AF9 /* PendingReducer.swift */; };
+		61B38D5B2A0001E5007BFE31 /* ConfirmReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC529FC396400402AF9 /* ConfirmReducer.swift */; };
+		61B38D5C2A0001FA007BFE31 /* WideBlueTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */; };
 		61DA64A729EBDE80009F8202 /* ImportFailureReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DA64A629EBDE80009F8202 /* ImportFailureReducer.swift */; };
 		61DA64A929EBDE9D009F8202 /* ImportFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DA64A829EBDE9D009F8202 /* ImportFailureView.swift */; };
 		6E11702929EEE9EE00DE473F /* LocalAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E11702829EEE9EE00DE473F /* LocalAuthenticationView.swift */; };
@@ -883,6 +882,7 @@
 				61931DC629FE662B00F54C64 /* Multicast.swift in Sources */,
 				61931DD129FE662B00F54C64 /* Signal_Combine.swift in Sources */,
 				61931D9329FE642900F54C64 /* SSignal+Dispatch.m in Sources */,
+				61B38D5A2A0001DF007BFE31 /* PendingReducer.swift in Sources */,
 				61153E0529D8FB0300D4D030 /* StartView.swift in Sources */,
 				61931D9929FE642900F54C64 /* SDisposableSet.m in Sources */,
 				61931DC829FE662B00F54C64 /* Signal_Single.swift in Sources */,
@@ -904,12 +904,14 @@
 				615EDE2B29EB4B1400D3A220 /* ImportSuccessView.swift in Sources */,
 				61931D8729FE642900F54C64 /* SSignal+Meta.m in Sources */,
 				61931D8829FE642900F54C64 /* SSignal+SideEffects.m in Sources */,
+				61B38D5B2A0001E5007BFE31 /* ConfirmReducer.swift in Sources */,
 				61931DBF29FE662B00F54C64 /* Signal_Merge.swift in Sources */,
 				131044FB29DE072500987E07 /* BlankTextButtonStyle.swift in Sources */,
 				613D3A0029FEC6AA00243B2E /* RecieveTonView.swift in Sources */,
 				6133A79D29E1623A008BDF34 /* LegacyTextField.swift in Sources */,
 				61931DC729FE662B00F54C64 /* Bag.swift in Sources */,
 				61931D8329FE642900F54C64 /* SSignal+Combine.m in Sources */,
+				61B38D5C2A0001FA007BFE31 /* WideBlueTextButtonStyle.swift in Sources */,
 				61931DD829FE6BE500F54C64 /* ImageCorner.swift in Sources */,
 				61931DBA29FE662B00F54C64 /* Subscriber.swift in Sources */,
 				615EDE2929EB4AF800D3A220 /* ImportSuccessReducer.swift in Sources */,
