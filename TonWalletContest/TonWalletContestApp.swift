@@ -29,7 +29,10 @@ struct TonWalletContestApp: App {
                             UserDefaults.standard.set(AppState.keyCreated.rawValue, forKey: "state")
                             try await TonKeyStore.shared.save(key: key)
                             let words = try await TonWalletManager.shared.words(key: key)
-                            let state =  CongratulationReducer.State(words: words)
+                            let state =  CongratulationReducer.State(events: .init(
+                                createRecoveryState: {
+                                    RecoveryPhraseReducer.State(words: words)
+                                }), words: words)
 
                             return state
                         },
