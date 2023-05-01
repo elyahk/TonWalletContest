@@ -12,39 +12,42 @@ struct StartReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
+        var events: Events
+    }
+
+    struct Events: Equatable {
+        static func == (lhs: StartReducer.Events, rhs: StartReducer.Events) -> Bool {
+            true
+        }
+
+        var createCongratulationState: () async throws -> CongratulationReducer.State
+        var createImportPhraseState: () async throws -> ImportPhraseReducer.State
     }
 
     enum Action: Equatable {
         case createMyWalletTapped
         case importMyWalletTapped
-        case keyCreated(key: Key, words: [String])
+        case destinationState(Destination.State)
         case destination(PresentationAction<Destination.Action>)
     }
     
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
-            case .createMyWalletTapped:
-    
-                return .run { send in
-                    let key = try await TonWalletManager.shared.createKey()
-                    let words = try await TonWalletManager.shared.words(key: key)
-                    await send(.keyCreated(key: key, words: words))
+            case .destinationState(let destinationState):
+                state.destination = destinationState
+                return .none
 
-                    let tonKeyStore = await TonKeyStore.shared
-                    try await tonKeyStore.save(key: key)
+            case .createMyWalletTapped:
+                return .run { [events = state.events] send in
+                    let state = try await events.createCongratulationState()
+                    await send(.destinationState(.createWallet(state)))
                 }
                 
             case .importMyWalletTapped:
-                state.destination = .importWords(.init())
-                return .none
-                
-            case let .keyCreated(key: key, words: words):
-                state.destination = .createWallet(.init(words: words))
-                UserDefaults.standard.set(AppState.keyCreated.rawValue , forKey: "state")
-
-                return .run { _ in
-                    try await TonKeyStore.shared.save(key: key)
+                return .run { [events = state.events] send in
+                    let state = try await events.createImportPhraseState()
+                    await send(.destinationState(.importWords(state)))
                 }
                 
             case .destination:

@@ -7,47 +7,77 @@ struct ConfirmPasscodeReducer: ReducerProtocol {
         var oldPasscode: String
         var passcode: String = ""
         var showKeyboad: Bool = true
-        @PresentationState var faceID: LocalAuthenticationReducer.State?
+        @PresentationState var destination: Destination.State?
         var passcodes: [PasscodeReducer.Passcode] = [.empty, .empty, .empty, .empty]
     }
     
     enum Action: Equatable {
         case passwordAdded(password: String)
-        case faceID(PresentationAction<LocalAuthenticationReducer.Action>)
+        case destination(PresentationAction<Destination.Action>)
         case onAppear
     }
     
-    func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-        switch action {
-        case let .passwordAdded(passcode):
-            state.passcode = passcode
-            let count = passcode.count
-            
-            for (index, _) in state.passcodes.enumerated() {
-                state.passcodes[index] = index >= count ? .empty : .fill
+    var body: some ReducerProtocolOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case let .passwordAdded(passcode):
+                state.passcode = passcode
+                let count = passcode.count
+                
+                for (index, _) in state.passcodes.enumerated() {
+                    state.passcodes[index] = index >= count ? .empty : .fill
+                }
+                
+                if passcode.count == state.oldPasscode.count {
+                    if passcode == state.oldPasscode {
+                        state.showKeyboad = false
+                        state.destination = .localAuthentication(.init())
+                    } else {
+                        return .run { await $0.send(.onAppear) }
+                    }
+                }
+                
+                
+                return .none
+                
+            case .onAppear:
+                state.showKeyboad = true
+                state.passcode = ""
+                state.passcodes = [.empty, .empty, .empty, .empty]
+                
+                return .none
+                
+            case .destination:
+                return .none
             }
-            
-            if passcode.count == state.oldPasscode.count {
-                if passcode == state.oldPasscode {
-                    state.showKeyboad = false
-                    state.faceID = .init()
-                } else {
-                    return .run { await $0.send(.onAppear) }
+        }
+        .ifLet(\.$destination, action: /Action.destination) {
+            Destination()
+        }
+    }
+}
+
+extension ConfirmPasscodeReducer {
+    struct Destination: ReducerProtocol {
+        enum State: Equatable, Identifiable {
+            case localAuthentication(LocalAuthenticationReducer.State)
+
+            var id: AnyHashable {
+                switch self {
+                case let .localAuthentication(state):
+                    return state.id
                 }
             }
-            
-            
-            return .none
-            
-        case .onAppear:
-            state.showKeyboad = true
-            state.passcode = ""
-            state.passcodes = [.empty, .empty, .empty, .empty]
-            
-            return .none
-            
-        case .faceID:
-            return .none
+        }
+
+        enum Action: Equatable {
+            case localAuthentication(LocalAuthenticationReducer.Action)
+        }
+
+        var body: some ReducerProtocolOf<Self> {
+            Scope(state: /State.localAuthentication, action: /Action.localAuthentication) {
+                LocalAuthenticationReducer()
+            }
         }
     }
 }
@@ -62,13 +92,11 @@ struct ConfirmPasscodeView: View {
     struct ViewState: Equatable {
         var passcode: String = ""
         var showKeyboad: Bool = true
-        @PresentationState var faceID: LocalAuthenticationReducer.State?
         var passcodes: [PasscodeReducer.Passcode]
         
         init(state: ConfirmPasscodeReducer.State) {
             self.passcode = state.passcode
             self.showKeyboad = state.showKeyboad
-            self.faceID = state.faceID
             self.passcodes = state.passcodes
         }
     }
@@ -115,10 +143,13 @@ struct ConfirmPasscodeView: View {
                             }
                         }
                         .padding(.top, 40)
-                    
+
                     NavigationLinkStore(
-                        self.store.scope(state: \.$faceID, action: ConfirmPasscodeReducer.Action.faceID)
+                        self.store.scope(state: \.$destination, action: ConfirmPasscodeReducer.Action.destination),
+                        state: /ConfirmPasscodeReducer.Destination.State.localAuthentication,
+                        action: ConfirmPasscodeReducer.Destination.Action.localAuthentication
                     ) {
+
                     } destination: { store in
                         LocalAuthenticationView(store: store)
                     } label: {
