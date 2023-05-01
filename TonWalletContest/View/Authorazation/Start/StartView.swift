@@ -77,10 +77,15 @@ struct StartView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             StartView(store: .init(
-                initialState: .init(),
+                initialState: .init(events: .init(
+                    createCongratulationState: {
+                        return CongratulationReducer.State(words: .words24_withTon)
+                    },
+                    createImportPhraseState: {
+                        return ImportPhraseReducer.State()
+                    })),
                 reducer: StartReducer()
             ))
         }
     }
 }
-//"Pua9oBjA-siFCL6ViKk5hyw57jfuzSiZUvMwshrYv9m-MdVc"

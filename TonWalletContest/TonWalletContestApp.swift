@@ -22,7 +22,23 @@ struct TonWalletContestApp: App {
         WindowGroup {
             NavigationView {
                 StartView(store: .init(
-                    initialState: .init(),
+                    initialState: .init(events: .init(
+                        createCongratulationState: {
+                            let key = try await TonWalletManager.shared.createKey()
+                            try await TonKeyStore.shared.save(key: key)
+                            UserDefaults.standard.set(AppState.keyCreated.rawValue, forKey: "state")
+                            try await TonKeyStore.shared.save(key: key)
+                            let words = try await TonWalletManager.shared.words(key: key)
+                            let state =  CongratulationReducer.State(words: words)
+
+                            return state
+                        },
+                        createImportPhraseState: {
+                            let state = ImportPhraseReducer.State()
+
+                            return state
+                        })
+                    ),
                     reducer: StartReducer()
                 ))
 
