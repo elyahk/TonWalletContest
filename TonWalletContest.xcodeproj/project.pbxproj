@@ -78,32 +78,6 @@
 		61760F4929F9B0A100B2770C /* TonKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61760F4829F9B0A100B2770C /* TonKeyStore.swift */; };
 		61760F4C29F9BF1C00B2770C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61760F4B29F9BF1C00B2770C /* MainView.swift */; };
 		61931D4929FE62E700F54C64 /* QrCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931D4829FE62E700F54C64 /* QrCode.swift */; };
-		61931D8329FE642900F54C64 /* SSignal+Combine.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D4D29FE642900F54C64 /* SSignal+Combine.m */; };
-		61931D8429FE642900F54C64 /* SAtomic.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D5229FE642900F54C64 /* SAtomic.m */; };
-		61931D8529FE642900F54C64 /* SSignal+Accumulate.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D5529FE642900F54C64 /* SSignal+Accumulate.m */; };
-		61931D8629FE642900F54C64 /* SBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D5629FE642900F54C64 /* SBag.m */; };
-		61931D8729FE642900F54C64 /* SSignal+Meta.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D5729FE642900F54C64 /* SSignal+Meta.m */; };
-		61931D8829FE642900F54C64 /* SSignal+SideEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D5829FE642900F54C64 /* SSignal+SideEffects.m */; };
-		61931D8929FE642900F54C64 /* SSignal+Timing.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D5C29FE642900F54C64 /* SSignal+Timing.m */; };
-		61931D8A29FE642900F54C64 /* SSignal+Pipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D5E29FE642900F54C64 /* SSignal+Pipe.m */; };
-		61931D8B29FE642900F54C64 /* SSignal+Catch.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D6229FE642900F54C64 /* SSignal+Catch.m */; };
-		61931D8C29FE642900F54C64 /* SVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D6429FE642900F54C64 /* SVariable.m */; };
-		61931D8D29FE642900F54C64 /* SSignal+Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D6629FE642900F54C64 /* SSignal+Mapping.m */; };
-		61931D8E29FE642900F54C64 /* SThreadPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D6729FE642900F54C64 /* SThreadPool.m */; };
-		61931D8F29FE642900F54C64 /* STimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D6929FE642900F54C64 /* STimer.m */; };
-		61931D9029FE642900F54C64 /* SThreadPoolQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D6A29FE642900F54C64 /* SThreadPoolQueue.m */; };
-		61931D9129FE642900F54C64 /* SBlockDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D6B29FE642900F54C64 /* SBlockDisposable.m */; };
-		61931D9229FE642900F54C64 /* SSignal+Multicast.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D6C29FE642900F54C64 /* SSignal+Multicast.m */; };
-		61931D9329FE642900F54C64 /* SSignal+Dispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D6F29FE642900F54C64 /* SSignal+Dispatch.m */; };
-		61931D9429FE642900F54C64 /* SMetaDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D7029FE642900F54C64 /* SMetaDisposable.m */; };
-		61931D9529FE642900F54C64 /* SMulticastSignalManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D7129FE642900F54C64 /* SMulticastSignalManager.m */; };
-		61931D9629FE642900F54C64 /* SSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D7629FE642900F54C64 /* SSignal.m */; };
-		61931D9729FE642900F54C64 /* SSignal+Single.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D7729FE642900F54C64 /* SSignal+Single.m */; };
-		61931D9829FE642900F54C64 /* SThreadPoolTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D7929FE642900F54C64 /* SThreadPoolTask.m */; };
-		61931D9929FE642900F54C64 /* SDisposableSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D7A29FE642900F54C64 /* SDisposableSet.m */; };
-		61931D9A29FE642900F54C64 /* SSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D7C29FE642900F54C64 /* SSubscriber.m */; };
-		61931D9B29FE642900F54C64 /* SSignal+Take.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D7E29FE642900F54C64 /* SSignal+Take.m */; };
-		61931D9C29FE642900F54C64 /* SQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 61931D8129FE642900F54C64 /* SQueue.m */; };
 		61931DBA29FE662B00F54C64 /* Subscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931D9F29FE662B00F54C64 /* Subscriber.swift */; };
 		61931DBB29FE662B00F54C64 /* ThreadPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA029FE662B00F54C64 /* ThreadPool.swift */; };
 		61931DBC29FE662B00F54C64 /* Signal_Catch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA129FE662B00F54C64 /* Signal_Catch.swift */; };
@@ -271,60 +245,6 @@
 		61760F4829F9B0A100B2770C /* TonKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonKeyStore.swift; sourceTree = "<group>"; };
 		61760F4B29F9BF1C00B2770C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		61931D4829FE62E700F54C64 /* QrCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCode.swift; sourceTree = "<group>"; };
-		61931D4D29FE642900F54C64 /* SSignal+Combine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Combine.m"; sourceTree = "<group>"; };
-		61931D4E29FE642900F54C64 /* SSignal+Multicast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+Multicast.h"; sourceTree = "<group>"; };
-		61931D4F29FE642900F54C64 /* SBlockDisposable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBlockDisposable.h; sourceTree = "<group>"; };
-		61931D5029FE642900F54C64 /* SThreadPoolQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SThreadPoolQueue.h; sourceTree = "<group>"; };
-		61931D5129FE642900F54C64 /* STimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STimer.h; sourceTree = "<group>"; };
-		61931D5229FE642900F54C64 /* SAtomic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAtomic.m; sourceTree = "<group>"; };
-		61931D5329FE642900F54C64 /* SSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSignal.h; sourceTree = "<group>"; };
-		61931D5429FE642900F54C64 /* SSignal+Single.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+Single.h"; sourceTree = "<group>"; };
-		61931D5529FE642900F54C64 /* SSignal+Accumulate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Accumulate.m"; sourceTree = "<group>"; };
-		61931D5629FE642900F54C64 /* SBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBag.m; sourceTree = "<group>"; };
-		61931D5729FE642900F54C64 /* SSignal+Meta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Meta.m"; sourceTree = "<group>"; };
-		61931D5829FE642900F54C64 /* SSignal+SideEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+SideEffects.m"; sourceTree = "<group>"; };
-		61931D5929FE642900F54C64 /* SMetaDisposable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMetaDisposable.h; sourceTree = "<group>"; };
-		61931D5A29FE642900F54C64 /* SMulticastSignalManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMulticastSignalManager.h; sourceTree = "<group>"; };
-		61931D5B29FE642900F54C64 /* SSignal+Dispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+Dispatch.h"; sourceTree = "<group>"; };
-		61931D5C29FE642900F54C64 /* SSignal+Timing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Timing.m"; sourceTree = "<group>"; };
-		61931D5D29FE642900F54C64 /* SSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSubscriber.h; sourceTree = "<group>"; };
-		61931D5E29FE642900F54C64 /* SSignal+Pipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Pipe.m"; sourceTree = "<group>"; };
-		61931D5F29FE642900F54C64 /* SDisposableSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDisposableSet.h; sourceTree = "<group>"; };
-		61931D6029FE642900F54C64 /* SThreadPoolTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SThreadPoolTask.h; sourceTree = "<group>"; };
-		61931D6129FE642900F54C64 /* SDisposable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDisposable.h; sourceTree = "<group>"; };
-		61931D6229FE642900F54C64 /* SSignal+Catch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Catch.m"; sourceTree = "<group>"; };
-		61931D6329FE642900F54C64 /* SQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQueue.h; sourceTree = "<group>"; };
-		61931D6429FE642900F54C64 /* SVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVariable.m; sourceTree = "<group>"; };
-		61931D6529FE642900F54C64 /* SSignal+Take.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+Take.h"; sourceTree = "<group>"; };
-		61931D6629FE642900F54C64 /* SSignal+Mapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Mapping.m"; sourceTree = "<group>"; };
-		61931D6729FE642900F54C64 /* SThreadPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SThreadPool.m; sourceTree = "<group>"; };
-		61931D6829FE642900F54C64 /* SAtomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAtomic.h; sourceTree = "<group>"; };
-		61931D6929FE642900F54C64 /* STimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STimer.m; sourceTree = "<group>"; };
-		61931D6A29FE642900F54C64 /* SThreadPoolQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SThreadPoolQueue.m; sourceTree = "<group>"; };
-		61931D6B29FE642900F54C64 /* SBlockDisposable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBlockDisposable.m; sourceTree = "<group>"; };
-		61931D6C29FE642900F54C64 /* SSignal+Multicast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Multicast.m"; sourceTree = "<group>"; };
-		61931D6D29FE642900F54C64 /* SSignal+Combine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+Combine.h"; sourceTree = "<group>"; };
-		61931D6E29FE642900F54C64 /* SSignal+Timing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+Timing.h"; sourceTree = "<group>"; };
-		61931D6F29FE642900F54C64 /* SSignal+Dispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Dispatch.m"; sourceTree = "<group>"; };
-		61931D7029FE642900F54C64 /* SMetaDisposable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMetaDisposable.m; sourceTree = "<group>"; };
-		61931D7129FE642900F54C64 /* SMulticastSignalManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMulticastSignalManager.m; sourceTree = "<group>"; };
-		61931D7229FE642900F54C64 /* SSignal+SideEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+SideEffects.h"; sourceTree = "<group>"; };
-		61931D7329FE642900F54C64 /* SSignal+Meta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+Meta.h"; sourceTree = "<group>"; };
-		61931D7429FE642900F54C64 /* SBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBag.h; sourceTree = "<group>"; };
-		61931D7529FE642900F54C64 /* SSignal+Accumulate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+Accumulate.h"; sourceTree = "<group>"; };
-		61931D7629FE642900F54C64 /* SSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSignal.m; sourceTree = "<group>"; };
-		61931D7729FE642900F54C64 /* SSignal+Single.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Single.m"; sourceTree = "<group>"; };
-		61931D7829FE642900F54C64 /* SSignalKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSignalKit.h; sourceTree = "<group>"; };
-		61931D7929FE642900F54C64 /* SThreadPoolTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SThreadPoolTask.m; sourceTree = "<group>"; };
-		61931D7A29FE642900F54C64 /* SDisposableSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDisposableSet.m; sourceTree = "<group>"; };
-		61931D7B29FE642900F54C64 /* SSignal+Pipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+Pipe.h"; sourceTree = "<group>"; };
-		61931D7C29FE642900F54C64 /* SSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSubscriber.m; sourceTree = "<group>"; };
-		61931D7D29FE642900F54C64 /* SThreadPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SThreadPool.h; sourceTree = "<group>"; };
-		61931D7E29FE642900F54C64 /* SSignal+Take.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Take.m"; sourceTree = "<group>"; };
-		61931D7F29FE642900F54C64 /* SSignal+Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+Mapping.h"; sourceTree = "<group>"; };
-		61931D8029FE642900F54C64 /* SVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVariable.h; sourceTree = "<group>"; };
-		61931D8129FE642900F54C64 /* SQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQueue.m; sourceTree = "<group>"; };
-		61931D8229FE642900F54C64 /* SSignal+Catch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSignal+Catch.h"; sourceTree = "<group>"; };
 		61931D9F29FE662B00F54C64 /* Subscriber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscriber.swift; sourceTree = "<group>"; };
 		61931DA029FE662B00F54C64 /* ThreadPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadPool.swift; sourceTree = "<group>"; };
 		61931DA129FE662B00F54C64 /* Signal_Catch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Catch.swift; sourceTree = "<group>"; };
@@ -701,71 +621,8 @@
 			isa = PBXGroup;
 			children = (
 				61931D9D29FE662B00F54C64 /* SwiftSignalKit */,
-				61931D4C29FE642900F54C64 /* SSignalKit */,
 			);
 			path = SwiftSignalKit;
-			sourceTree = "<group>";
-		};
-		61931D4C29FE642900F54C64 /* SSignalKit */ = {
-			isa = PBXGroup;
-			children = (
-				61931D4D29FE642900F54C64 /* SSignal+Combine.m */,
-				61931D4E29FE642900F54C64 /* SSignal+Multicast.h */,
-				61931D4F29FE642900F54C64 /* SBlockDisposable.h */,
-				61931D5029FE642900F54C64 /* SThreadPoolQueue.h */,
-				61931D5129FE642900F54C64 /* STimer.h */,
-				61931D5229FE642900F54C64 /* SAtomic.m */,
-				61931D5329FE642900F54C64 /* SSignal.h */,
-				61931D5429FE642900F54C64 /* SSignal+Single.h */,
-				61931D5529FE642900F54C64 /* SSignal+Accumulate.m */,
-				61931D5629FE642900F54C64 /* SBag.m */,
-				61931D5729FE642900F54C64 /* SSignal+Meta.m */,
-				61931D5829FE642900F54C64 /* SSignal+SideEffects.m */,
-				61931D5929FE642900F54C64 /* SMetaDisposable.h */,
-				61931D5A29FE642900F54C64 /* SMulticastSignalManager.h */,
-				61931D5B29FE642900F54C64 /* SSignal+Dispatch.h */,
-				61931D5C29FE642900F54C64 /* SSignal+Timing.m */,
-				61931D5D29FE642900F54C64 /* SSubscriber.h */,
-				61931D5E29FE642900F54C64 /* SSignal+Pipe.m */,
-				61931D5F29FE642900F54C64 /* SDisposableSet.h */,
-				61931D6029FE642900F54C64 /* SThreadPoolTask.h */,
-				61931D6129FE642900F54C64 /* SDisposable.h */,
-				61931D6229FE642900F54C64 /* SSignal+Catch.m */,
-				61931D6329FE642900F54C64 /* SQueue.h */,
-				61931D6429FE642900F54C64 /* SVariable.m */,
-				61931D6529FE642900F54C64 /* SSignal+Take.h */,
-				61931D6629FE642900F54C64 /* SSignal+Mapping.m */,
-				61931D6729FE642900F54C64 /* SThreadPool.m */,
-				61931D6829FE642900F54C64 /* SAtomic.h */,
-				61931D6929FE642900F54C64 /* STimer.m */,
-				61931D6A29FE642900F54C64 /* SThreadPoolQueue.m */,
-				61931D6B29FE642900F54C64 /* SBlockDisposable.m */,
-				61931D6C29FE642900F54C64 /* SSignal+Multicast.m */,
-				61931D6D29FE642900F54C64 /* SSignal+Combine.h */,
-				61931D6E29FE642900F54C64 /* SSignal+Timing.h */,
-				61931D6F29FE642900F54C64 /* SSignal+Dispatch.m */,
-				61931D7029FE642900F54C64 /* SMetaDisposable.m */,
-				61931D7129FE642900F54C64 /* SMulticastSignalManager.m */,
-				61931D7229FE642900F54C64 /* SSignal+SideEffects.h */,
-				61931D7329FE642900F54C64 /* SSignal+Meta.h */,
-				61931D7429FE642900F54C64 /* SBag.h */,
-				61931D7529FE642900F54C64 /* SSignal+Accumulate.h */,
-				61931D7629FE642900F54C64 /* SSignal.m */,
-				61931D7729FE642900F54C64 /* SSignal+Single.m */,
-				61931D7829FE642900F54C64 /* SSignalKit.h */,
-				61931D7929FE642900F54C64 /* SThreadPoolTask.m */,
-				61931D7A29FE642900F54C64 /* SDisposableSet.m */,
-				61931D7B29FE642900F54C64 /* SSignal+Pipe.h */,
-				61931D7C29FE642900F54C64 /* SSubscriber.m */,
-				61931D7D29FE642900F54C64 /* SThreadPool.h */,
-				61931D7E29FE642900F54C64 /* SSignal+Take.m */,
-				61931D7F29FE642900F54C64 /* SSignal+Mapping.h */,
-				61931D8029FE642900F54C64 /* SVariable.h */,
-				61931D8129FE642900F54C64 /* SQueue.m */,
-				61931D8229FE642900F54C64 /* SSignal+Catch.h */,
-			);
-			name = SSignalKit;
-			path = "../../../../../Downloads/wallet-ios-master/submodules/SSignalKit/SSignalKit/Source/SSignalKit";
 			sourceTree = "<group>";
 		};
 		61931D9D29FE662B00F54C64 /* SwiftSignalKit */ = {
@@ -1015,9 +872,6 @@
 				6ED77F7429EF0466004341AC /* LocalAuthenticationReducer.swift in Sources */,
 				6152F1802A04193500F97845 /* SSignal+Combine.m in Sources */,
 				6E11702929EEE9EE00DE473F /* LocalAuthenticationView.swift in Sources */,
-				61931D8529FE642900F54C64 /* SSignal+Accumulate.m in Sources */,
-				61931D9C29FE642900F54C64 /* SQueue.m in Sources */,
-				61931D9529FE642900F54C64 /* SMulticastSignalManager.m in Sources */,
 				61DA64A929EBDE9D009F8202 /* ImportFailureView.swift in Sources */,
 				6152F1932A04193500F97845 /* SSignal+Dispatch.m in Sources */,
 				6E3EC13429DB0AB10050AA75 /* TonWalletManager.swift in Sources */,
@@ -1027,42 +881,31 @@
 				61931DC629FE662B00F54C64 /* Multicast.swift in Sources */,
 				61931DD129FE662B00F54C64 /* Signal_Combine.swift in Sources */,
 				6152F1812A04193500F97845 /* SSignal+Pipe.m in Sources */,
-				61931D9329FE642900F54C64 /* SSignal+Dispatch.m in Sources */,
 				6152F18E2A04193500F97845 /* SSignal+SideEffects.m in Sources */,
 				6152F1942A04193500F97845 /* SSignal+Accumulate.m in Sources */,
 				61B38D5A2A0001DF007BFE31 /* PendingReducer.swift in Sources */,
 				6152F17E2A04193500F97845 /* SSignal+Timing.m in Sources */,
 				61153E0529D8FB0300D4D030 /* StartView.swift in Sources */,
-				61931D9929FE642900F54C64 /* SDisposableSet.m in Sources */,
 				61931DC829FE662B00F54C64 /* Signal_Single.swift in Sources */,
-				61931D8F29FE642900F54C64 /* STimer.m in Sources */,
-				61931D9A29FE642900F54C64 /* SSubscriber.m in Sources */,
 				61153E0929D8FBDC00D4D030 /* StartReducer.swift in Sources */,
-				61931D8B29FE642900F54C64 /* SSignal+Catch.m in Sources */,
 				6152F1902A04193500F97845 /* SVariable.m in Sources */,
-				61931D9229FE642900F54C64 /* SSignal+Multicast.m in Sources */,
 				61931DC429FE662B00F54C64 /* QueueLocalObject.swift in Sources */,
-				61931D9429FE642900F54C64 /* SMetaDisposable.m in Sources */,
 				6152F17F2A04193500F97845 /* STimer.m in Sources */,
 				6E5D444529DC6406000F95CE /* ButtonTextStyle.swift in Sources */,
 				615EDE2329EB41F200D3A220 /* ImportPhraseReducer.swift in Sources */,
 				61931DC929FE662B00F54C64 /* Signal_Take.swift in Sources */,
-				61931D9829FE642900F54C64 /* SThreadPoolTask.m in Sources */,
 				61931DD229FE662B00F54C64 /* Signal_Timing.swift in Sources */,
 				61931DC529FE662B00F54C64 /* Disposable.swift in Sources */,
 				6EBB474E29F1303D00216832 /* ReadyToGoView.swift in Sources */,
 				13FDFEC129FBFA7200402AF9 /* SuccessReducer.swift in Sources */,
 				615EDE2B29EB4B1400D3A220 /* ImportSuccessView.swift in Sources */,
-				61931D8729FE642900F54C64 /* SSignal+Meta.m in Sources */,
 				6152F1842A04193500F97845 /* SSignal+Multicast.m in Sources */,
-				61931D8829FE642900F54C64 /* SSignal+SideEffects.m in Sources */,
 				61B38D5B2A0001E5007BFE31 /* ConfirmReducer.swift in Sources */,
 				61931DBF29FE662B00F54C64 /* Signal_Merge.swift in Sources */,
 				131044FB29DE072500987E07 /* BlankTextButtonStyle.swift in Sources */,
 				613D3A0029FEC6AA00243B2E /* RecieveTonView.swift in Sources */,
 				6133A79D29E1623A008BDF34 /* LegacyTextField.swift in Sources */,
 				61931DC729FE662B00F54C64 /* Bag.swift in Sources */,
-				61931D8329FE642900F54C64 /* SSignal+Combine.m in Sources */,
 				6152F18F2A04193500F97845 /* SThreadPoolQueue.m in Sources */,
 				61B38D5C2A0001FA007BFE31 /* WideBlueTextButtonStyle.swift in Sources */,
 				61931DD829FE6BE500F54C64 /* ImageCorner.swift in Sources */,
@@ -1078,16 +921,11 @@
 				61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */,
 				61931DCC29FE662B00F54C64 /* Queue.swift in Sources */,
 				6152F1822A04193500F97845 /* SThreadPool.m in Sources */,
-				61931D8C29FE642900F54C64 /* SVariable.m in Sources */,
-				61931D9129FE642900F54C64 /* SBlockDisposable.m in Sources */,
 				6152F18D2A04193500F97845 /* SDisposableSet.m in Sources */,
 				615017B829E0055500AF963D /* TestTimeReducer.swift in Sources */,
 				6152F1892A04193500F97845 /* SSignal+Mapping.m in Sources */,
 				61931DCF29FE662B00F54C64 /* Signal_Loop.swift in Sources */,
-				61931D8D29FE642900F54C64 /* SSignal+Mapping.m in Sources */,
-				61931D8429FE642900F54C64 /* SAtomic.m in Sources */,
 				61931DC329FE662B00F54C64 /* Signal_Dispatch.swift in Sources */,
-				61931D8629FE642900F54C64 /* SBag.m in Sources */,
 				61931DD629FE6B9C00F54C64 /* TransformImageArguments.swift in Sources */,
 				61931DBB29FE662B00F54C64 /* ThreadPool.swift in Sources */,
 				6152F1952A04193500F97845 /* SQueue.m in Sources */,
@@ -1099,20 +937,16 @@
 				615017BA29E0056D00AF963D /* TestTimeView.swift in Sources */,
 				615EDE2529EB420600D3A220 /* ImportPhraseView.swift in Sources */,
 				61931DCB29FE662B00F54C64 /* Promise.swift in Sources */,
-				61931D8929FE642900F54C64 /* SSignal+Timing.m in Sources */,
 				61931DC129FE662B00F54C64 /* Lock.swift in Sources */,
 				13B0548229DC353D006014C0 /* CongratulationView.swift in Sources */,
-				61931D9B29FE642900F54C64 /* SSignal+Take.m in Sources */,
 				61931DBE29FE662B00F54C64 /* Signal_Reduce.swift in Sources */,
 				61931DDC29FE720400F54C64 /* UIKit+Utils.swift in Sources */,
 				6E38004729DE0464002D6868 /* RecoveryPhraseReducer.swift in Sources */,
 				6152F18C2A04193500F97845 /* SThreadPoolTask.m in Sources */,
 				61931DC029FE662B00F54C64 /* Signal_Mapping.swift in Sources */,
-				61931D9029FE642900F54C64 /* SThreadPoolQueue.m in Sources */,
 				61760F4929F9B0A100B2770C /* TonKeyStore.swift in Sources */,
 				61931DCD29FE662B00F54C64 /* Atomic.swift in Sources */,
 				61931D4929FE62E700F54C64 /* QrCode.swift in Sources */,
-				61931D8A29FE642900F54C64 /* SSignal+Pipe.m in Sources */,
 				61760F4C29F9BF1C00B2770C /* MainView.swift in Sources */,
 				61931DDA29FE707E00F54C64 /* DrawingContext.swift in Sources */,
 				6152F1922A04193500F97845 /* SSignal+Take.m in Sources */,
@@ -1122,10 +956,7 @@
 				61931DCA29FE662B00F54C64 /* Signal_SideEffects.swift in Sources */,
 				6EBB475029F1304B00216832 /* ReadyToGoReducer.swift in Sources */,
 				6152F17D2A04193500F97845 /* SSignal+Catch.m in Sources */,
-				61931D9729FE642900F54C64 /* SSignal+Single.m in Sources */,
 				61931DBD29FE662B00F54C64 /* Signal_Materialize.swift in Sources */,
-				61931D8E29FE642900F54C64 /* SThreadPool.m in Sources */,
-				61931D9629FE642900F54C64 /* SSignal.m in Sources */,
 				6158D4E129EA88DB00AC467C /* ConfirmPasscodeView+Reducer.swift in Sources */,
 				6152F1962A04193500F97845 /* SSignal.m in Sources */,
 				1352FF9C29FBCEC3002799A9 /* PendingView.swift in Sources */,
