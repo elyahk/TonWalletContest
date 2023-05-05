@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 struct SendView: View {
     @State var address: String = ""
     @Environment(\.presentationMode) var presentationMode
@@ -14,11 +15,12 @@ struct SendView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                TextField("Enter Wallet Address or Domain...", text: $address)
+                TextField("Enter Wallet Address or Domain...", text: $address, axis: .vertical)
                     .frame(width: .infinity, height: 50, alignment: .leading)
                     .padding(.horizontal, 16)
                     .background(Color("LightGray"))
                     .cornerRadius(10)
+
                 Text("Paste the 24-letter wallet address of the recipient here or TON DNS.")
                     .font(.callout)
                     .foregroundColor(.gray)
@@ -66,6 +68,7 @@ struct SendView: View {
     }
 }
 
+@available(iOS 16.0, *)
 struct SendView_Previews: PreviewProvider {
     static var previews: some View {
         SendView()

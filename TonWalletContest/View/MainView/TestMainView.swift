@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 struct TestMainView: View {
     @State var isModal = false
     var body: some View {
@@ -32,6 +33,7 @@ struct TestMainView: View {
     }
 }
 
+@available(iOS 16.0, *)
 struct TestMainView_Previews: PreviewProvider {
     static var previews: some View {
         TestMainView()
