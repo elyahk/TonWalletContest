@@ -26,6 +26,8 @@
 		13B0548029DB17EB006014C0 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0547F29DB17EB006014C0 /* LottieView.swift */; };
 		13B0548229DC353D006014C0 /* CongratulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0548129DC353D006014C0 /* CongratulationView.swift */; };
 		13B0548429DC359C006014C0 /* CongratulationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0548329DC359C006014C0 /* CongratulationReducer.swift */; };
+		13D218F02A04F964001F351C /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D218EF2A04F964001F351C /* SendView.swift */; };
+		13D218F22A050742001F351C /* TestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D218F12A050742001F351C /* TestMainView.swift */; };
 		13FDFEBE29FBF60000402AF9 /* PendingReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEBD29FBF60000402AF9 /* PendingReducer.swift */; };
 		13FDFEC129FBFA7200402AF9 /* SuccessReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC029FBFA7200402AF9 /* SuccessReducer.swift */; };
 		13FDFEC429FC386600402AF9 /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC329FC386600402AF9 /* ConfirmView.swift */; };
@@ -103,6 +105,8 @@
 		13B0547F29DB17EB006014C0 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LottieView.swift; path = TonWalletContest/LottieView.swift; sourceTree = SOURCE_ROOT; };
 		13B0548129DC353D006014C0 /* CongratulationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulationView.swift; sourceTree = "<group>"; };
 		13B0548329DC359C006014C0 /* CongratulationReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulationReducer.swift; sourceTree = "<group>"; };
+		13D218EF2A04F964001F351C /* SendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
+		13D218F12A050742001F351C /* TestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMainView.swift; sourceTree = "<group>"; };
 		13FDFEBD29FBF60000402AF9 /* PendingReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingReducer.swift; sourceTree = "<group>"; };
 		13FDFEC029FBFA7200402AF9 /* SuccessReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessReducer.swift; sourceTree = "<group>"; };
 		13FDFEC329FC386600402AF9 /* ConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmView.swift; sourceTree = "<group>"; };
@@ -385,6 +389,8 @@
 			isa = PBXGroup;
 			children = (
 				61760F4B29F9BF1C00B2770C /* MainView.swift */,
+				13D218F12A050742001F351C /* TestMainView.swift */,
+				13D218EF2A04F964001F351C /* SendView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -606,6 +612,7 @@
 				61DA64A929EBDE9D009F8202 /* ImportFailureView.swift in Sources */,
 				6E3EC13429DB0AB10050AA75 /* TonWalletManager.swift in Sources */,
 				6E38004929DE048E002D6868 /* RecoveryPhraseView.swift in Sources */,
+				13D218F22A050742001F351C /* TestMainView.swift in Sources */,
 				61153E0529D8FB0300D4D030 /* StartView.swift in Sources */,
 				13FDFEBE29FBF60000402AF9 /* PendingReducer.swift in Sources */,
 				61153E0929D8FBDC00D4D030 /* StartReducer.swift in Sources */,
@@ -624,6 +631,7 @@
 				61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */,
 				615017B829E0055500AF963D /* TestTimeReducer.swift in Sources */,
 				1352FFA029FBD40C002799A9 /* WideBlueTextButtonStyle.swift in Sources */,
+				13D218F02A04F964001F351C /* SendView.swift in Sources */,
 				615017BF29E019A200AF963D /* PasscodeView+Reducer.swift in Sources */,
 				615017BA29E0056D00AF963D /* TestTimeView.swift in Sources */,
 				615EDE2529EB420600D3A220 /* ImportPhraseView.swift in Sources */,
