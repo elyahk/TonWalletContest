@@ -68,7 +68,7 @@ extension MainViewReducer {
 }
 
 
-@available(iOS 16.0, *)
+
 struct MainView: View {
     let store: StoreOf<MainViewReducer>
 
@@ -98,8 +98,7 @@ struct MainView: View {
                         .padding(.bottom, 124)
                 }
                 .sheet(isPresented: $isModal) {
-                    SendView()
-                        .navigationTitle("Send TON")
+//                    SendView()
                 }
 
             }

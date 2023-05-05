@@ -14,6 +14,7 @@ enum AppState: String {
     case walletCreated
 }
 
+@available(iOS 16.0, *)
 @main
 struct TonWalletContestApp: App {
     @State var state: String = UserDefaults.standard.string(forKey: "state") ?? "new"
@@ -21,10 +22,11 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                StartView(store: .init(
-                    initialState: .init(),
-                    reducer: StartReducer()
-                ))
+                TestMainView()
+//                StartView(store: .init(
+//                    initialState: .init(),
+//                    reducer: StartReducer()
+//                ))
 
 //                switch AppState(rawValue: state) ?? .new {
 //                case .new:

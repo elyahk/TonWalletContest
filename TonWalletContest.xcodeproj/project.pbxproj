@@ -297,6 +297,7 @@
 		61153E0629D8FB0900D4D030 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				13D218EF2A04F964001F351C /* SendView.swift */,
 				61760F4A29F9BF0600B2770C /* MainView */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
 				615017B529E0050800AF963D /* Authorazation */,
@@ -390,7 +391,6 @@
 			children = (
 				61760F4B29F9BF1C00B2770C /* MainView.swift */,
 				13D218F12A050742001F351C /* TestMainView.swift */,
-				13D218EF2A04F964001F351C /* SendView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
