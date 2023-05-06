@@ -2,7 +2,6 @@ import SwiftUI
 import ComposableArchitecture
 
 struct LocalAuthenticationView: View {
-    @State var showingAlert: Bool = false
     let store: StoreOf<LocalAuthenticationReducer>
 
     struct ViewState: Equatable {

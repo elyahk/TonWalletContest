@@ -18,7 +18,8 @@ struct ImportFailureReducer: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .createNewWalletTapped:
-                state.destination = .createWallet(.init())
+//                state.destination = .createWallet(.init())
+                 #warning("Todo")
 
                 return .none
 

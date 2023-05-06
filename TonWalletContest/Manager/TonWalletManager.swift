@@ -83,6 +83,23 @@ class TonWalletManager {
         
         return wallet
     }
+
+    func sendMoney(wallet: Wallet3, with key: Key, to address: String) async throws {
+        guard let displayableAddress = await DisplayableAddress(string: address) else { return }
+
+        let message = try await wallet.subsequentTransferMessage(
+            to: displayableAddress.concreteAddress,
+            amount: Currency(0.01), // 0.5 TON
+            message: ("My test message".data(using: .utf8), nil),
+            key: key,
+            passcode: data
+        )
+
+        let fees = try await message.fees() // get estimated fees
+        print("Estimated fees - \(fees)")
+//        try await message.send()
+        print("Send money")
+    }
     
     
 //        let key = try await Key.import(password: passcodeData, words: words)

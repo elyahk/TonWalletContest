@@ -10,7 +10,6 @@
 		131044FB29DE072500987E07 /* BlankTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */; };
 		1352FF9C29FBCEC3002799A9 /* PendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9B29FBCEC3002799A9 /* PendingView.swift */; };
 		1352FF9E29FBD2B9002799A9 /* money.json in Resources */ = {isa = PBXBuildFile; fileRef = 1352FF9D29FBD2B9002799A9 /* money.json */; };
-		1352FFA029FBD40C002799A9 /* WideBlueTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */; };
 		1352FFA229FBD541002799A9 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FFA129FBD541002799A9 /* SuccessView.swift */; };
 		13B0546929DB16DB006014C0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 13B0546829DB16DB006014C0 /* Lottie */; };
 		13B0547529DB175D006014C0 /* password.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546B29DB175D006014C0 /* password.json */; };
@@ -30,8 +29,6 @@
 		13D218F22A050742001F351C /* TestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D218F12A050742001F351C /* TestMainView.swift */; };
 		13FDFEBE29FBF60000402AF9 /* PendingReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEBD29FBF60000402AF9 /* PendingReducer.swift */; };
 		13FDFEC129FBFA7200402AF9 /* SuccessReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC029FBFA7200402AF9 /* SuccessReducer.swift */; };
-		13FDFEC429FC386600402AF9 /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC329FC386600402AF9 /* ConfirmView.swift */; };
-		13FDFEC629FC396400402AF9 /* ConfirmReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC529FC396400402AF9 /* ConfirmReducer.swift */; };
 		13FDFEC929FC5E8000402AF9 /* CommentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC829FC5E8000402AF9 /* CommentTextField.swift */; };
 		61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */; };
 		61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD429D8F5AA00D4D030 /* ContentView.swift */; };
@@ -46,9 +43,36 @@
 		61153E0529D8FB0300D4D030 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153E0429D8FB0300D4D030 /* StartView.swift */; };
 		61153E0929D8FBDC00D4D030 /* StartReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153E0829D8FBDC00D4D030 /* StartReducer.swift */; };
 		6133A79D29E1623A008BDF34 /* LegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6133A79C29E1623A008BDF34 /* LegacyTextField.swift */; };
+		613D3A0029FEC6AA00243B2E /* RecieveTonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613D39FF29FEC6AA00243B2E /* RecieveTonView.swift */; };
 		615017B829E0055500AF963D /* TestTimeReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017B729E0055500AF963D /* TestTimeReducer.swift */; };
 		615017BA29E0056D00AF963D /* TestTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017B929E0056D00AF963D /* TestTimeView.swift */; };
 		615017BF29E019A200AF963D /* PasscodeView+Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017BE29E019A200AF963D /* PasscodeView+Reducer.swift */; };
+		6152F17D2A04193500F97845 /* SSignal+Catch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1512A04193300F97845 /* SSignal+Catch.m */; };
+		6152F17E2A04193500F97845 /* SSignal+Timing.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F15F2A04193400F97845 /* SSignal+Timing.m */; };
+		6152F17F2A04193500F97845 /* STimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1502A04193300F97845 /* STimer.m */; };
+		6152F1802A04193500F97845 /* SSignal+Combine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F14C2A04193300F97845 /* SSignal+Combine.m */; };
+		6152F1812A04193500F97845 /* SSignal+Pipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1602A04193400F97845 /* SSignal+Pipe.m */; };
+		6152F1822A04193500F97845 /* SThreadPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F16E2A04193400F97845 /* SThreadPool.m */; };
+		6152F1832A04193500F97845 /* SSignal+Meta.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1772A04193400F97845 /* SSignal+Meta.m */; };
+		6152F1842A04193500F97845 /* SSignal+Multicast.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1612A04193400F97845 /* SSignal+Multicast.m */; };
+		6152F1852A04193500F97845 /* SBlockDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1592A04193400F97845 /* SBlockDisposable.m */; };
+		6152F1862A04193500F97845 /* SSignal+Single.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F16C2A04193400F97845 /* SSignal+Single.m */; };
+		6152F1872A04193500F97845 /* SAtomic.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1792A04193500F97845 /* SAtomic.m */; };
+		6152F1882A04193500F97845 /* SSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1482A04193300F97845 /* SSubscriber.m */; };
+		6152F1892A04193500F97845 /* SSignal+Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1532A04193400F97845 /* SSignal+Mapping.m */; };
+		6152F18A2A04193500F97845 /* SMetaDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1712A04193400F97845 /* SMetaDisposable.m */; };
+		6152F18B2A04193500F97845 /* SMulticastSignalManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F15B2A04193400F97845 /* SMulticastSignalManager.m */; };
+		6152F18C2A04193500F97845 /* SThreadPoolTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1632A04193400F97845 /* SThreadPoolTask.m */; };
+		6152F18D2A04193500F97845 /* SDisposableSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1562A04193400F97845 /* SDisposableSet.m */; };
+		6152F18E2A04193500F97845 /* SSignal+SideEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1652A04193400F97845 /* SSignal+SideEffects.m */; };
+		6152F18F2A04193500F97845 /* SThreadPoolQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1732A04193400F97845 /* SThreadPoolQueue.m */; };
+		6152F1902A04193500F97845 /* SVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1702A04193400F97845 /* SVariable.m */; };
+		6152F1912A04193500F97845 /* SBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1582A04193400F97845 /* SBag.m */; };
+		6152F1922A04193500F97845 /* SSignal+Take.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1622A04193400F97845 /* SSignal+Take.m */; };
+		6152F1932A04193500F97845 /* SSignal+Dispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F17C2A04193500F97845 /* SSignal+Dispatch.m */; };
+		6152F1942A04193500F97845 /* SSignal+Accumulate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F15E2A04193400F97845 /* SSignal+Accumulate.m */; };
+		6152F1952A04193500F97845 /* SQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F1752A04193400F97845 /* SQueue.m */; };
+		6152F1962A04193500F97845 /* SSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6152F16A2A04193400F97845 /* SSignal.m */; };
 		6158D4E129EA88DB00AC467C /* ConfirmPasscodeView+Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6158D4E029EA88DB00AC467C /* ConfirmPasscodeView+Reducer.swift */; };
 		615EDE2329EB41F200D3A220 /* ImportPhraseReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EDE2229EB41F200D3A220 /* ImportPhraseReducer.swift */; };
 		615EDE2529EB420600D3A220 /* ImportPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EDE2429EB420600D3A220 /* ImportPhraseView.swift */; };
@@ -56,7 +80,41 @@
 		615EDE2B29EB4B1400D3A220 /* ImportSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EDE2A29EB4B1400D3A220 /* ImportSuccessView.swift */; };
 		61760F4929F9B0A100B2770C /* TonKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61760F4829F9B0A100B2770C /* TonKeyStore.swift */; };
 		61760F4C29F9BF1C00B2770C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61760F4B29F9BF1C00B2770C /* MainView.swift */; };
+		61931D4929FE62E700F54C64 /* QrCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931D4829FE62E700F54C64 /* QrCode.swift */; };
+		61931DBA29FE662B00F54C64 /* Subscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931D9F29FE662B00F54C64 /* Subscriber.swift */; };
+		61931DBB29FE662B00F54C64 /* ThreadPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA029FE662B00F54C64 /* ThreadPool.swift */; };
+		61931DBC29FE662B00F54C64 /* Signal_Catch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA129FE662B00F54C64 /* Signal_Catch.swift */; };
+		61931DBD29FE662B00F54C64 /* Signal_Materialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA229FE662B00F54C64 /* Signal_Materialize.swift */; };
+		61931DBE29FE662B00F54C64 /* Signal_Reduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA329FE662B00F54C64 /* Signal_Reduce.swift */; };
+		61931DBF29FE662B00F54C64 /* Signal_Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA429FE662B00F54C64 /* Signal_Merge.swift */; };
+		61931DC029FE662B00F54C64 /* Signal_Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA529FE662B00F54C64 /* Signal_Mapping.swift */; };
+		61931DC129FE662B00F54C64 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA629FE662B00F54C64 /* Lock.swift */; };
+		61931DC229FE662B00F54C64 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA729FE662B00F54C64 /* Timer.swift */; };
+		61931DC329FE662B00F54C64 /* Signal_Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA829FE662B00F54C64 /* Signal_Dispatch.swift */; };
+		61931DC429FE662B00F54C64 /* QueueLocalObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DA929FE662B00F54C64 /* QueueLocalObject.swift */; };
+		61931DC529FE662B00F54C64 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DAA29FE662B00F54C64 /* Disposable.swift */; };
+		61931DC629FE662B00F54C64 /* Multicast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DAB29FE662B00F54C64 /* Multicast.swift */; };
+		61931DC729FE662B00F54C64 /* Bag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DAC29FE662B00F54C64 /* Bag.swift */; };
+		61931DC829FE662B00F54C64 /* Signal_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DAD29FE662B00F54C64 /* Signal_Single.swift */; };
+		61931DC929FE662B00F54C64 /* Signal_Take.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DAE29FE662B00F54C64 /* Signal_Take.swift */; };
+		61931DCA29FE662B00F54C64 /* Signal_SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DAF29FE662B00F54C64 /* Signal_SideEffects.swift */; };
+		61931DCB29FE662B00F54C64 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DB029FE662B00F54C64 /* Promise.swift */; };
+		61931DCC29FE662B00F54C64 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DB129FE662B00F54C64 /* Queue.swift */; };
+		61931DCD29FE662B00F54C64 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DB229FE662B00F54C64 /* Atomic.swift */; };
+		61931DCE29FE662B00F54C64 /* ValuePipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DB329FE662B00F54C64 /* ValuePipe.swift */; };
+		61931DCF29FE662B00F54C64 /* Signal_Loop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DB429FE662B00F54C64 /* Signal_Loop.swift */; };
+		61931DD029FE662B00F54C64 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DB529FE662B00F54C64 /* Signal.swift */; };
+		61931DD129FE662B00F54C64 /* Signal_Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DB629FE662B00F54C64 /* Signal_Combine.swift */; };
+		61931DD229FE662B00F54C64 /* Signal_Timing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DB729FE662B00F54C64 /* Signal_Timing.swift */; };
+		61931DD329FE662B00F54C64 /* Signal_Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DB829FE662B00F54C64 /* Signal_Meta.swift */; };
+		61931DD629FE6B9C00F54C64 /* TransformImageArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DD529FE6B9C00F54C64 /* TransformImageArguments.swift */; };
+		61931DD829FE6BE500F54C64 /* ImageCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DD729FE6BE500F54C64 /* ImageCorner.swift */; };
+		61931DDA29FE707E00F54C64 /* DrawingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DD929FE707E00F54C64 /* DrawingContext.swift */; };
+		61931DDC29FE720400F54C64 /* UIKit+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61931DDB29FE720400F54C64 /* UIKit+Utils.swift */; };
 		619D5DBA29E2A75300C01C7A /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 619D5DB929E2A75300C01C7A /* SwiftUINavigation */; };
+		61B38D5A2A0001DF007BFE31 /* PendingReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEBD29FBF60000402AF9 /* PendingReducer.swift */; };
+		61B38D5B2A0001E5007BFE31 /* ConfirmReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC529FC396400402AF9 /* ConfirmReducer.swift */; };
+		61B38D5C2A0001FA007BFE31 /* WideBlueTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */; };
 		61DA64A729EBDE80009F8202 /* ImportFailureReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DA64A629EBDE80009F8202 /* ImportFailureReducer.swift */; };
 		61DA64A929EBDE9D009F8202 /* ImportFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DA64A829EBDE9D009F8202 /* ImportFailureView.swift */; };
 		6E11702929EEE9EE00DE473F /* LocalAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E11702829EEE9EE00DE473F /* LocalAuthenticationView.swift */; };
@@ -126,9 +184,64 @@
 		61153E0429D8FB0300D4D030 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		61153E0829D8FBDC00D4D030 /* StartReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartReducer.swift; sourceTree = "<group>"; };
 		6133A79C29E1623A008BDF34 /* LegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTextField.swift; sourceTree = "<group>"; };
+		613D39FF29FEC6AA00243B2E /* RecieveTonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecieveTonView.swift; sourceTree = "<group>"; };
 		615017B729E0055500AF963D /* TestTimeReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTimeReducer.swift; sourceTree = "<group>"; };
 		615017B929E0056D00AF963D /* TestTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTimeView.swift; sourceTree = "<group>"; };
 		615017BE29E019A200AF963D /* PasscodeView+Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasscodeView+Reducer.swift"; sourceTree = "<group>"; };
+		6152F1472A04193300F97845 /* SSignal+Pipe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+Pipe.h"; sourceTree = "<group>"; };
+		6152F1482A04193300F97845 /* SSubscriber.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSubscriber.m; sourceTree = "<group>"; };
+		6152F1492A04193300F97845 /* SBag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBag.h; sourceTree = "<group>"; };
+		6152F14A2A04193300F97845 /* SThreadPoolTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SThreadPoolTask.h; sourceTree = "<group>"; };
+		6152F14B2A04193300F97845 /* SSignal+Dispatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+Dispatch.h"; sourceTree = "<group>"; };
+		6152F14C2A04193300F97845 /* SSignal+Combine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Combine.m"; sourceTree = "<group>"; };
+		6152F14D2A04193300F97845 /* SSubscriber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSubscriber.h; sourceTree = "<group>"; };
+		6152F14E2A04193300F97845 /* SSignalKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSignalKit.h; sourceTree = "<group>"; };
+		6152F14F2A04193300F97845 /* SBlockDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBlockDisposable.h; sourceTree = "<group>"; };
+		6152F1502A04193300F97845 /* STimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STimer.m; sourceTree = "<group>"; };
+		6152F1512A04193300F97845 /* SSignal+Catch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Catch.m"; sourceTree = "<group>"; };
+		6152F1522A04193400F97845 /* SSignal+Single.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+Single.h"; sourceTree = "<group>"; };
+		6152F1532A04193400F97845 /* SSignal+Mapping.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Mapping.m"; sourceTree = "<group>"; };
+		6152F1542A04193400F97845 /* SSignal+Catch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+Catch.h"; sourceTree = "<group>"; };
+		6152F1552A04193400F97845 /* SSignal+SideEffects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+SideEffects.h"; sourceTree = "<group>"; };
+		6152F1562A04193400F97845 /* SDisposableSet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDisposableSet.m; sourceTree = "<group>"; };
+		6152F1572A04193400F97845 /* SAtomic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAtomic.h; sourceTree = "<group>"; };
+		6152F1582A04193400F97845 /* SBag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBag.m; sourceTree = "<group>"; };
+		6152F1592A04193400F97845 /* SBlockDisposable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBlockDisposable.m; sourceTree = "<group>"; };
+		6152F15A2A04193400F97845 /* SSignal+Mapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+Mapping.h"; sourceTree = "<group>"; };
+		6152F15B2A04193400F97845 /* SMulticastSignalManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMulticastSignalManager.m; sourceTree = "<group>"; };
+		6152F15C2A04193400F97845 /* STimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STimer.h; sourceTree = "<group>"; };
+		6152F15D2A04193400F97845 /* SSignal+Combine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+Combine.h"; sourceTree = "<group>"; };
+		6152F15E2A04193400F97845 /* SSignal+Accumulate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Accumulate.m"; sourceTree = "<group>"; };
+		6152F15F2A04193400F97845 /* SSignal+Timing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Timing.m"; sourceTree = "<group>"; };
+		6152F1602A04193400F97845 /* SSignal+Pipe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Pipe.m"; sourceTree = "<group>"; };
+		6152F1612A04193400F97845 /* SSignal+Multicast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Multicast.m"; sourceTree = "<group>"; };
+		6152F1622A04193400F97845 /* SSignal+Take.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Take.m"; sourceTree = "<group>"; };
+		6152F1632A04193400F97845 /* SThreadPoolTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SThreadPoolTask.m; sourceTree = "<group>"; };
+		6152F1642A04193400F97845 /* SDisposableSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDisposableSet.h; sourceTree = "<group>"; };
+		6152F1652A04193400F97845 /* SSignal+SideEffects.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+SideEffects.m"; sourceTree = "<group>"; };
+		6152F1662A04193400F97845 /* SQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQueue.h; sourceTree = "<group>"; };
+		6152F1672A04193400F97845 /* SSignal+Timing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+Timing.h"; sourceTree = "<group>"; };
+		6152F1682A04193400F97845 /* SSignal+Accumulate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+Accumulate.h"; sourceTree = "<group>"; };
+		6152F1692A04193400F97845 /* SMulticastSignalManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMulticastSignalManager.h; sourceTree = "<group>"; };
+		6152F16A2A04193400F97845 /* SSignal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSignal.m; sourceTree = "<group>"; };
+		6152F16B2A04193400F97845 /* SMetaDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMetaDisposable.h; sourceTree = "<group>"; };
+		6152F16C2A04193400F97845 /* SSignal+Single.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Single.m"; sourceTree = "<group>"; };
+		6152F16D2A04193400F97845 /* SSignal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSignal.h; sourceTree = "<group>"; };
+		6152F16E2A04193400F97845 /* SThreadPool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SThreadPool.m; sourceTree = "<group>"; };
+		6152F16F2A04193400F97845 /* SSignal+Meta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+Meta.h"; sourceTree = "<group>"; };
+		6152F1702A04193400F97845 /* SVariable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVariable.m; sourceTree = "<group>"; };
+		6152F1712A04193400F97845 /* SMetaDisposable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMetaDisposable.m; sourceTree = "<group>"; };
+		6152F1722A04193400F97845 /* SSignal+Take.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+Take.h"; sourceTree = "<group>"; };
+		6152F1732A04193400F97845 /* SThreadPoolQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SThreadPoolQueue.m; sourceTree = "<group>"; };
+		6152F1742A04193400F97845 /* SThreadPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SThreadPool.h; sourceTree = "<group>"; };
+		6152F1752A04193400F97845 /* SQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQueue.m; sourceTree = "<group>"; };
+		6152F1762A04193400F97845 /* SThreadPoolQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SThreadPoolQueue.h; sourceTree = "<group>"; };
+		6152F1772A04193400F97845 /* SSignal+Meta.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Meta.m"; sourceTree = "<group>"; };
+		6152F1782A04193500F97845 /* SSignal+Multicast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SSignal+Multicast.h"; sourceTree = "<group>"; };
+		6152F1792A04193500F97845 /* SAtomic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAtomic.m; sourceTree = "<group>"; };
+		6152F17A2A04193500F97845 /* SDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDisposable.h; sourceTree = "<group>"; };
+		6152F17B2A04193500F97845 /* SVariable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVariable.h; sourceTree = "<group>"; };
+		6152F17C2A04193500F97845 /* SSignal+Dispatch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SSignal+Dispatch.m"; sourceTree = "<group>"; };
 		6158D4E029EA88DB00AC467C /* ConfirmPasscodeView+Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfirmPasscodeView+Reducer.swift"; sourceTree = "<group>"; };
 		615EDE2229EB41F200D3A220 /* ImportPhraseReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportPhraseReducer.swift; sourceTree = "<group>"; };
 		615EDE2429EB420600D3A220 /* ImportPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportPhraseView.swift; sourceTree = "<group>"; };
@@ -136,6 +249,37 @@
 		615EDE2A29EB4B1400D3A220 /* ImportSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSuccessView.swift; sourceTree = "<group>"; };
 		61760F4829F9B0A100B2770C /* TonKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonKeyStore.swift; sourceTree = "<group>"; };
 		61760F4B29F9BF1C00B2770C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		61931D4829FE62E700F54C64 /* QrCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCode.swift; sourceTree = "<group>"; };
+		61931D9F29FE662B00F54C64 /* Subscriber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscriber.swift; sourceTree = "<group>"; };
+		61931DA029FE662B00F54C64 /* ThreadPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadPool.swift; sourceTree = "<group>"; };
+		61931DA129FE662B00F54C64 /* Signal_Catch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Catch.swift; sourceTree = "<group>"; };
+		61931DA229FE662B00F54C64 /* Signal_Materialize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Materialize.swift; sourceTree = "<group>"; };
+		61931DA329FE662B00F54C64 /* Signal_Reduce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Reduce.swift; sourceTree = "<group>"; };
+		61931DA429FE662B00F54C64 /* Signal_Merge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Merge.swift; sourceTree = "<group>"; };
+		61931DA529FE662B00F54C64 /* Signal_Mapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Mapping.swift; sourceTree = "<group>"; };
+		61931DA629FE662B00F54C64 /* Lock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
+		61931DA729FE662B00F54C64 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		61931DA829FE662B00F54C64 /* Signal_Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Dispatch.swift; sourceTree = "<group>"; };
+		61931DA929FE662B00F54C64 /* QueueLocalObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueLocalObject.swift; sourceTree = "<group>"; };
+		61931DAA29FE662B00F54C64 /* Disposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disposable.swift; sourceTree = "<group>"; };
+		61931DAB29FE662B00F54C64 /* Multicast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Multicast.swift; sourceTree = "<group>"; };
+		61931DAC29FE662B00F54C64 /* Bag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bag.swift; sourceTree = "<group>"; };
+		61931DAD29FE662B00F54C64 /* Signal_Single.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Single.swift; sourceTree = "<group>"; };
+		61931DAE29FE662B00F54C64 /* Signal_Take.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Take.swift; sourceTree = "<group>"; };
+		61931DAF29FE662B00F54C64 /* Signal_SideEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_SideEffects.swift; sourceTree = "<group>"; };
+		61931DB029FE662B00F54C64 /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		61931DB129FE662B00F54C64 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		61931DB229FE662B00F54C64 /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
+		61931DB329FE662B00F54C64 /* ValuePipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValuePipe.swift; sourceTree = "<group>"; };
+		61931DB429FE662B00F54C64 /* Signal_Loop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Loop.swift; sourceTree = "<group>"; };
+		61931DB529FE662B00F54C64 /* Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
+		61931DB629FE662B00F54C64 /* Signal_Combine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Combine.swift; sourceTree = "<group>"; };
+		61931DB729FE662B00F54C64 /* Signal_Timing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Timing.swift; sourceTree = "<group>"; };
+		61931DB829FE662B00F54C64 /* Signal_Meta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal_Meta.swift; sourceTree = "<group>"; };
+		61931DD529FE6B9C00F54C64 /* TransformImageArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformImageArguments.swift; sourceTree = "<group>"; };
+		61931DD729FE6BE500F54C64 /* ImageCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCorner.swift; sourceTree = "<group>"; };
+		61931DD929FE707E00F54C64 /* DrawingContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingContext.swift; sourceTree = "<group>"; };
+		61931DDB29FE720400F54C64 /* UIKit+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Utils.swift"; sourceTree = "<group>"; };
 		61DA64A629EBDE80009F8202 /* ImportFailureReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFailureReducer.swift; sourceTree = "<group>"; };
 		61DA64A829EBDE9D009F8202 /* ImportFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFailureView.swift; sourceTree = "<group>"; };
 		6E11702829EEE9EE00DE473F /* LocalAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthenticationView.swift; sourceTree = "<group>"; };
@@ -256,6 +400,9 @@
 		61153DD129D8F5AA00D4D030 /* TonWalletContest */ = {
 			isa = PBXGroup;
 			children = (
+				6152F1462A04193300F97845 /* SSignalKit */,
+				61931D4A29FE640700F54C64 /* SwiftSignalKit */,
+				61931D4729FE62C900F54C64 /* QrCode */,
 				6E3EC13229DB0A4D0050AA75 /* Manager */,
 				6E5D444329DC63EC000F95CE /* Extensions */,
 				61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */,
@@ -298,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				13D218EF2A04F964001F351C /* SendView.swift */,
+				613D39FE29FEC64800243B2E /* QrCodeView */,
 				61760F4A29F9BF0600B2770C /* MainView */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
 				615017B529E0050800AF963D /* Authorazation */,
@@ -313,6 +461,14 @@
 				13FDFEC829FC5E8000402AF9 /* CommentTextField.swift */,
 			);
 			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		613D39FE29FEC64800243B2E /* QrCodeView */ = {
+			isa = PBXGroup;
+			children = (
+				613D39FF29FEC6AA00243B2E /* RecieveTonView.swift */,
+			);
+			path = QrCodeView;
 			sourceTree = "<group>";
 		};
 		615017B329E004E500AF963D /* Congratulations */ = {
@@ -368,6 +524,67 @@
 			path = Passcode;
 			sourceTree = "<group>";
 		};
+		6152F1462A04193300F97845 /* SSignalKit */ = {
+			isa = PBXGroup;
+			children = (
+				6152F14C2A04193300F97845 /* SSignal+Combine.m */,
+				6152F1782A04193500F97845 /* SSignal+Multicast.h */,
+				6152F14F2A04193300F97845 /* SBlockDisposable.h */,
+				6152F1762A04193400F97845 /* SThreadPoolQueue.h */,
+				6152F15C2A04193400F97845 /* STimer.h */,
+				6152F1792A04193500F97845 /* SAtomic.m */,
+				6152F16D2A04193400F97845 /* SSignal.h */,
+				6152F1522A04193400F97845 /* SSignal+Single.h */,
+				6152F15E2A04193400F97845 /* SSignal+Accumulate.m */,
+				6152F1582A04193400F97845 /* SBag.m */,
+				6152F1772A04193400F97845 /* SSignal+Meta.m */,
+				6152F1652A04193400F97845 /* SSignal+SideEffects.m */,
+				6152F16B2A04193400F97845 /* SMetaDisposable.h */,
+				6152F1692A04193400F97845 /* SMulticastSignalManager.h */,
+				6152F14B2A04193300F97845 /* SSignal+Dispatch.h */,
+				6152F15F2A04193400F97845 /* SSignal+Timing.m */,
+				6152F14D2A04193300F97845 /* SSubscriber.h */,
+				6152F1602A04193400F97845 /* SSignal+Pipe.m */,
+				6152F1642A04193400F97845 /* SDisposableSet.h */,
+				6152F14A2A04193300F97845 /* SThreadPoolTask.h */,
+				6152F17A2A04193500F97845 /* SDisposable.h */,
+				6152F1512A04193300F97845 /* SSignal+Catch.m */,
+				6152F1662A04193400F97845 /* SQueue.h */,
+				6152F1702A04193400F97845 /* SVariable.m */,
+				6152F1722A04193400F97845 /* SSignal+Take.h */,
+				6152F1532A04193400F97845 /* SSignal+Mapping.m */,
+				6152F16E2A04193400F97845 /* SThreadPool.m */,
+				6152F1572A04193400F97845 /* SAtomic.h */,
+				6152F1502A04193300F97845 /* STimer.m */,
+				6152F1732A04193400F97845 /* SThreadPoolQueue.m */,
+				6152F1592A04193400F97845 /* SBlockDisposable.m */,
+				6152F1612A04193400F97845 /* SSignal+Multicast.m */,
+				6152F15D2A04193400F97845 /* SSignal+Combine.h */,
+				6152F1672A04193400F97845 /* SSignal+Timing.h */,
+				6152F17C2A04193500F97845 /* SSignal+Dispatch.m */,
+				6152F1712A04193400F97845 /* SMetaDisposable.m */,
+				6152F15B2A04193400F97845 /* SMulticastSignalManager.m */,
+				6152F1552A04193400F97845 /* SSignal+SideEffects.h */,
+				6152F16F2A04193400F97845 /* SSignal+Meta.h */,
+				6152F1492A04193300F97845 /* SBag.h */,
+				6152F1682A04193400F97845 /* SSignal+Accumulate.h */,
+				6152F16A2A04193400F97845 /* SSignal.m */,
+				6152F16C2A04193400F97845 /* SSignal+Single.m */,
+				6152F14E2A04193300F97845 /* SSignalKit.h */,
+				6152F1632A04193400F97845 /* SThreadPoolTask.m */,
+				6152F1562A04193400F97845 /* SDisposableSet.m */,
+				6152F1472A04193300F97845 /* SSignal+Pipe.h */,
+				6152F1482A04193300F97845 /* SSubscriber.m */,
+				6152F1742A04193400F97845 /* SThreadPool.h */,
+				6152F1622A04193400F97845 /* SSignal+Take.m */,
+				6152F15A2A04193400F97845 /* SSignal+Mapping.h */,
+				6152F17B2A04193500F97845 /* SVariable.h */,
+				6152F1752A04193400F97845 /* SQueue.m */,
+				6152F1542A04193400F97845 /* SSignal+Catch.h */,
+			);
+			path = SSignalKit;
+			sourceTree = "<group>";
+		};
 		615EDE2629EB437800D3A220 /* ImportPhrase */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,6 +610,59 @@
 				13D218F12A050742001F351C /* TestMainView.swift */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		61931D4729FE62C900F54C64 /* QrCode */ = {
+			isa = PBXGroup;
+			children = (
+				61931D4829FE62E700F54C64 /* QrCode.swift */,
+				61931DDB29FE720400F54C64 /* UIKit+Utils.swift */,
+				61931DD529FE6B9C00F54C64 /* TransformImageArguments.swift */,
+				61931DD729FE6BE500F54C64 /* ImageCorner.swift */,
+				61931DD929FE707E00F54C64 /* DrawingContext.swift */,
+			);
+			path = QrCode;
+			sourceTree = "<group>";
+		};
+		61931D4A29FE640700F54C64 /* SwiftSignalKit */ = {
+			isa = PBXGroup;
+			children = (
+				61931D9D29FE662B00F54C64 /* SwiftSignalKit */,
+			);
+			path = SwiftSignalKit;
+			sourceTree = "<group>";
+		};
+		61931D9D29FE662B00F54C64 /* SwiftSignalKit */ = {
+			isa = PBXGroup;
+			children = (
+				61931D9F29FE662B00F54C64 /* Subscriber.swift */,
+				61931DA029FE662B00F54C64 /* ThreadPool.swift */,
+				61931DA129FE662B00F54C64 /* Signal_Catch.swift */,
+				61931DA229FE662B00F54C64 /* Signal_Materialize.swift */,
+				61931DA329FE662B00F54C64 /* Signal_Reduce.swift */,
+				61931DA429FE662B00F54C64 /* Signal_Merge.swift */,
+				61931DA529FE662B00F54C64 /* Signal_Mapping.swift */,
+				61931DA629FE662B00F54C64 /* Lock.swift */,
+				61931DA729FE662B00F54C64 /* Timer.swift */,
+				61931DA829FE662B00F54C64 /* Signal_Dispatch.swift */,
+				61931DA929FE662B00F54C64 /* QueueLocalObject.swift */,
+				61931DAA29FE662B00F54C64 /* Disposable.swift */,
+				61931DAB29FE662B00F54C64 /* Multicast.swift */,
+				61931DAC29FE662B00F54C64 /* Bag.swift */,
+				61931DAD29FE662B00F54C64 /* Signal_Single.swift */,
+				61931DAE29FE662B00F54C64 /* Signal_Take.swift */,
+				61931DAF29FE662B00F54C64 /* Signal_SideEffects.swift */,
+				61931DB029FE662B00F54C64 /* Promise.swift */,
+				61931DB129FE662B00F54C64 /* Queue.swift */,
+				61931DB229FE662B00F54C64 /* Atomic.swift */,
+				61931DB329FE662B00F54C64 /* ValuePipe.swift */,
+				61931DB429FE662B00F54C64 /* Signal_Loop.swift */,
+				61931DB529FE662B00F54C64 /* Signal.swift */,
+				61931DB629FE662B00F54C64 /* Signal_Combine.swift */,
+				61931DB729FE662B00F54C64 /* Signal_Timing.swift */,
+				61931DB829FE662B00F54C64 /* Signal_Meta.swift */,
+			);
+			path = SwiftSignalKit;
 			sourceTree = "<group>";
 		};
 		61CC226129DA089400834E86 /* Start */ = {
@@ -607,40 +877,98 @@
 				1352FFA229FBD541002799A9 /* SuccessView.swift in Sources */,
 				13FDFEC929FC5E8000402AF9 /* CommentTextField.swift in Sources */,
 				6ED77F7429EF0466004341AC /* LocalAuthenticationReducer.swift in Sources */,
+				6152F1802A04193500F97845 /* SSignal+Combine.m in Sources */,
 				6E11702929EEE9EE00DE473F /* LocalAuthenticationView.swift in Sources */,
-				13FDFEC429FC386600402AF9 /* ConfirmView.swift in Sources */,
 				61DA64A929EBDE9D009F8202 /* ImportFailureView.swift in Sources */,
+				6152F1932A04193500F97845 /* SSignal+Dispatch.m in Sources */,
 				6E3EC13429DB0AB10050AA75 /* TonWalletManager.swift in Sources */,
+				6152F1832A04193500F97845 /* SSignal+Meta.m in Sources */,
 				6E38004929DE048E002D6868 /* RecoveryPhraseView.swift in Sources */,
 				13D218F22A050742001F351C /* TestMainView.swift in Sources */,
+				61931DD329FE662B00F54C64 /* Signal_Meta.swift in Sources */,
+				61931DC629FE662B00F54C64 /* Multicast.swift in Sources */,
+				61931DD129FE662B00F54C64 /* Signal_Combine.swift in Sources */,
+				6152F1812A04193500F97845 /* SSignal+Pipe.m in Sources */,
+				6152F18E2A04193500F97845 /* SSignal+SideEffects.m in Sources */,
+				6152F1942A04193500F97845 /* SSignal+Accumulate.m in Sources */,
+				61B38D5A2A0001DF007BFE31 /* PendingReducer.swift in Sources */,
+				6152F17E2A04193500F97845 /* SSignal+Timing.m in Sources */,
 				61153E0529D8FB0300D4D030 /* StartView.swift in Sources */,
-				13FDFEBE29FBF60000402AF9 /* PendingReducer.swift in Sources */,
+				61931DC829FE662B00F54C64 /* Signal_Single.swift in Sources */,
 				61153E0929D8FBDC00D4D030 /* StartReducer.swift in Sources */,
+				6152F1902A04193500F97845 /* SVariable.m in Sources */,
+				61931DC429FE662B00F54C64 /* QueueLocalObject.swift in Sources */,
+				6152F17F2A04193500F97845 /* STimer.m in Sources */,
 				6E5D444529DC6406000F95CE /* ButtonTextStyle.swift in Sources */,
 				615EDE2329EB41F200D3A220 /* ImportPhraseReducer.swift in Sources */,
+				61931DC929FE662B00F54C64 /* Signal_Take.swift in Sources */,
+				61931DD229FE662B00F54C64 /* Signal_Timing.swift in Sources */,
+				61931DC529FE662B00F54C64 /* Disposable.swift in Sources */,
 				6EBB474E29F1303D00216832 /* ReadyToGoView.swift in Sources */,
 				13FDFEC129FBFA7200402AF9 /* SuccessReducer.swift in Sources */,
 				615EDE2B29EB4B1400D3A220 /* ImportSuccessView.swift in Sources */,
-				13FDFEC629FC396400402AF9 /* ConfirmReducer.swift in Sources */,
+				6152F1842A04193500F97845 /* SSignal+Multicast.m in Sources */,
+				61B38D5B2A0001E5007BFE31 /* ConfirmReducer.swift in Sources */,
+				61931DBF29FE662B00F54C64 /* Signal_Merge.swift in Sources */,
 				131044FB29DE072500987E07 /* BlankTextButtonStyle.swift in Sources */,
+				613D3A0029FEC6AA00243B2E /* RecieveTonView.swift in Sources */,
 				6133A79D29E1623A008BDF34 /* LegacyTextField.swift in Sources */,
+				61931DC729FE662B00F54C64 /* Bag.swift in Sources */,
+				6152F18F2A04193500F97845 /* SThreadPoolQueue.m in Sources */,
+				61B38D5C2A0001FA007BFE31 /* WideBlueTextButtonStyle.swift in Sources */,
+				61931DD829FE6BE500F54C64 /* ImageCorner.swift in Sources */,
+				61931DBA29FE662B00F54C64 /* Subscriber.swift in Sources */,
+				6152F1912A04193500F97845 /* SBag.m in Sources */,
 				615EDE2929EB4AF800D3A220 /* ImportSuccessReducer.swift in Sources */,
+				61931DCE29FE662B00F54C64 /* ValuePipe.swift in Sources */,
 				13B0548429DC359C006014C0 /* CongratulationReducer.swift in Sources */,
+				6152F1882A04193500F97845 /* SSubscriber.m in Sources */,
 				13B0548029DB17EB006014C0 /* LottieView.swift in Sources */,
+				6152F18B2A04193500F97845 /* SMulticastSignalManager.m in Sources */,
 				61DA64A729EBDE80009F8202 /* ImportFailureReducer.swift in Sources */,
 				61153DD529D8F5AA00D4D030 /* ContentView.swift in Sources */,
+				61931DCC29FE662B00F54C64 /* Queue.swift in Sources */,
+				6152F1822A04193500F97845 /* SThreadPool.m in Sources */,
+				6152F18D2A04193500F97845 /* SDisposableSet.m in Sources */,
 				615017B829E0055500AF963D /* TestTimeReducer.swift in Sources */,
 				1352FFA029FBD40C002799A9 /* WideBlueTextButtonStyle.swift in Sources */,
 				13D218F02A04F964001F351C /* SendView.swift in Sources */,
+				6152F1892A04193500F97845 /* SSignal+Mapping.m in Sources */,
+				61931DCF29FE662B00F54C64 /* Signal_Loop.swift in Sources */,
+				61931DC329FE662B00F54C64 /* Signal_Dispatch.swift in Sources */,
+				61931DD629FE6B9C00F54C64 /* TransformImageArguments.swift in Sources */,
+				61931DBB29FE662B00F54C64 /* ThreadPool.swift in Sources */,
+				6152F1952A04193500F97845 /* SQueue.m in Sources */,
+				61931DD029FE662B00F54C64 /* Signal.swift in Sources */,
 				615017BF29E019A200AF963D /* PasscodeView+Reducer.swift in Sources */,
+				61931DBC29FE662B00F54C64 /* Signal_Catch.swift in Sources */,
+				6152F1862A04193500F97845 /* SSignal+Single.m in Sources */,
+				61931DC229FE662B00F54C64 /* Timer.swift in Sources */,
 				615017BA29E0056D00AF963D /* TestTimeView.swift in Sources */,
 				615EDE2529EB420600D3A220 /* ImportPhraseView.swift in Sources */,
+				61931DCB29FE662B00F54C64 /* Promise.swift in Sources */,
+				61931DC129FE662B00F54C64 /* Lock.swift in Sources */,
 				13B0548229DC353D006014C0 /* CongratulationView.swift in Sources */,
+				61931DBE29FE662B00F54C64 /* Signal_Reduce.swift in Sources */,
+				61931DDC29FE720400F54C64 /* UIKit+Utils.swift in Sources */,
 				6E38004729DE0464002D6868 /* RecoveryPhraseReducer.swift in Sources */,
+				6152F18C2A04193500F97845 /* SThreadPoolTask.m in Sources */,
+				61931DC029FE662B00F54C64 /* Signal_Mapping.swift in Sources */,
 				61760F4929F9B0A100B2770C /* TonKeyStore.swift in Sources */,
+				61931DCD29FE662B00F54C64 /* Atomic.swift in Sources */,
+				61931D4929FE62E700F54C64 /* QrCode.swift in Sources */,
 				61760F4C29F9BF1C00B2770C /* MainView.swift in Sources */,
+				61931DDA29FE707E00F54C64 /* DrawingContext.swift in Sources */,
+				6152F1922A04193500F97845 /* SSignal+Take.m in Sources */,
+				6152F1852A04193500F97845 /* SBlockDisposable.m in Sources */,
+				6152F18A2A04193500F97845 /* SMetaDisposable.m in Sources */,
+				6152F1872A04193500F97845 /* SAtomic.m in Sources */,
+				61931DCA29FE662B00F54C64 /* Signal_SideEffects.swift in Sources */,
 				6EBB475029F1304B00216832 /* ReadyToGoReducer.swift in Sources */,
+				6152F17D2A04193500F97845 /* SSignal+Catch.m in Sources */,
+				61931DBD29FE662B00F54C64 /* Signal_Materialize.swift in Sources */,
 				6158D4E129EA88DB00AC467C /* ConfirmPasscodeView+Reducer.swift in Sources */,
+				6152F1962A04193500F97845 /* SSignal.m in Sources */,
 				1352FF9C29FBCEC3002799A9 /* PendingView.swift in Sources */,
 				61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */,
 			);
