@@ -15,15 +15,20 @@ struct MainViewReducer: ReducerProtocol {
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
         var balance: String = ""
+        var walletAddress: String = ""
         var events: Events
+        var transactions: [Transaction] = []
     }
 
     struct Events: AlwaysEquitable {
         var getBalance: () async -> String
+        var getWalletAddress: () async -> String
+        var getTransactions: () async -> [Transaction]
     }
 
     enum Action: Equatable {
         case onAppear
+        case configure(balance: String, address: String, transactions: [Transaction])
         case destination(PresentationAction<Destination.Action>)
     }
 
@@ -33,6 +38,19 @@ struct MainViewReducer: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                return .run { [events = state.events] send in
+                    let balance = await events.getBalance()
+                    let address = await events.getWalletAddress()
+                    let transactions = await events.getTransactions()
+
+                    await send(.configure(balance: balance, address: address, transactions: transactions))
+                }
+
+            case let .configure(balance, address, transactions):
+                state.balance = balance
+                state.walletAddress = address
+                state.transactions = transactions
+
                 return .none
 
             case .destination:
@@ -69,22 +87,30 @@ extension MainViewReducer {
     }
 }
 
-
-
 struct MainView: View {
     let store: StoreOf<MainViewReducer>
+    @State var isModal: Bool = false
 
     init(store: StoreOf<MainViewReducer>) {
         self.store = store
     }
 
+    struct ViewState: Equatable {
+        var balance: String
+        var walletAddress: String
+        var transactions: [Transaction]
+//        var destination: MainViewReducer.Destination.State?
 
+        init(state: MainViewReducer.State) {
+            self.balance = state.balance
+            self.walletAddress = state.walletAddress
+            self.transactions = state.transactions
+//            self.destination = state.destination
+        }
+    }
 
     var body: some View {
-
-        @State var isModal: Bool = false
-
-        WithViewStore(store, observe: { $0 }) { viewStore in
+        WithViewStore(store, observe: ViewState.init ) { viewStore in
             VStack {
                 VStack {
                     HStack {
@@ -101,11 +127,11 @@ struct MainView: View {
                     .padding(.init(top: 8.0, leading: 14.0, bottom: 8.0, trailing: 14.0))
 
                     VStack {
-                        Text("ADFSDFISDFSFSSDFASDFS")
+                        Text(viewStore.walletAddress)
                             .frame(width: 100)
                             .lineLimit(1)
                             .foregroundColor(.white)
-                        Text("56.000000")
+                        Text(viewStore.balance)
                             .foregroundColor(.white)
                     }
                     .padding(.top, 28.0)
@@ -129,40 +155,18 @@ struct MainView: View {
 
                 VStack {
                     List {
-                        VStack(alignment: .leading, spacing: 8.0) {
-                            HStack {
-                                Text("0.01 from")
-                                Spacer()
-                                Text("22:52")
+                        ForEach(viewStore.transactions) { transaction in
+                            VStack(alignment: .leading, spacing: 8.0) {
+                                HStack {
+                                    Text("\(transaction.amount) from")
+                                    Spacer()
+                                    Text("\(transaction.date)")
+                                }
+                                .padding(.bottom, -2.0)
+                                Text(transaction.senderAddress)
+                                Text("\(transaction.fee) storage fee")
+                                Text(transaction.comment)
                             }
-                            .padding(.bottom, -2.0)
-                            Text("sjkfksfjjisjfisifsasdjfiosifs")
-                            Text("0.000001 storage fee")
-                            Text("Testing payments, D.")
-                        }
-
-                        VStack(alignment: .leading, spacing: 8.0) {
-                            HStack {
-                                Text("0.01 from")
-                                Spacer()
-                                Text("22:52")
-                            }
-                            .padding(.bottom, -2.0)
-                            Text("sjkfksfjjisjfisifsasdjfiosifs")
-                            Text("0.000001 storage fee")
-                            Text("Testing payments, D.")
-                        }
-
-                        VStack(alignment: .leading, spacing: 8.0) {
-                            HStack {
-                                Text("0.01 from")
-                                Spacer()
-                                Text("22:52")
-                            }
-                            .padding(.bottom, -2.0)
-                            Text("sjkfksfjjisjfisifsasdjfiosifs")
-                            Text("0.000001 storage fee")
-                            Text("Testing payments, D.")
                         }
                     }
                     .listStyle(.plain)
@@ -170,6 +174,7 @@ struct MainView: View {
                 .background(Color.white)
                 .cornerRadius(16.0)
             }
+            .ignoresSafeArea(edges: .bottom)
             .background(Color.black)
             .onAppear {
                 viewStore.send(.onAppear)
@@ -184,7 +189,15 @@ struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             MainView(store: .init(
-                initialState: .init(events: .init(getBalance: { return "56.0000"})),
+                initialState: .init(events: .init(
+                    getBalance: { "56.0000" },
+                    getWalletAddress: { "ASDFSFSFSADFASDFASDFSADFSD"},
+                    getTransactions: { [
+                        .previewInstance,
+                        .previewInstance,
+                        .previewInstance
+                    ] }
+                )),
                 reducer: MainViewReducer()
             ))
         }
