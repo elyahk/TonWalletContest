@@ -34,7 +34,7 @@ struct ReadyToGoReducer: ReducerProtocol {
                 }
 
             case .walletCreated(let wallet3):
-                state.destination = .wallet(.init(wallet3: wallet3))
+//                state.destination = .wallet(.init())
 
                 return .none
 

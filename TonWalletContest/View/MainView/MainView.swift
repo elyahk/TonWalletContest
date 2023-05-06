@@ -14,8 +14,12 @@ struct MainViewReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
-        var wallet3: Wallet3
-        var balance: String = "zero"
+        var balance: String = ""
+        var events: Events
+    }
+
+    struct Events: AlwaysEquitable {
+        var getBalance: () async -> String
     }
 
     enum Action: Equatable {
@@ -29,8 +33,6 @@ struct MainViewReducer: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.balance = state.wallet3.contract.info.balance.string(with: .maximum9)
-                print(state.wallet3.contract.info)
                 return .none
 
             case .destination:
@@ -78,8 +80,91 @@ struct MainView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack {
-                Text(viewStore.balance)
+                VStack {
+                    HStack {
+                        Button("+") {
+
+                        }
+                        .frame(width: 28.0, height: 28.0)
+                        Spacer()
+                        Button("-") {
+
+                        }
+                        .frame(width: 28.0, height: 28.0)
+                    }
+                    .padding(.init(top: 8.0, leading: 14.0, bottom: 8.0, trailing: 14.0))
+
+                    VStack {
+                        Text("ADFSDFISDFSFSSDFASDFS")
+                            .frame(width: 100)
+                            .lineLimit(1)
+                            .foregroundColor(.white)
+                        Text("56.000000")
+                            .foregroundColor(.white)
+                    }
+                    .padding(.top, 28.0)
+
+                    HStack(spacing: 12.0) {
+                        Button("Recieve") {
+
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 50.0)
+                        .customBlueButtonStyle()
+
+                        Button("Send") {
+
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 50.0)
+                        .customBlueButtonStyle()
+                    }
+                    .padding(.init(top: 74.0, leading: 16.0, bottom: 16.0, trailing: 16.0))
+                    .frame(width: .infinity)
+                }
+
+                VStack {
+                    List {
+                        VStack(alignment: .leading, spacing: 8.0) {
+                            HStack {
+                                Text("0.01 from")
+                                Spacer()
+                                Text("22:52")
+                            }
+                            .padding(.bottom, -2.0)
+                            Text("sjkfksfjjisjfisifsasdjfiosifs")
+                            Text("0.000001 storage fee")
+                            Text("Testing payments, D.")
+                        }
+
+                        VStack(alignment: .leading, spacing: 8.0) {
+                            HStack {
+                                Text("0.01 from")
+                                Spacer()
+                                Text("22:52")
+                            }
+                            .padding(.bottom, -2.0)
+                            Text("sjkfksfjjisjfisifsasdjfiosifs")
+                            Text("0.000001 storage fee")
+                            Text("Testing payments, D.")
+                        }
+
+                        VStack(alignment: .leading, spacing: 8.0) {
+                            HStack {
+                                Text("0.01 from")
+                                Spacer()
+                                Text("22:52")
+                            }
+                            .padding(.bottom, -2.0)
+                            Text("sjkfksfjjisjfisifsasdjfiosifs")
+                            Text("0.000001 storage fee")
+                            Text("Testing payments, D.")
+                        }
+                    }
+                    .listStyle(.plain)
+                }
+                .background(Color.white)
+                .cornerRadius(16.0)
             }
+            .background(Color.black)
             .onAppear {
                 viewStore.send(.onAppear)
                 UserDefaults.standard.set(AppState.walletCreated.rawValue , forKey: "state")
@@ -87,15 +172,16 @@ struct MainView: View {
         }
     }
 }
-//
-//struct MainView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            MainView(store: .init(
-//                initialState: .init(),
-//                reducer: MainViewReducer()
-//            ))
-//        }
-//    }
-//}
+
+
+struct MainView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            MainView(store: .init(
+                initialState: .init(events: .init(getBalance: { return "56.0000"})),
+                reducer: MainViewReducer()
+            ))
+        }
+    }
+}
 
