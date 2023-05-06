@@ -68,6 +68,7 @@ extension MainViewReducer {
 }
 
 
+
 struct MainView: View {
     let store: StoreOf<MainViewReducer>
 
@@ -75,10 +76,31 @@ struct MainView: View {
         self.store = store
     }
 
+
+
     var body: some View {
+
+        @State var isModal: Bool = false
+
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack {
                 Text(viewStore.balance)
+                Button {
+                    isModal = true
+                } label: {
+                    Text("Send money")
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .background(Color.accentColor)
+                        .cornerRadius(12)
+                        .padding([.leading, .trailing], 48)
+                        .padding(.bottom, 124)
+                }
+                .sheet(isPresented: $isModal) {
+//                    SendView()
+                }
+
             }
             .onAppear {
                 viewStore.send(.onAppear)
@@ -98,4 +120,4 @@ struct MainView: View {
 //        }
 //    }
 //}
-
+//

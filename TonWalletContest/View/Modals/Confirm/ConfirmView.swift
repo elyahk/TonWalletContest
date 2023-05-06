@@ -31,7 +31,7 @@ struct ConfirmView: View {
                                 isTextEditor = true
                             }
                     }
-//                    TextEditor(text: $comment)
+                    //                    TextEditor(text: $comment)
                     //.padding(.all, 0)
                     //.onTapGesture {
                     //      isTextEditor = true
@@ -82,6 +82,7 @@ struct ConfirmView: View {
                     }
                 }
             }
+            .listStyle(.insetGrouped)
             Spacer()
 
             NavigationLink {
@@ -110,6 +111,8 @@ struct ConfirmView: View {
 
 struct ConfirmView_Previews: PreviewProvider {
     static var previews: some View {
-        ConfirmView()
+        NavigationView {
+            ConfirmView()
+        }
     }
 }
