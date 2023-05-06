@@ -8,8 +8,20 @@
 import SwiftUI
 import AVFoundation
 
-final class QRCodeScannerView: NSObject, View {
+final class QRCodeScannerDelegate: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        guard let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
+              let stringValue = metadataObject.stringValue else {
+            return
+        }
+
+        print("\(stringValue)")
+    }
+}
+
+struct QRCodeScannerView: View {
     private var captureScreen = AVCaptureSession()
+    private let delegate = QRCodeScannerDelegate()
 
     var body: some View {
         ZStack {
@@ -35,20 +47,9 @@ final class QRCodeScannerView: NSObject, View {
             self.captureScreen.addInput(input)
             self.captureScreen.addOutput(metaDataOutput)
 
-            metaDataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+            metaDataOutput.setMetadataObjectsDelegate(delegate, queue: DispatchQueue.main)
             metaDataOutput.metadataObjectTypes = [.qr]
         }
-    }
-}
-
-extension QRCodeScannerView: AVCaptureMetadataOutputObjectsDelegate {
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        guard let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
-              let stringValue = metadataObject.stringValue else {
-            return
-        }
-
-        print("\(stringValue)")
     }
 }
 
