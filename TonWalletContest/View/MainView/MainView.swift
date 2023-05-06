@@ -29,6 +29,8 @@ struct MainViewReducer: ReducerProtocol {
     enum Action: Equatable {
         case onAppear
         case configure(balance: String, address: String, transactions: [Transaction])
+        case tappedRecieveButton
+        case tappedBackButton
         case destination(PresentationAction<Destination.Action>)
     }
 
@@ -45,6 +47,13 @@ struct MainViewReducer: ReducerProtocol {
 
                     await send(.configure(balance: balance, address: address, transactions: transactions))
                 }
+
+            case .tappedBackButton:
+                state.destination = nil
+                return .none
+            case .tappedRecieveButton:
+                state.destination = .recieveTonView(.init())
+                return .none
 
             case let .configure(balance, address, transactions):
                 state.balance = balance
@@ -66,22 +75,22 @@ struct MainViewReducer: ReducerProtocol {
 extension MainViewReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
-            case wallet(PasscodeReducer.State)
+            case recieveTonView(RecieveTonReducer.State)
 
             var id: AnyHashable {
                 switch self {
-                case let .wallet(state):
+                case let .recieveTonView(state):
                     return state.id
                 }
             }
         }
         enum Action: Equatable {
-            case wallet(PasscodeReducer.Action)
+            case recieveTonView(RecieveTonReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
-            Scope(state: /State.wallet, action: /Action.wallet) {
-                PasscodeReducer()
+            Scope(state: /State.recieveTonView, action: /Action.recieveTonView) {
+                RecieveTonReducer()
             }
         }
     }
@@ -138,7 +147,7 @@ struct MainView: View {
 
                     HStack(spacing: 12.0) {
                         Button("Recieve") {
-
+                            viewStore.send(.tappedRecieveButton)
                         }
                         .frame(maxWidth: .infinity, minHeight: 50.0)
                         .customBlueButtonStyle()
@@ -180,6 +189,23 @@ struct MainView: View {
                 viewStore.send(.onAppear)
                 UserDefaults.standard.set(AppState.walletCreated.rawValue , forKey: "state")
             }
+            .sheet(
+                store: self.store.scope(
+                    state: \.$destination,
+                    action: MainViewReducer.Action.destination),
+                state: /MainViewReducer.Destination.State.recieveTonView,
+                action: MainViewReducer.Destination.Action.recieveTonView) { store in
+                    NavigationView {
+                        RecieveTonView(store: store)
+                            .toolbar {
+                                ToolbarItem(placement: .navigationBarLeading) {
+                                    Button("< Back") {
+                                        viewStore.send(.tappedBackButton)
+                                    }
+                                }
+                            }
+                    }
+                }
         }
     }
 }

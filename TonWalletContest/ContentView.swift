@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct ContentView: View {
 
@@ -55,5 +56,20 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct TestReducer: ReducerProtocol {
+    struct State: Equatable, Identifiable {
+        var id: UUID = .init()
+    }
+
+    enum Action: Equatable {
+    }
+
+    var body: some ReducerProtocolOf<Self> {
+        Reduce { state, action in
+            return .none
+        }
     }
 }

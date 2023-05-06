@@ -64,22 +64,22 @@ struct RecieveTonReducer: ReducerProtocol {
 extension RecieveTonReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
-            case wallet(MainViewReducer.State)
+            case invoice(TestReducer.State)
 
             var id: AnyHashable {
                 switch self {
-                case let .wallet(state):
+                case let .invoice(state):
                     return state.id
                 }
             }
         }
         enum Action: Equatable {
-            case wallet(MainViewReducer.Action)
+            case invoice(TestReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
-            Scope(state: /State.wallet, action: /Action.wallet) {
-                MainViewReducer()
+            Scope(state: /State.invoice, action: /Action.invoice) {
+                TestReducer()
             }
         }
     }
@@ -141,12 +141,12 @@ struct RecieveTonView: View {
                 self.store.scope(
                     state: \.$destination,
                     action: RecieveTonReducer.Action.destination),
-                state: /RecieveTonReducer.Destination.State.wallet,
-                action: RecieveTonReducer.Destination.Action.wallet
+                state: /RecieveTonReducer.Destination.State.invoice,
+                action: RecieveTonReducer.Destination.Action.invoice
             ) {
                 ViewStore(store).send(.viewWalletButtonTapped)
             } destination: { store in
-                MainView(store: store)
+                
             } label: {
                 Label("Share Wallet Address", image: "ic_share")
                     .font(.init(.system(size: 17.0, weight: .semibold)))
