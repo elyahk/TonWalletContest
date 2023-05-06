@@ -25,6 +25,9 @@
 		13B0548029DB17EB006014C0 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0547F29DB17EB006014C0 /* LottieView.swift */; };
 		13B0548229DC353D006014C0 /* CongratulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0548129DC353D006014C0 /* CongratulationView.swift */; };
 		13B0548429DC359C006014C0 /* CongratulationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0548329DC359C006014C0 /* CongratulationReducer.swift */; };
+		13D218F02A04F964001F351C /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D218EF2A04F964001F351C /* SendView.swift */; };
+		13D218F22A050742001F351C /* TestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D218F12A050742001F351C /* TestMainView.swift */; };
+		13FDFEBE29FBF60000402AF9 /* PendingReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEBD29FBF60000402AF9 /* PendingReducer.swift */; };
 		13FDFEC129FBFA7200402AF9 /* SuccessReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC029FBFA7200402AF9 /* SuccessReducer.swift */; };
 		13FDFEC929FC5E8000402AF9 /* CommentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC829FC5E8000402AF9 /* CommentTextField.swift */; };
 		61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */; };
@@ -160,6 +163,8 @@
 		13B0547F29DB17EB006014C0 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LottieView.swift; path = TonWalletContest/LottieView.swift; sourceTree = SOURCE_ROOT; };
 		13B0548129DC353D006014C0 /* CongratulationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulationView.swift; sourceTree = "<group>"; };
 		13B0548329DC359C006014C0 /* CongratulationReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulationReducer.swift; sourceTree = "<group>"; };
+		13D218EF2A04F964001F351C /* SendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
+		13D218F12A050742001F351C /* TestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMainView.swift; sourceTree = "<group>"; };
 		13FDFEBD29FBF60000402AF9 /* PendingReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingReducer.swift; sourceTree = "<group>"; };
 		13FDFEC029FBFA7200402AF9 /* SuccessReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessReducer.swift; sourceTree = "<group>"; };
 		13FDFEC329FC386600402AF9 /* ConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmView.swift; sourceTree = "<group>"; };
@@ -439,6 +444,7 @@
 		61153E0629D8FB0900D4D030 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				13D218EF2A04F964001F351C /* SendView.swift */,
 				613D39FE29FEC64800243B2E /* QrCodeView */,
 				61760F4A29F9BF0600B2770C /* MainView */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
@@ -601,6 +607,7 @@
 			isa = PBXGroup;
 			children = (
 				61760F4B29F9BF1C00B2770C /* MainView.swift */,
+				13D218F12A050742001F351C /* TestMainView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -877,6 +884,7 @@
 				6E3EC13429DB0AB10050AA75 /* TonWalletManager.swift in Sources */,
 				6152F1832A04193500F97845 /* SSignal+Meta.m in Sources */,
 				6E38004929DE048E002D6868 /* RecoveryPhraseView.swift in Sources */,
+				13D218F22A050742001F351C /* TestMainView.swift in Sources */,
 				61931DD329FE662B00F54C64 /* Signal_Meta.swift in Sources */,
 				61931DC629FE662B00F54C64 /* Multicast.swift in Sources */,
 				61931DD129FE662B00F54C64 /* Signal_Combine.swift in Sources */,
@@ -923,6 +931,8 @@
 				6152F1822A04193500F97845 /* SThreadPool.m in Sources */,
 				6152F18D2A04193500F97845 /* SDisposableSet.m in Sources */,
 				615017B829E0055500AF963D /* TestTimeReducer.swift in Sources */,
+				1352FFA029FBD40C002799A9 /* WideBlueTextButtonStyle.swift in Sources */,
+				13D218F02A04F964001F351C /* SendView.swift in Sources */,
 				6152F1892A04193500F97845 /* SSignal+Mapping.m in Sources */,
 				61931DCF29FE662B00F54C64 /* Signal_Loop.swift in Sources */,
 				61931DC329FE662B00F54C64 /* Signal_Dispatch.swift in Sources */,

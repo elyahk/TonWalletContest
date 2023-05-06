@@ -70,6 +70,7 @@ extension MainViewReducer {
 }
 
 
+
 struct MainView: View {
     let store: StoreOf<MainViewReducer>
 
@@ -77,7 +78,12 @@ struct MainView: View {
         self.store = store
     }
 
+
+
     var body: some View {
+
+        @State var isModal: Bool = false
+
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack {
                 VStack {
