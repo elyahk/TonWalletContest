@@ -12,6 +12,7 @@
 		1352FF9E29FBD2B9002799A9 /* money.json in Resources */ = {isa = PBXBuildFile; fileRef = 1352FF9D29FBD2B9002799A9 /* money.json */; };
 		1352FFA029FBD40C002799A9 /* WideBlueTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */; };
 		1352FFA229FBD541002799A9 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FFA129FBD541002799A9 /* SuccessView.swift */; };
+		1387C9A92A06841D00E27DD8 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387C9A82A06841D00E27DD8 /* QRCodeScannerView.swift */; };
 		13B0546929DB16DB006014C0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 13B0546829DB16DB006014C0 /* Lottie */; };
 		13B0547529DB175D006014C0 /* password.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546B29DB175D006014C0 /* password.json */; };
 		13B0547629DB175D006014C0 /* teacher.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546C29DB175D006014C0 /* teacher.json */; };
@@ -92,6 +93,7 @@
 		1352FF9D29FBD2B9002799A9 /* money.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = money.json; sourceTree = "<group>"; };
 		1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideBlueTextButtonStyle.swift; sourceTree = "<group>"; };
 		1352FFA129FBD541002799A9 /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
+		1387C9A82A06841D00E27DD8 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
 		13B0546B29DB175D006014C0 /* password.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = password.json; sourceTree = "<group>"; };
 		13B0546C29DB175D006014C0 /* teacher.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = teacher.json; sourceTree = "<group>"; };
 		13B0546D29DB175D006014C0 /* sad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sad.json; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				13D218EF2A04F964001F351C /* SendView.swift */,
+				1387C9A82A06841D00E27DD8 /* QRCodeScannerView.swift */,
 				61760F4A29F9BF0600B2770C /* MainView */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
 				615017B529E0050800AF963D /* Authorazation */,
@@ -633,6 +636,7 @@
 				1352FFA029FBD40C002799A9 /* WideBlueTextButtonStyle.swift in Sources */,
 				13D218F02A04F964001F351C /* SendView.swift in Sources */,
 				615017BF29E019A200AF963D /* PasscodeView+Reducer.swift in Sources */,
+				1387C9A92A06841D00E27DD8 /* QRCodeScannerView.swift in Sources */,
 				615017BA29E0056D00AF963D /* TestTimeView.swift in Sources */,
 				615EDE2529EB420600D3A220 /* ImportPhraseView.swift in Sources */,
 				13B0548229DC353D006014C0 /* CongratulationView.swift in Sources */,
