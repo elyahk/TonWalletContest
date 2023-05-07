@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CodeScanner
 
 struct Transaction: Identifiable {
     var id = UUID()
@@ -30,6 +31,8 @@ struct SendView: View {
     ]
 
     @Environment(\.presentationMode) var presentationMode
+
+    @State var isShowingScanner: Bool = false
 
     var body: some View {
         NavigationView {
@@ -65,23 +68,22 @@ struct SendView: View {
                         }
                     }
                     .padding(.trailing)
-                    NavigationLink {
-                        QRCodeScannerView()
-                    } label: {
-                        HStack {
-                            Image("scan")
-                            Text("Scan")
-                        }
-                    }
-
-//                    Button {
-//                        //
+//                    NavigationLink {
+//                        isShowingScanner = true
 //                    } label: {
 //                        HStack {
 //                            Image("scan")
 //                            Text("Scan")
 //                        }
 //                    }
+                    Button {
+                        isShowingScanner = true
+                    } label: {
+                        HStack {
+                            Image("scan")
+                            Text("Scan")
+                        }
+                    }
                 }
                 .padding(.horizontal, 16)
                 if !transactionHistory.isEmpty {
@@ -141,6 +143,20 @@ struct SendView: View {
                     }
                 }
             }
+            .sheet(isPresented: $isShowingScanner) {
+                CodeScannerView(codeTypes: [.qr], simulatedData: "asdfkjm934orjo23de", completion: handleScan)
+            }
+
+        }
+    }
+
+    func handleScan(result: Result<ScanResult, ScanError>) {
+        isShowingScanner = false
+        switch result {
+        case .success(let result):
+            address = result.string
+        case .failure(let error):
+            print("Scanning failure \(error.localizedDescription)")
         }
     }
 }
