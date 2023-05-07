@@ -65,14 +65,23 @@ struct SendView: View {
                         }
                     }
                     .padding(.trailing)
-                    Button {
-                        //
+                    NavigationLink {
+                        QRCodeScannerView()
                     } label: {
                         HStack {
                             Image("scan")
                             Text("Scan")
                         }
                     }
+
+//                    Button {
+//                        //
+//                    } label: {
+//                        HStack {
+//                            Image("scan")
+//                            Text("Scan")
+//                        }
+//                    }
                 }
                 .padding(.horizontal, 16)
                 if !transactionHistory.isEmpty {

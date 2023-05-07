@@ -29,7 +29,9 @@ struct QRCodeScannerView: View {
         }
         .onAppear {
             self.setupCaptureSession()
-            self.captureScreen.startRunning()
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.captureScreen.startRunning()
+            }
         }
         .onDisappear {
             self.captureScreen.stopRunning()
