@@ -163,57 +163,30 @@ struct RecieveTonView: View {
                 .padding(.horizontal, 40)
             Spacer()
             // Create My Wallet app
-            //            ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
-            //                Label("Share Wallet Address", image: "ic_share")
-            //                    .font(.init(.system(size: 17.0, weight: .semibold)))
-            //                    .foregroundColor(.white)
-            //                    .frame(maxWidth: .infinity, maxHeight: 50)
-            //                    .background(Color.accentColor)
-            //                    .cornerRadius(12)
-            //                    .padding([.leading, .trailing], 48)
-            //            }
-//            NavigationLinkStore (
-//                self.store.scope(
-//                    state: \.$destination,
-//                    action: RecieveTonReducer.Action.destination),
-//                state: /RecieveTonReducer.Destination.State.shareView,
-//                action: RecieveTonReducer.Destination.Action.shareView
-//            ) {
-//                ViewStore(store).send(.viewWalletButtonTapped)
-//            } destination: { store in
-//                ActivityView(text: "Text")
-//            } label: {
-//                Label("Share Wallet Address", image: "ic_share")
-//                    .font(.init(.system(size: 17.0, weight: .semibold)))
-//                    .foregroundColor(.white)
-//                    .frame(maxWidth: .infinity, maxHeight: 50)
-//                    .background(Color.accentColor)
-//                    .cornerRadius(12)
-//                    .padding([.leading, .trailing], 48)
-//            }
 
-            Button("Tap") {
+            Button {
                 ViewStore(store).send(.viewWalletButtonTapped)
-                showSheet.toggle()
+            } label: {
+                Label("Share Wallet Address", image: "ic_share")
+                    .font(.init(.system(size: 17.0, weight: .semibold)))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    .background(Color.accentColor)
+                    .cornerRadius(12)
+                    .padding([.leading, .trailing], 48)
             }
         }
         .onAppear {
             UserDefaults.standard.set(AppState.walletCreated.rawValue , forKey: "state")
         }
-        .sheet(isPresented: $showSheet, content: {
-            HalfSheetView(isPresented: $showSheet)
-                .frame(height: UIScreen.main.bounds.height * 0.5)
-                .offset(y: showSheet ? 0 : UIScreen.main.bounds.height)
-
-        })
-//        .sheet(
-//            store: self.store.scope(
-//                state: \.$destination,
-//                action: RecieveTonReducer.Action.destination),
-//            state: /RecieveTonReducer.Destination.State.shareView,
-//            action: RecieveTonReducer.Destination.Action.shareView) { store in
-//
-//            }
+        .sheet(
+            store: self.store.scope(
+                state: \.$destination,
+                action: RecieveTonReducer.Action.destination),
+            state: /RecieveTonReducer.Destination.State.shareView,
+            action: RecieveTonReducer.Destination.Action.shareView) { store in
+                ActivityView(text: "ton://transfer/UQBFz01R2CU7YA8pevUaNIYEzi1mRo4cX-r3W2Dwx-WEAoKP")
+            }
 
     }
 }
