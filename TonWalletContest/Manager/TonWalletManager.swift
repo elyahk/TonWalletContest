@@ -9,6 +9,16 @@ import Foundation
 import SwiftyTON
 import IdentifiedCollections
 
+enum DebugType: String {
+    case importWords = "Import Words Successfully"
+    case createWallet = "Create Wallet Succesfully"
+    case createMassage = "Create Message Succesfully"
+}
+
+func debug(_ debug: DebugType) {
+    print(debug.rawValue)
+}
+
 enum WalletManagerErrors: Error {
     case unvalidURL
     case invalidAddress
@@ -34,28 +44,28 @@ class TonWalletManager {
         // Configurate SwiftyTON with mainnet
 
         let key = try await Key.create(password: data)
-        
+
         return key
     }
     
     func words(key: Key) async throws -> [String] {
         let words = try await key.words(password: data)
-        print(words)
+
         return words
     }
 
     func importWords(_ words: [String]) async throws -> Key {
         let key = try await Key.import(password: data, words: words)
-
+        debug(.importWords)
         return key
     }
-    
+
     func createWallet3(key: Key, revision: Wallet3.Revision = .r2) async throws -> Wallet3 {
         let initialState = try await Wallet3.initial(
             revision: revision,
             deserializedPublicKey: try key.deserializedPublicKey()
         )
-        
+
         guard let address = await Address.init(initial: initialState) else {
             throw WalletManagerErrors.invalidAddress
         }
@@ -80,15 +90,88 @@ class TonWalletManager {
         guard let wallet = Wallet3(contract: contract) else {
             throw WalletManagerErrors.invalidWallet
         }
-        
+
+        debug(.createWallet)
+
+        return wallet
+    }
+
+    func anyWallet(key: Key, revision: Wallet3.Revision = .r2) async throws -> AnyWallet {
+        let initialState = try await Wallet3.initial(
+            revision: revision,
+            deserializedPublicKey: try key.deserializedPublicKey()
+        )
+
+        guard let address = await Address.init(initial: initialState) else {
+            throw WalletManagerErrors.invalidAddress
+        }
+
+        var contract = try await Contract(address: address)
+        let selectedContractInfo = contract.info
+
+        switch contract.kind {
+        case .none:
+            fatalError()
+        case .uninitialized: // for uninited state we should pass initial data
+            contract = Contract(
+                address: address,
+                info: selectedContractInfo,
+                kind: .walletV3R2,
+                data: .zero // will be created automatically
+            )
+        default:
+            break
+        }
+
+        guard let wallet = AnyWallet(contract: contract) else {
+            throw WalletManagerErrors.invalidWallet
+        }
+
+        debug(.createWallet)
+
+        return wallet
+    }
+
+    func createWallet4(key: Key, revision: Wallet4.Revision = .r1) async throws -> Wallet4 {
+        let initialState = try await Wallet4.initial(
+            revision: revision,
+            deserializedPublicKey: try key.deserializedPublicKey()
+        )
+
+        guard let address = await Address.init(initial: initialState) else {
+            throw WalletManagerErrors.invalidAddress
+        }
+
+        var contract = try await Contract(address: address)
+        let selectedContractInfo = contract.info
+
+        switch contract.kind {
+        case .none:
+            fatalError()
+        case .uninitialized: // for uninited state we should pass initial data
+            contract = Contract(
+                address: address,
+                info: selectedContractInfo,
+                kind: .walletV4R1,
+                data: .zero // will be created automatically
+            )
+        default:
+            break
+        }
+
+        guard let wallet = Wallet4(contract: contract) else {
+            throw WalletManagerErrors.invalidWallet
+        }
+        debug(.createWallet)
+
         return wallet
     }
 
     func sendMoney(wallet: Wallet3, with key: Key, to address: String) async throws {
-        guard let displayableAddress = await DisplayableAddress(string: address) else { return }
+        guard let concreateAddress = ConcreteAddress(string: address) else { throw WalletManagerErrors.invalidAddress }
 
         let message = try await wallet.subsequentTransferMessage(
-            to: displayableAddress.concreteAddress,
+            to: concreateAddress,
             amount: Currency(0.01), // 0.5 TON
             message: ("My test message".data(using: .utf8), nil),
             key: key,
@@ -100,63 +183,36 @@ class TonWalletManager {
 //        try await message.send()
         print("Send money")
     }
-    
-    
-//        let key = try await Key.import(password: passcodeData, words: words)
 
-//        // Create Wallet v3R2 initial state
-//        let initialState = try await Wallet3.initial(
-//            revision: .r2,
-//            deserializedPublicKey: try key.deserializedPublicKey()
-//        )
-//
-//        // Get address from initial data
-//        guard let myAddress = await Address(initial: initial)
-//        else {
-//            fatalError()
-//        }
-//
-//        // Parse address (and resolve, if needed) from example.ton, example.t.me or simple address string
-//        guard let displayableAddress = await DisplayableAddress(string: "example.ton")
-//        else {
-//            fatalError()
-//        }
-//
-//        // Transfer
-//        var contract = try await Contract(address: myAddress)
-//        let selectedContractInfo = contract.info
-//
-//        switch contract.kind {
-//        case .none:
-//            fatalError()
-//        case .uninitialized: // for uninited state we should pass initial data
-//            contract = Contract(
-//                address: myAddress,
-//                info: selectedContractInfo,
-//                kind: .walletV3R2,
-//                data: .zero // will be created automatically
-//            )
-//        default:
-//            break
-//        }
-//
-//        guard let wallet = AnyWallet(contract: contract) else {
-//          fatalError()
-//        }
-//
-//        let message = try await wallet.subsequentTransferMessage(
-//            to: displayableAddress.concreteAddress,
-//            amount: Currency(0.5), // 0.5 TON
-//            message: ("SwiftyTON".data(using: .utf8), nil),
-//            key: key,
-//            passcode: passcode
-//        )
-//
-//        let fees = try await message.fees() // get estimated fees
-//        print("Estimated fees - \(fees)")
-//
-//        try await message.send() // send transaction
-//    }
+    func getMessage(wallet: Wallet4, with key: Key, to address: String) async throws -> Message {
+        guard let displayableAddress = await DisplayableAddress(string: address) else { throw WalletManagerErrors.invalidAddress }
+
+        let message = try await wallet.subsequentTransferMessage(
+            to: displayableAddress.concreteAddress,
+            amount: Currency(0.01), // 0.5 TON
+            message: ("My test message".data(using: .utf8), nil),
+            key: key,
+            passcode: data
+        )
+        debug(.createMassage)
+
+        return message
+    }
+
+    func getMessage(wallet: AnyWallet, with key: Key, to address: String) async throws -> Message {
+        guard let displayableAddress = await DisplayableAddress(string: address) else { throw WalletManagerErrors.invalidAddress }
+
+        let message = try await wallet.subsequentTransferMessage(
+            to: displayableAddress.concreteAddress,
+            amount: Currency(value: "0.01")!, // 0.5 TON
+            message: ("My test message".data(using: .utf8), nil),
+            key: key,
+            passcode: data
+        )
+        debug(.createMassage)
+
+        return message
+    }
 }
 
 
