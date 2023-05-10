@@ -1,6 +1,43 @@
 import SwiftUI
 import ComposableArchitecture
 import SwiftyTON
+import UIKit
+
+// 1. Activity View
+struct ActivityView: UIViewControllerRepresentable, ReducerProtocol {
+    struct State: Equatable, Identifiable {
+        var id: UUID = .init()
+
+
+    }
+    enum Action: Equatable {
+    }
+
+    var body: some ReducerProtocolOf<Self> {
+        Reduce { state, action in
+            return .none
+        }
+    }
+
+    let text: String
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityView>) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        controller.view.backgroundColor = .clear
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<ActivityView>) {
+        uiViewController.view.backgroundColor = .clear
+    }
+}
+
+// 2. Share Text
+struct ShareText: Identifiable {
+    let id = UUID()
+    let text: String
+}
+
 
 struct RecieveTonReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
@@ -14,7 +51,6 @@ struct RecieveTonReducer: ReducerProtocol {
         case viewWalletButtonTapped
         case onAppear
         case qrCodeCreated(image: UIImage)
-        case walletCreated(wallet3: Wallet3)
     }
 
     @Dependency(\.dismiss) var presentationMode
@@ -32,22 +68,7 @@ struct RecieveTonReducer: ReducerProtocol {
                 return .none
 
             case .viewWalletButtonTapped:
-                print("button tapped")
-
-                return .run { send in
-                    let key = try await TonKeyStore.shared.loadKey()
-                    print("Key created")
-
-                    if let key = key {
-                        let wallet = try await TonWalletManager.shared.createWallet3(key: key)
-                        print(wallet.contract.info)
-                        await send(.walletCreated(wallet3: wallet))
-                    }
-                }
-
-            case .walletCreated(let wallet3):
-//                state.destination = .wallet(.init())
-
+                state.destination = .shareView(.init())
                 return .none
 
             case .destination:
@@ -65,16 +86,20 @@ extension RecieveTonReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
             case invoice(TestReducer.State)
+            case shareView(ActivityView.State)
 
             var id: AnyHashable {
                 switch self {
                 case let .invoice(state):
+                    return state.id
+                case let .shareView(state):
                     return state.id
                 }
             }
         }
         enum Action: Equatable {
             case invoice(TestReducer.Action)
+            case shareView(ActivityView.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
@@ -88,6 +113,7 @@ extension RecieveTonReducer {
 
 struct RecieveTonView: View {
     let store: StoreOf<RecieveTonReducer>
+    @State var showSheet: Bool = false
 
     init(store: StoreOf<RecieveTonReducer>) {
         self.store = store
@@ -137,29 +163,87 @@ struct RecieveTonView: View {
                 .padding(.horizontal, 40)
             Spacer()
             // Create My Wallet app
-            NavigationLinkStore (
-                self.store.scope(
-                    state: \.$destination,
-                    action: RecieveTonReducer.Action.destination),
-                state: /RecieveTonReducer.Destination.State.invoice,
-                action: RecieveTonReducer.Destination.Action.invoice
-            ) {
+            //            ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
+            //                Label("Share Wallet Address", image: "ic_share")
+            //                    .font(.init(.system(size: 17.0, weight: .semibold)))
+            //                    .foregroundColor(.white)
+            //                    .frame(maxWidth: .infinity, maxHeight: 50)
+            //                    .background(Color.accentColor)
+            //                    .cornerRadius(12)
+            //                    .padding([.leading, .trailing], 48)
+            //            }
+//            NavigationLinkStore (
+//                self.store.scope(
+//                    state: \.$destination,
+//                    action: RecieveTonReducer.Action.destination),
+//                state: /RecieveTonReducer.Destination.State.shareView,
+//                action: RecieveTonReducer.Destination.Action.shareView
+//            ) {
+//                ViewStore(store).send(.viewWalletButtonTapped)
+//            } destination: { store in
+//                ActivityView(text: "Text")
+//            } label: {
+//                Label("Share Wallet Address", image: "ic_share")
+//                    .font(.init(.system(size: 17.0, weight: .semibold)))
+//                    .foregroundColor(.white)
+//                    .frame(maxWidth: .infinity, maxHeight: 50)
+//                    .background(Color.accentColor)
+//                    .cornerRadius(12)
+//                    .padding([.leading, .trailing], 48)
+//            }
+
+            Button("Tap") {
                 ViewStore(store).send(.viewWalletButtonTapped)
-            } destination: { store in
-                
-            } label: {
-                Label("Share Wallet Address", image: "ic_share")
-                    .font(.init(.system(size: 17.0, weight: .semibold)))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, maxHeight: 50)
-                    .background(Color.accentColor)
-                    .cornerRadius(12)
-                    .padding([.leading, .trailing], 48)
+                showSheet.toggle()
             }
         }
         .onAppear {
             UserDefaults.standard.set(AppState.walletCreated.rawValue , forKey: "state")
         }
+        .sheet(isPresented: $showSheet, content: {
+            HalfSheetView(isPresented: $showSheet)
+                .frame(height: UIScreen.main.bounds.height * 0.5)
+                .offset(y: showSheet ? 0 : UIScreen.main.bounds.height)
+
+        })
+//        .sheet(
+//            store: self.store.scope(
+//                state: \.$destination,
+//                action: RecieveTonReducer.Action.destination),
+//            state: /RecieveTonReducer.Destination.State.shareView,
+//            action: RecieveTonReducer.Destination.Action.shareView) { store in
+//
+//            }
+
+    }
+}
+
+
+struct HalfSheetView: View {
+    @Binding var isPresented: Bool
+
+    var body: some View {
+        VStack {
+            Text("Half Sheet")
+                .font(.title)
+                .padding()
+
+            // Add your content here
+
+            Spacer()
+
+            Button(action: {
+                isPresented = false
+            }) {
+                Text("Close")
+                    .padding()
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.clear) // Use clear background color
+        .edgesIgnoringSafeArea(.all)
+        .transition(.move(edge: .bottom))
+        .animation(.spring())
     }
 }
 
