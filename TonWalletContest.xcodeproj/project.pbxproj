@@ -11,6 +11,7 @@
 		1352FF9C29FBCEC3002799A9 /* PendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9B29FBCEC3002799A9 /* PendingView.swift */; };
 		1352FF9E29FBD2B9002799A9 /* money.json in Resources */ = {isa = PBXBuildFile; fileRef = 1352FF9D29FBD2B9002799A9 /* money.json */; };
 		1352FFA229FBD541002799A9 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FFA129FBD541002799A9 /* SuccessView.swift */; };
+		1387C9AC2A083FA800E27DD8 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 1387C9AB2A083FA800E27DD8 /* CodeScanner */; };
 		13B0546929DB16DB006014C0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 13B0546829DB16DB006014C0 /* Lottie */; };
 		13B0547529DB175D006014C0 /* password.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546B29DB175D006014C0 /* password.json */; };
 		13B0547629DB175D006014C0 /* teacher.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B0546C29DB175D006014C0 /* teacher.json */; };
@@ -301,6 +302,7 @@
 				61153E0329D8FA5400D4D030 /* ComposableArchitecture in Frameworks */,
 				61153E0029D8F76A00D4D030 /* SwiftyTON in Frameworks */,
 				13B0546929DB16DB006014C0 /* Lottie in Frameworks */,
+				1387C9AC2A083FA800E27DD8 /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,6 +743,7 @@
 				61153E0229D8FA5400D4D030 /* ComposableArchitecture */,
 				13B0546829DB16DB006014C0 /* Lottie */,
 				619D5DB929E2A75300C01C7A /* SwiftUINavigation */,
+				1387C9AB2A083FA800E27DD8 /* CodeScanner */,
 			);
 			productName = TonWalletContest;
 			productReference = 61153DCF29D8F5AA00D4D030 /* TonWalletContest.app */;
@@ -819,6 +822,7 @@
 				61153E0129D8FA5400D4D030 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				13B0546729DB16DB006014C0 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				619D5DB829E2A75300C01C7A /* XCRemoteSwiftPackageReference "swiftui-navigation" */,
+				1387C9AA2A083FA800E27DD8 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = 61153DD029D8F5AA00D4D030 /* Products */;
 			projectDirPath = "";
@@ -1132,12 +1136,12 @@
 				DEVELOPMENT_TEAM = 3523U23689;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "I need your camera of fuck off";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "TON Wallet uses biometric authentication to authorize transactions";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1146,9 +1150,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ton.wallet.contest.elyahk.TonWalletContest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1163,12 +1170,12 @@
 				DEVELOPMENT_TEAM = 3523U23689;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "I need your camera of fuck off";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "TON Wallet uses biometric authentication to authorize transactions";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1177,9 +1184,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ton.wallet.contest.elyahk.TonWalletContest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1301,6 +1311,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1387C9AA2A083FA800E27DD8 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		13B0546729DB16DB006014C0 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
@@ -1336,6 +1354,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1387C9AB2A083FA800E27DD8 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1387C9AA2A083FA800E27DD8 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
 		13B0546829DB16DB006014C0 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 13B0546729DB16DB006014C0 /* XCRemoteSwiftPackageReference "lottie-ios" */;

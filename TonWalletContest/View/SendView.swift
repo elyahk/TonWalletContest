@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CodeScanner
 
 struct Transaction: Identifiable {
     var id = UUID()
@@ -31,10 +32,15 @@ struct SendView: View {
 
     @Environment(\.presentationMode) var presentationMode
 
+    @State var isShowingScanner: Bool = false
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
                 TextField("Enter Wallet Address or Domain...", text: $address)
+                    .clearButton(isHidden: address.isEmpty, action: {
+                        self.address = ""
+                    })
                     .frame(width: .infinity, height: 50, alignment: .leading)
                     .padding(.horizontal, 16)
                     .background(Color("LightGray"))
@@ -52,7 +58,9 @@ struct SendView: View {
                     .padding(.horizontal, 16)
                 HStack {
                     Button {
-                        //
+                        if let pasteboardText = UIPasteboard.general.string {
+                            self.address = pasteboardText
+                        }
                     } label: {
                         HStack {
                             Image(systemName: "doc.on.clipboard")
@@ -60,8 +68,16 @@ struct SendView: View {
                         }
                     }
                     .padding(.trailing)
+//                    NavigationLink {
+//                        isShowingScanner = true
+//                    } label: {
+//                        HStack {
+//                            Image("scan")
+//                            Text("Scan")
+//                        }
+//                    }
                     Button {
-                        //
+                        isShowingScanner = true
                     } label: {
                         HStack {
                             Image("scan")
@@ -101,6 +117,7 @@ struct SendView: View {
                     }
                     .listStyle(.plain)
                 }
+                Spacer()
                 NavigationLink {
                     //
                 } label: {
@@ -109,7 +126,6 @@ struct SendView: View {
                         .customWideBlueButtonStyle()
                         .padding(.bottom)
                 }
-                Spacer()
             }
             .padding(.vertical)
             .navigationTitle("Send TON")
@@ -126,6 +142,36 @@ struct SendView: View {
                         }
                     }
                 }
+            }
+            .sheet(isPresented: $isShowingScanner) {
+                CodeScannerView(codeTypes: [.qr], simulatedData: "asdfkjm934orjo23de", completion: handleScan)
+            }
+
+        }
+    }
+
+    func handleScan(result: Result<ScanResult, ScanError>) {
+        isShowingScanner = false
+        switch result {
+        case .success(let result):
+            address = result.string
+        case .failure(let error):
+            print("Scanning failure \(error.localizedDescription)")
+        }
+    }
+}
+
+extension TextField {
+    func clearButton(isHidden: Bool, action: @escaping () -> Void) -> some View {
+        ZStack(alignment: .trailing) {
+            self
+
+            if !isHidden {
+                Button(action: action) {
+                    Image(systemName: "multiply.circle.fill")
+                        .foregroundColor(.secondary)
+                }
+
             }
         }
     }
