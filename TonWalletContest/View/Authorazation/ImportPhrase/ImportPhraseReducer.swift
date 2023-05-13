@@ -17,6 +17,8 @@ struct ImportPhraseReducer: ReducerProtocol {
 
             return true
         }
+        
+        static let preview: State = .init()
     }
 
     enum Action: Equatable {

@@ -54,9 +54,7 @@ struct CongratulationView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             CongratulationView(store: .init(
-                initialState: .init(events: .init(createRecoveryState: {
-                    RecoveryPhraseReducer.State(words: .words24_withTon)
-                }), words: .words24),
+                initialState: .preview,
                 reducer: CongratulationReducer()
             ))
         }

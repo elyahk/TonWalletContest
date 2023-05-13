@@ -16,6 +16,15 @@ struct RecoveryPhraseReducer: ReducerProtocol {
         var id: UUID = .init()
         var isActive: Bool = false
         var buttonTappedAttempts: Int = 0
+        var events: Events
+        
+        static let preview: State = .init(words: .words24, events: .init(
+            createTestTimeReducerState: { _ in .preview }
+        ))
+    }
+    
+    struct Events: AlwaysEquitable {
+        var createTestTimeReducerState: ([TestTimeReducer.Word]) async ->  TestTimeReducer.State
     }
 
     enum Action: Equatable {
@@ -24,6 +33,7 @@ struct RecoveryPhraseReducer: ReducerProtocol {
         case showTestTime
         case startTimer
         case stopTimer
+        case destinationState(Destination.State)
 
         enum Alert: Equatable {
             case dismiss
@@ -34,6 +44,10 @@ struct RecoveryPhraseReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce<State, Action> { state, action in
             switch action {
+            case let .destinationState(destinationState):
+                state.destination = destinationState
+                return .none
+                
             case .startTimer:
                 guard state.isActive else { return .none }
 
@@ -67,8 +81,11 @@ struct RecoveryPhraseReducer: ReducerProtocol {
                     return .none
                 }
 
-                state.destination = .testTime(.init(testWords: IdentifiedArrayOf(uniqueElements: (words[0...2].sorted { $0.key < $1.key } ))))
-                return .none
+                return .run { [events = state.events] send in
+                    await send(.destinationState(.testTime(
+                        await events.createTestTimeReducerState(words)
+                    )))
+                }
 
             case .destination(.presented(.alert(.dismiss))):
                 state.destination = nil

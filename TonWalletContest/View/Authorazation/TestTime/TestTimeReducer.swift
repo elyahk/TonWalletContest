@@ -7,6 +7,13 @@ struct TestTimeReducer: ReducerProtocol {
         var id: UUID = .init()
         var testWords: IdentifiedArrayOf<Word>
         @PresentationState var destination: Destination.State?
+        var events: Events
+        
+        init(testWords: IdentifiedArrayOf<Word>, destination: Destination.State? = nil, events: Events) {
+            self.testWords = testWords
+            self.destination = destination
+            self.events = events
+        }
         
         var presentableTestNumbers: String {
             "\(testWords[0].key + 1), \(testWords[1].key + 1) and \(testWords[2].key + 1)"
@@ -19,13 +26,23 @@ struct TestTimeReducer: ReducerProtocol {
             
             return true
         }
+        
+        static let preview: State = .init(
+            testWords: .words3(),
+            events: .init(createPasscodeReducerState: { .preview }))
     }
+    
+    struct Events: AlwaysEquitable {
+        var createPasscodeReducerState: () async ->  PasscodeReducer.State
+    }
+    
     
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
         case continueButtonTapped
         case wordChanged(id: Word.ID, value: String)
         case autoFillCorrectWords
+        case destinationState(Destination.State)
         
         enum Alert: Equatable {
             case seeWords
@@ -38,9 +55,15 @@ struct TestTimeReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case let .destinationState(destinationState):
+                state.destination = destinationState
+                return .none
+                
             case .continueButtonTapped:
                 if state.isCorrectRecieveddWords() {
-//                    state.destination = .passcode(.init())
+                    return .run { [events = state.events] send in
+                        await send(.destinationState(.passcode(await events.createPasscodeReducerState())))
+                    }
                 } else {
                     state.destination = .alert(.init(
                         title: TextState("Incorrect words"),

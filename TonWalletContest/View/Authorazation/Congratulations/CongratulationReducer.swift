@@ -22,8 +22,13 @@ struct CongratulationReducer: ReducerProtocol {
         var id: UUID = .init()
         var events: Events
         var words: [String]
+        
+        static let preview: State = .init(
+            events: .init(createRecoveryState: { .preview   }),
+            words: .words24_withTon
+        )
     }
-
+    
     struct Events: AlwaysEquitable {
         var createRecoveryState: () async ->  RecoveryPhraseReducer.State
     }

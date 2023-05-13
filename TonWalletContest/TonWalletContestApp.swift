@@ -15,11 +15,88 @@ enum AppState: String {
 }
 
 class ComposableAuthenticationViews {
+    func makeMainViewReducerState() -> MainViewReducer.State {
+        let state = MainViewReducer.State(events: .init(
+            getBalance: {
+                return "2.0000000"
+            },
+            getWalletAddress: {
+                "Wallet Address"
+            },
+            getTransactions: {
+                []
+            }
+        ))
+        
+        return state
+    }
+    
+    func makeReadyToGoReducerState() -> ReadyToGoReducer.State {
+        let state = ReadyToGoReducer.State(
+            events: .init(
+                createMainViewReducerState: {
+                    self.makeMainViewReducerState()
+                }
+            )
+        )
+        
+        return state
+    }
+    
+    func makeLocalAuthenticationReducerState() -> LocalAuthenticationReducer.State {
+        let state = LocalAuthenticationReducer.State(
+            events: .init(
+                createReadyToGoReducerState: {
+                    self.makeReadyToGoReducerState()
+                }
+            )
+        )
+        
+        return state
+    }
+    
+    func makePasscodeReducerState() -> PasscodeReducer.State {
+        let state = PasscodeReducer.State(events: .init(
+            createConfirmPasscodeReducerState: { oldPasscode in
+                let confirmPasscodeState = ConfirmPasscodeReducer.State(
+                    oldPasscode: oldPasscode,
+                    passcodes: oldPasscode.map { _ in .empty },
+                    events: .init(
+                        createLocalAuthenticationReducerState: {self.makeLocalAuthenticationReducerState()}
+                    )
+                )
+                
+                return confirmPasscodeState
+            }
+        ))
+        
+        return state
+    }
+    
+    func makeTestTimeReducerState(words: IdentifiedArrayOf<TestTimeReducer.Word>) -> TestTimeReducer.State {
+        let state = TestTimeReducer.State(
+            testWords: words,
+            events: .init(
+                createPasscodeReducerState: {
+                    self.makePasscodeReducerState()
+                }
+            )
+        )
+        
+        return state
+    }
+    
     func makeCongratulationReducerState(words: [String]) -> CongratulationReducer.State {
         let state =  CongratulationReducer.State(
             events: .init(
                 createRecoveryState: {
-                    RecoveryPhraseReducer.State(words: words)
+                    RecoveryPhraseReducer.State(
+                        words: words,
+                        events: .init(createTestTimeReducerState: { [self] testWords in
+                            let words = IdentifiedArrayOf(uniqueElements: (testWords[0...2].sorted { $0.key < $1.key } ))
+                            return self.makeTestTimeReducerState(words: words)
+                        })
+                    )
                 }),
             words: words
         )

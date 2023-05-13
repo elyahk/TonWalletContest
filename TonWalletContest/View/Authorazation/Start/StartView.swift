@@ -77,16 +77,7 @@ struct StartView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             StartView(store: .init(
-                initialState: .init(events: .init(
-                    createCongratulationState: {
-                        return CongratulationReducer.State(events: .init(
-                            createRecoveryState: {
-                                RecoveryPhraseReducer.State(words: .words24_withTon)
-                            }), words: .words24_withTon)
-                    },
-                    createImportPhraseState: {
-                        return ImportPhraseReducer.State()
-                    })),
+                initialState: .preview,
                 reducer: StartReducer()
             ))
         }

@@ -13,6 +13,16 @@ struct StartReducer: ReducerProtocol {
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
         var events: Events
+        
+        static let preview: State = .init(
+            events: .init(
+                createCongratulationState: {
+                    .preview
+                },
+                createImportPhraseState: {
+                    .preview
+                })
+        )
     }
 
     struct Events: Equatable {
