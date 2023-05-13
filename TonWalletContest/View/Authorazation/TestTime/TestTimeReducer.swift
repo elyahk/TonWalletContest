@@ -40,7 +40,7 @@ struct TestTimeReducer: ReducerProtocol {
             switch action {
             case .continueButtonTapped:
                 if state.isCorrectRecieveddWords() {
-                    state.destination = .passcode(.init())
+//                    state.destination = .passcode(.init())
                 } else {
                     state.destination = .alert(.init(
                         title: TextState("Incorrect words"),

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import SwiftyTON
 
 struct ContentView: View {
 
@@ -23,6 +24,7 @@ struct ContentView: View {
                         let key = try await manager.importWords(.words24_withTon)
                         let wallet = try await manager.anyWallet(key: key, revision: .r2)
                         print(wallet.contract.info)
+                        
                         let message = try await manager.getMessage(wallet: wallet, with: key, to: "EQAVMjU3S-EFeIBZ2UI_rkxKuQAQGhiFzZ2HgOp92mepnKU6")
                         let fee = try await message.fees()
                         

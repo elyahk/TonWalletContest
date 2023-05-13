@@ -10,8 +10,10 @@ struct LocalAuthenticationReducer: ReducerProtocol {
         var title: String = "Enable Face ID"
         var description: String = "Face ID allows you to open your wallet faster without having to enter your password."
         var buttonTitle: String = "Enable Face ID"
+        var events: Events
         
-        init() {
+        init(events: Events) {
+            self.events = events
             let context = LAContext()
 
             switch context.biometryType {
@@ -29,6 +31,14 @@ struct LocalAuthenticationReducer: ReducerProtocol {
                 break
             }
         }
+        
+        static let preview: State = .init(events: .init(
+            createReadyToGoReducerState: { .preview }
+        ))
+    }
+    
+    struct Events: AlwaysEquitable {
+        var createReadyToGoReducerState: () async ->  ReadyToGoReducer.State
     }
     
     indirect enum Action: Equatable {
@@ -36,6 +46,7 @@ struct LocalAuthenticationReducer: ReducerProtocol {
         case enableAuthenticationIDTapped
         case skipTapped
         case authenticated(success: Bool)
+        case destinationState(Destination.State)
         
         enum Alert: Equatable {
             case dismiss
@@ -46,24 +57,31 @@ struct LocalAuthenticationReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
-            case .enableAuthenticationIDTapped:
+            case let .destinationState(destinationState):
+                state.destination = destinationState
+                return .none
                 
+            case .enableAuthenticationIDTapped:
                 return .run { send in
                     let success = await authenticate()
                     await send(.authenticated(success: success))
                 }
+                
             case .skipTapped:
-                state.destination = .readyToGo(.init())
-                return .none
+                return .run { [events = state.events] send in
+                    await send(.destinationState(.readyToGo(await events.createReadyToGoReducerState())))
+                }
                
             case let .authenticated(success):
-                if success {
-                    state.destination = .readyToGo(.init())
-                } else {
-//                    state.destination = .alert()
-                    #warning("Show alert")
+                return .run {  [events = state.events] send in
+                    if success {
+                        await send(.destinationState(.readyToGo(await events.createReadyToGoReducerState())))
+                    } else {
+                        // state.destination = .alert()
+                        #warning("Show alert")
+                    }
                 }
-                return .none
+                
             case .destination:
                 return .none
             }

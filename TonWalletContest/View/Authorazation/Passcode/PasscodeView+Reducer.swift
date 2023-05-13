@@ -3,11 +3,25 @@ import ComposableArchitecture
 
 struct PasscodeReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
+        @PresentationState var destination: Destination.State?
+        var events: Events
         var id: UUID = .init()
         var passcode: String = ""
         var showKeyboad: Bool = true
-        @PresentationState var confirmPasscode: ConfirmPasscodeReducer.State?
         var passcodes: [Passcode] = [.empty, .empty, .empty, .empty]
+        
+        init(destination: Destination.State? = nil, events: Events) {
+            self.destination = destination
+            self.events = events
+        }
+        
+        static let preview: State = .init(events: .init(
+            createConfirmPasscodeReducerState: { _ in .preview }
+        ))
+    }
+    
+    struct Events: AlwaysEquitable {
+        var createConfirmPasscodeReducerState: (String) async ->  ConfirmPasscodeReducer.State
     }
     
     enum Passcode: Hashable {
@@ -17,14 +31,19 @@ struct PasscodeReducer: ReducerProtocol {
     
     enum Action: Equatable {
         case passwordAdded(password: String)
-        case confirmPasscode(PresentationAction<ConfirmPasscodeReducer.Action>)
+        case destination(PresentationAction<Destination.Action>)
         case showConfirm(oldPasscode: String)
+        case destinationState(Destination.State)
         case onAppear
     }
     
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case let .destinationState(destinationState):
+                state.destination = destinationState
+                return .none
+                
             case let .passwordAdded(passcode):
                 state.passcode = passcode
                 let count = passcode.count
@@ -45,30 +64,53 @@ struct PasscodeReducer: ReducerProtocol {
                 return .none
                 
             case let .showConfirm(oldPasscode):
-                state.confirmPasscode = .init(oldPasscode: oldPasscode)
-                return .none
-                
-            case .confirmPasscode(.dismiss):
-                state.passcode = ""
-                state.showKeyboad = true
-                
-                return .none
+                return .run { [events = state.events] send in
+                    await send(.destinationState(
+                        .confirmPasscode(await events.createConfirmPasscodeReducerState(oldPasscode))
+                    ))
+                }
                 
             case .onAppear:
                 state.showKeyboad = true
                 state.passcode = ""
                 state.passcodes = [.empty, .empty, .empty, .empty]
                 return .none
-
-            case .confirmPasscode:
+            
+            case .destination:
                 return .none
             }
         }
-        .ifLet(\.$confirmPasscode, action: /Action.confirmPasscode) {
-            ConfirmPasscodeReducer()
+        .ifLet(\.$destination, action: /Action.destination) {
+            Destination()
         }
     }
 }
+
+extension PasscodeReducer {
+    struct Destination: ReducerProtocol {
+        enum State: Equatable, Identifiable {
+            case confirmPasscode(ConfirmPasscodeReducer.State)
+            
+            var id: AnyHashable {
+                switch self {
+                case let .confirmPasscode(state):
+                    return state.id
+                }
+            }
+        }
+        
+        enum Action: Equatable {
+            case confirmPasscode(ConfirmPasscodeReducer.Action)
+        }
+        
+        var body: some ReducerProtocolOf<Self> {
+            Scope(state: /State.confirmPasscode, action: /Action.confirmPasscode) {
+                ConfirmPasscodeReducer()
+            }
+        }
+    }
+}
+
 
 
 struct PasscodeView: View {
@@ -135,8 +177,11 @@ struct PasscodeView: View {
                     .padding(.top, 40)
                     
                     NavigationLinkStore(
-                        self.store.scope(state: \.$confirmPasscode, action: PasscodeReducer.Action.confirmPasscode)
+                        self.store.scope(state: \.$destination, action: PasscodeReducer.Action.destination),
+                        state: /PasscodeReducer.Destination.State.confirmPasscode,
+                        action: PasscodeReducer.Destination.Action.confirmPasscode
                     ) {
+                        
                     } destination: { store in
                         ConfirmPasscodeView(store: store)
                     } label: {
@@ -166,7 +211,7 @@ struct PasscodeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             PasscodeView(store: .init(
-                initialState: .init(),
+                initialState: .preview,
                 reducer: PasscodeReducer()
             ))
         }

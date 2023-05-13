@@ -54,7 +54,8 @@ struct ReadyToGoView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ReadyToGoView(store: .init(
-                initialState: .init(),
+                initialState: .init(events: .init(
+                    createMainViewReducerState: { .preview })),
                 reducer: ReadyToGoReducer()
             ))
         }

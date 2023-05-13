@@ -3,23 +3,48 @@ import SwiftUI
 
 struct ConfirmPasscodeReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
-        var id: UUID = .init()
+        @PresentationState var destination: Destination.State?
+        var passcodes: [PasscodeReducer.Passcode]
+        var events: Events
         var oldPasscode: String
+        var id: UUID = .init()
         var passcode: String = ""
         var showKeyboad: Bool = true
-        @PresentationState var destination: Destination.State?
-        var passcodes: [PasscodeReducer.Passcode] = [.empty, .empty, .empty, .empty]
+        
+        init(oldPasscode: String, destination: Destination.State? = nil, passcodes: [PasscodeReducer.Passcode], events: Events) {
+            self.oldPasscode = oldPasscode
+            self.destination = destination
+            self.passcodes = passcodes
+            self.events = events
+        }
+        
+        static let preview: State = .init(
+            oldPasscode: "1234",
+            passcodes: [.empty, .empty, .empty, .empty],
+            events: .init(
+                createLocalAuthenticationReducerState: { .preview }
+            )
+        )
+    }
+    
+    struct Events: AlwaysEquitable {
+        var createLocalAuthenticationReducerState: () async ->  LocalAuthenticationReducer.State
     }
     
     enum Action: Equatable {
         case passwordAdded(password: String)
         case destination(PresentationAction<Destination.Action>)
+        case destinationState(Destination.State)
         case onAppear
     }
     
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case let .destinationState(destinationState):
+                state.destination = destinationState
+                return .none
+                
             case let .passwordAdded(passcode):
                 state.passcode = passcode
                 let count = passcode.count
@@ -31,7 +56,12 @@ struct ConfirmPasscodeReducer: ReducerProtocol {
                 if passcode.count == state.oldPasscode.count {
                     if passcode == state.oldPasscode {
                         state.showKeyboad = false
-                        state.destination = .localAuthentication(.init())
+                        
+                        return .run { [events = state.events] send in
+                            await send(.destinationState(
+                                .localAuthentication(await events.createLocalAuthenticationReducerState())
+                            ))
+                        }
                     } else {
                         return .run { await $0.send(.onAppear) }
                     }
@@ -169,7 +199,7 @@ struct ConfirmPasscodeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ConfirmPasscodeView(store: .init(
-                initialState: .init(oldPasscode: "1234"),
+                initialState: .preview,
                 reducer: ConfirmPasscodeReducer()
             ))
         }

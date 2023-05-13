@@ -6,38 +6,41 @@ struct ReadyToGoReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
+        var events: Events
+        
+        init(destination: Destination.State? = nil, events: Events) {
+            self.destination = destination
+            self.events = events
+        }
+        
+        static let preview: State = .init(events: .init(
+            createMainViewReducerState: { .preview }
+        ))
     }
 
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
         case viewWalletButtonTapped
-        case walletCreated(wallet3: Wallet3)
+        case destinationState(Destination.State)
     }
-
+    
+    struct Events: AlwaysEquitable {
+        var createMainViewReducerState: () async ->  MainViewReducer.State
+    }
+    
     @Dependency(\.dismiss) var presentationMode
 
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
-            case .viewWalletButtonTapped:
-                print("button tapped")
-
-                return .run { send in
-                    let key = try await TonKeyStore.shared.loadKey()
-                    print("Key created")
-
-                    if let key = key {
-                        let wallet = try await TonWalletManager.shared.createWallet3(key: key)
-                        print(wallet.contract.info)
-                        await send(.walletCreated(wallet3: wallet))
-                    }
-                }
-
-            case .walletCreated(let wallet3):
-//                state.destination = .wallet(.init())
-
+            case let .destinationState(destinationState):
+                state.destination = destinationState
+                
                 return .none
-
+            case .viewWalletButtonTapped:
+                return .run { [events = state.events] send in
+                    await send(.destinationState(.wallet(await events.createMainViewReducerState())))
+                }
             case .destination:
                 return .none
             }

@@ -18,6 +18,17 @@ struct MainViewReducer: ReducerProtocol {
         var walletAddress: String = ""
         var events: Events
         var transactions: [Transaction] = []
+        
+        
+        static let preview: State = .init(
+            events: .init(
+                getBalance: { "2.333333" },
+                getWalletAddress: { "WalletAddressWaxaxaxaxaxaxa"},
+                getTransactions: { [
+                    .init(senderAddress: "Sender address", humanAddress: "Human Address", transaction: "Transaction", amount: 1.0, comment: "Comment", fee: 0.0005, date: .init())
+                ] }
+            )
+        )
     }
 
     struct Events: AlwaysEquitable {

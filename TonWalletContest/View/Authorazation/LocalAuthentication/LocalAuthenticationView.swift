@@ -89,7 +89,7 @@ struct FaceAndTouchIDView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             LocalAuthenticationView(store: .init(
-                initialState: .init(),
+                initialState: .preview,
                 reducer: LocalAuthenticationReducer()
             ))
         }

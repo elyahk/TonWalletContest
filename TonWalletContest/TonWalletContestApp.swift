@@ -62,43 +62,7 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-//                composableArchitecture.makeStartView()
-//                RecieveTonView(store: .init(
-//                    initialState: .init(), reducer: RecieveTonReducer()))
-
-                ContentView()
-//                switch AppState(rawValue: state) ?? .new {
-//                case .new:
-//                    StartView(store: .init(
-//                        initialState: .init(),
-//                        reducer: StartReducer()
-//                    ))
-//                case .keyCreated:
-//                    CongratulationView(store: .init(initialState: .init(words: []), reducer: CongratulationReducer()))
-//                case .walletCreated:
-//                    Text("Wallet Created")
-//                }
-                
-//                StartView(store: .init(
-//                    initialState: .init(
-//                        destination: .createWallet(
-//                            .init(
-//                                recoveryPhrase: .init(
-//                                    destination: .testTime(
-//                                        .init(
-//                                            testWords: .words3(),
-//                                            destination: .passcode(.init())
-//                                        )
-//                                    ),
-//                                    words: .words24
-//                                ),
-//                                words: .words24
-//                            )
-//                        )
-//                    ),
-//                    reducer: StartReducer()
-//                        ._printChanges()
-//                ))
+                composableArchitecture.makeStartView()
             }
         }
     }
