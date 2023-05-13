@@ -101,7 +101,7 @@ class TonWalletManager {
 
     func anyWallet(key: Key, revision: Wallet3.Revision = .r2) async throws -> AnyWallet {
         let initialState = try await Wallet3.initial(
-            revision: .r1,
+            revision: .r2,
             deserializedPublicKey: try key.deserializedPublicKey()
         )
 

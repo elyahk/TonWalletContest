@@ -18,6 +18,7 @@ struct AppState {
         case key(Key)
         case state(Cases)
         case wallet(AnyWallet)
+        case wallet3(Wallet3)
         
         var description: String {
             switch self {
@@ -25,6 +26,9 @@ struct AppState {
                 return "Key saved to memory: \(key.publicKey)"
                 
             case let .wallet(wallet):
+                return "Wallet saved to memory: Contract - \(wallet.contract)"
+                
+            case let .wallet3(wallet):
                 return "Wallet saved to memory: Contract - \(wallet.contract)"
                 
             case let .state(cases):
@@ -45,7 +49,6 @@ struct AppState {
         case new
         case keyCreated
         case keyConfirmed
-        case walletCreated
     }
     
     static func set(_ appCase: Cases) {
@@ -88,10 +91,11 @@ struct AppState {
         return words
     }
     
-    static func set(wallet: AnyWallet) {
-        set(.walletCreated)
-        UserDefaults.standard.set(wallet, forKey: Keys.wallet.rawValue)
-        debug(.wallet(wallet))
+    static func set(wallet3: Wallet3) {
+        let encoder = PropertyListEncoder()
+        let data = try? encoder.encode(wallet3)
+        UserDefaults.standard.set(data, forKey: Keys.wallet.rawValue)
+        debug(.wallet3(wallet3))
     }
     
     static func getWallet() throws -> AnyWallet {
@@ -134,11 +138,12 @@ class ComposableAuthenticationViews {
             events: .init(
                 createMainViewReducerState: {
                     do {
-                        let key = try AppState.getKey()
-                        let wallet = try await TonWalletManager.shared.anyWallet(key: key)
-                        AppState.set(wallet: wallet)
+                        #warning("Wallet dont create")
+//                        let key = try AppState.getKey()
+//                        let wallet = try await TonWalletManager.shared.anyWallet(key: key)
+//                        AppState.set(wallet: wallet)
     
-                        return self.makeMainViewReducerState(wallet: wallet)
+                        return self.makeMainViewReducerState(wallet: nil)
                     } catch {
                         print(error.localizedDescription)
                         
@@ -221,6 +226,10 @@ class ComposableAuthenticationViews {
                 let words = try await TonWalletManager.shared.words(key: key)
                 AppState.set(key: key, words: words)
 
+                Task(priority: .high) {
+                    let wallet = try await TonWalletManager.shared.createWallet3(key: key)
+                    AppState.set(wallet3: wallet)
+                }
                 return makeCongratulationReducerState(words: words)
             },
             createImportPhraseState: { return ImportPhraseReducer.State() }
@@ -257,16 +266,8 @@ class ComposableAuthenticationViews {
             )))
 
         case .keyConfirmed:
-            return AnyView(ReadyToGoView(store: .init(
-                initialState: makeReadyToGoReducerState(),
-                reducer: ReadyToGoReducer()
-            )))
-
-        case .walletCreated:
-            let wallet = try? AppState.getWallet()
-
             return AnyView(MainView(store: .init(
-                initialState: makeMainViewReducerState(wallet: wallet),
+                initialState: makeMainViewReducerState(wallet: nil),
                 reducer: MainViewReducer()
             )))
         }
