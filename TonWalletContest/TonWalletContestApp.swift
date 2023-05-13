@@ -62,8 +62,11 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                composableArchitecture.makeStartView()
+//                composableArchitecture.makeStartView()
+//                RecieveTonView(store: .init(
+//                    initialState: .init(), reducer: RecieveTonReducer()))
 
+                ContentView()
 //                switch AppState(rawValue: state) ?? .new {
 //                case .new:
 //                    StartView(store: .init(

@@ -8,15 +8,25 @@
 import SwiftUI
 import CodeScanner
 
-struct Transaction: Identifiable {
+struct Transaction: Identifiable, Equatable {
     var id = UUID()
     let senderAddress: String
     let humanAddress: String
     let transaction: String
     let amount: Double
-    let comment = ""
+    let comment: String
     let fee: Double
     let date: Date
+
+    static let previewInstance: Transaction = Transaction(
+        senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394",
+        humanAddress: "EldorTheCoolest.ton",
+        transaction: "DF3RE23ewr@#e23ed",
+        amount: 1.2,
+        comment: "Testing Time",
+        fee: 0.0023123,
+        date: Date()
+    )
 }
 
 @available(iOS 15.0, *)
@@ -25,9 +35,9 @@ struct SendView: View {
     @FocusState private var isFocused: Bool
 
     @State var transactionHistory: [Transaction] = [
-        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "EldorTheCoolest.ton", transaction: "DF3RE23ewr@#e23ed", amount: 1.2, fee: 0.0023123, date: Date.now),
-        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "GoingCrazy.ton", transaction: "DF3RE23ewr@#e23ed", amount: 110.2, fee: 0.23123, date: Date.now.addingTimeInterval(86400 * 5)),
-        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", transaction: "DF3RE23ewr@#e23ed", amount: 110.2, fee: 0.23123, date: Date.now.addingTimeInterval(86400))
+        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "EldorTheCoolest.ton", transaction: "DF3RE23ewr@#e23ed", amount: 1.2, comment: "", fee: 0.0023123, date: Date.now),
+        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "GoingCrazy.ton", transaction: "DF3RE23ewr@#e23ed", amount: 110.2, comment: "", fee: 0.23123, date: Date.now.addingTimeInterval(86400 * 5)),
+        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", transaction: "DF3RE23ewr@#e23ed", amount: 110.2, comment: "", fee: 0.23123, date: Date.now.addingTimeInterval(86400))
     ]
 
     @Environment(\.presentationMode) var presentationMode

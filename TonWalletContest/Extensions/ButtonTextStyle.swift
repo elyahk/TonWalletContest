@@ -7,7 +7,6 @@ struct BlueTextButtonStyle: ViewModifier {
             .foregroundColor(.white)
             .background(Color.accentColor)
             .cornerRadius(12)
-            .padding(.horizontal, 48)
     }
 }
 

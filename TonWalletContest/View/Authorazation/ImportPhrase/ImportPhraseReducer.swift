@@ -41,7 +41,7 @@ struct ImportPhraseReducer: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .openMainView(let wallet):
-                state.destination = .mainView(.init(wallet3: wallet))
+//                state.destination = .mainView(.init())
                 return .none
             case .successfullyImported(let key):
 //                state.destination = .passcode(.init())
