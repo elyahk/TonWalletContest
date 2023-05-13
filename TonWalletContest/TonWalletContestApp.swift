@@ -63,13 +63,17 @@ struct AppState {
     static func set(key: Key, words: [String]) {
         set(.keyCreated)
 //        try await TonKeyStore.shared.save(key: key)
-        UserDefaults.standard.set(key, forKey: Keys.key.rawValue)
-        UserDefaults.standard.set(words, forKey: Keys.key.rawValue)
+        let encoder = PropertyListEncoder()
+        let data = try? encoder.encode(key)
+        UserDefaults.standard.set(data, forKey: Keys.key.rawValue)
+        UserDefaults.standard.set(words, forKey: Keys.keyWords.rawValue)
         debug(.key(key))
     }
     
     static func getKey() throws -> Key {
-        guard let key = UserDefaults.standard.object(forKey: Keys.key.rawValue) as? Key else {
+        let decoder = PropertyListDecoder()
+        
+        guard let data = UserDefaults.standard.data(forKey: Keys.key.rawValue), let key = try? decoder.decode(Key.self, from: data) else {
             throw WalletManagerErrors.keyNotFoundInMemory
         }
         
