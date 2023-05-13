@@ -44,9 +44,6 @@ struct ReadyToGoView: View {
                     .padding(.bottom, 124)
             }
         }
-        .onAppear {
-            UserDefaults.standard.set(AppState.walletCreated.rawValue , forKey: "state")
-        }
     }
 }
 

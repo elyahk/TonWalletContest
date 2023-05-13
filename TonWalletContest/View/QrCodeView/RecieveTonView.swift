@@ -176,9 +176,6 @@ struct RecieveTonView: View {
                     .padding([.leading, .trailing], 48)
             }
         }
-        .onAppear {
-            UserDefaults.standard.set(AppState.walletCreated.rawValue , forKey: "state")
-        }
         .sheet(
             store: self.store.scope(
                 state: \.$destination,

@@ -23,6 +23,8 @@ enum WalletManagerErrors: Error {
     case unvalidURL
     case invalidAddress
     case invalidWallet
+    case keyNotFoundInMemory
+    case walletNotFoundInMemory
 }
 
 class TonWalletManager {

@@ -7,24 +7,99 @@
 
 import SwiftUI
 import ComposableArchitecture
+import SwiftyTON
 
-enum AppState: String {
-    case new
-    case keyCreated
-    case walletCreated
+func debug(_ debug: AppState.Debug) {
+    print(debug.description)
+}
+
+struct AppState {
+    enum Debug {
+        case key(Key)
+        case state(Cases)
+        case wallet(AnyWallet)
+        
+        var description: String {
+            switch self {
+            case let .key(key):
+                return "Key saved to memory: \(key.publicKey)"
+                
+            case let .wallet(wallet):
+                return "Wallet saved to memory: Contract - \(wallet.contract)"
+                
+            case let .state(cases):
+                return "AppState changed to: \(cases.rawValue)"
+            
+            }
+        }
+    }
+    
+    enum Keys: String {
+        case appState = "state"
+        case key = "key"
+        case wallet = "wallet"
+    }
+    
+    enum Cases: String {
+        case new
+        case keyCreated
+        case walletCreated
+    }
+    
+    static func set(_ appCase: Cases) {
+        UserDefaults.standard.set(appCase.rawValue, forKey: Keys.appState.rawValue)
+        debug(.state(appCase))
+    }
+    
+    static func set(key: Key) {
+        set(.keyCreated)
+        UserDefaults.standard.set(key, forKey: Keys.key.rawValue)
+        debug(.key(key))
+    }
+    
+    static func getKey() throws -> Key {
+        guard let key = UserDefaults.standard.object(forKey: Keys.key.rawValue) as? Key else {
+            throw WalletManagerErrors.keyNotFoundInMemory
+        }
+        
+        return key
+    }
+    
+    static func set(wallet: AnyWallet) {
+        set(.walletCreated)
+        UserDefaults.standard.set(wallet, forKey: Keys.wallet.rawValue)
+        debug(.wallet(wallet))
+    }
+    
+    static func getWallet() throws -> AnyWallet {
+        guard let wallet = UserDefaults.standard.object(forKey: Keys.wallet.rawValue) as? AnyWallet else {
+            throw WalletManagerErrors.keyNotFoundInMemory
+        }
+        
+        return wallet
+    }
 }
 
 class ComposableAuthenticationViews {
-    func makeMainViewReducerState() -> MainViewReducer.State {
+    func makeMainViewReducerState(wallet: AnyWallet?) -> MainViewReducer.State {
         let state = MainViewReducer.State(events: .init(
-            getBalance: {
-                return "2.0000000"
+            getBalance: { [wallet] in
+                return wallet?.contract.info.balance.string(with: .maximum9) ?? "0"
             },
             getWalletAddress: {
-                "Wallet Address"
+                wallet?.contract.address.rawValue ?? "Wallet Address"
             },
             getTransactions: {
-                []
+                try await wallet?.contract.transactions(after: nil).map { transaction in
+                    Transaction(
+                        senderAddress: transaction.in?.sourceAccountAddress?.displayName ?? "Empty",
+                        humanAddress: "Human address",
+                        amount: 0.0,
+                        comment: "Comment",
+                        fee: transaction.storageFee.string(with: .maximum9).toDouble() + transaction.otherFee.string(with: .maximum9).toDouble(),
+                        date: transaction.date
+                    )
+                } ?? []
             }
         ))
         
@@ -35,7 +110,15 @@ class ComposableAuthenticationViews {
         let state = ReadyToGoReducer.State(
             events: .init(
                 createMainViewReducerState: {
-                    self.makeMainViewReducerState()
+                    do {
+                        let key = try AppState.getKey()
+                        let wallet = try await TonWalletManager.shared.anyWallet(key: key)
+                        AppState.set(wallet: wallet)
+                        return self.makeMainViewReducerState(wallet: wallet)
+                    } catch {
+                        print(error.localizedDescription)
+                        return self.makeMainViewReducerState(wallet: nil)
+                    }
                 }
             )
         )
@@ -109,7 +192,7 @@ class ComposableAuthenticationViews {
             createCongratulationState: { [self] in
                 let key = try await TonWalletManager.shared.createKey()
                 try await TonKeyStore.shared.save(key: key)
-                UserDefaults.standard.set(AppState.keyCreated.rawValue, forKey: "state")
+                AppState.set(key: key)
                 try await TonKeyStore.shared.save(key: key)
                 let words = try await TonWalletManager.shared.words(key: key)
 
@@ -134,7 +217,7 @@ class ComposableAuthenticationViews {
 @main
 struct TonWalletContestApp: App {
     var composableArchitecture: ComposableAuthenticationViews = .init()
-    @State var state: String = UserDefaults.standard.string(forKey: "state") ?? "new"
+//    @State var state: String = UserDefaults.standard.string(forKey: AppState.appState) ?? "new"
 
     var body: some Scene {
         WindowGroup {

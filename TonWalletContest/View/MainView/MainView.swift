@@ -25,7 +25,7 @@ struct MainViewReducer: ReducerProtocol {
                 getBalance: { "2.333333" },
                 getWalletAddress: { "WalletAddressWaxaxaxaxaxaxa"},
                 getTransactions: { [
-                    .init(senderAddress: "Sender address", humanAddress: "Human Address", transaction: "Transaction", amount: 1.0, comment: "Comment", fee: 0.0005, date: .init())
+                    .init(senderAddress: "Sender address", humanAddress: "Human Address", amount: 1.0, comment: "Comment", fee: 0.0005, date: .init())
                 ] }
             )
         )
@@ -34,7 +34,7 @@ struct MainViewReducer: ReducerProtocol {
     struct Events: AlwaysEquitable {
         var getBalance: () async -> String
         var getWalletAddress: () async -> String
-        var getTransactions: () async -> [Transaction]
+        var getTransactions: () async throws -> [Transaction]
     }
 
     enum Action: Equatable {
@@ -54,7 +54,7 @@ struct MainViewReducer: ReducerProtocol {
                 return .run { [events = state.events] send in
                     let balance = await events.getBalance()
                     let address = await events.getWalletAddress()
-                    let transactions = await events.getTransactions()
+                    let transactions = try await events.getTransactions()
 
                     await send(.configure(balance: balance, address: address, transactions: transactions))
                 }
@@ -198,7 +198,6 @@ struct MainView: View {
             .background(Color.black)
             .onAppear {
                 viewStore.send(.onAppear)
-                UserDefaults.standard.set(AppState.walletCreated.rawValue , forKey: "state")
             }
             .sheet(
                 store: self.store.scope(
