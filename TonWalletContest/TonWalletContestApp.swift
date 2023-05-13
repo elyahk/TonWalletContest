@@ -37,12 +37,14 @@ struct AppState {
     enum Keys: String {
         case appState = "state"
         case key = "key"
+        case keyWords = "keyWords"
         case wallet = "wallet"
     }
     
     enum Cases: String {
         case new
         case keyCreated
+        case keyConfirmed
         case walletCreated
     }
     
@@ -51,9 +53,18 @@ struct AppState {
         debug(.state(appCase))
     }
     
-    static func set(key: Key) {
+    static func getCase() -> Cases {
+        let caseString = UserDefaults.standard.string(forKey: Keys.appState.rawValue)
+        let cases = Cases(rawValue: caseString ?? "new") ?? .new
+        
+        return cases
+    }
+    
+    static func set(key: Key, words: [String]) {
         set(.keyCreated)
+//        try await TonKeyStore.shared.save(key: key)
         UserDefaults.standard.set(key, forKey: Keys.key.rawValue)
+        UserDefaults.standard.set(words, forKey: Keys.key.rawValue)
         debug(.key(key))
     }
     
@@ -63,6 +74,14 @@ struct AppState {
         }
         
         return key
+    }
+    
+    static func getWords() throws -> [String] {
+        guard let words = UserDefaults.standard.stringArray(forKey: Keys.keyWords.rawValue) else {
+            throw WalletManagerErrors.keyWordsNotFoundInMemory
+        }
+        
+        return words
     }
     
     static func set(wallet: AnyWallet) {
@@ -114,9 +133,11 @@ class ComposableAuthenticationViews {
                         let key = try AppState.getKey()
                         let wallet = try await TonWalletManager.shared.anyWallet(key: key)
                         AppState.set(wallet: wallet)
+    
                         return self.makeMainViewReducerState(wallet: wallet)
                     } catch {
                         print(error.localizedDescription)
+                        
                         return self.makeMainViewReducerState(wallet: nil)
                     }
                 }
@@ -161,7 +182,9 @@ class ComposableAuthenticationViews {
             testWords: words,
             events: .init(
                 createPasscodeReducerState: {
-                    self.makePasscodeReducerState()
+                    AppState.set(.keyConfirmed)
+                    
+                    return self.makePasscodeReducerState()
                 }
             )
         )
@@ -191,10 +214,8 @@ class ComposableAuthenticationViews {
         let state = StartReducer.State(events: .init(
             createCongratulationState: { [self] in
                 let key = try await TonWalletManager.shared.createKey()
-                try await TonKeyStore.shared.save(key: key)
-                AppState.set(key: key)
-                try await TonKeyStore.shared.save(key: key)
                 let words = try await TonWalletManager.shared.words(key: key)
+                AppState.set(key: key, words: words)
 
                 return makeCongratulationReducerState(words: words)
             },
@@ -203,26 +224,59 @@ class ComposableAuthenticationViews {
 
         return state
     }
-
+    
     func makeStartView() -> StartView {
         let view = StartView(store: .init(
             initialState: makeStartReducerState(),
             reducer: StartReducer()
         ))
-
+        
         return view
+    }
+    
+    func getFirtView() -> some View {
+        let currentCase = AppState.getCase()
+        
+        switch currentCase {
+        case .new:
+
+           return AnyView(makeStartView())
+
+        case .keyCreated:
+            guard let words = try? AppState.getWords() else {
+                return AnyView(makeStartView())
+            }
+
+            return AnyView(CongratulationView(store: .init(
+                initialState: makeCongratulationReducerState(words: words),
+                reducer: CongratulationReducer()
+            )))
+
+        case .keyConfirmed:
+            return AnyView(ReadyToGoView(store: .init(
+                initialState: makeReadyToGoReducerState(),
+                reducer: ReadyToGoReducer()
+            )))
+
+        case .walletCreated:
+            let wallet = try? AppState.getWallet()
+
+            return AnyView(MainView(store: .init(
+                initialState: makeMainViewReducerState(wallet: wallet),
+                reducer: MainViewReducer()
+            )))
+        }
     }
 }
 
 @main
 struct TonWalletContestApp: App {
     var composableArchitecture: ComposableAuthenticationViews = .init()
-//    @State var state: String = UserDefaults.standard.string(forKey: AppState.appState) ?? "new"
 
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                composableArchitecture.makeStartView()
+                composableArchitecture.getFirtView()
             }
         }
     }

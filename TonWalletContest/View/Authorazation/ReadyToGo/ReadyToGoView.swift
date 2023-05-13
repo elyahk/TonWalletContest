@@ -33,6 +33,7 @@ struct ReadyToGoView: View {
                 ViewStore(store).send(.viewWalletButtonTapped)
             } destination: { store in
                 MainView(store: store)
+                    .navigationBarHidden(true)
             } label: {
                 Text("View my wallet")
                     .fontWeight(.semibold)

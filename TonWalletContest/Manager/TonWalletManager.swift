@@ -24,6 +24,7 @@ enum WalletManagerErrors: Error {
     case invalidAddress
     case invalidWallet
     case keyNotFoundInMemory
+    case keyWordsNotFoundInMemory
     case walletNotFoundInMemory
 }
 
