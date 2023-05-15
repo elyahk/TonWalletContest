@@ -44,7 +44,7 @@ struct ImportSuccessView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ImportSuccessView(store: .init(
-                initialState: .init(),
+                initialState: .preview,
                 reducer: ImportSuccessReducer()
             ))
         }

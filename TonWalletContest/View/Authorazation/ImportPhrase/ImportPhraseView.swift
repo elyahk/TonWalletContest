@@ -73,35 +73,30 @@ struct ImportPhraseView: View {
 
                 NavigationLinkStore(
                     self.store.scope(state: \.$destination, action: ImportPhraseReducer.Action.destination),
-                    state: /ImportPhraseReducer.Destination.State.passcode,
-                    action: ImportPhraseReducer.Destination.Action.passcode
+                    state: /ImportPhraseReducer.Destination.State.successPhrase,
+                    action: ImportPhraseReducer.Destination.Action.successPhrase
                 ) {
                     viewStore.send(.continueButtonTapped)
                 } destination: { store in
-                    PasscodeView(store: store)
+                    ImportSuccessView(store: store)
                 } label: {
                     Text("Continue")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                         .customBlueButtonStyle()
                 }
-
-                NavigationLinkStore (
-                    self.store.scope(state: \.$destination, action: ImportPhraseReducer.Action.destination),
-                    state: /ImportPhraseReducer.Destination.State.mainView,
-                    action: ImportPhraseReducer.Destination.Action.mainView
-                ) {
-                    //                    ViewStore(store).send(.importMyWalletTapped)
-                } destination: { store in
-                    MainView(store: store)
-                } label: {
-                    Text("MainView")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.accentColor)
-                        .frame(minWidth: 294, minHeight: 50, alignment: .center)
-                        .padding(.horizontal, 48)
-                }
-                .padding(.bottom, 30)
                 
+                NavigationLinkStore(
+                    self.store.scope(state: \.$destination, action: ImportPhraseReducer.Action.destination),
+                    state: /ImportPhraseReducer.Destination.State.failurePhrase,
+                    action: ImportPhraseReducer.Destination.Action.failurePhrase
+                ) {
+                    
+                } destination: { store in
+                    ImportFailureView(store: store)
+                } label: {
+                    Color.clear
+                }
+
                 Button("Autofill") {
                     viewStore.send(.autoFillCorrectWords)
                 }
@@ -123,7 +118,7 @@ struct ImportPhraseView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ImportPhraseView(store: .init(
-                initialState: .init(),
+                initialState: .preview,
                 reducer: ImportPhraseReducer()
             ))
         }

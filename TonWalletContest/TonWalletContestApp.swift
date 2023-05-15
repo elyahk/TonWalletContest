@@ -219,6 +219,45 @@ class ComposableAuthenticationViews {
         return state
     }
 
+    func makeImportFailureReducerState() -> ImportFailureReducer.State {
+        let state = ImportFailureReducer.State(events: .init(
+            createStartReducerState: {
+                return self.makeStartReducerState()
+            }
+        ))
+        
+        return state
+    }
+    
+    func makeImportSuccessReducerState() -> ImportSuccessReducer.State {
+        let state = ImportSuccessReducer.State(events: .init(
+            createMainViewReducerState: {
+                #warning("Import Wallet and make main view")
+                return self.makeMainViewReducerState(wallet: nil)
+            }
+        ))
+        
+        return state
+    }
+    
+    func makeImportPhraseReducerState() -> ImportPhraseReducer.State {
+        let state = ImportPhraseReducer.State(
+            events: .init(
+                createImportSuccessReducer: {
+                    return self.makeImportSuccessReducerState()
+                },
+                createImportFailureReducer: {
+                    return self.makeImportFailureReducerState()
+                },
+                isSecretWordsImported: { testWords in
+                    return true
+                }
+            )
+        )
+        
+        return state
+    }
+    
     func makeStartReducerState() -> StartReducer.State {
         let state = StartReducer.State(events: .init(
             createCongratulationState: { [self] in
@@ -232,7 +271,9 @@ class ComposableAuthenticationViews {
                 }
                 return makeCongratulationReducerState(words: words)
             },
-            createImportPhraseState: { return ImportPhraseReducer.State() }
+            createImportPhraseState: {
+                return self.makeImportPhraseReducerState()
+            }
         ))
 
         return state
