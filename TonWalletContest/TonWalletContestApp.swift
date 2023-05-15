@@ -108,7 +108,7 @@ struct AppState {
 }
 
 class ComposableAuthenticationViews {
-    func makeMainViewReducerState(wallet: AnyWallet?) -> MainViewReducer.State {
+    func makeMainViewReducerState(wallet: Wallet3?) -> MainViewReducer.State {
         let state = MainViewReducer.State(events: .init(
             getBalance: { [wallet] in
                 return wallet?.contract.info.balance.string(with: .maximum9) ?? "0"
@@ -229,11 +229,11 @@ class ComposableAuthenticationViews {
         return state
     }
     
-    func makeImportSuccessReducerState() -> ImportSuccessReducer.State {
+    func makeImportSuccessReducerState(wallet: Wallet3) -> ImportSuccessReducer.State {
         let state = ImportSuccessReducer.State(events: .init(
             createMainViewReducerState: {
                 #warning("Import Wallet and make main view")
-                return self.makeMainViewReducerState(wallet: nil)
+                return self.makeMainViewReducerState(wallet: wallet)
             }
         ))
         
@@ -243,14 +243,23 @@ class ComposableAuthenticationViews {
     func makeImportPhraseReducerState() -> ImportPhraseReducer.State {
         let state = ImportPhraseReducer.State(
             events: .init(
-                createImportSuccessReducer: {
-                    return self.makeImportSuccessReducerState()
+                createImportSuccessReducer: { wallet in
+                    return self.makeImportSuccessReducerState(wallet: wallet)
                 },
                 createImportFailureReducer: {
                     return self.makeImportFailureReducerState()
                 },
                 isSecretWordsImported: { testWords in
-                    return true
+                    do {
+                        let words = testWords.map { $0.recivedWord }
+                        let key = try await TonWalletManager.shared.importWords(words)
+                        let wallet = try await TonWalletManager.shared.createWallet3(key: key)
+                        
+                        return wallet
+                    } catch {
+                        print(error)
+                        return nil
+                    }
                 }
             )
         )

@@ -25,16 +25,16 @@ struct ImportPhraseReducer: ReducerProtocol {
         }
         
         static let preview: State = .init(events: .init(
-            createImportSuccessReducer: { .preview },
+            createImportSuccessReducer: { _ in .preview },
             createImportFailureReducer: { .preview },
-            isSecretWordsImported: { words in true }
+            isSecretWordsImported: { words in nil }
         ))
     }
     
     struct Events: AlwaysEquitable {
-        var createImportSuccessReducer: () async -> ImportSuccessReducer.State
+        var createImportSuccessReducer: (Wallet3) async -> ImportSuccessReducer.State
         var createImportFailureReducer: () async -> ImportFailureReducer.State
-        var isSecretWordsImported: (IdentifiedArrayOf<Word>) async -> Bool
+        var isSecretWordsImported: (IdentifiedArrayOf<Word>) async -> Wallet3?
     }
     
     enum Action: Equatable {
@@ -70,7 +70,7 @@ struct ImportPhraseReducer: ReducerProtocol {
             case .continueButtonTapped:
 
                 return .run { [state] send in
-                    guard state.isFilledAllWords(), await state.events.isSecretWordsImported(state.testWords) else {
+                    guard state.isFilledAllWords(), let wallet = await state.events.isSecretWordsImported(state.testWords) else {
                         await send(.destinationState(.alert(.init(
                             title: TextState("Incorrect words"),
                             message: TextState("The secret words you have entered do not match the ones in the list."),
@@ -81,7 +81,7 @@ struct ImportPhraseReducer: ReducerProtocol {
                         return
                     }
                     
-                    await send(.destinationState(.successPhrase(state.events.createImportSuccessReducer())))
+                    await send(.destinationState(.successPhrase(state.events.createImportSuccessReducer(wallet))))
                     
 //                    do {
 //                        let key = try await TonWalletManager.shared.importWords(state.testWords.map { $0.recivedWord })
