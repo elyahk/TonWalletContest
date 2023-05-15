@@ -82,14 +82,6 @@ struct ImportPhraseReducer: ReducerProtocol {
                     }
                     
                     await send(.destinationState(.successPhrase(state.events.createImportSuccessReducer(wallet))))
-                    
-//                    do {
-//                        let key = try await TonWalletManager.shared.importWords(state.testWords.map { $0.recivedWord })
-//                        await send(.successfullyImported(key: key))
-//                    } catch {
-//                        print(error)
-//                        await send(.showAlert)
-//                    }
                 }
 
             case let .wordChanged(id, value):

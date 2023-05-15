@@ -79,6 +79,7 @@ struct ImportPhraseView: View {
                     viewStore.send(.continueButtonTapped)
                 } destination: { store in
                     ImportSuccessView(store: store)
+                        .navigationBarBackButtonHidden()
                 } label: {
                     Text("Continue")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)

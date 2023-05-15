@@ -98,8 +98,10 @@ struct AppState {
         debug(.wallet3(wallet3))
     }
     
-    static func getWallet() throws -> AnyWallet {
-        guard let wallet = UserDefaults.standard.object(forKey: Keys.wallet.rawValue) as? AnyWallet else {
+    static func getWallet() throws -> Wallet3 {
+        let decoder = PropertyListDecoder()
+        
+        guard let data = UserDefaults.standard.data(forKey: Keys.wallet.rawValue), let wallet = try? decoder.decode(Wallet3.self, from: data) else {
             throw WalletManagerErrors.keyNotFoundInMemory
         }
         
@@ -232,7 +234,6 @@ class ComposableAuthenticationViews {
     func makeImportSuccessReducerState(wallet: Wallet3) -> ImportSuccessReducer.State {
         let state = ImportSuccessReducer.State(events: .init(
             createMainViewReducerState: {
-                #warning("Import Wallet and make main view")
                 return self.makeMainViewReducerState(wallet: wallet)
             }
         ))
@@ -254,6 +255,10 @@ class ComposableAuthenticationViews {
                         let words = testWords.map { $0.recivedWord }
                         let key = try await TonWalletManager.shared.importWords(words)
                         let wallet = try await TonWalletManager.shared.createWallet3(key: key)
+                        
+                        AppState.set(key: key, words: words)
+                        AppState.set(wallet3: wallet)
+                        AppState.set(.keyConfirmed)
                         
                         return wallet
                     } catch {
@@ -298,6 +303,8 @@ class ComposableAuthenticationViews {
     }
     
     func getFirtView() -> some View {
+        // Initialize Ton service
+        TonWalletManager.shared
         let currentCase = AppState.getCase()
         
         switch currentCase {
@@ -316,8 +323,12 @@ class ComposableAuthenticationViews {
             )))
 
         case .keyConfirmed:
+            guard let wallet = try? AppState.getWallet() else {
+                return AnyView(makeStartView())
+            }
+            
             return AnyView(MainView(store: .init(
-                initialState: makeMainViewReducerState(wallet: nil),
+                initialState: makeMainViewReducerState(wallet: wallet),
                 reducer: MainViewReducer()
             )))
         }
