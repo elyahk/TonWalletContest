@@ -19,13 +19,16 @@ struct ImportSuccessView: View {
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 5)
             Spacer()
-            // Create My Wallet app
-            NavigationLinkStore (
-                self.store.scope(state: \.$destination, action: ImportSuccessReducer.Action.destination)
+            
+            NavigationLinkStore(
+                self.store.scope(state: \.$destination, action: ImportSuccessReducer.Action.destination),
+                state: /ImportSuccessReducer.Destination.State.mainView,
+                action: ImportSuccessReducer.Destination.Action.mainView
             ) {
-
+                ViewStore(store).send(.viewWalletButtonTapped)
             } destination: { store in
-                Text("New page")
+                MainView(store: store)
+                    .navigationBarBackButtonHidden()
             } label: {
                 Text("View my wallet")
                     .fontWeight(.semibold)
@@ -44,7 +47,7 @@ struct ImportSuccessView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ImportSuccessView(store: .init(
-                initialState: .init(),
+                initialState: .preview,
                 reducer: ImportSuccessReducer()
             ))
         }

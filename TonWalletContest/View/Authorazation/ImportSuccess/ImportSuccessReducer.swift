@@ -6,10 +6,27 @@ struct ImportSuccessReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
+        var events: Events
+        
+        init(destination: Destination.State? = nil, events: Events) {
+            self.destination = destination
+            self.events = events
+        }
+        
+        static let preview: State = .init(
+            events: .init(
+                createMainViewReducerState: { .preview }
+            )
+        )
     }
-
+    
+    struct Events: AlwaysEquitable {
+        var createMainViewReducerState: () async -> MainViewReducer.State
+    }
+    
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
+        case destinationState(Destination.State)
         case viewWalletButtonTapped
     }
 
@@ -18,9 +35,15 @@ struct ImportSuccessReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
-            case .viewWalletButtonTapped:
-
+            case .destinationState(let destinationState):
+                state.destination = destinationState
                 return .none
+                
+            case .viewWalletButtonTapped:
+                
+                return .run { [events = state.events] send in
+                    await send(.destinationState(.mainView(await events.createMainViewReducerState())))
+                }
 
             case .destination:
                 return .none
@@ -35,22 +58,22 @@ struct ImportSuccessReducer: ReducerProtocol {
 extension ImportSuccessReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
-            case wallet(PasscodeReducer.State)
-
+            case mainView(MainViewReducer.State)
+            
             var id: AnyHashable {
                 switch self {
-                case let .wallet(state):
+                case let .mainView(state):
                     return state.id
                 }
             }
         }
         enum Action: Equatable {
-            case wallet(PasscodeReducer.Action)
+            case mainView(MainViewReducer.Action)
         }
-
+        
         var body: some ReducerProtocolOf<Self> {
-            Scope(state: /State.wallet, action: /Action.wallet) {
-                PasscodeReducer()
+            Scope(state: /State.mainView, action: /Action.mainView) {
+                MainViewReducer()
             }
         }
     }

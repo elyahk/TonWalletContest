@@ -25,14 +25,8 @@ struct ImportFailureView: View {
                 .padding(.horizontal, 32)
             Spacer()
             // Create My Wallet app
-            NavigationLinkStore (
-                self.store.scope(state: \.$destination, action: ImportFailureReducer.Action.destination),
-                state: /ImportFailureReducer.Destination.State.importWords,
-                action: ImportFailureReducer.Destination.Action.importWords
-            ) {
+            Button {
                 ViewStore(store).send(.importWordsTapped)
-            } destination: { store in
-                ImportPhraseView(store: store)
             } label: {
                 Text("Enter 24 secret words")
                     .fontWeight(.semibold)
@@ -68,7 +62,7 @@ struct ImportFailureView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ImportFailureView(store: .init(
-                initialState: .init(),
+                initialState: .preview,
                 reducer: ImportFailureReducer()
             ))
         }

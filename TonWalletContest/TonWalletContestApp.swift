@@ -98,8 +98,10 @@ struct AppState {
         debug(.wallet3(wallet3))
     }
     
-    static func getWallet() throws -> AnyWallet {
-        guard let wallet = UserDefaults.standard.object(forKey: Keys.wallet.rawValue) as? AnyWallet else {
+    static func getWallet() throws -> Wallet3 {
+        let decoder = PropertyListDecoder()
+        
+        guard let data = UserDefaults.standard.data(forKey: Keys.wallet.rawValue), let wallet = try? decoder.decode(Wallet3.self, from: data) else {
             throw WalletManagerErrors.keyNotFoundInMemory
         }
         
@@ -108,7 +110,7 @@ struct AppState {
 }
 
 class ComposableAuthenticationViews {
-    func makeMainViewReducerState(wallet: AnyWallet?) -> MainViewReducer.State {
+    func makeMainViewReducerState(wallet: Wallet3?) -> MainViewReducer.State {
         let state = MainViewReducer.State(events: .init(
             getBalance: { [wallet] in
                 return wallet?.contract.info.balance.string(with: .maximum9) ?? "0"
@@ -219,6 +221,57 @@ class ComposableAuthenticationViews {
         return state
     }
 
+    func makeImportFailureReducerState() -> ImportFailureReducer.State {
+        let state = ImportFailureReducer.State(events: .init(
+            createStartReducerState: {
+                return self.makeStartReducerState()
+            }
+        ))
+        
+        return state
+    }
+    
+    func makeImportSuccessReducerState(wallet: Wallet3) -> ImportSuccessReducer.State {
+        let state = ImportSuccessReducer.State(events: .init(
+            createMainViewReducerState: {
+                return self.makeMainViewReducerState(wallet: wallet)
+            }
+        ))
+        
+        return state
+    }
+    
+    func makeImportPhraseReducerState() -> ImportPhraseReducer.State {
+        let state = ImportPhraseReducer.State(
+            events: .init(
+                createImportSuccessReducer: { wallet in
+                    return self.makeImportSuccessReducerState(wallet: wallet)
+                },
+                createImportFailureReducer: {
+                    return self.makeImportFailureReducerState()
+                },
+                isSecretWordsImported: { testWords in
+                    do {
+                        let words = testWords.map { $0.recivedWord }
+                        let key = try await TonWalletManager.shared.importWords(words)
+                        let wallet = try await TonWalletManager.shared.createWallet3(key: key)
+                        
+                        AppState.set(key: key, words: words)
+                        AppState.set(wallet3: wallet)
+                        AppState.set(.keyConfirmed)
+                        
+                        return wallet
+                    } catch {
+                        print(error)
+                        return nil
+                    }
+                }
+            )
+        )
+        
+        return state
+    }
+    
     func makeStartReducerState() -> StartReducer.State {
         let state = StartReducer.State(events: .init(
             createCongratulationState: { [self] in
@@ -232,7 +285,9 @@ class ComposableAuthenticationViews {
                 }
                 return makeCongratulationReducerState(words: words)
             },
-            createImportPhraseState: { return ImportPhraseReducer.State() }
+            createImportPhraseState: {
+                return self.makeImportPhraseReducerState()
+            }
         ))
 
         return state
@@ -248,6 +303,8 @@ class ComposableAuthenticationViews {
     }
     
     func getFirtView() -> some View {
+        // Initialize Ton service
+        TonWalletManager.shared
         let currentCase = AppState.getCase()
         
         switch currentCase {
@@ -266,8 +323,12 @@ class ComposableAuthenticationViews {
             )))
 
         case .keyConfirmed:
+            guard let wallet = try? AppState.getWallet() else {
+                return AnyView(makeStartView())
+            }
+            
             return AnyView(MainView(store: .init(
-                initialState: makeMainViewReducerState(wallet: nil),
+                initialState: makeMainViewReducerState(wallet: wallet),
                 reducer: MainViewReducer()
             )))
         }

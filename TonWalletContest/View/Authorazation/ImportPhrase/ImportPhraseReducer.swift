@@ -4,9 +4,15 @@ import Foundation
 
 struct ImportPhraseReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
+        @PresentationState var destination: Destination.State?
+        var events: Events
         var id: UUID = .init()
         var testWords: IdentifiedArrayOf<Word> = IdentifiedArrayOf(uniqueElements: (1...24).map { Word(key: $0) })
-        @PresentationState var destination: Destination.State?
+        
+        init(destination: Destination.State? = nil, events: Events) {
+            self.destination = destination
+            self.events = events
+        }
 
         func isFilledAllWords() -> Bool {
             for word in testWords {
@@ -18,18 +24,26 @@ struct ImportPhraseReducer: ReducerProtocol {
             return true
         }
         
-        static let preview: State = .init()
+        static let preview: State = .init(events: .init(
+            createImportSuccessReducer: { _ in .preview },
+            createImportFailureReducer: { .preview },
+            isSecretWordsImported: { words in nil }
+        ))
     }
-
+    
+    struct Events: AlwaysEquitable {
+        var createImportSuccessReducer: (Wallet3) async -> ImportSuccessReducer.State
+        var createImportFailureReducer: () async -> ImportFailureReducer.State
+        var isSecretWordsImported: (IdentifiedArrayOf<Word>) async -> Wallet3?
+    }
+    
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
         case continueButtonTapped
         case wordChanged(id: Word.ID, value: String)
         case autoFillCorrectWords
         case failureButtonTapped
-        case showAlert
-        case successfullyImported(key: Key)
-        case openMainView(wallet: Wallet3)
+        case destinationState(Destination.State)
 
         enum Alert: Equatable {
             case seeWords
@@ -42,44 +56,32 @@ struct ImportPhraseReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
-            case .openMainView(let wallet):
-//                state.destination = .mainView(.init())
+            case .destinationState(let destinationState):
+                state.destination = destinationState
+                
                 return .none
-            case .successfullyImported(let key):
-//                state.destination = .passcode(.init())
-
-                return .run { send in
-                    let wallet = try await TonWalletManager.shared.createWallet3(key: key)
-                    await send(.openMainView(wallet: wallet))
-                }
-
-            case .showAlert:
-                state.destination = .alert(.init(
-                    title: TextState("Incorrect words"),
-                    message: TextState("The secret words you have entered do not match the ones in the list."),
-                    primaryButton: .default(TextState("See words"), action: .send(.seeWords)),
-                    secondaryButton: .default(TextState("Try again"), action: .send(.dismiss))
-                ))
-                return .none
-
+                
             case .failureButtonTapped:
-                state.destination = .failurePhrase(.init())
-                return .none
+    
+                return .run { [events = state.events] send in
+                    await send(.destinationState(.failurePhrase(await events.createImportFailureReducer())))
+                }
 
             case .continueButtonTapped:
 
                 return .run { [state] send in
-                    guard state.isFilledAllWords() else {
-                        await send(.showAlert)
+                    guard state.isFilledAllWords(), let wallet = await state.events.isSecretWordsImported(state.testWords) else {
+                        await send(.destinationState(.alert(.init(
+                            title: TextState("Incorrect words"),
+                            message: TextState("The secret words you have entered do not match the ones in the list."),
+                            primaryButton: .default(TextState("See words"), action: .send(.seeWords)),
+                            secondaryButton: .default(TextState("Try again"), action: .send(.dismiss))
+                        ))))
+                                   
                         return
                     }
-                    do {
-                        let key = try await TonWalletManager.shared.importWords(state.testWords.map { $0.recivedWord })
-                        await send(.successfullyImported(key: key))
-                    } catch {
-                        print(error)
-                        await send(.showAlert)
-                    }
+                    
+                    await send(.destinationState(.successPhrase(state.events.createImportSuccessReducer(wallet))))
                 }
 
             case let .wordChanged(id, value):
@@ -121,40 +123,34 @@ extension ImportPhraseReducer {
 extension ImportPhraseReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
-            case passcode(PasscodeReducer.State)
+            case successPhrase(ImportSuccessReducer.State)
             case failurePhrase(ImportFailureReducer.State)
             case alert(AlertState<ImportPhraseReducer.Action.Alert>)
-            case mainView(MainViewReducer.State)
 
             var id: AnyHashable {
                 switch self {
-                case let .passcode(state):
+                case let .successPhrase(state):
                     return state.id
                 case let .alert(state):
                     return state.id
                 case let .failurePhrase(state):
                     return state.id
-                case .mainView(let state):
-                    return state.id
+                
                 }
             }
         }
         enum Action: Equatable {
-            case passcode(PasscodeReducer.Action)
+            case successPhrase(ImportSuccessReducer.Action)
             case alert(ImportPhraseReducer.Action.Alert)
             case failurePhrase(ImportFailureReducer.Action)
-            case mainView(MainViewReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
-            Scope(state: /State.passcode, action: /Action.passcode) {
-                PasscodeReducer()
+            Scope(state: /State.successPhrase, action: /Action.successPhrase) {
+                ImportSuccessReducer()
             }
             Scope(state: /State.failurePhrase, action: /Action.failurePhrase) {
                 ImportFailureReducer()
-            }
-            Scope(state: /State.mainView, action: /Action.mainView) {
-                MainViewReducer()
             }
         }
     }
