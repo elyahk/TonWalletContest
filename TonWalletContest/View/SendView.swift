@@ -76,14 +76,6 @@ struct SendView: View {
                         }
                     }
                     .padding(.trailing)
-//                    NavigationLink {
-//                        isShowingScanner = true
-//                    } label: {
-//                        HStack {
-//                            Image("scan")
-//                            Text("Scan")
-//                        }
-//                    }
                     Button {
                         isShowingScanner = true
                     } label: {
@@ -127,7 +119,7 @@ struct SendView: View {
                 }
                 Spacer()
                 NavigationLink {
-                    //
+                    EnterAmountView(address: $address)
                 } label: {
                     Text("Continue")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		131044FB29DE072500987E07 /* BlankTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */; };
+		134136522A13B2230046B2C5 /* EnterAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134136512A13B2230046B2C5 /* EnterAmountView.swift */; };
 		1352FF9C29FBCEC3002799A9 /* PendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9B29FBCEC3002799A9 /* PendingView.swift */; };
 		1352FF9E29FBD2B9002799A9 /* money.json in Resources */ = {isa = PBXBuildFile; fileRef = 1352FF9D29FBD2B9002799A9 /* money.json */; };
 		1352FFA229FBD541002799A9 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FFA129FBD541002799A9 /* SuccessView.swift */; };
@@ -147,6 +148,7 @@
 
 /* Begin PBXFileReference section */
 		131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankTextButtonStyle.swift; sourceTree = "<group>"; };
+		134136512A13B2230046B2C5 /* EnterAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAmountView.swift; sourceTree = "<group>"; };
 		1352FF9B29FBCEC3002799A9 /* PendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingView.swift; sourceTree = "<group>"; };
 		1352FF9D29FBD2B9002799A9 /* money.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = money.json; sourceTree = "<group>"; };
 		1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideBlueTextButtonStyle.swift; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 			isa = PBXGroup;
 			children = (
 				13D218EF2A04F964001F351C /* SendView.swift */,
+				134136512A13B2230046B2C5 /* EnterAmountView.swift */,
 				613D39FE29FEC64800243B2E /* QrCodeView */,
 				61760F4A29F9BF0600B2770C /* MainView */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
@@ -915,6 +918,7 @@
 				13FDFEC129FBFA7200402AF9 /* SuccessReducer.swift in Sources */,
 				615EDE2B29EB4B1400D3A220 /* ImportSuccessView.swift in Sources */,
 				6152F1842A04193500F97845 /* SSignal+Multicast.m in Sources */,
+				134136522A13B2230046B2C5 /* EnterAmountView.swift in Sources */,
 				61B38D5B2A0001E5007BFE31 /* ConfirmReducer.swift in Sources */,
 				61931DBF29FE662B00F54C64 /* Signal_Merge.swift in Sources */,
 				131044FB29DE072500987E07 /* BlankTextButtonStyle.swift in Sources */,
