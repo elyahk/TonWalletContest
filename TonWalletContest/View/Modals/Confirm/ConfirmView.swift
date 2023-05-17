@@ -48,6 +48,7 @@ struct ConfirmView: View {
                     } footer: {
                         VStack(alignment: .leading) {
                             Text("The comment is visible to everyone. You must include the note when sending to an exchange.")
+                            
                             if (viewStore.numberCharacter - viewStore.comment.count) > 50 {
                                 Text("\(String(viewStore.numberCharacter - viewStore.comment.count)) characters left.")
                                     .foregroundColor(.green)
@@ -63,9 +64,12 @@ struct ConfirmView: View {
                     
                     Section(header: Text("LABEL")) {
                         HStack {
-                            Text("Recepient")
+                            Text("Recipient")
                             Spacer()
-                            Text("EQCc…9ZLD")
+                            Text(viewStore.recipientAddress)
+                                .frame(width: 100)
+                                .lineLimit(1)
+                                .truncationMode(.middle)
                         }
                         HStack {
                             Text("Amount")
@@ -75,7 +79,7 @@ struct ConfirmView: View {
                                 .scaledToFit()
                                 .frame(width: 18, height: 18)
                                 .padding(.top, 2)
-                            Text("100")
+                            Text(viewStore.amountString)
                         }
                         HStack {
                             Text("Fee")
@@ -85,7 +89,7 @@ struct ConfirmView: View {
                                 .scaledToFit()
                                 .frame(width: 18, height: 18)
                                 .padding(.top, 2)
-                            Text("≈ 0.01")
+                            Text("≈ \(viewStore.feeString)")
                         }
                     }
                 }
