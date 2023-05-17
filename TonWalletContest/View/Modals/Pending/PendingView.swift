@@ -18,7 +18,7 @@ struct PendingView: View {
     var body: some View {
         VStack {
             Spacer()
-            LottieView(name: "money", loop: .playOnce)
+            LottieView(name: "money", loop: .loop)
                 .frame(width: 124, height: 124, alignment: .center)
             Text("Sending TON")
                 .fontWeight(.semibold)

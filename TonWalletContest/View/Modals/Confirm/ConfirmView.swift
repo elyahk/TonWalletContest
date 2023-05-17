@@ -96,8 +96,16 @@ struct ConfirmView: View {
                 .listStyle(.insetGrouped)
                 Spacer()
                 
-                NavigationLink {
-                    //
+                NavigationLinkStore (
+                    self.store.scope(
+                        state: \.$destination,
+                        action: ConfirmReducer.Action.destination),
+                    state: /ConfirmReducer.Destination.State.pendingView,
+                    action: ConfirmReducer.Destination.Action.pendingView
+                ) {
+                    ViewStore(store).send(.sendButtonTapped)
+                } destination: { store in
+                    PendingView(store: store)
                 } label: {
                     Text("View my wallet")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
