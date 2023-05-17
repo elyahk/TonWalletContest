@@ -30,7 +30,6 @@ import SwiftUI
 //}
 
 struct CommentTextField: UIViewRepresentable {
-
     @Binding var text: String
     @Binding var isOverLimit: Bool
     @Binding var numberCharacter: Int

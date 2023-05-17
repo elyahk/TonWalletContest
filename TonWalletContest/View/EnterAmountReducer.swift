@@ -2,32 +2,33 @@ import ComposableArchitecture
 import SwiftyTON
 import Foundation
 
-struct PendingReducer: ReducerProtocol {
+struct EnterAmountReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
-        var walletAddress: String
         @PresentationState var destination: Destination.State?
         var events: Events
         
-        init(walletAddress: String, destination: Destination.State? = nil, events: Events) {
+        init(destination: Destination.State? = nil, events: Events) {
             self.destination = destination
-            self.walletAddress = walletAddress
             self.events = events
         }
         
-        static let preview: State = .init(walletAddress: "WalletAsdfdfdsfsdf", events: .init())
+        static let preview: State = .init(events: .init(
+            createMainViewReducerState: { .preview }
+        ))
     }
-    
+
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
+        case viewWalletButtonTapped
         case destinationState(Destination.State)
-        case doneButtonTapped
     }
     
     struct Events: AlwaysEquitable {
+        var createMainViewReducerState: () async ->  MainViewReducer.State
     }
     
-    @Dependency(\.dismiss) var dismiss
+    @Dependency(\.dismiss) var presentationMode
 
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
@@ -36,11 +37,10 @@ struct PendingReducer: ReducerProtocol {
                 state.destination = destinationState
                 
                 return .none
-            case .doneButtonTapped:
-                return .run { _ in
-                   await dismiss()
+            case .viewWalletButtonTapped:
+                return .run { [events = state.events] send in
+                    await send(.destinationState(.wallet(await events.createMainViewReducerState())))
                 }
-                
             case .destination:
                 return .none
             }
@@ -51,27 +51,26 @@ struct PendingReducer: ReducerProtocol {
     }
 }
 
-extension PendingReducer {
+extension EnterAmountReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
-            case successView(SuccessReducer.State)
+            case wallet(MainViewReducer.State)
 
             var id: AnyHashable {
                 switch self {
-                case let .successView(state):
+                case let .wallet(state):
                     return state.id
                 }
             }
         }
         enum Action: Equatable {
-            case successView(SuccessReducer.Action)
+            case wallet(MainViewReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
-            Scope(state: /State.successView, action: /Action.successView) {
-                SuccessReducer()
+            Scope(state: /State.wallet, action: /Action.wallet) {
+                MainViewReducer()
             }
         }
     }
 }
-

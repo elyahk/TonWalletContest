@@ -9,110 +9,122 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ConfirmView: View {
-
-    @State private var comment: String = ""
-    @State private var numberCharacter: Int = 10
-    @State private var isTextEditor = false
-    @State private var isOverLimit = false
-
+    let store: StoreOf<ConfirmReducer>
+    
+    init(store: StoreOf<ConfirmReducer>) {
+        self.store = store
+    }
+    
     var body: some View {
-        VStack {
-            Spacer()
-            List {
-                Section {
-                    ZStack(alignment: .leading) {
-                        if comment.isEmpty {
-                            Text("Description of the payment")
-                                .foregroundColor(.gray)
-                                .opacity(isTextEditor ? 0 : 1)
-                        }
-                        CommentTextField(text: $comment, isOverLimit: $isOverLimit, numberCharacter: $numberCharacter)
-                            .onTapGesture {
-                                isTextEditor = true
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            VStack {
+                Spacer()
+                List {
+                    Section {
+                        ZStack(alignment: .leading) {
+                            if viewStore.comment.isEmpty {
+                                Text("Description of the payment")
+                                    .foregroundColor(.gray)
+                                    .padding([.leading], 5)
                             }
+                            
+                            CommentTextField(
+                                text: viewStore.binding(
+                                    get: { state in state.comment },
+                                    send: { return .change(.comment($0)) }
+                                ),
+                                isOverLimit: viewStore.binding(
+                                    get: { state in state.isOverLimit },
+                                    send: { return .change(.isOverLimit($0)) }
+                                ),
+                                numberCharacter: viewStore.binding(
+                                    get: { state in state.numberCharacter },
+                                    send: { return .change(.numberCharacter($0)) }
+                                )
+                            )
+                        }
+                    } header: {
+                        Text("COMMENT (OPTIONAL)")
+                    } footer: {
+                        VStack(alignment: .leading) {
+                            Text("The comment is visible to everyone. You must include the note when sending to an exchange.")
+                            
+                            if (viewStore.numberCharacter - viewStore.comment.count) > 50 {
+                                Text("\(String(viewStore.numberCharacter - viewStore.comment.count)) characters left.")
+                                    .foregroundColor(.green)
+                            } else if (viewStore.numberCharacter - viewStore.comment.count) >= 0 {
+                                Text("\(String(viewStore.numberCharacter - viewStore.comment.count)) characters left.")
+                                    .foregroundColor(.orange)
+                            } else {
+                                Text("Message size has been exceeded by \(String(-(viewStore.numberCharacter - viewStore.comment.count))) characters.")
+                                    .foregroundColor(.red)
+                            }
+                        }
                     }
-                    //                    TextEditor(text: $comment)
-                    //.padding(.all, 0)
-                    //.onTapGesture {
-                    //      isTextEditor = true
-                    //}
-                    //TextField("Description of the payment", text: $comment, axis: .vertical)
-                } header: {
-                    Text("COMMENT (OPTIONAL)")
-                } footer: {
-                    VStack(alignment: .leading) {
-                        Text("The comment is visible to everyone. You must include the note when sending to an exchange.")
-                        if (numberCharacter - comment.count) > 50 {
-                            Text("\(String(numberCharacter - comment.count)) characters left.")
-                                .foregroundColor(.green)
-                        } else if (numberCharacter - comment.count) >= 0 {
-                            Text("\(String(numberCharacter - comment.count)) characters left.")
-                                .foregroundColor(.orange)
-                        } else {
-                            Text("Message size has been exceeded by \(String(-(numberCharacter - comment.count))) characters.")
-                                .foregroundColor(.red)
+                    
+                    Section(header: Text("LABEL")) {
+                        HStack {
+                            Text("Recipient")
+                            Spacer()
+                            Text(viewStore.recipientAddress)
+                                .frame(width: 100)
+                                .lineLimit(1)
+                                .truncationMode(.middle)
+                        }
+                        HStack {
+                            Text("Amount")
+                            Spacer()
+                            Image("Diamond")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 18, height: 18)
+                                .padding(.top, 2)
+                            Text(viewStore.amountString)
+                        }
+                        HStack {
+                            Text("Fee")
+                            Spacer()
+                            Image("Diamond")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 18, height: 18)
+                                .padding(.top, 2)
+                            Text("≈ \(viewStore.feeString)")
                         }
                     }
                 }
-                Section(header: Text("LABEL")) {
-                    HStack {
-                        Text("Recepient")
-                        Spacer()
-                        Text("EQCc…9ZLD")
-                    }
-                    HStack {
-                        Text("Amount")
-                        Spacer()
-                        Image("Diamond")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 18, height: 18)
-                            .padding(.top, 2)
-                        Text("100")
-                    }
-                    HStack {
-                        Text("Fee")
-                        Spacer()
-                        Image("Diamond")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 18, height: 18)
-                            .padding(.top, 2)
-                        Text("≈ 0.01")
-                    }
+                .listStyle(.insetGrouped)
+                Spacer()
+                
+                NavigationLinkStore (
+                    self.store.scope(
+                        state: \.$destination,
+                        action: ConfirmReducer.Action.destination),
+                    state: /ConfirmReducer.Destination.State.pendingView,
+                    action: ConfirmReducer.Destination.Action.pendingView
+                ) {
+                    ViewStore(store).send(.sendButtonTapped)
+                } destination: { store in
+                    PendingView(store: store)
+                } label: {
+                    Text("View my wallet")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customWideBlueButtonStyle()
+                        .padding(.bottom)
                 }
             }
-            .listStyle(.insetGrouped)
-            Spacer()
-
-            NavigationLink {
-                //
-            } label: {
-                Text("View my wallet")
-                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                    .customWideBlueButtonStyle()
-                    .padding(.bottom)
-            }
-
-            //            NavigationLinkStore() {
-            //                //
-            //            } destination: { store in
-            //                //
-            //            } label: {
-            //                Text("View my wallet")
-            //                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-            //                    .customWideBlueButtonStyle()
-            //                    .padding(.bottom)
-            //            }
+            .background(Color("LightGray"))
         }
-        .background(Color("LightGray"))
     }
 }
 
 struct ConfirmView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ConfirmView()
+            ConfirmView(store: .init(
+                initialState: .preview,
+                reducer: ConfirmReducer()
+            ))
         }
     }
 }

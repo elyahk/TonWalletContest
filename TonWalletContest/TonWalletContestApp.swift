@@ -304,7 +304,7 @@ class ComposableAuthenticationViews {
     
     func getFirtView() -> some View {
         // Initialize Ton service
-        TonWalletManager.shared
+        _ = TonWalletManager.shared
         let currentCase = AppState.getCase()
         
         switch currentCase {
@@ -342,7 +342,8 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                composableArchitecture.getFirtView()
+                EnterAmountView(address: .constant("dlofjmo349rhfjdifcn3i4rhfkqjrh439qeifhu"))
+//                composableArchitecture.getFirtView()
             }
         }
     }
