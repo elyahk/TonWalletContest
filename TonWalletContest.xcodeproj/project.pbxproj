@@ -452,14 +452,11 @@
 		61153E0629D8FB0900D4D030 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				13D218EF2A04F964001F351C /* SendView.swift */,
-				134136512A13B2230046B2C5 /* EnterAmountView.swift */,
-				6E4CB0CC2A1553B5003A3B8A /* EnterAmountReducer.swift */,
+				6E4CB0CF2A156CF8003A3B8A /* Transaction */,
 				613D39FE29FEC64800243B2E /* QrCodeView */,
 				61760F4A29F9BF0600B2770C /* MainView */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
 				615017B529E0050800AF963D /* Authorazation */,
-				1352FFA329FBD711002799A9 /* Modals */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -700,6 +697,17 @@
 				61760F4829F9B0A100B2770C /* TonKeyStore.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		6E4CB0CF2A156CF8003A3B8A /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				1352FFA329FBD711002799A9 /* Modals */,
+				13D218EF2A04F964001F351C /* SendView.swift */,
+				134136512A13B2230046B2C5 /* EnterAmountView.swift */,
+				6E4CB0CC2A1553B5003A3B8A /* EnterAmountReducer.swift */,
+			);
+			path = Transaction;
 			sourceTree = "<group>";
 		};
 		6E5D444329DC63EC000F95CE /* Extensions */ = {
