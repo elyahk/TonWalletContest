@@ -16,47 +16,62 @@ struct PendingView: View {
     }
 
     var body: some View {
-        VStack {
-            Spacer()
-            LottieView(name: "money", loop: .loop)
-                .frame(width: 124, height: 124, alignment: .center)
-            Text("Sending TON")
-                .fontWeight(.semibold)
-                .font(.title)
-                .padding(.bottom, 5)
-            Text("Please wait a few seconds for your transaction to be processed…")
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 32)
-            Spacer()
-
-            NavigationLink {
-                //
-            } label: {
-                Text("View my wallet")
-                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                    .customWideBlueButtonStyle()
-                    .padding(.bottom)
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            VStack {
+                Spacer()
+                LottieView(name: "money", loop: .loop)
+                    .frame(width: 124, height: 124, alignment: .center)
+                Text("Sending TON")
+                    .fontWeight(.semibold)
+                    .font(.title)
+                    .padding(.bottom, 5)
+                Text("Please wait a few seconds for your transaction to be processed…")
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 32)
+                Spacer()
+                
+                Button {
+                    viewStore.send(.doneButtonTapped)
+                } label: {
+                    Text("View my wallet")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customWideBlueButtonStyle()
+                        .padding(.bottom)
+                }
+                
+                NavigationLinkStore (
+                    self.store.scope(
+                        state: \.$destination,
+                        action: PendingReducer.Action.destination),
+                    state: /PendingReducer.Destination.State.successView,
+                    action: PendingReducer.Destination.Action.successView
+                ) {
+                    
+                } destination: { store in
+                    SuccessView(store: store)
+                } label: {
+                    Color.clear
+                        .frame(height: .zero)
+                }
             }
-
-//            NavigationLinkStore() {
-//                //
-//            } destination: { store in
-//                //
-//            } label: {
-//                Text("View my wallet")
-//                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-//                    .customWideBlueButtonStyle()
-//                    .padding(.bottom)
-//            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        viewStore.send(.doneButtonTapped)
+                    }
+                }
+            }
         }
     }
 }
 
 struct PendingView_Previews: PreviewProvider {
     static var previews: some View {
-        PendingView(store: .init(
-            initialState: .init(),
-            reducer: PendingReducer()
-        ))
+        NavigationView {
+            PendingView(store: .init(
+                initialState: .preview,
+                reducer: PendingReducer()
+            ))
+        }
     }
 }

@@ -24,7 +24,7 @@ struct ConfirmReducer: ReducerProtocol {
         
         static let preview: State = .init(events: .init(
             sendTon: { true },
-            createPendingReducerState: { .init() }
+            createPendingReducerState: { .init(walletAddress: "Wallwerwesadfklsdfkls", events: .init()) }
         ))
     }
     
