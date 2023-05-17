@@ -5,6 +5,10 @@ import Foundation
 struct ConfirmReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
+        var comment: String = ""
+        var numberCharacter: Int = 10
+        var isTextEditor = false
+        var isOverLimit = false
         @PresentationState var destination: Destination.State?
         var events: Events
         
