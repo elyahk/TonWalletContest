@@ -122,6 +122,8 @@
 		6E38004729DE0464002D6868 /* RecoveryPhraseReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38004629DE0464002D6868 /* RecoveryPhraseReducer.swift */; };
 		6E38004929DE048E002D6868 /* RecoveryPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */; };
 		6E3EC13429DB0AB10050AA75 /* TonWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3EC13329DB0AB10050AA75 /* TonWalletManager.swift */; };
+		6E4CB0CD2A1553B5003A3B8A /* EnterAmountReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CB0CC2A1553B5003A3B8A /* EnterAmountReducer.swift */; };
+		6E4CB0CE2A1556C8003A3B8A /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC329FC386600402AF9 /* ConfirmView.swift */; };
 		6E5D444529DC6406000F95CE /* ButtonTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5D444429DC6406000F95CE /* ButtonTextStyle.swift */; };
 		6E62AEBA2A0FBBE6002EB7ED /* String+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E62AEB92A0FBBE6002EB7ED /* String+Double.swift */; };
 		6EBB474E29F1303D00216832 /* ReadyToGoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBB474D29F1303D00216832 /* ReadyToGoView.swift */; };
@@ -289,6 +291,7 @@
 		6E38004629DE0464002D6868 /* RecoveryPhraseReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseReducer.swift; sourceTree = "<group>"; };
 		6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseView.swift; sourceTree = "<group>"; };
 		6E3EC13329DB0AB10050AA75 /* TonWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonWalletManager.swift; sourceTree = "<group>"; };
+		6E4CB0CC2A1553B5003A3B8A /* EnterAmountReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAmountReducer.swift; sourceTree = "<group>"; };
 		6E5D444429DC6406000F95CE /* ButtonTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTextStyle.swift; sourceTree = "<group>"; };
 		6E62AEB92A0FBBE6002EB7ED /* String+Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Double.swift"; sourceTree = "<group>"; };
 		6EBB474D29F1303D00216832 /* ReadyToGoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyToGoView.swift; sourceTree = "<group>"; };
@@ -451,6 +454,7 @@
 			children = (
 				13D218EF2A04F964001F351C /* SendView.swift */,
 				134136512A13B2230046B2C5 /* EnterAmountView.swift */,
+				6E4CB0CC2A1553B5003A3B8A /* EnterAmountReducer.swift */,
 				613D39FE29FEC64800243B2E /* QrCodeView */,
 				61760F4A29F9BF0600B2770C /* MainView */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
@@ -896,6 +900,7 @@
 				13D218F22A050742001F351C /* TestMainView.swift in Sources */,
 				61931DD329FE662B00F54C64 /* Signal_Meta.swift in Sources */,
 				61931DC629FE662B00F54C64 /* Multicast.swift in Sources */,
+				6E4CB0CE2A1556C8003A3B8A /* ConfirmView.swift in Sources */,
 				61931DD129FE662B00F54C64 /* Signal_Combine.swift in Sources */,
 				6E62AEBA2A0FBBE6002EB7ED /* String+Double.swift in Sources */,
 				6152F1812A04193500F97845 /* SSignal+Pipe.m in Sources */,
@@ -945,6 +950,7 @@
 				13D218F02A04F964001F351C /* SendView.swift in Sources */,
 				6152F1892A04193500F97845 /* SSignal+Mapping.m in Sources */,
 				61931DCF29FE662B00F54C64 /* Signal_Loop.swift in Sources */,
+				6E4CB0CD2A1553B5003A3B8A /* EnterAmountReducer.swift in Sources */,
 				61931DC329FE662B00F54C64 /* Signal_Dispatch.swift in Sources */,
 				61931DD629FE6B9C00F54C64 /* TransformImageArguments.swift in Sources */,
 				61931DBB29FE662B00F54C64 /* ThreadPool.swift in Sources */,

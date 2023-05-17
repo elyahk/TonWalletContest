@@ -9,6 +9,12 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ConfirmView: View {
+    let store: StoreOf<ConfirmReducer>
+
+    init(store: StoreOf<ConfirmReducer>) {
+        self.store = store
+    }
+
 
     @State private var comment: String = ""
     @State private var numberCharacter: Int = 10
@@ -112,7 +118,10 @@ struct ConfirmView: View {
 struct ConfirmView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ConfirmView()
+            ConfirmView(store: .init(
+                initialState: .preview,
+                reducer: ConfirmReducer()
+            ))
         }
     }
 }
