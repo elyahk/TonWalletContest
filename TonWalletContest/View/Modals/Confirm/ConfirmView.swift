@@ -9,11 +9,6 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ConfirmView: View {
-    @State var comment: String = ""
-    @State var numberCharacter: Int = 10
-    @State var isTextEditor = false
-    @State var isOverLimit = false
-    
     let store: StoreOf<ConfirmReducer>
     
     init(store: StoreOf<ConfirmReducer>) {
@@ -30,32 +25,37 @@ struct ConfirmView: View {
                             if viewStore.comment.isEmpty {
                                 Text("Description of the payment")
                                     .foregroundColor(.gray)
-                                    .opacity(viewStore.isTextEditor ? 0 : 1)
+                                    .padding([.leading], 5)
                             }
                             
                             CommentTextField(
-                                text: .constant(""),
-                                isOverLimit: .constant(false),
-                                numberCharacter: .constant(100)
+                                text: viewStore.binding(
+                                    get: { state in state.comment },
+                                    send: { return .change(.comment($0)) }
+                                ),
+                                isOverLimit: viewStore.binding(
+                                    get: { state in state.isOverLimit },
+                                    send: { return .change(.isOverLimit($0)) }
+                                ),
+                                numberCharacter: viewStore.binding(
+                                    get: { state in state.numberCharacter },
+                                    send: { return .change(.numberCharacter($0)) }
+                                )
                             )
-                            .onTapGesture {
-//                                viewStore.send()
-//                                isTextEditor = true
-                            }
                         }
                     } header: {
                         Text("COMMENT (OPTIONAL)")
                     } footer: {
                         VStack(alignment: .leading) {
                             Text("The comment is visible to everyone. You must include the note when sending to an exchange.")
-                            if (numberCharacter - comment.count) > 50 {
-                                Text("\(String(numberCharacter - comment.count)) characters left.")
+                            if (viewStore.numberCharacter - viewStore.comment.count) > 50 {
+                                Text("\(String(viewStore.numberCharacter - viewStore.comment.count)) characters left.")
                                     .foregroundColor(.green)
-                            } else if (numberCharacter - comment.count) >= 0 {
-                                Text("\(String(numberCharacter - comment.count)) characters left.")
+                            } else if (viewStore.numberCharacter - viewStore.comment.count) >= 0 {
+                                Text("\(String(viewStore.numberCharacter - viewStore.comment.count)) characters left.")
                                     .foregroundColor(.orange)
                             } else {
-                                Text("Message size has been exceeded by \(String(-(numberCharacter - comment.count))) characters.")
+                                Text("Message size has been exceeded by \(String(-(viewStore.numberCharacter - viewStore.comment.count))) characters.")
                                     .foregroundColor(.red)
                             }
                         }

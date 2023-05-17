@@ -23,10 +23,17 @@ struct ConfirmReducer: ReducerProtocol {
         ))
     }
     
+    enum StateChangeTypes: Equatable {
+        case comment(String)
+        case isOverLimit(Bool)
+        case numberCharacter(Int)
+    }
+    
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
         case destinationState(Destination.State)
         case sendButtonTapped
+        case change(StateChangeTypes)
     }
     
     struct Events: AlwaysEquitable {
@@ -39,6 +46,23 @@ struct ConfirmReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case let .change(type):
+                
+                switch type {
+                case let .comment(comment):
+                    state.comment = comment
+                case let .isOverLimit(isOverLimit):
+                    state.isOverLimit = isOverLimit
+                case let .numberCharacter(numberCharacter):
+                    state.numberCharacter = numberCharacter
+                }
+                
+                return .none
+                
+//            case .change(comment: let comment):
+//                state.comment = comment
+//                return .none
+                
             case let .destinationState(destinationState):
                 state.destination = destinationState
                 
