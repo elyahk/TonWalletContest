@@ -126,7 +126,8 @@ class ComposableAuthenticationViews {
                         amount: 0.0,
                         comment: "Comment",
                         fee: transaction.storageFee.string(with: .maximum9).toDouble() + transaction.otherFee.string(with: .maximum9).toDouble(),
-                        date: transaction.date
+                        date: transaction.date,
+                        status: .pending
                     )
                 } ?? []
             }
@@ -342,8 +343,9 @@ struct TonWalletContestApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                EnterAmountView(address: .constant("dlofjmo349rhfjdifcn3i4rhfkqjrh439qeifhu"))
+//                EnterAmountView(address: .constant("dlofjmo349rhfjdifcn3i4rhfkqjrh439qeifhu"))
 //                composableArchitecture.getFirtView()
+                TransactionView(transaction: .previewInstance)
             }
         }
     }

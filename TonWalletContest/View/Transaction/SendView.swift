@@ -16,14 +16,22 @@ struct Transaction: Identifiable, Equatable {
     let comment: String
     let fee: Double
     let date: Date
+    var status: Status
+
+    enum Status {
+        case success
+        case cancelled
+        case pending
+    }
 
     static let previewInstance: Transaction = Transaction(
         senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394",
         humanAddress: "EldorTheCoolest.ton",
-        amount: 1.2,
+        amount: 121.2231,
         comment: "Testing Time",
         fee: 0.0023123,
-        date: Date()
+        date: Date(),
+        status: .pending
     )
 }
 
@@ -33,9 +41,9 @@ struct SendView: View {
     @FocusState private var isFocused: Bool
 
     @State var transactionHistory: [Transaction] = [
-        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "EldorTheCoolest.ton", amount: 1.2, comment: "", fee: 0.0023123, date: Date.now),
-        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "GoingCrazy.ton", amount: 110.2, comment: "", fee: 0.23123, date: Date.now.addingTimeInterval(86400 * 5)),
-        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", amount: 110.2, comment: "", fee: 0.23123, date: Date.now.addingTimeInterval(86400))
+        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "EldorTheCoolest.ton", amount: 1.2, comment: "", fee: 0.0023123, date: Date.now, status: .pending),
+        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "GoingCrazy.ton", amount: 110.2, comment: "", fee: 0.23123, date: Date.now.addingTimeInterval(86400 * 5), status: .cancelled),
+        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", amount: 110.2, comment: "", fee: 0.23123, date: Date.now.addingTimeInterval(86400), status: .success)
     ]
 
     @Environment(\.presentationMode) var presentationMode
