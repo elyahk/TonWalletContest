@@ -22,7 +22,6 @@ struct TransactionView: View {
         let transactionDirection = transaction.isTransactionSend ? "Recepient" : "Sender"
 
         VStack(spacing: 4) {
-            Spacer()
             HStack(alignment: .center) {
                 Image("ic_ton")
                     .resizable()
@@ -85,36 +84,41 @@ struct TransactionView: View {
                 .padding(.leading, 20)
                 .padding(.bottom, -20)
             List {
-                if !transaction.humanAddress.isEmpty && !transaction.isTransactionSend {
+                Section {
+
+                    if !transaction.humanAddress.isEmpty && !transaction.isTransactionSend {
+                        HStack {
+                            Text(transactionDirection)
+                            Spacer()
+                            Text(transaction.humanAddress)
+                                .foregroundColor(.gray)
+                        }
+                    }
                     HStack {
-                        Text(transactionDirection)
+                        Text("\(transactionDirection) address")
                         Spacer()
-                        Text(transaction.humanAddress)
+                        Text(transaction.senderAddress.prefix(4) + "..." + transaction.senderAddress.suffix(4))
                             .foregroundColor(.gray)
                     }
-                }
-                HStack {
-                    Text("\(transactionDirection) address")
-                    Spacer()
-                    Text(transaction.senderAddress.prefix(4) + "..." + transaction.senderAddress.suffix(4))
-                        .foregroundColor(.gray)
-                }
-                HStack {
-                    Text("Transaction")
-                    Spacer()
-                    Text(transaction.transactionId.prefix(6) + "..." + transaction.transactionId.suffix(6))
-                        .foregroundColor(.gray)
+                    HStack {
+                        Text("Transaction")
+                        Spacer()
+                        Text(transaction.transactionId.prefix(6) + "..." + transaction.transactionId.suffix(6))
+                            .foregroundColor(.gray)
+                    }
+                } footer: {
+                    Button {
+                        //action
+                    } label: {
+                        Text("View in explorer")
+                            .foregroundColor(.blue)
+//                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+//                            .padding(.leading, 16)
+                    }
                 }
             }
             .listStyle(.plain)
-            Button {
-                //action
-            } label: {
-                Text("View in explorer")
-                    .foregroundColor(.blue)
-                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                    .padding(.leading, 16)
-            }
+
             if transaction.status == .cancelled {
                 Button {
                     //action
@@ -135,6 +139,7 @@ struct TransactionView: View {
                 }
             }
         }
+        .padding(.top, 76)
     }
 
     func dateFormatter(date: Date) -> String {
