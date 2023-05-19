@@ -8,7 +8,8 @@
 import SwiftUI
 
 
-@available(iOS 15.0, *)
+
+@available(iOS 15, *)
 struct TestMainView: View {
     @State var isModal = false
     var body: some View {
@@ -27,7 +28,21 @@ struct TestMainView: View {
                     .padding(.bottom, 124)
             }
             .sheet(isPresented: $isModal) {
-                SendView()
+                NavigationView {
+                    TransactionView(transaction: Transaction(senderAddress: "njsakdn23ioeion9N(NININ Y7", humanAddress: "somename.ton", amount: 2832.231, comment: "Fckng comments k", fee: 0.02001123, date: Date.now, status: .success, isTransactionSend: true, transactionId: "asdfo23inoisadhjaiodjwioerhjd1234"))
+                        .edgesIgnoringSafeArea(.top)
+                        .toolbar {
+                            ToolbarItem(placement: .principal) {
+                                Text("Transaction")
+                                    .font(.headline)
+                            }
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Done") {
+                                    isModal = false
+                                }
+                            }
+                        }
+                }
             }
 
         }
