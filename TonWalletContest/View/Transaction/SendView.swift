@@ -17,6 +17,8 @@ struct Transaction: Identifiable, Equatable {
     let fee: Double
     let date: Date
     var status: Status
+    let isTransactionSend: Bool
+    let transactionId: String
 
     enum Status {
         case success
@@ -31,7 +33,9 @@ struct Transaction: Identifiable, Equatable {
         comment: "Testing Time",
         fee: 0.0023123,
         date: Date(),
-        status: .pending
+        status: .cancelled,
+        isTransactionSend: true,
+        transactionId: "JIoUHj9h(iJJ9jiJ((J(J*&B^D4d5d%CTCGFC%c5dctr45646"
     )
 }
 
@@ -41,9 +45,9 @@ struct SendView: View {
     @FocusState private var isFocused: Bool
 
     @State var transactionHistory: [Transaction] = [
-        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "EldorTheCoolest.ton", amount: 1.2, comment: "", fee: 0.0023123, date: Date.now, status: .pending),
-        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "GoingCrazy.ton", amount: 110.2, comment: "", fee: 0.23123, date: Date.now.addingTimeInterval(86400 * 5), status: .cancelled),
-        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", amount: 110.2, comment: "", fee: 0.23123, date: Date.now.addingTimeInterval(86400), status: .success)
+        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "EldorTheCoolest.ton", amount: 1.2, comment: "", fee: 0.0023123, date: Date.now, status: .pending, isTransactionSend: true, transactionId: "dsdf"),
+        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "GoingCrazy.ton", amount: 110.2, comment: "", fee: 0.23123, date: Date.now.addingTimeInterval(86400 * 5), status: .cancelled, isTransactionSend: false, transactionId: "SDFsdfwr23r23w"),
+        Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", amount: 110.2, comment: "", fee: 0.23123, date: Date.now.addingTimeInterval(86400), status: .success, isTransactionSend: true, transactionId: "ASDA23er23dsad23")
     ]
 
     @Environment(\.presentationMode) var presentationMode

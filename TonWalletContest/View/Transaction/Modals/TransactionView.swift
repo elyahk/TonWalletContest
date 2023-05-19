@@ -18,7 +18,10 @@ struct TransactionView: View {
         let numberString = String(transaction.amount)
         let largeDigits = String(Int(transaction.amount))
         let smallDigits = numberString.suffix(from: numberString.firstIndex(of: ".") ?? numberString.endIndex)
+        let transactionDirection = transaction.isTransactionSend ? "Recepient" : "Sender"
+
         VStack {
+            Spacer()
             HStack(alignment: .center) {
                 Image("ic_ton")
                     .resizable()
@@ -30,7 +33,7 @@ struct TransactionView: View {
                     + Text(smallDigits)
                         .font(.system(size: 30, weight: .semibold, design: .rounded))
                 )
-                .foregroundColor(.green)
+                .foregroundColor(transaction.isTransactionSend ? .red : .green)
             }
             Text(String(transaction.fee) + " transaction fee")
                 .font(.callout)
@@ -62,6 +65,59 @@ struct TransactionView: View {
                         .foregroundColor(.blue)
                 }
             }
+            List {
+                Section {
+                    if !transaction.humanAddress.isEmpty && !transaction.isTransactionSend {
+                        HStack {
+                            Text(transactionDirection)
+                            Spacer()
+                            Text(transaction.humanAddress)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    HStack {
+                        Text("\(transactionDirection) address")
+                        Spacer()
+                        Text(transaction.senderAddress.prefix(4) + "..." + transaction.senderAddress.suffix(4))
+                            .foregroundColor(.gray)
+                    }
+                    HStack {
+                        Text("Transaction")
+                        Spacer()
+                        Text(transaction.transactionId.prefix(6) + "..." + transaction.transactionId.suffix(6))
+                            .foregroundColor(.gray)
+                    }
+                    Button {
+                        //action
+                    } label: {
+                        Text("View in explorer")
+                            .foregroundColor(.blue)
+                    }
+
+                } header: {
+                    Text("DETAILS")
+                }
+            }
+            .listStyle(.plain)
+            if transaction.status == .cancelled {
+                Button {
+                    //action
+                } label: {
+                    Text("Retry transaction")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customWideBlueButtonStyle()
+                        .padding(.bottom)
+                }
+            } else {
+                NavigationLink {
+                    //                EnterAmountView(address: $address)
+                } label: {
+                    Text("Send TON to this address")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customWideBlueButtonStyle()
+                        .padding(.bottom)
+                }
+            }
         }
     }
 
@@ -74,6 +130,8 @@ struct TransactionView: View {
 
 struct TransactionView_Previews: PreviewProvider {
     static var previews: some View {
-        TransactionView(transaction: .previewInstance)
+        NavigationView {
+            TransactionView(transaction: .previewInstance)
+        }
     }
 }

@@ -25,7 +25,7 @@ struct MainViewReducer: ReducerProtocol {
                 getBalance: { "2.333333" },
                 getWalletAddress: { "WalletAddressWaxaxaxaxaxaxa"},
                 getTransactions: { [
-                    .init(senderAddress: "Sender address", humanAddress: "Human Address", amount: 1.0, comment: "Comment", fee: 0.0005, date: .init(), status: .cancelled)
+                    .init(senderAddress: "Sender address", humanAddress: "Human Address", amount: 1.0, comment: "Comment", fee: 0.0005, date: .init(), status: .cancelled, isTransactionSend: true, transactionId: "s23e|@e2")
                 ] }
             )
         )

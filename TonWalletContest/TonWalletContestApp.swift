@@ -127,7 +127,9 @@ class ComposableAuthenticationViews {
                         comment: "Comment",
                         fee: transaction.storageFee.string(with: .maximum9).toDouble() + transaction.otherFee.string(with: .maximum9).toDouble(),
                         date: transaction.date,
-                        status: .pending
+                        status: .pending,
+                        isTransactionSend: true,
+                        transactionId: "2343ewds"
                     )
                 } ?? []
             }
