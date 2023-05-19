@@ -30,10 +30,10 @@ struct Transaction: Identifiable, Equatable {
         senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394",
         humanAddress: "EldorTheCoolest.ton",
         amount: 121.2231,
-        comment: "Testing Time",
+        comment: "Testing Time. Hello world!",
         fee: 0.0023123,
         date: Date(),
-        status: .cancelled,
+        status: .success,
         isTransactionSend: true,
         transactionId: "JIoUHj9h(iJJ9jiJ((J(J*&B^D4d5d%CTCGFC%c5dctr45646"
     )

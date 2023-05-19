@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct TransactionView: View {
 
     let transaction: Transaction
@@ -48,6 +49,18 @@ struct TransactionView: View {
                 Text(dateFormatter(date: transaction.date))
                     .font(.callout)
                     .foregroundColor(.gray)
+                    .padding(.bottom)
+                if !transaction.comment.isEmpty {
+                    ZStack {
+                        Text(transaction.comment)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 8)
+                            .background(Color("LightGray"))
+                            .clipShape(RoundedRectangle(cornerRadius: 17.0, style: .continuous))
+
+                    }
+                    
+                }
             case .pending:
                 HStack {
                     Image("progress")
@@ -69,7 +82,8 @@ struct TransactionView: View {
                 .foregroundColor(.gray)
                 .font(.footnote)
                 .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                .padding(.leading, 16)
+                .padding(.leading, 20)
+                .padding(.bottom, -20)
             List {
                 if !transaction.humanAddress.isEmpty && !transaction.isTransactionSend {
                     HStack {
@@ -129,6 +143,7 @@ struct TransactionView: View {
         return dateFormatter.string(from: date)
     }
 }
+
 
 struct TransactionView_Previews: PreviewProvider {
     static var previews: some View {
