@@ -20,7 +20,7 @@ struct TransactionView: View {
         let smallDigits = numberString.suffix(from: numberString.firstIndex(of: ".") ?? numberString.endIndex)
         let transactionDirection = transaction.isTransactionSend ? "Recepient" : "Sender"
 
-        VStack {
+        VStack(spacing: 4) {
             Spacer()
             HStack(alignment: .center) {
                 Image("ic_ton")
@@ -65,40 +65,42 @@ struct TransactionView: View {
                         .foregroundColor(.blue)
                 }
             }
+            Text("DETAILS")
+                .foregroundColor(.gray)
+                .font(.footnote)
+                .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+                .padding(.leading, 16)
             List {
-                Section {
-                    if !transaction.humanAddress.isEmpty && !transaction.isTransactionSend {
-                        HStack {
-                            Text(transactionDirection)
-                            Spacer()
-                            Text(transaction.humanAddress)
-                                .foregroundColor(.gray)
-                        }
-                    }
+                if !transaction.humanAddress.isEmpty && !transaction.isTransactionSend {
                     HStack {
-                        Text("\(transactionDirection) address")
+                        Text(transactionDirection)
                         Spacer()
-                        Text(transaction.senderAddress.prefix(4) + "..." + transaction.senderAddress.suffix(4))
+                        Text(transaction.humanAddress)
                             .foregroundColor(.gray)
                     }
-                    HStack {
-                        Text("Transaction")
-                        Spacer()
-                        Text(transaction.transactionId.prefix(6) + "..." + transaction.transactionId.suffix(6))
-                            .foregroundColor(.gray)
-                    }
-                    Button {
-                        //action
-                    } label: {
-                        Text("View in explorer")
-                            .foregroundColor(.blue)
-                    }
-
-                } header: {
-                    Text("DETAILS")
+                }
+                HStack {
+                    Text("\(transactionDirection) address")
+                    Spacer()
+                    Text(transaction.senderAddress.prefix(4) + "..." + transaction.senderAddress.suffix(4))
+                        .foregroundColor(.gray)
+                }
+                HStack {
+                    Text("Transaction")
+                    Spacer()
+                    Text(transaction.transactionId.prefix(6) + "..." + transaction.transactionId.suffix(6))
+                        .foregroundColor(.gray)
                 }
             }
             .listStyle(.plain)
+            Button {
+                //action
+            } label: {
+                Text("View in explorer")
+                    .foregroundColor(.blue)
+                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+                    .padding(.leading, 16)
+            }
             if transaction.status == .cancelled {
                 Button {
                     //action
