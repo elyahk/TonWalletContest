@@ -10,7 +10,7 @@ import SwiftUI
 struct TransactionView: View {
 
     let transaction: Transaction
-//    @State private var rotationAngle: Double = 0.0
+    @State private var rotationAngle: Double = 0.0
 
 
     var body: some View {
@@ -51,11 +51,12 @@ struct TransactionView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 10, height: 10)
-                        .rotationEffect(.degrees(360))
-                        .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false))
-//                        .onAppear {
-//                            rotationAngle = 360.0
-//                        }
+                        .rotationEffect(.init(degrees: rotationAngle))
+                        .onAppear {
+                            withAnimation(.linear(duration: 1.5).repeatForever(autoreverses: false)) {
+                                rotationAngle = 360
+                            }
+                        }
                     Text("Pending")
                         .font(.callout)
                         .foregroundColor(.blue)
