@@ -31,15 +31,19 @@ struct SendView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading) {
-                TextField("Enter Wallet Address or Domain...", text: $address)
-                    .clearButton(isHidden: address.isEmpty, action: {
-                        self.address = ""
-                    })
-                    .frame(width: .infinity, height: 50, alignment: .leading)
-                    .padding(.horizontal, 16)
-                    .background(Color("LightGray"))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 16)
+                #warning("Add placeholder text to legacyTextField")
+                LegacyTextField(
+                    text: viewStore.binding(get: { $0.address }, send: { return .changedAddress($0) } ),
+                    isFirstResponder: .constant(true)
+                )
+                .clearButton(isHidden: address.isEmpty, action: {
+                    self.address = ""
+                })
+                .frame(width: .infinity, height: 50, alignment: .leading)
+                .padding(.horizontal, 16)
+                .background(Color("LightGray"))
+                .cornerRadius(10)
+                .padding(.horizontal, 16)
 
                 Text("Paste the 24-letter wallet address of the recipient here or TON DNS.")
                     .font(.callout)
@@ -71,7 +75,7 @@ struct SendView: View {
                 }
                 .padding(.horizontal, 16)
 
-                if !transactionHistory.isEmpty {
+                if !viewStore.transactions.isEmpty {
                     List {
                         Section {
                             ForEach(transactionHistory) { transaction in
@@ -135,7 +139,7 @@ struct SendView: View {
     }
 }
 
-extension TextField {
+extension View {
     func clearButton(isHidden: Bool, action: @escaping () -> Void) -> some View {
         ZStack(alignment: .trailing) {
             self
