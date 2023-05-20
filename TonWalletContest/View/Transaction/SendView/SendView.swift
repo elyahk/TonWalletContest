@@ -7,8 +7,15 @@
 
 import SwiftUI
 import CodeScanner
+import ComposableArchitecture
 
 struct SendView: View {
+    let store: StoreOf<SendReducer>
+
+    init(store: StoreOf<SendReducer>) {
+        self.store = store
+    }
+
     @State var address: String = ""
     //    @FocusState private var isFocused: Bool
 
@@ -23,93 +30,95 @@ struct SendView: View {
     @State var isShowingScanner: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            TextField("Enter Wallet Address or Domain...", text: $address)
-                .clearButton(isHidden: address.isEmpty, action: {
-                    self.address = ""
-                })
-                .frame(width: .infinity, height: 50, alignment: .leading)
-                .padding(.horizontal, 16)
-                .background(Color("LightGray"))
-                .cornerRadius(10)
-                .padding(.horizontal, 16)
-
-            Text("Paste the 24-letter wallet address of the recipient here or TON DNS.")
-                .font(.callout)
-                .foregroundColor(.gray)
-                .padding(.vertical, 5)
-                .padding(.horizontal, 16)
-            HStack {
-                Button {
-                    if let pasteboardText = UIPasteboard.general.string {
-                        self.address = pasteboardText
-                    }
-                } label: {
-                    HStack {
-                        Image(systemName: "doc.on.clipboard")
-                        Text("Paste")
-                    }
-                }
-                .padding(.trailing)
-                Button {
-                    isShowingScanner = true
-                } label: {
-                    HStack {
-                        Image("scan")
-                        Text("Scan")
-                    }
-                }
-            }
-            .padding(.horizontal, 16)
-
-            if !transactionHistory.isEmpty {
-                List {
-                    Section {
-                        ForEach(transactionHistory) { transaction in
-                            VStack(alignment: .leading) {
-                                if !transaction.humanAddress.isEmpty {
-                                    Text(transaction.humanAddress)
-                                } else {
-                                    Text(transaction.senderAddress.prefix(4) + "..." + transaction.senderAddress.suffix(4))
-                                }
-
-                                Text("")
-                                    .font(.callout)
-                                    .foregroundColor(.gray)
-                            }
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            VStack(alignment: .leading) {
+                TextField("Enter Wallet Address or Domain...", text: $address)
+                    .clearButton(isHidden: address.isEmpty, action: {
+                        self.address = ""
+                    })
+                    .frame(width: .infinity, height: 50, alignment: .leading)
+                    .padding(.horizontal, 16)
+                    .background(Color("LightGray"))
+                    .cornerRadius(10)
+                    .padding(.horizontal, 16)
+                
+                Text("Paste the 24-letter wallet address of the recipient here or TON DNS.")
+                    .font(.callout)
+                    .foregroundColor(.gray)
+                    .padding(.vertical, 5)
+                    .padding(.horizontal, 16)
+                HStack {
+                    Button {
+                        if let pasteboardText = UIPasteboard.general.string {
+                            self.address = pasteboardText
                         }
-                    } header: {
+                    } label: {
                         HStack {
-                            Text("RECENTS")
-                                .font(.callout)
-                            Spacer()
-                            Button {
-                                transactionHistory.removeAll()
-                            } label: {
-                                Text("CLEAR")
-                                    .font(.callout)
-                            }
+                            Image(systemName: "doc.on.clipboard")
+                            Text("Paste")
+                        }
+                    }
+                    .padding(.trailing)
+                    Button {
+                        isShowingScanner = true
+                    } label: {
+                        HStack {
+                            Image("scan")
+                            Text("Scan")
                         }
                     }
                 }
-                .listStyle(.plain)
+                .padding(.horizontal, 16)
+                
+                if !transactionHistory.isEmpty {
+                    List {
+                        Section {
+                            ForEach(transactionHistory) { transaction in
+                                VStack(alignment: .leading) {
+                                    if !transaction.humanAddress.isEmpty {
+                                        Text(transaction.humanAddress)
+                                    } else {
+                                        Text(transaction.senderAddress.prefix(4) + "..." + transaction.senderAddress.suffix(4))
+                                    }
+                                    
+                                    Text("")
+                                        .font(.callout)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                        } header: {
+                            HStack {
+                                Text("RECENTS")
+                                    .font(.callout)
+                                Spacer()
+                                Button {
+                                    transactionHistory.removeAll()
+                                } label: {
+                                    Text("CLEAR")
+                                        .font(.callout)
+                                }
+                            }
+                        }
+                    }
+                    .listStyle(.plain)
+                }
+                Spacer()
+                NavigationLink {
+                    //                    EnterAmountView(address: $address)
+                    Text("")
+                } label: {
+                    Text("Continue")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customWideBlueButtonStyle()
+                        .padding(.bottom)
+                }
             }
-            Spacer()
-            NavigationLink {
-                //                    EnterAmountView(address: $address)
-                Text("")
-            } label: {
-                Text("Continue")
-                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                    .customWideBlueButtonStyle()
-                    .padding(.bottom)
+            .padding(.vertical)
+            .navigationTitle("Send TON")
+            .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $isShowingScanner) {
+                CodeScannerView(codeTypes: [.qr], simulatedData: "asdfkjm934orjo23de", completion: handleScan)
             }
-        }
-        .padding(.vertical)
-        .navigationTitle("Send TON")
-        .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $isShowingScanner) {
-            CodeScannerView(codeTypes: [.qr], simulatedData: "asdfkjm934orjo23de", completion: handleScan)
         }
     }
 
@@ -143,7 +152,7 @@ extension TextField {
 struct SendView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SendView()
+            SendView(store: .init(initialState: .preview, reducer: SendReducer()))
                 .navigationTitle("Send TON")
                 .navigationBarTitleDisplayMode(.inline)
         }

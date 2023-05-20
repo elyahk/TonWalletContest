@@ -14,7 +14,7 @@ struct SendReducer: ReducerProtocol {
         }
 
         static let preview: State = .init(events: .init(
-            createMainViewReducerState: { .preview }
+            createEnterAmountReducerState: { .preview }
         ))
     }
 
@@ -25,7 +25,7 @@ struct SendReducer: ReducerProtocol {
     }
 
     struct Events: AlwaysEquitable {
-        var createMainViewReducerState: () async ->  MainViewReducer.State
+        var createEnterAmountReducerState: () async ->  EnterAmountReducer.State
     }
 
     @Dependency(\.dismiss) var presentationMode
@@ -39,7 +39,7 @@ struct SendReducer: ReducerProtocol {
                 return .none
             case .viewWalletButtonTapped:
                 return .run { [events = state.events] send in
-                    await send(.destinationState(.wallet(await events.createMainViewReducerState())))
+                    await send(.destinationState(.enterAmountView(await events.createEnterAmountReducerState())))
                 }
             case .destination:
                 return .none
@@ -54,22 +54,22 @@ struct SendReducer: ReducerProtocol {
 extension SendReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
-            case wallet(MainViewReducer.State)
+            case enterAmountView(EnterAmountReducer.State)
 
             var id: AnyHashable {
                 switch self {
-                case let .wallet(state):
+                case let .enterAmountView(state):
                     return state.id
                 }
             }
         }
         enum Action: Equatable {
-            case wallet(MainViewReducer.Action)
+            case enterAmountView(EnterAmountReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
-            Scope(state: /State.wallet, action: /Action.wallet) {
-                MainViewReducer()
+            Scope(state: /State.enterAmountView, action: /Action.enterAmountView) {
+                EnterAmountReducer()
             }
         }
     }
