@@ -19,6 +19,9 @@ struct EnterAmountView: View {
     var body: some View {
         WithViewStore.init(store, observe: { $0 }) { viewStore in
             VStack {
+                Divider()
+                    .padding(.horizontal, 16)
+                    .frame(height: 0.33)
                 HStack {
                     Text("Send to:")
                         .font(.callout)
@@ -77,14 +80,12 @@ struct EnterAmountView: View {
 
 //                NavigationLinkStore (
 //                    self.store.scope(state: \.$destination, action: EnterAmountView.Action.destination),
-//                    state: /EnterAmountView.Destination.State.sendView,
-//                    action: EnterAmountView.Destination.Action.sendView
+//                    state: /EnterAmountView.Destination.State.confirmView,
+//                    action: EnterAmountView.Destination.Action.confirmView
 //                ) {
 //                    viewStore.send(.continueButtonTapped)
 //                } destination: { store in
-//                    Text("sdfs")
-////                    ReadyToGoView(store: store)
-////                        .navigationBarHidden(true)
+//                    ConfirmView(store: store)
 //                } label: {
 //                    Text("Skip")
 //                        .font(.body)
@@ -95,12 +96,16 @@ struct EnterAmountView: View {
 //                }
 
             }
+            .navigationTitle("Send TON")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
 struct EnterAmountView_Previews: PreviewProvider {
     static var previews: some View {
-        EnterAmountView(store: .init(initialState: .preview, reducer: EnterAmountReducer()))
+        NavigationView {
+            EnterAmountView(store: .init(initialState: .preview, reducer: EnterAmountReducer()))
+        }
     }
 }

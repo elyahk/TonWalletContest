@@ -99,9 +99,16 @@ struct SendView: View {
                 }
                 Spacer()
 
-                NavigationLink {
-                    //                    EnterAmountView(address: $address)
-                    Text("")
+                NavigationLinkStore (
+                    self.store.scope(
+                        state: \.$destination,
+                        action: SendReducer.Action.destination),
+                    state: /SendReducer.Destination.State.enterAmountView,
+                    action: SendReducer.Destination.Action.enterAmountView
+                ) {
+                    ViewStore(store).send(.continueButtonTapped)
+                } destination: { store in
+                    EnterAmountView(store: store)
                 } label: {
                     Text("Continue")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)

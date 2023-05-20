@@ -22,8 +22,8 @@ struct EnterAmountReducer: ReducerProtocol {
         
         static let preview: State = .init(
             address: "Address",
-            events: .init(createSendReducerState: {
-                TestReducer.State()
+            events: .init(createConfirmReducerState: {
+                .preview
             })
         )
     }
@@ -41,7 +41,7 @@ struct EnterAmountReducer: ReducerProtocol {
     }
     
     struct Events: AlwaysEquitable {
-        var createSendReducerState: () async ->  TestReducer.State
+        var createConfirmReducerState: () async ->  ConfirmReducer.State
     }
     
     @Dependency(\.dismiss) var presentationMode
@@ -70,7 +70,7 @@ struct EnterAmountReducer: ReducerProtocol {
                 return .none
             case .continueButtonTapped:
                 return .run { [events = state.events] send in
-                    await send(.destinationState(.sendView(await events.createSendReducerState())))
+                    await send(.destinationState(.confirmView(await events.createConfirmReducerState())))
                 }
             case .destination:
                 return .none
@@ -85,22 +85,22 @@ struct EnterAmountReducer: ReducerProtocol {
 extension EnterAmountReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
-            case sendView(TestReducer.State)
+            case confirmView(ConfirmReducer.State)
 
             var id: AnyHashable {
                 switch self {
-                case let .sendView(state):
+                case let .confirmView(state):
                     return state.id
                 }
             }
         }
         enum Action: Equatable {
-            case sendView(TestReducer.Action)
+            case confirmView(ConfirmReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
-            Scope(state: /State.sendView, action: /Action.sendView) {
-                TestReducer()
+            Scope(state: /State.confirmView, action: /Action.confirmView) {
+                ConfirmReducer()
             }
         }
     }

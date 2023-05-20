@@ -31,7 +31,8 @@ struct SendReducer: ReducerProtocol {
 
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
-        case viewWalletButtonTapped
+        case continueButtonTapped
+        case editButtonTapped
         case destinationState(Destination.State)
         case changedAddress(String)
         case clearTransactions
@@ -42,11 +43,16 @@ struct SendReducer: ReducerProtocol {
         var createEnterAmountReducerState: () async ->  EnterAmountReducer.State
     }
 
-    @Dependency(\.dismiss) var presentationMode
+    @Dependency(\.dismiss) var dismiss
 
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .editButtonTapped:
+
+                return .run { _ in
+                    await dismiss()
+                }
             case .changeAddress(let text):
                 state.address = text
                 return .none
@@ -61,7 +67,7 @@ struct SendReducer: ReducerProtocol {
                 state.destination = destinationState
 
                 return .none
-            case .viewWalletButtonTapped:
+            case .continueButtonTapped:
                 return .run { [events = state.events] send in
                     await send(.destinationState(.enterAmountView(await events.createEnterAmountReducerState())))
                 }
