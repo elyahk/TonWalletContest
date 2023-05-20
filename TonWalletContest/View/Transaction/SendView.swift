@@ -131,7 +131,8 @@ struct SendView: View {
                 }
                 Spacer()
                 NavigationLink {
-                    EnterAmountView(address: $address)
+//                    EnterAmountView(address: $address)
+                    Text("")
                 } label: {
                     Text("Continue")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
