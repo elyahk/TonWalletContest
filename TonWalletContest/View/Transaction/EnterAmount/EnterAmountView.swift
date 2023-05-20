@@ -55,7 +55,9 @@ struct EnterAmountView: View {
                     .font(.largeTitle)
                 }
                 .padding(.horizontal, 16)
+
                 Spacer()
+
                 HStack {
                     Text("Send all")
                     Image("ic_ton")
@@ -68,8 +70,30 @@ struct EnterAmountView: View {
                         get: { $0.isAllAmount },
                         send: { return .changed(.toggle($0))}))  {
                     }
+
+
                 }
                 .padding(.horizontal, 16)
+
+//                NavigationLinkStore (
+//                    self.store.scope(state: \.$destination, action: EnterAmountView.Action.destination),
+//                    state: /EnterAmountView.Destination.State.sendView,
+//                    action: EnterAmountView.Destination.Action.sendView
+//                ) {
+//                    viewStore.send(.continueButtonTapped)
+//                } destination: { store in
+//                    Text("sdfs")
+////                    ReadyToGoView(store: store)
+////                        .navigationBarHidden(true)
+//                } label: {
+//                    Text("Skip")
+//                        .font(.body)
+//                        .fontWeight(.semibold)
+//                        .foregroundColor(.accentColor)
+//                        .frame(minWidth: 294, minHeight: 50, alignment: .center)
+//                        .padding(.horizontal, 48)
+//                }
+
             }
         }
     }
