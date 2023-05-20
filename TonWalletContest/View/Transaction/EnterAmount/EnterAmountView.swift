@@ -19,18 +19,21 @@ struct EnterAmountView: View {
     var body: some View {
         WithViewStore.init(store, observe: { $0 }) { viewStore in
             VStack {
+                Divider()
+                    .padding(.horizontal, 16)
+                    .frame(height: 0.33)
                 HStack {
                     Text("Send to:")
                         .font(.callout)
                         .foregroundColor(.gray)
-                    Text(viewStore.address)
+                    Text(viewStore.humanAddress)
                         .frame(width: 100)
                         .truncationMode(.middle)
 
-                    if !viewStore.humanAddress.isEmpty {
-                        Text(viewStore.humanAddress)
-                            .foregroundColor(.gray)
-                    }
+//                    if !viewStore.transaction.humanAddress.isEmpty {
+//                        Text(viewStore.humanAddress)
+//                            .foregroundColor(.gray)
+//                    }
 
                     Spacer()
                     Button {
@@ -75,32 +78,32 @@ struct EnterAmountView: View {
                 }
                 .padding(.horizontal, 16)
 
-//                NavigationLinkStore (
-//                    self.store.scope(state: \.$destination, action: EnterAmountView.Action.destination),
-//                    state: /EnterAmountView.Destination.State.sendView,
-//                    action: EnterAmountView.Destination.Action.sendView
-//                ) {
-//                    viewStore.send(.continueButtonTapped)
-//                } destination: { store in
-//                    Text("sdfs")
-////                    ReadyToGoView(store: store)
-////                        .navigationBarHidden(true)
-//                } label: {
-//                    Text("Skip")
-//                        .font(.body)
-//                        .fontWeight(.semibold)
-//                        .foregroundColor(.accentColor)
-//                        .frame(minWidth: 294, minHeight: 50, alignment: .center)
-//                        .padding(.horizontal, 48)
-//                }
+                NavigationLinkStore (
+                    self.store.scope(state: \.$destination, action: EnterAmountReducer.Action.destination),
+                    state: /EnterAmountReducer.Destination.State.confirmView,
+                    action: EnterAmountReducer.Destination.Action.confirmView
+                ) {
+                    viewStore.send(.continueButtonTapped)
+                } destination: { store in
+                    ConfirmView(store: store)
+                } label: {
+                    Text("Continue")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customWideBlueButtonStyle()
+                        .padding(.bottom)
+                }
 
             }
+            .navigationTitle("Send TON")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
 struct EnterAmountView_Previews: PreviewProvider {
     static var previews: some View {
-        EnterAmountView(store: .init(initialState: .preview, reducer: EnterAmountReducer()))
+        NavigationView {
+            EnterAmountView(store: .init(initialState: .preview, reducer: EnterAmountReducer()))
+        }
     }
 }

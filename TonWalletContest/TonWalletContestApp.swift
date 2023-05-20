@@ -110,6 +110,91 @@ struct AppState {
 }
 
 class ComposableAuthenticationViews {
+    func makePendingReducerState(walletAddress: String) -> PendingReducer.State {
+        let state = PendingReducer.State(
+            walletAddress: walletAddress,
+            events: .init()
+        )
+
+        return state
+    }
+
+    func makeConfirmReducerState(transcation: Transaction1) -> ConfirmReducer.State {
+        let state = ConfirmReducer.State(
+            transaction: transcation,
+            events: .init(
+                sendTon: { transaction in
+                    let wallet = try AppState.getWallet()
+                    let key = try AppState.getKey()
+                    let message = try await TonWalletManager.shared.getMessage(
+                        wallet: wallet,
+                        with: key,
+                        to: transaction.humanAddress,
+                        with: transaction.amount.description,
+                        comment: transaction.comment
+                    )
+
+                    try await message.send()
+                },
+                createPendingReducerState: { walletAddress in
+                    self.makePendingReducerState(walletAddress: walletAddress)
+                }
+            ))
+
+        return state
+    }
+
+    func makeEnterAmountReducerState(address: String) -> EnterAmountReducer.State {
+        let state = EnterAmountReducer.State(
+            address: address,
+            allAmount: 0.4433330,
+            humanAddress: "elyahk.ton",
+            events: .init(
+                createConfirmReducerState: { transcation in
+                    self.makeConfirmReducerState(transcation: transcation)
+                }, getTransaction: { amount in
+                    let wallet = try AppState.getWallet()
+                    let key = try AppState.getKey()
+                    let message = try await TonWalletManager.shared.getMessage(wallet: wallet, with: key, to: amount.address, with: amount.amount, comment: "")
+                    let fee = try await message.fees()
+
+                    let transaction = Transaction1(
+                        senderAddress: wallet.contract.address.description,
+                        humanAddress: amount.address,
+                        amount: amount.amount.toDouble(),
+                        comment: "",
+                        fee: fee.value.description.toDouble(),
+                        date: .init(),
+                        status: .pending,
+                        isTransactionSend: true,
+                        transactionId: ""
+                    )
+
+                    return transaction
+                }
+            )
+        )
+
+        return state
+    }
+
+    func makeRecieveTonReducerState() -> RecieveTonReducer.State {
+        return RecieveTonReducer.State.init()
+    }
+
+    func makeSendReducerState() -> SendReducer.State {
+        let state = SendReducer.State(
+            transactions: [],
+            events: .init(
+                createEnterAmountReducerState: { address in
+                    self.makeEnterAmountReducerState(address: address)
+                }
+            )
+        )
+
+        return state
+    }
+
     func makeMainViewReducerState(wallet: Wallet3?) -> MainViewReducer.State {
         let state = MainViewReducer.State(events: .init(
             getBalance: { [wallet] in
@@ -132,6 +217,12 @@ class ComposableAuthenticationViews {
                         transactionId: "2343ewds"
                     )
                 } ?? []
+            },
+            createRecieveTonReducerState: {
+                self.makeRecieveTonReducerState()
+            },
+            createSendReducerState: {
+                self.makeSendReducerState()
             }
         ))
         
@@ -143,11 +234,11 @@ class ComposableAuthenticationViews {
             events: .init(
                 createMainViewReducerState: {
                     do {
-                        #warning("Wallet dont create")
-//                        let key = try AppState.getKey()
-//                        let wallet = try await TonWalletManager.shared.anyWallet(key: key)
-//                        AppState.set(wallet: wallet)
-    
+#warning("Wallet dont create")
+                        //                        let key = try AppState.getKey()
+                        //                        let wallet = try await TonWalletManager.shared.anyWallet(key: key)
+                        //                        AppState.set(wallet: wallet)
+
                         return self.makeMainViewReducerState(wallet: nil)
                     } catch {
                         print(error.localizedDescription)
@@ -346,8 +437,8 @@ struct TonWalletContestApp: App {
         WindowGroup {
             NavigationView {
 //                EnterAmountView(address: .constant("dlofjmo349rhfjdifcn3i4rhfkqjrh439qeifhu"))
-//                composableArchitecture.getFirtView()
-                TransactionView(transaction: .previewInstance)
+                composableArchitecture.getFirtView()
+//                TransactionView(transaction: .previewInstance)
             }
         }
     }

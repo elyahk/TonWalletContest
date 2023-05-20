@@ -22,7 +22,7 @@ struct ConfirmView: View {
                 List {
                     Section {
                         ZStack(alignment: .leading) {
-                            if viewStore.comment.isEmpty {
+                            if viewStore.transaction.comment.isEmpty {
                                 Text("Description of the payment")
                                     .foregroundColor(.gray)
                                     .padding([.leading], 5)
@@ -30,7 +30,7 @@ struct ConfirmView: View {
                             
                             CommentTextField(
                                 text: viewStore.binding(
-                                    get: { state in state.comment },
+                                    get: { state in state.transaction.comment },
                                     send: { return .change(.comment($0)) }
                                 ),
                                 isOverLimit: viewStore.binding(
@@ -49,14 +49,14 @@ struct ConfirmView: View {
                         VStack(alignment: .leading) {
                             Text("The comment is visible to everyone. You must include the note when sending to an exchange.")
                             
-                            if (viewStore.numberCharacter - viewStore.comment.count) > 50 {
-                                Text("\(String(viewStore.numberCharacter - viewStore.comment.count)) characters left.")
+                            if (viewStore.numberCharacter - viewStore.transaction.comment.count) > 50 {
+                                Text("\(String(viewStore.numberCharacter - viewStore.transaction.comment.count)) characters left.")
                                     .foregroundColor(.green)
-                            } else if (viewStore.numberCharacter - viewStore.comment.count) >= 0 {
-                                Text("\(String(viewStore.numberCharacter - viewStore.comment.count)) characters left.")
+                            } else if (viewStore.numberCharacter - viewStore.transaction.comment.count) >= 0 {
+                                Text("\(String(viewStore.numberCharacter - viewStore.transaction.comment.count)) characters left.")
                                     .foregroundColor(.orange)
                             } else {
-                                Text("Message size has been exceeded by \(String(-(viewStore.numberCharacter - viewStore.comment.count))) characters.")
+                                Text("Message size has been exceeded by \(String(-(viewStore.numberCharacter - viewStore.transaction.comment.count))) characters.")
                                     .foregroundColor(.red)
                             }
                         }
@@ -66,7 +66,7 @@ struct ConfirmView: View {
                         HStack {
                             Text("Recipient")
                             Spacer()
-                            Text(viewStore.recipientAddress)
+                            Text(viewStore.transaction.humanAddress)
                                 .frame(width: 100)
                                 .lineLimit(1)
                                 .truncationMode(.middle)
@@ -79,7 +79,7 @@ struct ConfirmView: View {
                                 .scaledToFit()
                                 .frame(width: 18, height: 18)
                                 .padding(.top, 2)
-                            Text(viewStore.amountString)
+                            Text(viewStore.transaction.amount.description)
                         }
                         HStack {
                             Text("Fee")
@@ -89,7 +89,7 @@ struct ConfirmView: View {
                                 .scaledToFit()
                                 .frame(width: 18, height: 18)
                                 .padding(.top, 2)
-                            Text("≈ \(viewStore.feeString)")
+                            Text("≈ \(viewStore.transaction.fee.description)")
                         }
                     }
                 }

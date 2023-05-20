@@ -24,27 +24,41 @@ struct SendReducer: ReducerProtocol {
                 Transaction1(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", amount: 110.2, comment: "", fee: 0.23123, date: .init().addingTimeInterval(86400), status: .success, isTransactionSend: true, transactionId: "ASDA23er23dsad23")
             ],
             events: .init(
-                createEnterAmountReducerState: { .preview }
+                createEnterAmountReducerState: { _ in .preview }
             )
         )
     }
 
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
-        case viewWalletButtonTapped
+        case continueButtonTapped
+        case editButtonTapped
         case destinationState(Destination.State)
         case changedAddress(String)
+        case clearTransactions
+        case changeAddress(String)
     }
 
     struct Events: AlwaysEquitable {
-        var createEnterAmountReducerState: () async ->  EnterAmountReducer.State
+        var createEnterAmountReducerState: (String) async ->  EnterAmountReducer.State
     }
 
-    @Dependency(\.dismiss) var presentationMode
+    @Dependency(\.dismiss) var dismiss
 
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .editButtonTapped:
+
+                return .run { _ in
+                    await dismiss()
+                }
+            case .changeAddress(let text):
+                state.address = text
+                return .none
+            case .clearTransactions:
+                state.transactions.removeAll()
+                return .none
             case let .changedAddress(address):
                 state.address = address
                 return .none
@@ -53,9 +67,9 @@ struct SendReducer: ReducerProtocol {
                 state.destination = destinationState
 
                 return .none
-            case .viewWalletButtonTapped:
-                return .run { [events = state.events] send in
-                    await send(.destinationState(.enterAmountView(await events.createEnterAmountReducerState())))
+            case .continueButtonTapped:
+                return .run { [events = state.events, state] send in
+                    await send(.destinationState(.enterAmountView(await events.createEnterAmountReducerState(state.address))))
                 }
             case .destination:
                 return .none
