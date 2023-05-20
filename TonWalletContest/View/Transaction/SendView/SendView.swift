@@ -26,7 +26,6 @@ struct SendView: View {
     ]
 
     @Environment(\.presentationMode) var presentationMode
-
     @State var isShowingScanner: Bool = false
 
     var body: some View {
@@ -41,12 +40,13 @@ struct SendView: View {
                     .background(Color("LightGray"))
                     .cornerRadius(10)
                     .padding(.horizontal, 16)
-                
+
                 Text("Paste the 24-letter wallet address of the recipient here or TON DNS.")
                     .font(.callout)
                     .foregroundColor(.gray)
                     .padding(.vertical, 5)
                     .padding(.horizontal, 16)
+
                 HStack {
                     Button {
                         if let pasteboardText = UIPasteboard.general.string {
@@ -59,6 +59,7 @@ struct SendView: View {
                         }
                     }
                     .padding(.trailing)
+
                     Button {
                         isShowingScanner = true
                     } label: {
@@ -69,7 +70,7 @@ struct SendView: View {
                     }
                 }
                 .padding(.horizontal, 16)
-                
+
                 if !transactionHistory.isEmpty {
                     List {
                         Section {
@@ -80,7 +81,7 @@ struct SendView: View {
                                     } else {
                                         Text(transaction.senderAddress.prefix(4) + "..." + transaction.senderAddress.suffix(4))
                                     }
-                                    
+
                                     Text("")
                                         .font(.callout)
                                         .foregroundColor(.gray)
@@ -103,6 +104,7 @@ struct SendView: View {
                     .listStyle(.plain)
                 }
                 Spacer()
+
                 NavigationLink {
                     //                    EnterAmountView(address: $address)
                     Text("")
