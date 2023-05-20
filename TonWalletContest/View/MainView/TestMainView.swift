@@ -29,7 +29,7 @@ struct TestMainView: View {
             }
             .sheet(isPresented: $isModal) {
                 NavigationView {
-                    TransactionView(transaction: Transaction(senderAddress: "njsakdn23ioeion9N(NININ Y7", humanAddress: "somename.ton", amount: 2832.231, comment: "Fckng comments k", fee: 0.02001123, date: Date.now, status: .success, isTransactionSend: true, transactionId: "asdfo23inoisadhjaiodjwioerhjd1234"))
+                    TransactionView(transaction: Transaction1(senderAddress: "njsakdn23ioeion9N(NININ Y7", humanAddress: "somename.ton", amount: 2832.231, comment: "Fckng comments k", fee: 0.02001123, date: Date.now, status: .success, isTransactionSend: true, transactionId: "asdfo23inoisadhjaiodjwioerhjd1234"))
                         .edgesIgnoringSafeArea(.top)
                         .toolbar {
                             ToolbarItem(placement: .principal) {

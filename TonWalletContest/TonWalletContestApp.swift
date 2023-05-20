@@ -120,7 +120,7 @@ class ComposableAuthenticationViews {
             },
             getTransactions: {
                 try await wallet?.contract.transactions(after: nil).map { transaction in
-                    Transaction(
+                    Transaction1(
                         senderAddress: transaction.in?.sourceAccountAddress?.displayName ?? "Empty",
                         humanAddress: "Human address",
                         amount: 0.0,

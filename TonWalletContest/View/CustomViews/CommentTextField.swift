@@ -8,27 +8,6 @@
 import Foundation
 import SwiftUI
 
-//struct CommentTextFieldView: View {
-//    @State private var comment = ""
-//    @State private var isTextEditor = false
-//    @State private var isOverLimit = false
-//
-//    var body: some View {
-//        ZStack(alignment: .leading) {
-//            CommentTextField(text: $comment, isOverLimit: $isOverLimit)
-//                .onTapGesture {
-//                    isTextEditor = true
-//                }
-//            //            TextEditor(text: $comment)
-//            //                .padding(.all, 0)
-//            //                .onTapGesture {
-//            //                    isTextEditor = true
-//            //                }
-//
-//        }
-//    }
-//}
-
 struct CommentTextField: UIViewRepresentable {
     @Binding var text: String
     @Binding var isOverLimit: Bool
