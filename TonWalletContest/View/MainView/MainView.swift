@@ -26,7 +26,9 @@ struct MainViewReducer: ReducerProtocol {
                 getWalletAddress: { "WalletAddressWaxaxaxaxaxaxa"},
                 getTransactions: { [
                     .init(senderAddress: "Sender address", humanAddress: "Human Address", amount: 1.0, comment: "Comment", fee: 0.0005, date: .init(), status: .cancelled, isTransactionSend: true, transactionId: "s23e|@e2")
-                ] }
+                ] },
+                createRecieveTonReducerState: { .preview },
+                createSendReducerState: { .preview }
             )
         )
     }
@@ -35,13 +37,17 @@ struct MainViewReducer: ReducerProtocol {
         var getBalance: () async -> String
         var getWalletAddress: () async -> String
         var getTransactions: () async throws -> [Transaction1]
+        var createRecieveTonReducerState: () async -> RecieveTonReducer.State
+        var createSendReducerState: () async -> SendReducer.State
     }
 
     enum Action: Equatable {
         case onAppear
         case configure(balance: String, address: String, transactions: [Transaction1])
         case tappedRecieveButton
+        case tappedSendButton
         case tappedBackButton
+        case destinationState(Destination.State)
         case destination(PresentationAction<Destination.Action>)
     }
 
@@ -50,6 +56,14 @@ struct MainViewReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .tappedSendButton:
+
+                return .run { [events = state.events] send in
+                    await send(.destinationState(.sendView(await events.createSendReducerState())))
+                }
+            case .destinationState(let destinationState):
+                state.destination = destinationState
+                return .none
             case .onAppear:
                 return .run { [events = state.events] send in
                     let balance = await events.getBalance()
@@ -63,8 +77,10 @@ struct MainViewReducer: ReducerProtocol {
                 state.destination = nil
                 return .none
             case .tappedRecieveButton:
-                state.destination = .recieveTonView(.init())
-                return .none
+
+                return .run { [events = state.events] send in
+                    await send(.destinationState(.recieveTonView(await events.createRecieveTonReducerState())))
+                }
 
             case let .configure(balance, address, transactions):
                 state.balance = balance
@@ -87,21 +103,29 @@ extension MainViewReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
             case recieveTonView(RecieveTonReducer.State)
+            case sendView(SendReducer.State)
 
             var id: AnyHashable {
                 switch self {
                 case let .recieveTonView(state):
+                    return state.id
+
+                case let .sendView(state):
                     return state.id
                 }
             }
         }
         enum Action: Equatable {
             case recieveTonView(RecieveTonReducer.Action)
+            case sendView(SendReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
             Scope(state: /State.recieveTonView, action: /Action.recieveTonView) {
                 RecieveTonReducer()
+            }
+            Scope(state: /State.sendView, action: /Action.sendView) {
+                SendReducer()
             }
         }
     }
@@ -164,7 +188,7 @@ struct MainView: View {
                         .customBlueButtonStyle()
 
                         Button("Send") {
-                            
+                            viewStore.send(.tappedSendButton)
                         }
                         .frame(maxWidth: .infinity, minHeight: 50.0)
                         .customBlueButtonStyle()
@@ -216,6 +240,24 @@ struct MainView: View {
                             }
                     }
                 }
+
+                .sheet(
+                    store: self.store.scope(
+                        state: \.$destination,
+                        action: MainViewReducer.Action.destination),
+                    state: /MainViewReducer.Destination.State.sendView,
+                    action: MainViewReducer.Destination.Action.sendView) { store in
+                        NavigationView {
+                            SendView(store: store)
+                                .toolbar {
+                                    ToolbarItem(placement: .navigationBarLeading) {
+                                        Button("< Back") {
+                                            viewStore.send(.tappedBackButton)
+                                        }
+                                    }
+                                }
+                        }
+                    }
         }
     }
 }
@@ -225,15 +267,7 @@ struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             MainView(store: .init(
-                initialState: .init(events: .init(
-                    getBalance: { "56.0000" },
-                    getWalletAddress: { "ASDFSFSFSADFASDFASDFSADFSD"},
-                    getTransactions: { [
-                        .previewInstance,
-                        .previewInstance,
-                        .previewInstance
-                    ] }
-                )),
+                initialState: .preview,
                 reducer: MainViewReducer()
             ))
         }

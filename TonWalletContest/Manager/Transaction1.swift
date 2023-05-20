@@ -11,8 +11,8 @@ struct Transaction1: Identifiable, Equatable {
     var id = UUID()
     let senderAddress: String
     let humanAddress: String
-    let amount: Double
-    let comment: String
+    var amount: Double
+    var comment: String
     let fee: Double
     let date: Date
     var status: Status

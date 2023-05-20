@@ -5,11 +5,13 @@ import Foundation
 struct ConfirmReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
-        var recipientAddress: String = "ASdfsdjfnjksldfsfsdfsdfsdfFWE"
-        var amountString: String = "100"
-        var feeString: String = "0.033"
+        var transaction: Transaction1
 
-        var comment: String = ""
+//        var recipientAddress: String = "ASdfsdjfnjksldfsfsdfsdfsdfFWE"
+//        var amountString: String = "100"
+//        var feeString: String = "0.033"
+
+//        var comment: String = ""
         var numberCharacter: Int = 10
         var isTextEditor = false
         var isOverLimit = false
@@ -17,14 +19,17 @@ struct ConfirmReducer: ReducerProtocol {
         @PresentationState var destination: Destination.State?
         var events: Events
         
-        init(destination: Destination.State? = nil, events: Events) {
+        init(transaction: Transaction1, destination: Destination.State? = nil, events: Events) {
             self.destination = destination
             self.events = events
+            self.transaction = transaction
         }
         
-        static let preview: State = .init(events: .init(
-            sendTon: { true },
-            createPendingReducerState: { .init(walletAddress: "Wallwerwesadfklsdfkls", events: .init()) }
+        static let preview: State = .init(
+            transaction: .previewInstance,
+            events: .init(
+            sendTon: { _ in return },
+            createPendingReducerState: { _ in .init(walletAddress: "Wallwerwesadfklsdfkls", events: .init()) }
         ))
     }
     
@@ -42,8 +47,8 @@ struct ConfirmReducer: ReducerProtocol {
     }
     
     struct Events: AlwaysEquitable {
-        var sendTon: () async -> Bool
-        var createPendingReducerState: () async ->  PendingReducer.State
+        var sendTon: (Transaction1) async throws -> Void
+        var createPendingReducerState: (String) async ->  PendingReducer.State
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -55,7 +60,7 @@ struct ConfirmReducer: ReducerProtocol {
                 
                 switch type {
                 case let .comment(comment):
-                    state.comment = comment
+                    state.transaction.comment = comment
                 case let .isOverLimit(isOverLimit):
                     state.isOverLimit = isOverLimit
                 case let .numberCharacter(numberCharacter):
@@ -73,11 +78,12 @@ struct ConfirmReducer: ReducerProtocol {
                 
                 return .none
             case .sendButtonTapped:
-                return .run { [events = state.events] send in
-                    if await events.sendTon() {
-                        let state = await events.createPendingReducerState()
-                        await send(.destinationState(.pendingView(state)))
-                    }
+                return .run { [events = state.events, state] send in
+                    try await events.sendTon(state.transaction)
+
+                    let state = await events.createPendingReducerState(state.transaction.humanAddress)
+                    await send(.destinationState(.pendingView(state)))
+
                 }
             case .destination:
                 return .none

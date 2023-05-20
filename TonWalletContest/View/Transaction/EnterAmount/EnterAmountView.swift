@@ -26,14 +26,14 @@ struct EnterAmountView: View {
                     Text("Send to:")
                         .font(.callout)
                         .foregroundColor(.gray)
-                    Text(viewStore.address)
+                    Text(viewStore.humanAddress)
                         .frame(width: 100)
                         .truncationMode(.middle)
 
-                    if !viewStore.humanAddress.isEmpty {
-                        Text(viewStore.humanAddress)
-                            .foregroundColor(.gray)
-                    }
+//                    if !viewStore.transaction.humanAddress.isEmpty {
+//                        Text(viewStore.humanAddress)
+//                            .foregroundColor(.gray)
+//                    }
 
                     Spacer()
                     Button {

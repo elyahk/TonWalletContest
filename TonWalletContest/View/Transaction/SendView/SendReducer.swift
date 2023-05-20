@@ -24,7 +24,7 @@ struct SendReducer: ReducerProtocol {
                 Transaction1(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", amount: 110.2, comment: "", fee: 0.23123, date: .init().addingTimeInterval(86400), status: .success, isTransactionSend: true, transactionId: "ASDA23er23dsad23")
             ],
             events: .init(
-                createEnterAmountReducerState: { .preview }
+                createEnterAmountReducerState: { _ in .preview }
             )
         )
     }
@@ -40,7 +40,7 @@ struct SendReducer: ReducerProtocol {
     }
 
     struct Events: AlwaysEquitable {
-        var createEnterAmountReducerState: () async ->  EnterAmountReducer.State
+        var createEnterAmountReducerState: (String) async ->  EnterAmountReducer.State
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -68,8 +68,8 @@ struct SendReducer: ReducerProtocol {
 
                 return .none
             case .continueButtonTapped:
-                return .run { [events = state.events] send in
-                    await send(.destinationState(.enterAmountView(await events.createEnterAmountReducerState())))
+                return .run { [events = state.events, state] send in
+                    await send(.destinationState(.enterAmountView(await events.createEnterAmountReducerState(state.address))))
                 }
             case .destination:
                 return .none

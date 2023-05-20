@@ -44,6 +44,8 @@ struct RecieveTonReducer: ReducerProtocol {
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
         var qrCodeImage: UIImage = .init()
+
+        static let preview: State = .init()
     }
 
     enum Action: Equatable {
