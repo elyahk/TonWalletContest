@@ -121,6 +121,7 @@
 		61B38D5C2A0001FA007BFE31 /* WideBlueTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */; };
 		61DA64A729EBDE80009F8202 /* ImportFailureReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DA64A629EBDE80009F8202 /* ImportFailureReducer.swift */; };
 		61DA64A929EBDE9D009F8202 /* ImportFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DA64A829EBDE9D009F8202 /* ImportFailureView.swift */; };
+		61DBEDA42A19013800312268 /* MainViewReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBEDA32A19013800312268 /* MainViewReducer.swift */; };
 		6E11702929EEE9EE00DE473F /* LocalAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E11702829EEE9EE00DE473F /* LocalAuthenticationView.swift */; };
 		6E38004729DE0464002D6868 /* RecoveryPhraseReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38004629DE0464002D6868 /* RecoveryPhraseReducer.swift */; };
 		6E38004929DE048E002D6868 /* RecoveryPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */; };
@@ -293,6 +294,7 @@
 		61931DDB29FE720400F54C64 /* UIKit+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Utils.swift"; sourceTree = "<group>"; };
 		61DA64A629EBDE80009F8202 /* ImportFailureReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFailureReducer.swift; sourceTree = "<group>"; };
 		61DA64A829EBDE9D009F8202 /* ImportFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFailureView.swift; sourceTree = "<group>"; };
+		61DBEDA32A19013800312268 /* MainViewReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewReducer.swift; sourceTree = "<group>"; };
 		6E11702829EEE9EE00DE473F /* LocalAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthenticationView.swift; sourceTree = "<group>"; };
 		6E38004629DE0464002D6868 /* RecoveryPhraseReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseReducer.swift; sourceTree = "<group>"; };
 		6E38004829DE048E002D6868 /* RecoveryPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseView.swift; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 			isa = PBXGroup;
 			children = (
 				61760F4B29F9BF1C00B2770C /* MainView.swift */,
+				61DBEDA32A19013800312268 /* MainViewReducer.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -1021,6 +1024,7 @@
 				61931DBD29FE662B00F54C64 /* Signal_Materialize.swift in Sources */,
 				6158D4E129EA88DB00AC467C /* ConfirmPasscodeView+Reducer.swift in Sources */,
 				6152F1962A04193500F97845 /* SSignal.m in Sources */,
+				61DBEDA42A19013800312268 /* MainViewReducer.swift in Sources */,
 				1352FF9C29FBCEC3002799A9 /* PendingView.swift in Sources */,
 				61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */,
 			);
