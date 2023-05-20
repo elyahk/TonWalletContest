@@ -78,22 +78,20 @@ struct EnterAmountView: View {
                 }
                 .padding(.horizontal, 16)
 
-//                NavigationLinkStore (
-//                    self.store.scope(state: \.$destination, action: EnterAmountView.Action.destination),
-//                    state: /EnterAmountView.Destination.State.confirmView,
-//                    action: EnterAmountView.Destination.Action.confirmView
-//                ) {
-//                    viewStore.send(.continueButtonTapped)
-//                } destination: { store in
-//                    ConfirmView(store: store)
-//                } label: {
-//                    Text("Skip")
-//                        .font(.body)
-//                        .fontWeight(.semibold)
-//                        .foregroundColor(.accentColor)
-//                        .frame(minWidth: 294, minHeight: 50, alignment: .center)
-//                        .padding(.horizontal, 48)
-//                }
+                NavigationLinkStore (
+                    self.store.scope(state: \.$destination, action: EnterAmountReducer.Action.destination),
+                    state: /EnterAmountReducer.Destination.State.confirmView,
+                    action: EnterAmountReducer.Destination.Action.confirmView
+                ) {
+                    viewStore.send(.continueButtonTapped)
+                } destination: { store in
+                    ConfirmView(store: store)
+                } label: {
+                    Text("Continue")
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                        .customWideBlueButtonStyle()
+                        .padding(.bottom)
+                }
 
             }
             .navigationTitle("Send TON")

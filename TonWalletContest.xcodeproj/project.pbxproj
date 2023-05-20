@@ -30,7 +30,6 @@
 		13B0548229DC353D006014C0 /* CongratulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0548129DC353D006014C0 /* CongratulationView.swift */; };
 		13B0548429DC359C006014C0 /* CongratulationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B0548329DC359C006014C0 /* CongratulationReducer.swift */; };
 		13D218F02A04F964001F351C /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D218EF2A04F964001F351C /* SendView.swift */; };
-		13D218F22A050742001F351C /* TestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D218F12A050742001F351C /* TestMainView.swift */; };
 		13FDFEC129FBFA7200402AF9 /* SuccessReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC029FBFA7200402AF9 /* SuccessReducer.swift */; };
 		13FDFEC929FC5E8000402AF9 /* CommentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDFEC829FC5E8000402AF9 /* CommentTextField.swift */; };
 		61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61153DD229D8F5AA00D4D030 /* TonWalletContestApp.swift */; };
@@ -175,7 +174,6 @@
 		13B0548129DC353D006014C0 /* CongratulationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulationView.swift; sourceTree = "<group>"; };
 		13B0548329DC359C006014C0 /* CongratulationReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulationReducer.swift; sourceTree = "<group>"; };
 		13D218EF2A04F964001F351C /* SendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
-		13D218F12A050742001F351C /* TestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMainView.swift; sourceTree = "<group>"; };
 		13FDFEBD29FBF60000402AF9 /* PendingReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingReducer.swift; sourceTree = "<group>"; };
 		13FDFEC029FBFA7200402AF9 /* SuccessReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessReducer.swift; sourceTree = "<group>"; };
 		13FDFEC329FC386600402AF9 /* ConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmView.swift; sourceTree = "<group>"; };
@@ -342,7 +340,6 @@
 			children = (
 				13FDFEBF29FBF60800402AF9 /* Pending */,
 				13FDFEC229FBFA7700402AF9 /* Success */,
-				13FDFEC729FC396A00402AF9 /* Confirm */,
 				134136532A16B4A20046B2C5 /* TransactionView.swift */,
 			);
 			path = Modals;
@@ -462,7 +459,6 @@
 			isa = PBXGroup;
 			children = (
 				6E4CB0CF2A156CF8003A3B8A /* Transaction */,
-				613D39FE29FEC64800243B2E /* QrCodeView */,
 				61760F4A29F9BF0600B2770C /* MainView */,
 				6133A79B29E1622E008BDF34 /* CustomViews */,
 				615017B529E0050800AF963D /* Authorazation */,
@@ -641,7 +637,6 @@
 			isa = PBXGroup;
 			children = (
 				61760F4B29F9BF1C00B2770C /* MainView.swift */,
-				13D218F12A050742001F351C /* TestMainView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -730,6 +725,8 @@
 		6E4CB0CF2A156CF8003A3B8A /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				613D39FE29FEC64800243B2E /* QrCodeView */,
+				13FDFEC729FC396A00402AF9 /* Confirm */,
 				1352FFA329FBD711002799A9 /* Modals */,
 				612828362A18BCF000C5F5BA /* SendView */,
 				612828352A18BCE000C5F5BA /* EnterAmount */,
@@ -934,7 +931,6 @@
 				6E3EC13429DB0AB10050AA75 /* TonWalletManager.swift in Sources */,
 				6152F1832A04193500F97845 /* SSignal+Meta.m in Sources */,
 				6E38004929DE048E002D6868 /* RecoveryPhraseView.swift in Sources */,
-				13D218F22A050742001F351C /* TestMainView.swift in Sources */,
 				61931DD329FE662B00F54C64 /* Signal_Meta.swift in Sources */,
 				61931DC629FE662B00F54C64 /* Multicast.swift in Sources */,
 				6E4CB0CE2A1556C8003A3B8A /* ConfirmView.swift in Sources */,
