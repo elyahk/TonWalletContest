@@ -34,6 +34,8 @@ struct SendReducer: ReducerProtocol {
         case viewWalletButtonTapped
         case destinationState(Destination.State)
         case changedAddress(String)
+        case clearTransactions
+        case changeAddress(String)
     }
 
     struct Events: AlwaysEquitable {
@@ -45,6 +47,12 @@ struct SendReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .changeAddress(let text):
+                state.address = text
+                return .none
+            case .clearTransactions:
+                state.transactions.removeAll()
+                return .none
             case let .changedAddress(address):
                 state.address = address
                 return .none

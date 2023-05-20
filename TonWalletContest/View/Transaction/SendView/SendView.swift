@@ -16,14 +16,7 @@ struct SendView: View {
         self.store = store
     }
 
-    @State var address: String = ""
     //    @FocusState private var isFocused: Bool
-
-    @State var transactionHistory: [Transaction1] = [
-        Transaction1(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "EldorTheCoolest.ton", amount: 1.2, comment: "", fee: 0.0023123, date: .init(), status: .pending, isTransactionSend: true, transactionId: "dsdf"),
-        Transaction1(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "GoingCrazy.ton", amount: 110.2, comment: "", fee: 0.23123, date: .init().addingTimeInterval(86400 * 5), status: .cancelled, isTransactionSend: false, transactionId: "SDFsdfwr23r23w"),
-        Transaction1(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", amount: 110.2, comment: "", fee: 0.23123, date: .init().addingTimeInterval(86400), status: .success, isTransactionSend: true, transactionId: "ASDA23er23dsad23")
-    ]
 
     @Environment(\.presentationMode) var presentationMode
     @State var isShowingScanner: Bool = false
@@ -36,8 +29,8 @@ struct SendView: View {
                     text: viewStore.binding(get: { $0.address }, send: { return .changedAddress($0) } ),
                     isFirstResponder: .constant(true)
                 )
-                .clearButton(isHidden: address.isEmpty, action: {
-                    self.address = ""
+                .clearButton(isHidden: viewStore.address.isEmpty, action: {
+                    viewStore.send(.changeAddress(""))
                 })
                 .frame(width: .infinity, height: 50, alignment: .leading)
                 .padding(.horizontal, 16)
@@ -54,7 +47,7 @@ struct SendView: View {
                 HStack {
                     Button {
                         if let pasteboardText = UIPasteboard.general.string {
-                            self.address = pasteboardText
+                            viewStore.send(.changeAddress(pasteboardText))
                         }
                     } label: {
                         HStack {
@@ -78,7 +71,7 @@ struct SendView: View {
                 if !viewStore.transactions.isEmpty {
                     List {
                         Section {
-                            ForEach(transactionHistory) { transaction in
+                            ForEach(viewStore.transactions) { transaction in
                                 VStack(alignment: .leading) {
                                     if !transaction.humanAddress.isEmpty {
                                         Text(transaction.humanAddress)
@@ -97,7 +90,7 @@ struct SendView: View {
                                     .font(.callout)
                                 Spacer()
                                 Button {
-                                    transactionHistory.removeAll()
+                                    viewStore.send(.clearTransactions)
                                 } label: {
                                     Text("CLEAR")
                                         .font(.callout)
@@ -131,10 +124,11 @@ struct SendView: View {
     func handleScan(result: Result<ScanResult, ScanError>) {
         isShowingScanner = false
         switch result {
-        case .success(let result):
-            address = result.string
+        case .success(let result): break
+//            return result.string
         case .failure(let error):
             print("Scanning failure \(error.localizedDescription)")
+//            return nil
         }
     }
 }
