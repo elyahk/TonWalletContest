@@ -16,9 +16,6 @@ struct SendView: View {
         self.store = store
     }
 
-    //    @FocusState private var isFocused: Bool
-
-    @Environment(\.presentationMode) var presentationMode
     @State var isShowingScanner: Bool = false
 
     var body: some View {
@@ -116,19 +113,23 @@ struct SendView: View {
             .navigationTitle("Send TON")
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isShowingScanner) {
-                CodeScannerView(codeTypes: [.qr], simulatedData: "asdfkjm934orjo23de", completion: handleScan)
+                CodeScannerView(codeTypes: [.qr], simulatedData: "asdfkjm934orjo23de") { result in
+                    if let value = handleScan(result: result) {
+                        viewStore.send(.changeAddress(value))
+                    }
+                }
             }
         }
     }
 
-    func handleScan(result: Result<ScanResult, ScanError>) {
+    func handleScan(result: Result<ScanResult, ScanError>) -> String? {
         isShowingScanner = false
         switch result {
-        case .success(let result): break
-//            return result.string
+        case .success(let result):
+            return result.string
         case .failure(let error):
             print("Scanning failure \(error.localizedDescription)")
-//            return nil
+            return nil
         }
     }
 }
