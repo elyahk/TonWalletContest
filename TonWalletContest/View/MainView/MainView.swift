@@ -17,7 +17,7 @@ struct MainViewReducer: ReducerProtocol {
         var balance: String = ""
         var walletAddress: String = ""
         var events: Events
-        var transactions: [Transaction] = []
+        var transactions: [Transaction1] = []
         
         
         static let preview: State = .init(
@@ -34,12 +34,12 @@ struct MainViewReducer: ReducerProtocol {
     struct Events: AlwaysEquitable {
         var getBalance: () async -> String
         var getWalletAddress: () async -> String
-        var getTransactions: () async throws -> [Transaction]
+        var getTransactions: () async throws -> [Transaction1]
     }
 
     enum Action: Equatable {
         case onAppear
-        case configure(balance: String, address: String, transactions: [Transaction])
+        case configure(balance: String, address: String, transactions: [Transaction1])
         case tappedRecieveButton
         case tappedBackButton
         case destination(PresentationAction<Destination.Action>)
@@ -118,7 +118,7 @@ struct MainView: View {
     struct ViewState: Equatable {
         var balance: String
         var walletAddress: String
-        var transactions: [Transaction]
+        var transactions: [Transaction1]
 //        var destination: MainViewReducer.Destination.State?
 
         init(state: MainViewReducer.State) {

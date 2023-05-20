@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Transaction: Identifiable, Equatable {
+struct Transaction1: Identifiable, Equatable {
     var id = UUID()
     let senderAddress: String
     let humanAddress: String
@@ -25,7 +25,7 @@ struct Transaction: Identifiable, Equatable {
         case pending
     }
 
-    static let previewInstance: Transaction = Transaction(
+    static let previewInstance: Transaction1 = Transaction1(
         senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394",
         humanAddress: "EldorTheCoolest.ton",
         amount: 121.2231,

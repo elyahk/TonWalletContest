@@ -6,12 +6,12 @@ struct SendReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
-        var transactions: [Transaction]
+        var transactions: [Transaction1]
         var address: String = ""
 
         var events: Events
 
-        init(transactions: [Transaction], destination: Destination.State? = nil, events: Events) {
+        init(transactions: [Transaction1], destination: Destination.State? = nil, events: Events) {
             self.destination = destination
             self.events = events
             self.transactions = transactions
@@ -19,9 +19,9 @@ struct SendReducer: ReducerProtocol {
 
         static let preview: State = .init(
             transactions:  [
-                Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "EldorTheCoolest.ton", amount: 1.2, comment: "", fee: 0.0023123, date: .init(), status: .pending, isTransactionSend: true, transactionId: "dsdf"),
-                Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "GoingCrazy.ton", amount: 110.2, comment: "", fee: 0.23123, date: .init().addingTimeInterval(86400 * 5), status: .cancelled, isTransactionSend: false, transactionId: "SDFsdfwr23r23w"),
-                Transaction(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", amount: 110.2, comment: "", fee: 0.23123, date: .init().addingTimeInterval(86400), status: .success, isTransactionSend: true, transactionId: "ASDA23er23dsad23")
+                Transaction1(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "EldorTheCoolest.ton", amount: 1.2, comment: "", fee: 0.0023123, date: .init(), status: .pending, isTransactionSend: true, transactionId: "dsdf"),
+                Transaction1(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "GoingCrazy.ton", amount: 110.2, comment: "", fee: 0.23123, date: .init().addingTimeInterval(86400 * 5), status: .cancelled, isTransactionSend: false, transactionId: "SDFsdfwr23r23w"),
+                Transaction1(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", amount: 110.2, comment: "", fee: 0.23123, date: .init().addingTimeInterval(86400), status: .success, isTransactionSend: true, transactionId: "ASDA23er23dsad23")
             ],
             events: .init(
                 createEnterAmountReducerState: { .preview }

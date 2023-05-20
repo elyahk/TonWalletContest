@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TransactionView: View {
 
-    let transaction: Transaction
+    let transaction: Transaction1
     @State private var rotationAngle: Double = 0.0
 
 
