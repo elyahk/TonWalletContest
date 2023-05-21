@@ -26,9 +26,13 @@ struct EnterAmountView: View {
                     Text("Send to:")
                         .font(.callout)
                         .foregroundColor(.gray)
-                    Text(viewStore.humanAddress)
+                    Text(viewStore.recieverAddress)
                         .frame(width: 100)
+                        .lineLimit(1)
                         .truncationMode(.middle)
+                    Text(viewStore.recieverShortAddress)
+                        .font(.callout)
+                        .foregroundColor(.gray)
 
 //                    if !viewStore.transaction.humanAddress.isEmpty {
 //                        Text(viewStore.humanAddress)
@@ -67,7 +71,7 @@ struct EnterAmountView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 22, height: 22)
-                    Text(viewStore.allAmount.description)
+                    Text(viewStore.userWallet.allAmmount.description)
                     Spacer()
                     Toggle(isOn: viewStore.binding(
                         get: { $0.isAllAmount },
@@ -78,21 +82,29 @@ struct EnterAmountView: View {
                 }
                 .padding(.horizontal, 16)
 
-                NavigationLinkStore (
-                    self.store.scope(state: \.$destination, action: EnterAmountReducer.Action.destination),
-                    state: /EnterAmountReducer.Destination.State.confirmView,
-                    action: EnterAmountReducer.Destination.Action.confirmView
-                ) {
-                    viewStore.send(.continueButtonTapped)
-                } destination: { store in
-                    ConfirmView(store: store)
-                } label: {
-                    Text("Continue")
-                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                        .customWideBlueButtonStyle()
-                        .padding(.bottom)
-                }
+                ZStack(alignment: .trailing) {
+                    NavigationLinkStore (
+                        self.store.scope(state: \.$destination, action: EnterAmountReducer.Action.destination),
+                        state: /EnterAmountReducer.Destination.State.confirmView,
+                        action: EnterAmountReducer.Destination.Action.confirmView
+                    ) {
+                        viewStore.send(.continueButtonTapped)
+                    } destination: { store in
+                        ConfirmView(store: store)
+                    } label: {
+                        Text("Continue")
+                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                            .customWideBlueButtonStyle()
+                            .padding(.horizontal, 16)
+                    }
 
+                    if viewStore.isLoading {
+                        CustomProgressView(color: .white, strokeWidth: 2.33)
+                            .frame(width: 16, height: 16)
+                            .padding([.trailing], 33)
+                    }
+                }
+                .padding(.bottom)
             }
             .navigationTitle("Send TON")
             .navigationBarTitleDisplayMode(.inline)

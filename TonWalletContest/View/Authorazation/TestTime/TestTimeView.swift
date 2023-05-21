@@ -68,6 +68,7 @@ struct TestTimeView: View {
                     Text("Continue")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                         .customBlueButtonStyle()
+                        .padding(.horizontal, 48)
                 }
 
                 Button("Auto fill") {

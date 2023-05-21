@@ -32,7 +32,7 @@ struct Transaction1: Identifiable, Equatable {
         comment: "Testing Time. Hello world!",
         fee: 0.0023123,
         date: Date(),
-        status: .success,
+        status: .pending,
         isTransactionSend: true,
         transactionId: "JIoUHj9h(iJJ9jiJ((J(J*&B^D4d5d%CTCGFC%c5dctr45646"
     )

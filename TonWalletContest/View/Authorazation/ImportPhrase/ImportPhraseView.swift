@@ -84,6 +84,7 @@ struct ImportPhraseView: View {
                     Text("Continue")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                         .customBlueButtonStyle()
+                        .padding(.horizontal, 48)
                 }
                 
                 NavigationLinkStore(

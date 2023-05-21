@@ -25,16 +25,16 @@ struct ImportPhraseReducer: ReducerProtocol {
         }
         
         static let preview: State = .init(events: .init(
-            createImportSuccessReducer: { _ in .preview },
+            createImportSuccessReducer: {  .preview },
             createImportFailureReducer: { .preview },
-            isSecretWordsImported: { words in nil }
+            isSecretWordsImported: { words in true }
         ))
     }
     
     struct Events: AlwaysEquitable {
-        var createImportSuccessReducer: (Wallet3) async -> ImportSuccessReducer.State
+        var createImportSuccessReducer: () async -> ImportSuccessReducer.State
         var createImportFailureReducer: () async -> ImportFailureReducer.State
-        var isSecretWordsImported: (IdentifiedArrayOf<Word>) async -> Wallet3?
+        var isSecretWordsImported: (IdentifiedArrayOf<Word>) async -> Bool
     }
     
     enum Action: Equatable {
@@ -70,7 +70,7 @@ struct ImportPhraseReducer: ReducerProtocol {
             case .continueButtonTapped:
 
                 return .run { [state] send in
-                    guard state.isFilledAllWords(), let wallet = await state.events.isSecretWordsImported(state.testWords) else {
+                    guard state.isFilledAllWords(), await state.events.isSecretWordsImported(state.testWords) else {
                         await send(.destinationState(.alert(.init(
                             title: TextState("Incorrect words"),
                             message: TextState("The secret words you have entered do not match the ones in the list."),
@@ -81,7 +81,7 @@ struct ImportPhraseReducer: ReducerProtocol {
                         return
                     }
                     
-                    await send(.destinationState(.successPhrase(state.events.createImportSuccessReducer(wallet))))
+                    await send(.destinationState(.successPhrase(state.events.createImportSuccessReducer())))
                 }
 
             case let .wordChanged(id, value):

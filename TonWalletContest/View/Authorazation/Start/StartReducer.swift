@@ -13,6 +13,7 @@ struct StartReducer: ReducerProtocol {
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
         var events: Events
+        var isLoading: Bool = false
         
         static let preview: State = .init(
             events: .init(
@@ -39,22 +40,33 @@ struct StartReducer: ReducerProtocol {
         case importMyWalletTapped
         case destinationState(Destination.State)
         case destination(PresentationAction<Destination.Action>)
+        case loading(Bool)
     }
     
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case let .loading(isLoading):
+                state.isLoading = isLoading
+                return .none
+
             case .destinationState(let destinationState):
                 state.destination = destinationState
                 return .none
 
             case .createMyWalletTapped:
+                guard !state.isLoading else { return .none }
+
                 return .run { [events = state.events] send in
+                    await send(.loading(true))
                     let state = try await events.createCongratulationState()
+                    await send(.loading(false))
                     await send(.destinationState(.createWallet(state)))
                 }
-                
+
             case .importMyWalletTapped:
+                guard !state.isLoading else { return .none }
+
                 return .run { [events = state.events] send in
                     let state = try await events.createImportPhraseState()
                     await send(.destinationState(.importWords(state)))

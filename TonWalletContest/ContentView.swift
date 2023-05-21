@@ -16,24 +16,36 @@ struct ContentView: View {
     let tonManager = TonWalletManager.shared
     var body: some View {
         VStack {
-            Text("Hello, world!")
-            Button("Create Key") {
-                Task {
-                    do {
-                        let manager = TonWalletManager.shared
-                        let key = try await manager.importWords(.words24_withTon)
-                        let wallet = try await manager.anyWallet(key: key, revision: .r2)
-                        print(wallet.contract.info)
-                        
-                        let message = try await manager.getMessage(wallet: wallet, with: key, to: "EQAVMjU3S-EFeIBZ2UI_rkxKuQAQGhiFzZ2HgOp92mepnKU6")
-                        let fee = try await message.fees()
-                        
-                        print("Fee: ", fee)
-                        try await message.send()
-                    } catch {
-                        print("Got error:", error.localizedDescription)
+            ScrollView {
+
+                Text("Hello, world!")
+                    .frame(height: 200)
+                Text("Hello, world!")
+                    .frame(height: 200)
+                Text("Hello, world!")
+                    .frame(height: 200)
+                Text("Hello, world!")
+                    .frame(height: 200)
+                Text("Hello, world!")
+                    .frame(height: 200)
+                Button("Create Key") {
+                    Task {
+                        do {
+                            let manager = TonWalletManager.shared
+                            let key = try await manager.importWords(.words24_withTon)
+                            let wallet = try await manager.anyWallet(key: key, revision: .r2)
+                            print(wallet.contract.info)
+
+                            let message = try await manager.getMessage(wallet: wallet, with: key, to: "EQAVMjU3S-EFeIBZ2UI_rkxKuQAQGhiFzZ2HgOp92mepnKU6")
+                            let fee = try await message.fees()
+
+                            print("Fee: ", fee)
+                            try await message.send()
+                        } catch {
+                            print("Got error:", error.localizedDescription)
+                        }
+
                     }
-                    
                 }
             }
         }

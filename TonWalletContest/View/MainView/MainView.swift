@@ -9,128 +9,6 @@ import SwiftUI
 import SwiftyTON
 import ComposableArchitecture
 
-
-struct MainViewReducer: ReducerProtocol {
-    struct State: Equatable, Identifiable {
-        var id: UUID = .init()
-        @PresentationState var destination: Destination.State?
-        var balance: String = ""
-        var walletAddress: String = ""
-        var events: Events
-        var transactions: [Transaction1] = []
-        
-        
-        static let preview: State = .init(
-            events: .init(
-                getBalance: { "2.333333" },
-                getWalletAddress: { "WalletAddressWaxaxaxaxaxaxa"},
-                getTransactions: { [
-                    .init(senderAddress: "Sender address", humanAddress: "Human Address", amount: 1.0, comment: "Comment", fee: 0.0005, date: .init(), status: .cancelled, isTransactionSend: true, transactionId: "s23e|@e2")
-                ] },
-                createRecieveTonReducerState: { .preview },
-                createSendReducerState: { .preview }
-            )
-        )
-    }
-
-    struct Events: AlwaysEquitable {
-        var getBalance: () async -> String
-        var getWalletAddress: () async -> String
-        var getTransactions: () async throws -> [Transaction1]
-        var createRecieveTonReducerState: () async -> RecieveTonReducer.State
-        var createSendReducerState: () async -> SendReducer.State
-    }
-
-    enum Action: Equatable {
-        case onAppear
-        case configure(balance: String, address: String, transactions: [Transaction1])
-        case tappedRecieveButton
-        case tappedSendButton
-        case tappedBackButton
-        case destinationState(Destination.State)
-        case destination(PresentationAction<Destination.Action>)
-    }
-
-    @Dependency(\.dismiss) var presentationMode
-
-    var body: some ReducerProtocolOf<Self> {
-        Reduce { state, action in
-            switch action {
-            case .tappedSendButton:
-
-                return .run { [events = state.events] send in
-                    await send(.destinationState(.sendView(await events.createSendReducerState())))
-                }
-            case .destinationState(let destinationState):
-                state.destination = destinationState
-                return .none
-            case .onAppear:
-                return .run { [events = state.events] send in
-                    let balance = await events.getBalance()
-                    let address = await events.getWalletAddress()
-                    let transactions = try await events.getTransactions()
-
-                    await send(.configure(balance: balance, address: address, transactions: transactions))
-                }
-
-            case .tappedBackButton:
-                state.destination = nil
-                return .none
-            case .tappedRecieveButton:
-
-                return .run { [events = state.events] send in
-                    await send(.destinationState(.recieveTonView(await events.createRecieveTonReducerState())))
-                }
-
-            case let .configure(balance, address, transactions):
-                state.balance = balance
-                state.walletAddress = address
-                state.transactions = transactions
-
-                return .none
-
-            case .destination:
-                return .none
-            }
-        }
-        .ifLet(\.$destination, action: /Action.destination) {
-            Destination()
-        }
-    }
-}
-
-extension MainViewReducer {
-    struct Destination: ReducerProtocol {
-        enum State: Equatable, Identifiable {
-            case recieveTonView(RecieveTonReducer.State)
-            case sendView(SendReducer.State)
-
-            var id: AnyHashable {
-                switch self {
-                case let .recieveTonView(state):
-                    return state.id
-
-                case let .sendView(state):
-                    return state.id
-                }
-            }
-        }
-        enum Action: Equatable {
-            case recieveTonView(RecieveTonReducer.Action)
-            case sendView(SendReducer.Action)
-        }
-
-        var body: some ReducerProtocolOf<Self> {
-            Scope(state: /State.recieveTonView, action: /Action.recieveTonView) {
-                RecieveTonReducer()
-            }
-            Scope(state: /State.sendView, action: /Action.sendView) {
-                SendReducer()
-            }
-        }
-    }
-}
-
 struct MainView: View {
     let store: StoreOf<MainViewReducer>
     @State var isModal: Bool = false
@@ -140,16 +18,10 @@ struct MainView: View {
     }
 
     struct ViewState: Equatable {
-        var balance: String
-        var walletAddress: String
-        var transactions: [Transaction1]
-//        var destination: MainViewReducer.Destination.State?
+        var userWallet: UserSettings.UserWallet?
 
         init(state: MainViewReducer.State) {
-            self.balance = state.balance
-            self.walletAddress = state.walletAddress
-            self.transactions = state.transactions
-//            self.destination = state.destination
+            self.userWallet = state.userWallet
         }
     }
 
@@ -158,60 +30,113 @@ struct MainView: View {
             VStack {
                 VStack {
                     HStack {
-                        Button("+") {
+                        Button {
 
+                        } label: {
+                            Image("ic_scan")
+                                .resizable()
+                                .frame(width: 22.0, height: 22.0)
+                                .padding()
                         }
-                        .frame(width: 28.0, height: 28.0)
                         Spacer()
-                        Button("-") {
+                        Button {
 
+                        } label: {
+                            Image(systemName: "gear")
+                                .resizable()
+                                .frame(width: 22.0, height: 22.0)
+                                .foregroundColor(Color.white)
+                                .padding()
                         }
-                        .frame(width: 28.0, height: 28.0)
                     }
-                    .padding(.init(top: 8.0, leading: 14.0, bottom: 8.0, trailing: 14.0))
 
                     VStack {
-                        Text(viewStore.walletAddress)
+                        Text(viewStore.userWallet?.address ?? "")
                             .frame(width: 100)
                             .lineLimit(1)
                             .foregroundColor(.white)
-                        Text(viewStore.balance)
-                            .foregroundColor(.white)
+                            .truncationMode(.middle)
+                            .font(.system(size: 17, weight: .regular))
+
+                        TransactionAmountView(amount: viewStore.userWallet?.allAmmount ?? 0, isSent: false)
                     }
                     .padding(.top, 28.0)
 
                     HStack(spacing: 12.0) {
-                        Button("Recieve") {
+                        Button {
                             viewStore.send(.tappedRecieveButton)
+                        } label: {
+                            Label {
+                                Text("Recieve")
+                            } icon: {
+                                Image(systemName: "arrow.down.backward")
+                            }
+                            .frame(maxWidth: .infinity, minHeight: 50.0)
+                            .font(.system(size: 17.0, weight: .semibold))
+                            .foregroundColor(.white)
+                            .background(Color.init(UIColor(red: 0.196, green: 0.667, blue: 0.996, alpha: 1).cgColor))
+                            .cornerRadius(12)
                         }
-                        .frame(maxWidth: .infinity, minHeight: 50.0)
-                        .customBlueButtonStyle()
 
-                        Button("Send") {
+                        Button {
                             viewStore.send(.tappedSendButton)
+                        } label: {
+                            Label {
+                                Text("Send")
+                            } icon: {
+                                Image(systemName: "arrow.up.forward")
+                            }
+                            .frame(maxWidth: .infinity, minHeight: 50.0)
+                            .font(.system(size: 17.0, weight: .semibold))
+                            .foregroundColor(.white)
+                            .background(Color.init(UIColor(red: 0.196, green: 0.667, blue: 0.996, alpha: 1).cgColor))
+                            .cornerRadius(12)
                         }
-                        .frame(maxWidth: .infinity, minHeight: 50.0)
-                        .customBlueButtonStyle()
                     }
                     .padding(.init(top: 74.0, leading: 16.0, bottom: 16.0, trailing: 16.0))
-                    .frame(width: .infinity)
                 }
 
                 VStack {
                     List {
-                        ForEach(viewStore.transactions) { transaction in
+                        ForEach(viewStore.userWallet?.transactions ?? []) { transaction in
                             VStack(alignment: .leading, spacing: 8.0) {
-                                HStack {
-                                    Text("\(transaction.amount) from")
+                                HStack(spacing: 3.0) {
+                                    TransactionAmountView(
+                                        amount: transaction.amount,
+                                        isSent: transaction.isTransactionSend,
+                                        size: (19, 18, 16)
+                                    )
+                                    Text(transaction.isTransactionSend ? "to" : "from")
+                                        .font(.system(size: 18, weight: .regular))
+                                        .foregroundColor(.secondary)
                                     Spacer()
-                                    Text("\(transaction.date)")
+                                    Text(transaction.date.formattedDateString(type: .short))
+                                        .font(.system(size: 15, weight: .regular))
+                                        .foregroundColor(.secondary)
                                 }
-                                .padding(.bottom, -2.0)
+
                                 Text(transaction.senderAddress)
+                                    .font(.system(size: 15, weight: .regular))
+                                    .lineLimit(1)
+                                    .frame(width: 100)
+                                    .truncationMode(.middle)
+                                    .padding(.top, -2.0)
+
                                 Text("\(transaction.fee) storage fee")
-                                Text(transaction.comment)
+                                    .font(.system(size: 15, weight: .regular))
+                                    .foregroundColor(.secondary)
+                                ChatBubble {
+                                    Text(transaction.comment)
+                                        .font(.system(size: 15, weight: .regular))
+                                        .padding([.trailing], 10)
+                                        .padding([.leading], 15)
+                                        .padding([.bottom, .top], 8)
+                                        .multilineTextAlignment(.center)
+                                        .background(Color(UIColor(red: 0.937, green: 0.937, blue: 0.953, alpha: 1).cgColor))
+                                }
                             }
                         }
+
                     }
                     .listStyle(.plain)
                 }
@@ -233,8 +158,13 @@ struct MainView: View {
                         RecieveTonView(store: store)
                             .toolbar {
                                 ToolbarItem(placement: .navigationBarLeading) {
-                                    Button("< Back") {
+                                    Button {
                                         viewStore.send(.tappedBackButton)
+                                    } label: {
+                                        HStack(spacing: 0.0) {
+                                            Image(systemName: "chevron.backward")
+                                            Text("Back")
+                                        }
                                     }
                                 }
                             }
@@ -251,8 +181,13 @@ struct MainView: View {
                             SendView(store: store)
                                 .toolbar {
                                     ToolbarItem(placement: .navigationBarLeading) {
-                                        Button("< Back") {
+                                        Button {
                                             viewStore.send(.tappedBackButton)
+                                        } label: {
+                                            HStack(spacing: 0.0) {
+                                                Image(systemName: "chevron.backward")
+                                                Text("Back")
+                                            }
                                         }
                                     }
                                 }
@@ -271,6 +206,7 @@ struct MainView_Previews: PreviewProvider {
                 reducer: MainViewReducer()
             ))
         }
+        .background(Color.black)
     }
 }
 

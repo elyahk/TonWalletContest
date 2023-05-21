@@ -17,6 +17,7 @@ struct SendView: View {
     }
 
     @State var isShowingScanner: Bool = false
+    @State var rotationAngle: CGFloat = 360.0
 
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
@@ -29,7 +30,7 @@ struct SendView: View {
                 .clearButton(isHidden: viewStore.address.isEmpty, action: {
                     viewStore.send(.changeAddress(""))
                 })
-                .frame(width: .infinity, height: 50, alignment: .leading)
+                .frame(height: 50, alignment: .leading)
                 .padding(.horizontal, 16)
                 .background(Color("LightGray"))
                 .cornerRadius(10)
@@ -99,22 +100,31 @@ struct SendView: View {
                 }
                 Spacer()
 
-                NavigationLinkStore (
-                    self.store.scope(
-                        state: \.$destination,
-                        action: SendReducer.Action.destination),
-                    state: /SendReducer.Destination.State.enterAmountView,
-                    action: SendReducer.Destination.Action.enterAmountView
-                ) {
-                    ViewStore(store).send(.continueButtonTapped)
-                } destination: { store in
-                    EnterAmountView(store: store)
-                } label: {
-                    Text("Continue")
-                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                        .customWideBlueButtonStyle()
-                        .padding(.bottom)
+                ZStack(alignment: .trailing) {
+                    NavigationLinkStore (
+                        self.store.scope(
+                            state: \.$destination,
+                            action: SendReducer.Action.destination),
+                        state: /SendReducer.Destination.State.enterAmountView,
+                        action: SendReducer.Destination.Action.enterAmountView
+                    ) {
+                        ViewStore(store).send(.continueButtonTapped)
+                    } destination: { store in
+                        EnterAmountView(store: store)
+                    } label: {
+                        Text("Continue")
+                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                            .customWideBlueButtonStyle()
+                            .padding(.horizontal, 16)
+                    }
+
+//                    if viewStore.isLoading {
+//                        CustomProgressView(color: .systemBlue, strokeWidth: 2.33)
+//                            .frame(width: 16.0, height: 16.0)
+//                            .padding([.trailing, 240])
+//                    }
                 }
+                .padding(.bottom)
             }
             .padding(.vertical)
             .navigationTitle("Send TON")

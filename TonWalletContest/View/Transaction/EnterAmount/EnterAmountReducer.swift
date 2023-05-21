@@ -2,6 +2,20 @@ import ComposableArchitecture
 import SwiftyTON
 import Foundation
 
+struct UserSettings: Equatable {
+    var userWallet: UserWallet
+    var key: Key
+    var wallet: Wallet3
+
+    struct UserWallet: Equatable {
+        var allAmmount: Double
+        var address: String
+        var transactions: [Transaction1]
+
+        static let preview: UserWallet = .init(allAmmount: 2.00333, address: "AsfdsfsdSDFSdfsDfsdfsD", transactions: [.previewInstance, .previewInstance])
+    }
+}
+
 struct EnterAmountReducer: ReducerProtocol {
     struct Amount: Equatable {
         var address: String
@@ -9,28 +23,28 @@ struct EnterAmountReducer: ReducerProtocol {
     }
 
     struct State: Equatable, Identifiable {
-        var address: String
-        var allAmount: Double
-        var humanAddress: String
+        var recieverAddress: String
+        var recieverShortAddress: String
+        var userWallet: UserSettings.UserWallet
+        var events: Events
         var amount: String = ""
         var isAllAmount = false
+        var isLoading: Bool = false
 
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
-        var events: Events
         
-        init(address: String, allAmount: Double, humanAddress: String, destination: Destination.State? = nil, events: Events) {
-            self.address = address
-            self.allAmount = allAmount
-            self.humanAddress = humanAddress
+        init(reciverAddress: String, recieverShortAddress: String = "", userWallet: UserSettings.UserWallet, destination: Destination.State? = nil, events: Events) {
+            self.recieverAddress = reciverAddress
+            self.recieverShortAddress = recieverShortAddress
+            self.userWallet = userWallet
             self.destination = destination
             self.events = events
         }
 
         static let preview: State = .init(
-            address: "ksjfkjsklfjlksfsdf",
-            allAmount: 21.23232,
-            humanAddress: "xaxa.ton",
+            reciverAddress: "RasdfsfSDfssdfsdfsDD",
+            userWallet: .init(allAmmount: 44.0, address: "SDfsdfsdfsdfsdSDFsS", transactions: []),
             events: .init(createConfirmReducerState: { _ in
                 .preview
             },
@@ -45,6 +59,7 @@ struct EnterAmountReducer: ReducerProtocol {
         case destinationState(Destination.State)
         case continueButtonTapped
         case changed(StateType)
+        case loading(Bool)
     }
 
     enum StateType: Equatable {
@@ -62,13 +77,16 @@ struct EnterAmountReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case let .loading(isLoading):
+                state.isLoading = isLoading
+                return .none
             case .changed(let type):
                 switch type {
                 case .text(let value):
                     state.amount = value
                 case .toggle(let value):
                     if value {
-                        state.amount = state.allAmount.description
+                        state.amount = state.userWallet.allAmmount.description
                     } else {
                         state.amount = ""
                     }
@@ -82,9 +100,13 @@ struct EnterAmountReducer: ReducerProtocol {
                 
                 return .none
             case .continueButtonTapped:
+                guard !state.isLoading else { return .none }
+
                 return .run { [events = state.events, state] send in
-                    let transaction = try await events.getTransaction(.init(address: state.address, amount: state.amount))
+                    await send(.loading(true))
+                    let transaction = try await events.getTransaction(.init(address: state.recieverAddress, amount: state.amount))
                     await send(.destinationState(.confirmView(await events.createConfirmReducerState(transaction))))
+                    await send(.loading(false))
                 }
             case .destination:
                 return .none
