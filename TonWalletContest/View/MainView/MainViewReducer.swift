@@ -4,41 +4,31 @@ import ComposableArchitecture
 
 struct MainViewReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
-        var id: UUID = .init()
-        @PresentationState var destination: Destination.State?
-        var balance: String = ""
-        var walletAddress: String = ""
         var events: Events
+        @PresentationState var destination: Destination.State?
+        var id: UUID = .init()
+        var userWallet: UserSettings.UserWallet?
+        var walletAddress: String = ""
         var transactions: [Transaction1] = []
 
         static let preview: State = .init(
             events: .init(
-                getBalance: { "2.333333" },
-                getWalletAddress: { "WalletAddressWaxaxaxaxaxaxa"},
-                getTransactions: { [
-                    .init(senderAddress: "Sender address", humanAddress: "Human Address", amount: 1.0, comment: "Comment", fee: 0.0005, date: .init(), status: .cancelled, isTransactionSend: true, transactionId: "s23e|@e2"),
-                    .previewInstance,
-                    .previewInstance,
-                    .previewInstance,
-                    .previewInstance
-                ] },
+                getUserWallet: { .preview },
                 createRecieveTonReducerState: { .preview },
-                createSendReducerState: { .preview }
+                createSendReducerState: { _ in .preview }
             )
         )
     }
 
     struct Events: AlwaysEquitable {
-        var getBalance: () async -> String
-        var getWalletAddress: () async -> String
-        var getTransactions: () async throws -> [Transaction1]
+        var getUserWallet: () async throws -> UserSettings.UserWallet
         var createRecieveTonReducerState: () async -> RecieveTonReducer.State
-        var createSendReducerState: () async -> SendReducer.State
+        var createSendReducerState: (UserSettings.UserWallet) async -> SendReducer.State
     }
 
     enum Action: Equatable {
         case onAppear
-        case configure(balance: String, address: String, transactions: [Transaction1])
+        case configure(userWallet: UserSettings.UserWallet)
         case tappedRecieveButton
         case tappedSendButton
         case tappedBackButton
@@ -53,19 +43,17 @@ struct MainViewReducer: ReducerProtocol {
             switch action {
             case .tappedSendButton:
 
-                return .run { [events = state.events] send in
-                    await send(.destinationState(.sendView(await events.createSendReducerState())))
+                return .run { [events = state.events, state] send in
+                    guard let userWallet = state.userWallet else { return }
+                    await send(.destinationState(.sendView(await events.createSendReducerState(userWallet))))
                 }
             case .destinationState(let destinationState):
                 state.destination = destinationState
                 return .none
             case .onAppear:
                 return .run { [events = state.events] send in
-                    let balance = await events.getBalance()
-                    let address = await events.getWalletAddress()
-                    let transactions = try await events.getTransactions()
-
-                    await send(.configure(balance: balance, address: address, transactions: transactions))
+                    let userWallet = try await events.getUserWallet()
+                    await send(.configure(userWallet: userWallet))
                 }
 
             case .tappedBackButton:
@@ -77,10 +65,8 @@ struct MainViewReducer: ReducerProtocol {
                     await send(.destinationState(.recieveTonView(await events.createRecieveTonReducerState())))
                 }
 
-            case let .configure(balance, address, transactions):
-                state.balance = balance
-                state.walletAddress = address
-                state.transactions = transactions
+            case let .configure(userWallet):
+                state.userWallet = userWallet
 
                 return .none
 

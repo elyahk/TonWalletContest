@@ -144,11 +144,11 @@ class ComposableAuthenticationViews {
         return state
     }
 
-    func makeEnterAmountReducerState(address: String) -> EnterAmountReducer.State {
+    func makeEnterAmountReducerState(recieverAddress: String, recieverShortAddress: String = "", userWallet: UserSettings.UserWallet) -> EnterAmountReducer.State {
         let state = EnterAmountReducer.State(
-            address: address,
-            allAmount: 0.4433330,
-            humanAddress: "elyahk.ton",
+            reciverAddress: recieverAddress,
+            recieverShortAddress: recieverShortAddress,
+            userWallet: userWallet,
             events: .init(
                 createConfirmReducerState: { transcation in
                     self.makeConfirmReducerState(transcation: transcation)
@@ -163,7 +163,7 @@ class ComposableAuthenticationViews {
                         humanAddress: amount.address,
                         amount: amount.amount.toDouble(),
                         comment: "",
-                        fee: fee.value.description.toDouble(),
+                        fee: fee.description.toDouble(),
                         date: .init(),
                         status: .pending,
                         isTransactionSend: true,
@@ -182,12 +182,12 @@ class ComposableAuthenticationViews {
         return RecieveTonReducer.State.init()
     }
 
-    func makeSendReducerState() -> SendReducer.State {
+    func makeSendReducerState(userWallet: UserSettings.UserWallet) -> SendReducer.State {
         let state = SendReducer.State(
-            transactions: [],
+            userWallet: userWallet,
             events: .init(
-                createEnterAmountReducerState: { address in
-                    self.makeEnterAmountReducerState(address: address)
+                createEnterAmountReducerState: { recieverAddress, recieverShortAddress, userWallet  in
+                    self.makeEnterAmountReducerState(recieverAddress: recieverAddress, recieverShortAddress: recieverShortAddress, userWallet: userWallet)
                 }
             )
         )
@@ -195,22 +195,19 @@ class ComposableAuthenticationViews {
         return state
     }
 
-    func makeMainViewReducerState(wallet: Wallet3?) -> MainViewReducer.State {
+    func makeMainViewReducerState() -> MainViewReducer.State {
         let state = MainViewReducer.State(events: .init(
-            getBalance: { [wallet] in
-                return wallet?.contract.info.balance.string(with: .maximum9) ?? "0"
-            },
-            getWalletAddress: {
-                wallet?.contract.address.rawValue ?? "Wallet Address"
-            },
-            getTransactions: {
-                try await wallet?.contract.transactions(after: nil).map { transaction in
+            getUserWallet: {
+                let wallet = try AppState.getWallet()
+                let balance = wallet.contract.info.balance.string(with: .maximum9).toDouble()
+                let address = wallet.contract.address.description
+                let transactions = try await wallet.contract.transactions(after: nil).map { transaction in
                     var amount: Double = 0.0
                     var isTransactionSent: Bool = false
                     var destinationAddress: String = ""
                     var fee: Double = 0.0
                     var comment: String = ""
-                    
+
                     if let value = transaction.out.first {
                         amount = value.value.string(with: .maximum9).toDouble()
                         isTransactionSent = true
@@ -248,13 +245,16 @@ class ComposableAuthenticationViews {
                         isTransactionSend: isTransactionSent,
                         transactionId: "2343ewds"
                     )
-                } ?? []
+                }
+
+                return UserSettings.UserWallet(allAmmount: balance, address: address, transactions: transactions)
+
             },
             createRecieveTonReducerState: {
                 self.makeRecieveTonReducerState()
             },
-            createSendReducerState: {
-                self.makeSendReducerState()
+            createSendReducerState: { userWallet in
+                self.makeSendReducerState(userWallet: userWallet)
             }
         ))
         
@@ -265,18 +265,7 @@ class ComposableAuthenticationViews {
         let state = ReadyToGoReducer.State(
             events: .init(
                 createMainViewReducerState: {
-                    do {
-#warning("Wallet dont create")
-                        //                        let key = try AppState.getKey()
-                        //                        let wallet = try await TonWalletManager.shared.anyWallet(key: key)
-                        //                        AppState.set(wallet: wallet)
-
-                        return self.makeMainViewReducerState(wallet: nil)
-                    } catch {
-                        print(error.localizedDescription)
-                        
-                        return self.makeMainViewReducerState(wallet: nil)
-                    }
+                    return self.makeMainViewReducerState()
                 }
             )
         )
@@ -357,10 +346,10 @@ class ComposableAuthenticationViews {
         return state
     }
     
-    func makeImportSuccessReducerState(wallet: Wallet3) -> ImportSuccessReducer.State {
+    func makeImportSuccessReducerState() -> ImportSuccessReducer.State {
         let state = ImportSuccessReducer.State(events: .init(
             createMainViewReducerState: {
-                return self.makeMainViewReducerState(wallet: wallet)
+                return self.makeMainViewReducerState()
             }
         ))
         
@@ -370,8 +359,8 @@ class ComposableAuthenticationViews {
     func makeImportPhraseReducerState() -> ImportPhraseReducer.State {
         let state = ImportPhraseReducer.State(
             events: .init(
-                createImportSuccessReducer: { wallet in
-                    return self.makeImportSuccessReducerState(wallet: wallet)
+                createImportSuccessReducer: {
+                    return self.makeImportSuccessReducerState()
                 },
                 createImportFailureReducer: {
                     return self.makeImportFailureReducerState()
@@ -386,10 +375,10 @@ class ComposableAuthenticationViews {
                         AppState.set(wallet3: wallet)
                         AppState.set(.keyConfirmed)
                         
-                        return wallet
+                        return true
                     } catch {
                         print(error)
-                        return nil
+                        return false
                     }
                 }
             )
@@ -454,7 +443,7 @@ class ComposableAuthenticationViews {
             }
             
             return AnyView(MainView(store: .init(
-                initialState: makeMainViewReducerState(wallet: wallet),
+                initialState: makeMainViewReducerState(),
                 reducer: MainViewReducer()
             )))
         }

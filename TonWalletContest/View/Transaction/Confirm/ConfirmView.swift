@@ -107,12 +107,20 @@ struct ConfirmView: View {
                 } destination: { store in
                     PendingView(store: store)
                 } label: {
-                    Text("View my wallet")
-                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                        .customWideBlueButtonStyle()
-                        .padding(.horizontal, 16)
-                        .padding(.bottom)
+                    ZStack(alignment: .trailing) {
+                        Text("View my wallet")
+                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                            .customWideBlueButtonStyle()
+
+                        if viewStore.isLoading {
+                            CustomProgressView(color: .white, strokeWidth: 2.33)
+                                .frame(width: 16, height: 16)
+                                .padding([.trailing], 17)
+                        }
+                    }
                 }
+                .padding(.horizontal, 16)
+                .padding(.bottom)
             }
             .background(Color("LightGray"))
         }

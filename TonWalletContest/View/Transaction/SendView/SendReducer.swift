@@ -4,28 +4,25 @@ import Foundation
 
 struct SendReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
-        var id: UUID = .init()
-        @PresentationState var destination: Destination.State?
-        var transactions: [Transaction1]
-        var address: String = ""
-        var isLoading: Bool = true
-
+        var userWallet: UserSettings.UserWallet
         var events: Events
+        @PresentationState var destination: Destination.State?
+        var id: UUID = .init()
+        var address: String = ""
+        var transactions: [Transaction1]
+        var isLoading: Bool = false
 
-        init(transactions: [Transaction1], destination: Destination.State? = nil, events: Events) {
+        init(userWallet: UserSettings.UserWallet, destination: Destination.State? = nil, events: Events) {
             self.destination = destination
             self.events = events
-            self.transactions = transactions
+            self.userWallet = userWallet
+            self.transactions = userWallet.transactions
         }
 
         static let preview: State = .init(
-            transactions:  [
-                Transaction1(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "EldorTheCoolest.ton", amount: 1.2, comment: "", fee: 0.0023123, date: .init(), status: .pending, isTransactionSend: true, transactionId: "dsdf"),
-                Transaction1(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "GoingCrazy.ton", amount: 110.2, comment: "", fee: 0.23123, date: .init().addingTimeInterval(86400 * 5), status: .cancelled, isTransactionSend: false, transactionId: "SDFsdfwr23r23w"),
-                Transaction1(senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394", humanAddress: "", amount: 110.2, comment: "", fee: 0.23123, date: .init().addingTimeInterval(86400), status: .success, isTransactionSend: true, transactionId: "ASDA23er23dsad23")
-            ],
+            userWallet: .preview,
             events: .init(
-                createEnterAmountReducerState: { _ in .preview }
+                createEnterAmountReducerState: { _, _, _ in .preview }
             )
         )
     }
@@ -42,7 +39,7 @@ struct SendReducer: ReducerProtocol {
     }
 
     struct Events: AlwaysEquitable {
-        var createEnterAmountReducerState: (String) async ->  EnterAmountReducer.State
+        var createEnterAmountReducerState: (String, String, UserSettings.UserWallet) async ->  EnterAmountReducer.State
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -78,7 +75,7 @@ struct SendReducer: ReducerProtocol {
 
                 return .run { [events = state.events, state] send in
                     await send(.loading(true))
-                    await send(.destinationState(.enterAmountView(await events.createEnterAmountReducerState(state.address))))
+                    await send(.destinationState(.enterAmountView(await events.createEnterAmountReducerState(state.address, "", state.userWallet))))
                     await send(.loading(false))
                 }
             case .destination:

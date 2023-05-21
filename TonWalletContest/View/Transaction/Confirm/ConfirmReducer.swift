@@ -6,15 +6,10 @@ struct ConfirmReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         var transaction: Transaction1
-
-//        var recipientAddress: String = "ASdfsdjfnjksldfsfsdfsdfsdfFWE"
-//        var amountString: String = "100"
-//        var feeString: String = "0.033"
-
-//        var comment: String = ""
         var numberCharacter: Int = 10
         var isTextEditor = false
         var isOverLimit = false
+        var isLoading: Bool = false
         
         @PresentationState var destination: Destination.State?
         var events: Events
@@ -44,6 +39,7 @@ struct ConfirmReducer: ReducerProtocol {
         case destinationState(Destination.State)
         case sendButtonTapped
         case change(StateChangeTypes)
+        case loading(Bool)
     }
     
     struct Events: AlwaysEquitable {
@@ -56,8 +52,11 @@ struct ConfirmReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .loading(let isLoading):
+                state.isLoading = isLoading
+                return .none
+
             case let .change(type):
-                
                 switch type {
                 case let .comment(comment):
                     state.transaction.comment = comment
@@ -69,21 +68,18 @@ struct ConfirmReducer: ReducerProtocol {
                 
                 return .none
                 
-//            case .change(comment: let comment):
-//                state.comment = comment
-//                return .none
-                
             case let .destinationState(destinationState):
                 state.destination = destinationState
                 
                 return .none
             case .sendButtonTapped:
                 return .run { [events = state.events, state] send in
+                    await send(.loading(true))
                     try await events.sendTon(state.transaction)
 
                     let state = await events.createPendingReducerState(state.transaction.humanAddress)
+                    await send(.loading(false))
                     await send(.destinationState(.pendingView(state)))
-
                 }
             case .destination:
                 return .none

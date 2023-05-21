@@ -18,16 +18,10 @@ struct MainView: View {
     }
 
     struct ViewState: Equatable {
-        var balance: String
-        var walletAddress: String
-        var transactions: [Transaction1]
-        //        var destination: MainViewReducer.Destination.State?
+        var userWallet: UserSettings.UserWallet?
 
         init(state: MainViewReducer.State) {
-            self.balance = state.balance
-            self.walletAddress = state.walletAddress
-            self.transactions = state.transactions
-            //            self.destination = state.destination
+            self.userWallet = state.userWallet
         }
     }
 
@@ -49,11 +43,11 @@ struct MainView: View {
                     .padding(.init(top: 8.0, leading: 14.0, bottom: 8.0, trailing: 14.0))
 
                     VStack {
-                        Text(viewStore.walletAddress)
+                        Text(viewStore.userWallet?.address ?? "")
                             .frame(width: 100)
                             .lineLimit(1)
                             .foregroundColor(.white)
-                        Text(viewStore.balance)
+                        Text(viewStore.userWallet?.allAmmount.description ?? "")
                             .foregroundColor(.white)
                     }
                     .padding(.top, 28.0)
@@ -77,7 +71,7 @@ struct MainView: View {
 
                 VStack {
                     List {
-                        ForEach(viewStore.transactions) { transaction in
+                        ForEach(viewStore.userWallet?.transactions ?? []) { transaction in
                             VStack(alignment: .leading, spacing: 8.0) {
                                 HStack(spacing: 3.0) {
                                     TransactionAmountView(
@@ -96,6 +90,8 @@ struct MainView: View {
 
                                 Text(transaction.senderAddress)
                                     .font(.system(size: 15, weight: .regular))
+                                    .lineLimit(1)
+                                    .frame(width: 100)
                                 Text("\(transaction.fee) storage fee")
                                     .font(.system(size: 15, weight: .regular))
                                     .foregroundColor(.secondary)

@@ -30,7 +30,7 @@ struct SendView: View {
                 .clearButton(isHidden: viewStore.address.isEmpty, action: {
                     viewStore.send(.changeAddress(""))
                 })
-                .frame(width: .infinity, height: 50, alignment: .leading)
+                .frame(height: 50, alignment: .leading)
                 .padding(.horizontal, 16)
                 .background(Color("LightGray"))
                 .cornerRadius(10)
