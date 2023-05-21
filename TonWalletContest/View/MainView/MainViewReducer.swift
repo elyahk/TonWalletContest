@@ -11,7 +11,6 @@ struct MainViewReducer: ReducerProtocol {
         var events: Events
         var transactions: [Transaction1] = []
 
-
         static let preview: State = .init(
             events: .init(
                 getBalance: { "2.333333" },

@@ -210,7 +210,7 @@ class ComposableAuthenticationViews {
                     var destinationAddress: String = ""
                     var fee: Double = 0.0
                     var comment: String = ""
-
+                    
                     if let value = transaction.out.first {
                         amount = value.value.string(with: .maximum9).toDouble()
                         isTransactionSent = true
