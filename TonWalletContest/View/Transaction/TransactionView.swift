@@ -7,34 +7,81 @@
 
 import SwiftUI
 
+extension Double {
+    func integerString() -> String {
+        return String(Int(self.rounded(.down)))
+    }
+
+    func fractionalString() -> String {
+        let stringAmount = String(self)
+        return String(stringAmount.suffix(from: stringAmount.firstIndex(of: ".") ?? stringAmount.endIndex))
+    }
+}
+
+extension Date {
+    enum FormatType {
+        case full
+        case short
+
+        var format: String {
+            switch self {
+            case .full: return "MMM d, yyyy 'at' HH:mm"
+            case .short: return "HH:mm"
+            }
+        }
+    }
+
+    func formattedDateString(type: FormatType) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = type.format
+        return dateFormatter.string(from: self)
+    }
+}
+
+struct TransactionAmountView: View {
+    typealias Size = (largeSize: CGFloat, smallSize: CGFloat, iconSize: CGFloat)
+    var amount: Double
+    @State var size: Size
+    @State var isSent: Bool
+    @State var integerString: String
+    @State var fractionalString: String
+
+    init(amount: Double, isSent: Bool, size: Size = (48, 30, 36)) {
+        self.amount = amount
+        self.size = size
+        self.isSent = isSent
+        self.integerString = amount.integerString()
+        self.fractionalString = amount.fractionalString()
+    }
+
+    var body: some View {
+        HStack(alignment: .center) {
+            Image("ic_ton")
+                .resizable()
+                .scaledToFill()
+                .frame(width: size.iconSize, height: size.iconSize, alignment: .center)
+            (
+                Text(integerString)
+                    .font(.system(size: size.largeSize, weight: .semibold, design: .rounded))
+                + Text(fractionalString)
+                    .font(.system(size: size.smallSize, weight: .semibold, design: .rounded))
+            )
+            .foregroundColor(isSent ? .red : .green)
+        }
+    }
+}
 
 struct TransactionView: View {
-
     let transaction: Transaction1
     @State private var rotationAngle: Double = 0.0
 
-
     var body: some View {
-
-        let numberString = String(transaction.amount)
-        let largeDigits = String(Int(transaction.amount))
-        let smallDigits = numberString.suffix(from: numberString.firstIndex(of: ".") ?? numberString.endIndex)
         let transactionDirection = transaction.isTransactionSend ? "Recepient" : "Sender"
 
         VStack(spacing: 4) {
-            HStack(alignment: .center) {
-                Image("ic_ton")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 36, height: 36, alignment: .center)
-                (
-                    Text(largeDigits)
-                        .font(.system(size: 48, weight: .semibold, design: .rounded))
-                    + Text(smallDigits)
-                        .font(.system(size: 30, weight: .semibold, design: .rounded))
-                )
-                .foregroundColor(transaction.isTransactionSend ? .red : .green)
-            }
+
+            TransactionAmountView(amount: transaction.amount, isSent: transaction.isTransactionSend)
+
             Text(String(transaction.fee) + " transaction fee")
                 .font(.callout)
                 .foregroundColor(.gray)
@@ -45,7 +92,7 @@ struct TransactionView: View {
                     .font(.callout)
                     .foregroundColor(.red)
             case .success:
-                Text(dateFormatter(date: transaction.date))
+                Text(transaction.date.formattedDateString(type: .full))
                     .font(.callout)
                     .foregroundColor(.gray)
                     .padding(.bottom)
@@ -140,12 +187,6 @@ struct TransactionView: View {
             }
         }
         .padding(.top, 76)
-    }
-
-    func dateFormatter(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, yyyy 'at' HH:mm"
-        return dateFormatter.string(from: date)
     }
 }
 

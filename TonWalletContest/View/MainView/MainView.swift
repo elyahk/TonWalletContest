@@ -21,13 +21,13 @@ struct MainView: View {
         var balance: String
         var walletAddress: String
         var transactions: [Transaction1]
-//        var destination: MainViewReducer.Destination.State?
+        //        var destination: MainViewReducer.Destination.State?
 
         init(state: MainViewReducer.State) {
             self.balance = state.balance
             self.walletAddress = state.walletAddress
             self.transactions = state.transactions
-//            self.destination = state.destination
+            //            self.destination = state.destination
         }
     }
 
@@ -79,17 +79,38 @@ struct MainView: View {
                     List {
                         ForEach(viewStore.transactions) { transaction in
                             VStack(alignment: .leading, spacing: 8.0) {
-                                HStack {
-                                    Text("\(transaction.amount) from")
+                                HStack(spacing: 3.0) {
+                                    TransactionAmountView(
+                                        amount: transaction.amount,
+                                        isSent: transaction.isTransactionSend,
+                                        size: (19, 18, 16)
+                                    )
+                                    Text(transaction.isTransactionSend ? "to" : "from")
+                                        .font(.system(size: 18, weight: .regular))
+                                        .foregroundColor(.secondary)
                                     Spacer()
-                                    Text("\(transaction.date)")
+                                    Text(transaction.date.formattedDateString(type: .short))
+                                        .font(.system(size: 15, weight: .regular))
+                                        .foregroundColor(.secondary)
                                 }
-                                .padding(.bottom, -2.0)
+
                                 Text(transaction.senderAddress)
+                                    .font(.system(size: 15, weight: .regular))
                                 Text("\(transaction.fee) storage fee")
-                                Text(transaction.comment)
+                                    .font(.system(size: 15, weight: .regular))
+                                    .foregroundColor(.secondary)
+                                ChatBubble {
+                                    Text(transaction.comment)
+                                        .font(.system(size: 15, weight: .regular))
+                                        .padding([.trailing], 10)
+                                        .padding([.leading], 15)
+                                        .padding([.bottom, .top], 8)
+                                        .multilineTextAlignment(.center)
+                                        .background(Color(UIColor(red: 0.937, green: 0.937, blue: 0.953, alpha: 1).cgColor))
+                                }
                             }
                         }
+
                     }
                     .listStyle(.plain)
                 }

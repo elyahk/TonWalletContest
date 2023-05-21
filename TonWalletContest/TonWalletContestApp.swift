@@ -205,15 +205,47 @@ class ComposableAuthenticationViews {
             },
             getTransactions: {
                 try await wallet?.contract.transactions(after: nil).map { transaction in
-                    Transaction1(
+                    var amount: Double = 0.0
+                    var isTransactionSent: Bool = false
+                    var destinationAddress: String = ""
+                    var fee: Double = 0.0
+                    var comment: String = ""
+
+                    if let value = transaction.out.first {
+                        amount = value.value.string(with: .maximum9).toDouble()
+                        isTransactionSent = true
+                        destinationAddress = value.destinationAccountAddress?.displayName ?? ""
+                        fee = value.fees.string(with: .maximum9).toDouble()
+                        switch value.body {
+                        case .text(value: let text):
+                            comment = text
+                        default:
+                            comment = "Encrepted: \(value.body)"
+                        }
+
+                    } else if let value = transaction.in {
+                        amount = value.value.string(with: .maximum9).toDouble()
+                        destinationAddress = value.sourceAccountAddress?.displayName ?? ""
+                        fee = value.fees.string(with: .maximum9).toDouble()
+                        isTransactionSent = false
+
+                        switch value.body {
+                        case .text(value: let text):
+                            comment = text
+                        default:
+                            comment = "Encrepted: \(value.body)"
+                        }
+                    }
+
+                    return Transaction1(
                         senderAddress: transaction.in?.sourceAccountAddress?.displayName ?? "Empty",
-                        humanAddress: "Human address",
-                        amount: 0.0,
-                        comment: "Comment",
-                        fee: transaction.storageFee.string(with: .maximum9).toDouble() + transaction.otherFee.string(with: .maximum9).toDouble(),
+                        humanAddress: destinationAddress,
+                        amount: amount,
+                        comment: comment,
+                        fee: fee,
                         date: transaction.date,
                         status: .pending,
-                        isTransactionSend: true,
+                        isTransactionSend: isTransactionSent,
                         transactionId: "2343ewds"
                     )
                 } ?? []
