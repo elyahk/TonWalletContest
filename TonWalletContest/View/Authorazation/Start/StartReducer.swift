@@ -55,6 +55,8 @@ struct StartReducer: ReducerProtocol {
                 return .none
 
             case .createMyWalletTapped:
+                guard !state.isLoading else { return .none }
+
                 return .run { [events = state.events] send in
                     await send(.loading(true))
                     let state = try await events.createCongratulationState()
@@ -63,6 +65,8 @@ struct StartReducer: ReducerProtocol {
                 }
 
             case .importMyWalletTapped:
+                guard !state.isLoading else { return .none }
+
                 return .run { [events = state.events] send in
                     let state = try await events.createImportPhraseState()
                     await send(.destinationState(.importWords(state)))
