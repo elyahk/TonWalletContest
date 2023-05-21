@@ -59,7 +59,6 @@ struct MainView: View {
                             .font(.system(size: 17, weight: .regular))
 
                         TransactionAmountView(amount: viewStore.userWallet?.allAmmount ?? 0, isSent: false)
-                            .foregroundColor(Color.white)
                     }
                     .padding(.top, 28.0)
 
@@ -120,6 +119,9 @@ struct MainView: View {
                                     .font(.system(size: 15, weight: .regular))
                                     .lineLimit(1)
                                     .frame(width: 100)
+                                    .truncationMode(.middle)
+                                    .padding(.top, -2.0)
+
                                 Text("\(transaction.fee) storage fee")
                                     .font(.system(size: 15, weight: .regular))
                                     .foregroundColor(.secondary)
@@ -204,7 +206,6 @@ struct MainView_Previews: PreviewProvider {
                 reducer: MainViewReducer()
             ))
         }
-        .ignoresSafeArea()
         .background(Color.black)
     }
 }
