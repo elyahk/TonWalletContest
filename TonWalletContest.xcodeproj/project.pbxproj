@@ -48,6 +48,7 @@
 		6128283A2A18BD7500C5F5BA /* Transaction1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612828392A18BD7500C5F5BA /* Transaction1.swift */; };
 		6133A79D29E1623A008BDF34 /* LegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6133A79C29E1623A008BDF34 /* LegacyTextField.swift */; };
 		61374DDB2A19F84C00E44207 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61374DDA2A19F84C00E44207 /* ChatBubble.swift */; };
+		61374DE72A1A46D300E44207 /* LoadingViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61374DE62A1A46D300E44207 /* LoadingViewStyle.swift */; };
 		613D3A0029FEC6AA00243B2E /* RecieveTonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613D39FF29FEC6AA00243B2E /* RecieveTonView.swift */; };
 		615017B829E0055500AF963D /* TestTimeReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017B729E0055500AF963D /* TestTimeReducer.swift */; };
 		615017BA29E0056D00AF963D /* TestTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017B929E0056D00AF963D /* TestTimeView.swift */; };
@@ -198,6 +199,7 @@
 		612828392A18BD7500C5F5BA /* Transaction1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction1.swift; sourceTree = "<group>"; };
 		6133A79C29E1623A008BDF34 /* LegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTextField.swift; sourceTree = "<group>"; };
 		61374DDA2A19F84C00E44207 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
+		61374DE62A1A46D300E44207 /* LoadingViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewStyle.swift; sourceTree = "<group>"; };
 		613D39FF29FEC6AA00243B2E /* RecieveTonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecieveTonView.swift; sourceTree = "<group>"; };
 		615017B729E0055500AF963D /* TestTimeReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTimeReducer.swift; sourceTree = "<group>"; };
 		615017B929E0056D00AF963D /* TestTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTimeView.swift; sourceTree = "<group>"; };
@@ -744,6 +746,7 @@
 			isa = PBXGroup;
 			children = (
 				6E5D444429DC6406000F95CE /* ButtonTextStyle.swift */,
+				61374DE62A1A46D300E44207 /* LoadingViewStyle.swift */,
 				134136552A16BB190046B2C5 /* DigitsStringModifier.swift */,
 				1352FF9F29FBD40C002799A9 /* WideBlueTextButtonStyle.swift */,
 				131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */,
@@ -1029,6 +1032,7 @@
 				6158D4E129EA88DB00AC467C /* ConfirmPasscodeView+Reducer.swift in Sources */,
 				6152F1962A04193500F97845 /* SSignal.m in Sources */,
 				61DBEDA42A19013800312268 /* MainViewReducer.swift in Sources */,
+				61374DE72A1A46D300E44207 /* LoadingViewStyle.swift in Sources */,
 				1352FF9C29FBCEC3002799A9 /* PendingView.swift in Sources */,
 				61153DD329D8F5AA00D4D030 /* TonWalletContestApp.swift in Sources */,
 			);

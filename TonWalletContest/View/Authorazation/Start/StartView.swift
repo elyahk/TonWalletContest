@@ -83,10 +83,7 @@ struct StartView: View {
 
                 if viewStore.isLoading {
                     ProgressView()
-                        .foregroundColor(.gray) // 2
-                        .padding(30)
-                        .background(Color.init(UIColor.secondarySystemBackground))
-                        .cornerRadius(8)
+                    .modifier(LoadingViewStyle())
                 }
             }
         }
