@@ -156,8 +156,13 @@ struct MainView: View {
                         RecieveTonView(store: store)
                             .toolbar {
                                 ToolbarItem(placement: .navigationBarLeading) {
-                                    Button("< Back") {
+                                    Button {
                                         viewStore.send(.tappedBackButton)
+                                    } label: {
+                                        HStack(spacing: 0.0) {
+                                            Image(systemName: "chevron.backward")
+                                            Text("Back")
+                                        }
                                     }
                                 }
                             }
@@ -174,8 +179,13 @@ struct MainView: View {
                             SendView(store: store)
                                 .toolbar {
                                     ToolbarItem(placement: .navigationBarLeading) {
-                                        Button("< Back") {
+                                        Button {
                                             viewStore.send(.tappedBackButton)
+                                        } label: {
+                                            HStack(spacing: 0.0) {
+                                                Image(systemName: "chevron.backward")
+                                                Text("Back")
+                                            }
                                         }
                                     }
                                 }
