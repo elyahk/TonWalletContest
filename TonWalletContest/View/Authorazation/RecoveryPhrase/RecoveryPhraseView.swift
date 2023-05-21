@@ -82,6 +82,7 @@ struct RecoveryPhraseView: View {
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                         .customBlueButtonStyle()
                         .padding(.bottom, 30)
+                        .padding(.horizontal, 48)
                 }
             }
             .onAppear {

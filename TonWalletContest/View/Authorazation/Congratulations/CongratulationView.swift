@@ -44,6 +44,7 @@ struct CongratulationView: View {
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                         .customBlueButtonStyle()
                         .padding(.bottom, 90)
+                        .padding(.horizontal, 48)
                 }
             }
             .navigationBarBackButtonHidden(true)

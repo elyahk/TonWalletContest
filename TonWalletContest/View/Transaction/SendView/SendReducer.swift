@@ -8,6 +8,7 @@ struct SendReducer: ReducerProtocol {
         @PresentationState var destination: Destination.State?
         var transactions: [Transaction1]
         var address: String = ""
+        var isLoading: Bool = true
 
         var events: Events
 
@@ -37,6 +38,7 @@ struct SendReducer: ReducerProtocol {
         case changedAddress(String)
         case clearTransactions
         case changeAddress(String)
+        case loading(Bool)
     }
 
     struct Events: AlwaysEquitable {
@@ -48,6 +50,10 @@ struct SendReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .loading(let isLoading):
+                state.isLoading = isLoading
+                return .none
+
             case .editButtonTapped:
 
                 return .run { _ in
@@ -68,8 +74,12 @@ struct SendReducer: ReducerProtocol {
 
                 return .none
             case .continueButtonTapped:
+                guard !state.isLoading else { return .none}
+
                 return .run { [events = state.events, state] send in
+                    await send(.loading(true))
                     await send(.destinationState(.enterAmountView(await events.createEnterAmountReducerState(state.address))))
+                    await send(.loading(false))
                 }
             case .destination:
                 return .none

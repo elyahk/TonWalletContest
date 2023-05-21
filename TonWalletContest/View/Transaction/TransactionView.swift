@@ -108,22 +108,15 @@ struct TransactionView: View {
                     
                 }
             case .pending:
-                HStack {
-                    Image("progress")
-                        .resizable()
-                        .scaledToFill()
+                HStack(alignment: .center) {
+                    CustomProgressView(color: .systemBlue, strokeWidth: 1.33)
                         .frame(width: 10, height: 10)
-                        .rotationEffect(.init(degrees: rotationAngle))
-                        .onAppear {
-                            withAnimation(.linear(duration: 1.5).repeatForever(autoreverses: false)) {
-                                rotationAngle = 360
-                            }
-                        }
                     Text("Pending")
                         .font(.callout)
                         .foregroundColor(.blue)
                 }
             }
+
             Text("DETAILS")
                 .foregroundColor(.gray)
                 .font(.footnote)
@@ -173,6 +166,7 @@ struct TransactionView: View {
                     Text("Retry transaction")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                         .customWideBlueButtonStyle()
+                        .padding(.horizontal, 16)
                         .padding(.bottom)
                 }
             } else {
@@ -182,6 +176,7 @@ struct TransactionView: View {
                     Text("Send TON to this address")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                         .customWideBlueButtonStyle()
+                        .padding(.horizontal, 16)
                         .padding(.bottom)
                 }
             }

@@ -90,6 +90,7 @@ struct EnterAmountView: View {
                     Text("Continue")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                         .customWideBlueButtonStyle()
+                        .padding(.horizontal, 16)
                         .padding(.bottom)
                 }
 

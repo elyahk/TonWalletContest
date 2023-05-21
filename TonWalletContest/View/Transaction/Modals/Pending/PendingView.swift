@@ -36,6 +36,7 @@ struct PendingView: View {
                     Text("View my wallet")
                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                         .customWideBlueButtonStyle()
+                        .padding(.horizontal, 16)
                         .padding(.bottom)
                 }
                 
