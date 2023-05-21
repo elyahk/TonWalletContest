@@ -30,43 +30,71 @@ struct MainView: View {
             VStack {
                 VStack {
                     HStack {
-                        Button("+") {
+                        Button {
 
+                        } label: {
+                            Image("ic_scan")
+                                .resizable()
+                                .frame(width: 22.0, height: 22.0)
+                                .padding()
                         }
-                        .frame(width: 28.0, height: 28.0)
                         Spacer()
-                        Button("-") {
+                        Button {
 
+                        } label: {
+                            Image(systemName: "gear")
+                                .resizable()
+                                .frame(width: 22.0, height: 22.0)
+                                .foregroundColor(Color.white)
+                                .padding()
                         }
-                        .frame(width: 28.0, height: 28.0)
                     }
-                    .padding(.init(top: 8.0, leading: 14.0, bottom: 8.0, trailing: 14.0))
 
                     VStack {
                         Text(viewStore.userWallet?.address ?? "")
                             .frame(width: 100)
                             .lineLimit(1)
                             .foregroundColor(.white)
-                        Text(viewStore.userWallet?.allAmmount.description ?? "")
-                            .foregroundColor(.white)
+                            .truncationMode(.middle)
+                            .font(.system(size: 17, weight: .regular))
+
+                        TransactionAmountView(amount: viewStore.userWallet?.allAmmount ?? 0, isSent: false)
+                            .foregroundColor(Color.white)
                     }
                     .padding(.top, 28.0)
 
                     HStack(spacing: 12.0) {
-                        Button("Recieve") {
+                        Button {
                             viewStore.send(.tappedRecieveButton)
+                        } label: {
+                            Label {
+                                Text("Recieve")
+                            } icon: {
+                                Image(systemName: "arrow.down.backward")
+                            }
+                            .frame(maxWidth: .infinity, minHeight: 50.0)
+                            .font(.system(size: 17.0, weight: .semibold))
+                            .foregroundColor(.white)
+                            .background(Color.init(UIColor(red: 0.196, green: 0.667, blue: 0.996, alpha: 1).cgColor))
+                            .cornerRadius(12)
                         }
-                        .frame(maxWidth: .infinity, minHeight: 50.0)
-                        .customBlueButtonStyle()
 
-                        Button("Send") {
+                        Button {
                             viewStore.send(.tappedSendButton)
+                        } label: {
+                            Label {
+                                Text("Send")
+                            } icon: {
+                                Image(systemName: "arrow.up.forward")
+                            }
+                            .frame(maxWidth: .infinity, minHeight: 50.0)
+                            .font(.system(size: 17.0, weight: .semibold))
+                            .foregroundColor(.white)
+                            .background(Color.init(UIColor(red: 0.196, green: 0.667, blue: 0.996, alpha: 1).cgColor))
+                            .cornerRadius(12)
                         }
-                        .frame(maxWidth: .infinity, minHeight: 50.0)
-                        .customBlueButtonStyle()
                     }
                     .padding(.init(top: 74.0, leading: 16.0, bottom: 16.0, trailing: 16.0))
-                    .frame(width: .infinity)
                 }
 
                 VStack {
@@ -166,6 +194,8 @@ struct MainView_Previews: PreviewProvider {
                 reducer: MainViewReducer()
             ))
         }
+        .ignoresSafeArea()
+        .background(Color.black)
     }
 }
 
