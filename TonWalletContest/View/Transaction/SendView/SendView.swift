@@ -100,29 +100,29 @@ struct SendView: View {
                 }
                 Spacer()
 
-                NavigationLinkStore (
-                    self.store.scope(
-                        state: \.$destination,
-                        action: SendReducer.Action.destination),
-                    state: /SendReducer.Destination.State.enterAmountView,
-                    action: SendReducer.Destination.Action.enterAmountView
-                ) {
-                    ViewStore(store).send(.continueButtonTapped)
-                } destination: { store in
-                    EnterAmountView(store: store)
-                } label: {
-                    ZStack(alignment: .trailing) {
+                ZStack(alignment: .trailing) {
+                    NavigationLinkStore (
+                        self.store.scope(
+                            state: \.$destination,
+                            action: SendReducer.Action.destination),
+                        state: /SendReducer.Destination.State.enterAmountView,
+                        action: SendReducer.Destination.Action.enterAmountView
+                    ) {
+                        ViewStore(store).send(.continueButtonTapped)
+                    } destination: { store in
+                        EnterAmountView(store: store)
+                    } label: {
                         Text("Continue")
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                             .customWideBlueButtonStyle()
                             .padding(.horizontal, 16)
-
-                        if viewStore.isLoading {
-//                            CustomProgressView(color: .systemBlue, strokeWidth: 2.33)
-//                                .frame(width: 16.0, height: 16.0)
-//                                .padding([.trailing, 240])
-                        }
                     }
+
+//                    if viewStore.isLoading {
+//                        CustomProgressView(color: .systemBlue, strokeWidth: 2.33)
+//                            .frame(width: 16.0, height: 16.0)
+//                            .padding([.trailing, 240])
+//                    }
                 }
                 .padding(.bottom)
             }

@@ -12,12 +12,13 @@ struct EnterAmountReducer: ReducerProtocol {
         var address: String
         var allAmount: Double
         var humanAddress: String
+        var events: Events
         var amount: String = ""
         var isAllAmount = false
+        var isLoading: Bool = false
 
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
-        var events: Events
         
         init(address: String, allAmount: Double, humanAddress: String, destination: Destination.State? = nil, events: Events) {
             self.address = address
@@ -45,6 +46,7 @@ struct EnterAmountReducer: ReducerProtocol {
         case destinationState(Destination.State)
         case continueButtonTapped
         case changed(StateType)
+        case loading(Bool)
     }
 
     enum StateType: Equatable {
@@ -62,6 +64,9 @@ struct EnterAmountReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case let .loading(isLoading):
+                state.isLoading = isLoading
+                return .none
             case .changed(let type):
                 switch type {
                 case .text(let value):
@@ -82,9 +87,13 @@ struct EnterAmountReducer: ReducerProtocol {
                 
                 return .none
             case .continueButtonTapped:
+                guard state.isLoading else { return .none }
+
                 return .run { [events = state.events, state] send in
+                    await send(.loading(true))
                     let transaction = try await events.getTransaction(.init(address: state.address, amount: state.amount))
                     await send(.destinationState(.confirmView(await events.createConfirmReducerState(transaction))))
+                    await send(.loading(false))
                 }
             case .destination:
                 return .none
