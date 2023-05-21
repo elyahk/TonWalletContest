@@ -78,6 +78,11 @@ struct SendReducer: ReducerProtocol {
                     await send(.destinationState(.enterAmountView(await events.createEnterAmountReducerState(state.address, "", state.userWallet))))
                     await send(.loading(false))
                 }
+            case .destination(.presented(.enterAmountView(.destination(.presented(.confirmView(.destination(.presented(.pendingView(.doneButtonTapped))))))))):
+                return .run { send in
+                    await dismiss()
+                }
+
             case .destination:
                 return .none
             }

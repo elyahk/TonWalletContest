@@ -47,6 +47,7 @@ struct SuccessView: View {
                         .padding(.bottom)
                 }
             }
+            .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {

@@ -55,6 +55,7 @@ struct PendingView: View {
                         .frame(height: .zero)
                 }
             }
+            .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
