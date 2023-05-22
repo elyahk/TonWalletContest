@@ -255,7 +255,11 @@ class ComposableAuthenticationViews {
             },
             createSendReducerState: { userWallet in
                 self.makeSendReducerState(userWallet: userWallet)
+            },
+            createEnterAmountReducerState: { recieverAddress, recieverShortAddress, userWallet in
+                self.makeEnterAmountReducerState(recieverAddress: recieverAddress, recieverShortAddress: recieverShortAddress, userWallet: userWallet)
             }
+
         ))
         
         return state

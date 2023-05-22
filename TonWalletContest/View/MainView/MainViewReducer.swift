@@ -16,7 +16,8 @@ struct MainViewReducer: ReducerProtocol {
             events: .init(
                 getUserWallet: { .preview },
                 createRecieveTonReducerState: { .preview },
-                createSendReducerState: { _ in .preview }
+                createSendReducerState: { _ in .preview },
+                createEnterAmountReducerState: { _, _, _ in .preview }
             )
         )
     }
@@ -25,6 +26,7 @@ struct MainViewReducer: ReducerProtocol {
         var getUserWallet: () async throws -> UserSettings.UserWallet
         var createRecieveTonReducerState: () async -> RecieveTonReducer.State
         var createSendReducerState: (UserSettings.UserWallet) async -> SendReducer.State
+        var createEnterAmountReducerState: (String, String, UserSettings.UserWallet) async -> EnterAmountReducer.State
     }
 
     enum Action: Equatable {
@@ -46,8 +48,19 @@ struct MainViewReducer: ReducerProtocol {
             switch action {
             case let .tappedTransaction(transaction):
                 print("Transaction Tapped: \(transaction)")
+
                 state.transactionReducerState = .init(transaction: transaction, isShowing: true, events: .init())
                 return .none
+            case let .transactionView(.sendTransaction(transaction)):
+                state.transactionReducerState = nil
+
+                return .run { [events = state.events, state] send in
+                    guard let userWallet = state.userWallet else { return }
+                    var state = await events.createSendReducerState(userWallet)
+                    state.destination = .enterAmountView(await events.createEnterAmountReducerState(transaction.senderAddress, transaction.humanAddress, userWallet))
+                    await send(.destinationState(.sendView(state)))
+                }
+
             case .transactionView(.doneButtonTapped):
                 state.transactionReducerState = nil
                 return .none

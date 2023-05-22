@@ -136,8 +136,11 @@ struct MainView: View {
                                             .background(Color(UIColor(red: 0.937, green: 0.937, blue: 0.953, alpha: 1).cgColor))
                                     }
                                 }
+                                .contentShape(Rectangle())
                                 .onTapGesture {
                                     viewStore.send(.tappedTransaction(transaction))
+
+
                                 }
                             }
 

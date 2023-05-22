@@ -34,6 +34,7 @@ struct TransactionReducer: ReducerProtocol {
         case destinationState(Destination.State)
         case doneButtonTapped
         case sendButtonTapped
+        case sendTransaction(Transaction1)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -50,9 +51,11 @@ struct TransactionReducer: ReducerProtocol {
 
                 return .none
             case .sendButtonTapped:
-                return .run { [events = state.events, state] send in
-
+                return .run { [state] send in
+                    await send(.sendTransaction(state.transaction))
                 }
+            case .sendTransaction:
+                return .none
             case .destination:
                 return .none
             }

@@ -39,6 +39,7 @@ struct TransactionView: View {
 
                                 Button {
                                     viewStore.send(.doneButtonTapped)
+                                    viewStore.send(.doneButtonTapped, transaction: .init(animation: .easeIn(duration: 0.5)))
                                 } label: {
                                     Text("Done")
                                         .font(.system(size: 17.0, weight: .semibold))
