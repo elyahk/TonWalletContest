@@ -197,6 +197,7 @@ class ComposableAuthenticationViews {
                     let fee = try await message.fees()
 
                     let transaction = Transaction1(
+                        remoteId: .init(logicalTime: 1, hash: .init()),
                         destinationAddress: wallet.contract.address.description,
                         destinationShortAddress: amount.address,
                         userAddress: userAddress,
@@ -245,12 +246,10 @@ class ComposableAuthenticationViews {
                 return userSeetings
             },
             getUserWallet: {
-                let wallet = try AppState.getWallet()
                 let key = try AppState.getKey()
+                let wallet = try await TonWalletManager.shared.createWallet3(key: key, revision: .r2)
                 let balance = wallet.contract.info.balance.string(with: .maximum9).toDouble()
                 let userAddress = await DisplayableAddress(string: wallet.contract.address.description)?.displayName ?? ""
-
-//                wallet.contract.kind.
 
                 let transactions = try await wallet.contract.transactions(after: nil).map { transaction in
                     var amount: Double = 0.0
@@ -282,11 +281,12 @@ class ComposableAuthenticationViews {
                         case .text(value: let text):
                             comment = text
                         default:
-                            comment = "Encrepted: \(value.body)"
+                            comment = ""
                         }
                     }
 
                     return Transaction1(
+                        remoteId: .init(logicalTime: transaction.id.logicalTime, hash: transaction.id.hash),
                         destinationAddress: destinationAddress,
                         destinationShortAddress: destinationAddress,
                         userAddress: userAddress,
@@ -294,7 +294,7 @@ class ComposableAuthenticationViews {
                         comment: comment,
                         fee: fee,
                         date: transaction.date,
-                        status: .pending,
+                        status: .success,
                         isTransactionSend: isTransactionSent,
                         transactionId: "2343ewds"
                     )

@@ -13,6 +13,7 @@ struct UserWalletSettings: Equatable, Codable {
     var userWallet: UserWallet
     var key: Key
     var wallet: Wallet3
+    var lastUpdatedTransactionDate: Date = .init()
 
     struct UserWallet: Equatable, Codable {
         var allAmmount: Double

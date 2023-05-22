@@ -8,7 +8,21 @@
 import Foundation
 
 struct Transaction1: Identifiable, Equatable, Codable {
-    var id = UUID()
+    struct RemoteID: Equatable, Codable {
+        let logicalTime: Int64
+        let hash: Data
+
+        init(
+            logicalTime: Int64,
+            hash: Data
+        ) {
+            self.logicalTime = logicalTime
+            self.hash = hash
+        }
+    }
+
+    var id: UUID = .init()
+    var remoteId: RemoteID
     let destinationAddress: String
     let destinationShortAddress: String
     let userAddress: String
@@ -27,6 +41,7 @@ struct Transaction1: Identifiable, Equatable, Codable {
     }
 
     static let previewInstance: Transaction1 = Transaction1(
+        remoteId: RemoteID(logicalTime: 1, hash: .init()),
         destinationAddress: "wedo3irjwljOj)J09JH0j9josdijfo394",
         destinationShortAddress: "EldorTheCoolest.ton",
         userAddress: "User Addre",
