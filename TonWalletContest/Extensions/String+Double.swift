@@ -12,3 +12,16 @@ extension String {
         Double(self) ?? 0.0
     }
 }
+
+extension Double {
+    func integerString() -> String {
+        return String(Int(self.rounded(.down)))
+    }
+
+    func fractionalString() -> String {
+        guard self != self.rounded(.down) else { return ""}
+        
+        let stringAmount = String(self)
+        return String(stringAmount.suffix(from: stringAmount.firstIndex(of: ".") ?? stringAmount.endIndex))
+    }
+}

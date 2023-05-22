@@ -55,12 +55,27 @@ struct EnterAmountView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 35, height: 35)
-                    TextField("0", text: viewStore.binding(
-                        get: { $0.amount },
-                        send: { return .changed(.text($0)) }
-                    ))
-                    .font(.largeTitle)
+
+                    ZStack {
+                        if viewStore.amount.isEmpty {
+                            Text("0")
+                                .font(.system(size: 48, weight: .semibold))
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding([.leading], 6)
+                        }
+                        AmountTextField(
+                            text: viewStore.binding(
+                                get: { $0.amount },
+                                send: { return .changed(.text($0)) }
+                            ),
+                            isOverLimit: .constant(false),
+                            size: .constant((48, 30)),
+                            isFirstResponder: .constant(true)
+                        )
+                    }
                 }
+                .frame(minWidth: 50, maxWidth: 100, maxHeight: 50)
                 .padding(.horizontal, 16)
 
                 Spacer()

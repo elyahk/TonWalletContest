@@ -22,9 +22,9 @@ struct SendView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading) {
-                #warning("Add placeholder text to legacyTextField")
                 LegacyTextField(
                     text: viewStore.binding(get: { $0.address }, send: { return .changedAddress($0) } ),
+                    placeHolderText: .constant("Enter Wallet Address or Domain..."),
                     isFirstResponder: .constant(true)
                 )
                 .clearButton(isHidden: viewStore.address.isEmpty, action: {
