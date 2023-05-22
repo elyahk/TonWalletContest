@@ -27,7 +27,7 @@ struct EnterAmountReducer: ReducerProtocol {
         var recieverShortAddress: String
         var userWallet: UserSettings.UserWallet
         var events: Events
-        var amount: String = ""
+        var amount: String = "20.33232"
         var isAllAmount = false
         var isLoading: Bool = false
 

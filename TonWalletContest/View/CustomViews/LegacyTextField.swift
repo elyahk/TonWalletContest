@@ -3,13 +3,20 @@ import SwiftUI
 struct LegacyTextField: UIViewRepresentable {
     @Binding public var isFirstResponder: Bool
     @Binding public var text: String
+    @Binding public var placeHolderText: String
 
     public var configuration = { (view: UITextField) in }
 
-    public init(text: Binding<String>, isFirstResponder: Binding<Bool>, configuration: @escaping (UITextField) -> () = { _ in }) {
+    public init(
+        text: Binding<String>,
+        placeHolderText: Binding<String> = .constant(""),
+
+        isFirstResponder: Binding<Bool>, configuration: @escaping (UITextField) -> () = { _ in }) {
         self.configuration = configuration
         self._text = text
         self._isFirstResponder = isFirstResponder
+
+        self._placeHolderText = placeHolderText
     }
 
     public func makeUIView(context: Context) -> UITextField {
@@ -20,11 +27,14 @@ struct LegacyTextField: UIViewRepresentable {
         view.keyboardType = .numberPad
         view.inputAccessoryView = nil
         view.spellCheckingType = .no
+
         return view
     }
 
     public func updateUIView(_ uiView: UITextField, context: Context) {
         uiView.text = text
+        uiView.placeholder = placeHolderText
+
         configuration(uiView)
         switch isFirstResponder {
         case true: uiView.becomeFirstResponder()

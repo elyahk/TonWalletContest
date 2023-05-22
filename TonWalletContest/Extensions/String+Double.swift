@@ -19,6 +19,8 @@ extension Double {
     }
 
     func fractionalString() -> String {
+        guard self != self.rounded(.down) else { return ""}
+        
         let stringAmount = String(self)
         return String(stringAmount.suffix(from: stringAmount.firstIndex(of: ".") ?? stringAmount.endIndex))
     }
