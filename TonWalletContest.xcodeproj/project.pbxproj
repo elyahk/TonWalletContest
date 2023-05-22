@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13034BF82A1B68AE007590A2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13034BF72A1B68AE007590A2 /* SettingsView.swift */; };
 		131044FB29DE072500987E07 /* BlankTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */; };
 		134136522A13B2230046B2C5 /* EnterAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134136512A13B2230046B2C5 /* EnterAmountView.swift */; };
 		134136542A16B4A20046B2C5 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134136532A16B4A20046B2C5 /* TransactionView.swift */; };
@@ -160,6 +161,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13034BF72A1B68AE007590A2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankTextButtonStyle.swift; sourceTree = "<group>"; };
 		134136512A13B2230046B2C5 /* EnterAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAmountView.swift; sourceTree = "<group>"; };
 		134136532A16B4A20046B2C5 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 				6133A79B29E1622E008BDF34 /* CustomViews */,
 				615017B529E0050800AF963D /* Authorazation */,
 				61374DDA2A19F84C00E44207 /* ChatBubble.swift */,
+				13034BF72A1B68AE007590A2 /* SettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1057,6 +1060,7 @@
 				6EBB475029F1304B00216832 /* ReadyToGoReducer.swift in Sources */,
 				6152F17D2A04193500F97845 /* SSignal+Catch.m in Sources */,
 				61931DBD29FE662B00F54C64 /* Signal_Materialize.swift in Sources */,
+				13034BF82A1B68AE007590A2 /* SettingsView.swift in Sources */,
 				6158D4E129EA88DB00AC467C /* ConfirmPasscodeView+Reducer.swift in Sources */,
 				6152F1962A04193500F97845 /* SSignal.m in Sources */,
 				61DBEDA42A19013800312268 /* MainViewReducer.swift in Sources */,
