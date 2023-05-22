@@ -95,11 +95,11 @@ struct TransactionView: View {
                                     .padding(.top, 22)
                                     .padding(.top, 16)
 
-                                if !viewStore.transaction.humanAddress.isEmpty && !viewStore.transaction.isTransactionSend {
+                                if !viewStore.transaction.destinationShortAddress.isEmpty && !viewStore.transaction.isTransactionSend {
                                     HStack {
                                         Text(transactionDirection)
                                         Spacer()
-                                        Text(viewStore.transaction.humanAddress)
+                                        Text(viewStore.transaction.destinationShortAddress)
                                             .foregroundColor(.gray)
                                     }
                                 }
@@ -111,7 +111,7 @@ struct TransactionView: View {
 
                                     Spacer()
 
-                                    Text(viewStore.transaction.senderAddress)
+                                    Text(viewStore.transaction.destinationAddress)
                                         .frame(width: 100)
                                         .truncationMode(.middle)
                                         .lineLimit(1)

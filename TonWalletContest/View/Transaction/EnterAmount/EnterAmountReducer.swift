@@ -29,7 +29,7 @@ struct EnterAmountReducer: ReducerProtocol {
         var recieverShortAddress: String
         var userWallet: UserSettings.UserWallet
         var events: Events
-        var amount: String = "20.33232"
+        var amount: String = ""
         var isAllAmount = false
         var isLoading: Bool = false
 
@@ -62,6 +62,7 @@ struct EnterAmountReducer: ReducerProtocol {
         case continueButtonTapped
         case changed(StateType)
         case loading(Bool)
+        case editButtonTapped
     }
 
     enum StateType: Equatable {
@@ -74,11 +75,15 @@ struct EnterAmountReducer: ReducerProtocol {
         var getTransaction: (Amount) async throws -> Transaction1
     }
     
-    @Dependency(\.dismiss) var presentationMode
+    @Dependency(\.dismiss) var dismiss
 
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .editButtonTapped:
+
+                return .run { _ in await dismiss() }
+
             case let .loading(isLoading):
                 state.isLoading = isLoading
                 return .none

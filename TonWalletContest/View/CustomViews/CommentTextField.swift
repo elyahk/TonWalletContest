@@ -72,6 +72,7 @@ struct AmountTextField: UIViewRepresentable {
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.delegate = context.coordinator
         textView.font = .systemFont(ofSize: size.smallSize, weight: .semibold)
+        textView.keyboardType = .numbersAndPunctuation
 
         return textView
     }

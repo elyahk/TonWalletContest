@@ -76,3 +76,62 @@ struct ChatBubble_Previews: PreviewProvider {
     }
 }
 
+
+
+struct FocueCameraView<Content>: View where Content: View {
+    let content: () -> Content
+
+    init(@ViewBuilder content: @escaping () -> Content) {
+        self.content = content
+    }
+
+    var body: some View {
+        HStack {
+            content()
+                .clipShape(FocueCameraViewShape())
+        }
+    }
+}
+
+struct FocueCameraViewShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        return getLeftBubblePath(in: rect)
+    }
+
+    private func getLeftBubblePath(in rect: CGRect) -> Path {
+        let width = rect.width
+        let height = rect.height
+        let centerWidth = width - 66 * 2
+
+        let path = Path { p in
+            p.addRect(.init(x: 0, y: 0, width: width, height: (height - centerWidth) / 2))
+            p.addRect(.init(x: 0, y: 0, width: 66, height: height))
+            p.addRect(.init(x: width - 66, y: 0, width: 66, height: height))
+            p.addRect(.init(x: 0, y: height - (height - centerWidth) / 2, width: width, height: (height - centerWidth) / 2))
+            p.move(to: CGPoint(x: 0, y: 0))
+        }
+        return path
+    }
+}
+
+
+struct FocueCameraView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            FocueCameraView {
+                Text("Testing comment, D")
+                    .frame(width: 400, height: 800)
+                    .font(.title2)
+                    .foregroundColor(.black)
+                    .padding([.trailing], 10)
+                    .padding([.leading], 15)
+                    .padding([.bottom, .top], 8)
+                    .background(Color.gray)
+                    .multilineTextAlignment(.center)
+            }
+            .frame(width: .infinity, height: .infinity)
+            .foregroundColor(.white)
+        }
+    }
+}
+

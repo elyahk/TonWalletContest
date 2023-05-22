@@ -41,7 +41,7 @@ struct EnterAmountView: View {
 
                     Spacer()
                     Button {
-                        print("Edit button tapped")
+                        viewStore.send(.editButtonTapped)
                     } label: {
                         Text("Edit")
                     }

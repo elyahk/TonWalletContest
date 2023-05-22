@@ -149,7 +149,7 @@ class ComposableAuthenticationViews {
                     let message = try await TonWalletManager.shared.getMessage(
                         wallet: wallet,
                         with: key,
-                        to: transaction.humanAddress,
+                        to: transaction.destinationShortAddress,
                         with: transaction.amount.description,
                         comment: transaction.comment
                     )
@@ -174,13 +174,15 @@ class ComposableAuthenticationViews {
                     self.makeConfirmReducerState(transcation: transcation)
                 }, getTransaction: { amount in
                     let wallet = try AppState.getWallet()
+                    let userAddress = wallet.contract.address.description
                     let key = try AppState.getKey()
                     let message = try await TonWalletManager.shared.getMessage(wallet: wallet, with: key, to: amount.address, with: amount.amount, comment: "")
                     let fee = try await message.fees()
 
                     let transaction = Transaction1(
-                        senderAddress: wallet.contract.address.description,
-                        humanAddress: amount.address,
+                        destinationAddress: wallet.contract.address.description,
+                        destinationShortAddress: amount.address,
+                        userAddress: userAddress,
                         amount: amount.amount.toDouble(),
                         comment: "",
                         fee: fee.description.toDouble(),
@@ -208,6 +210,10 @@ class ComposableAuthenticationViews {
             events: .init(
                 createEnterAmountReducerState: { recieverAddress, recieverShortAddress, userWallet  in
                     self.makeEnterAmountReducerState(recieverAddress: recieverAddress, recieverShortAddress: recieverShortAddress, userWallet: userWallet)
+
+                },
+                createScanQRCodeReducerState: {
+                    .init(events: .init())
                 }
             )
         )
@@ -225,7 +231,10 @@ class ComposableAuthenticationViews {
                 let wallet = try AppState.getWallet()
                 let key = try AppState.getKey()
                 let balance = wallet.contract.info.balance.string(with: .maximum9).toDouble()
-                let address = wallet.contract.address.description
+                let userAddress = await DisplayableAddress(string: wallet.contract.address.description)?.displayName ?? ""
+
+//                wallet.contract.kind.
+
                 let transactions = try await wallet.contract.transactions(after: nil).map { transaction in
                     var amount: Double = 0.0
                     var isTransactionSent: Bool = false
@@ -237,6 +246,7 @@ class ComposableAuthenticationViews {
                         amount = value.value.string(with: .maximum9).toDouble()
                         isTransactionSent = true
                         destinationAddress = value.destinationAccountAddress?.displayName ?? ""
+
                         fee = value.fees.string(with: .maximum9).toDouble()
                         switch value.body {
                         case .text(value: let text):
@@ -260,8 +270,9 @@ class ComposableAuthenticationViews {
                     }
 
                     return Transaction1(
-                        senderAddress: destinationAddress,
-                        humanAddress: destinationAddress,
+                        destinationAddress: destinationAddress,
+                        destinationShortAddress: destinationAddress,
+                        userAddress: userAddress,
                         amount: amount,
                         comment: comment,
                         fee: fee,
@@ -272,7 +283,7 @@ class ComposableAuthenticationViews {
                     )
                 }
 
-                let userWallet = UserSettings.UserWallet(allAmmount: balance, address: address, transactions: transactions)
+                let userWallet = UserSettings.UserWallet(allAmmount: balance, address: userAddress, transactions: transactions)
                 let userSettings = UserSettings(userWallet: userWallet, key: key, wallet: wallet)
                 AppState.set(userSettings: userSettings)
 
@@ -287,8 +298,10 @@ class ComposableAuthenticationViews {
             },
             createEnterAmountReducerState: { recieverAddress, recieverShortAddress, userWallet in
                 self.makeEnterAmountReducerState(recieverAddress: recieverAddress, recieverShortAddress: recieverShortAddress, userWallet: userWallet)
+            },
+            createScanQRCodeReducerState: {
+                .init(events: .init())
             }
-
         ))
         
         return state
@@ -492,7 +505,7 @@ struct TonWalletContestApp: App {
             NavigationView {
 //                EnterAmountView(address: .constant("dlofjmo349rhfjdifcn3i4rhfkqjrh439qeifhu"))
                 composableArchitecture.getFirtView()
-//                TransactionView(transaction: .previewInstance)
+//                ScanQRCodeView(store: .init(initialState: .init(events: .init()), reducer: ScanQRCodeReducer()))
             }
         }
     }

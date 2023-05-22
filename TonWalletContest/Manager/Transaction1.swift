@@ -9,8 +9,9 @@ import Foundation
 
 struct Transaction1: Identifiable, Equatable, Codable {
     var id = UUID()
-    let senderAddress: String
-    let humanAddress: String
+    let destinationAddress: String
+    let destinationShortAddress: String
+    let userAddress: String
     var amount: Double
     var comment: String
     let fee: Double
@@ -26,8 +27,9 @@ struct Transaction1: Identifiable, Equatable, Codable {
     }
 
     static let previewInstance: Transaction1 = Transaction1(
-        senderAddress: "wedo3irjwljOj)J09JH0j9josdijfo394",
-        humanAddress: "EldorTheCoolest.ton",
+        destinationAddress: "wedo3irjwljOj)J09JH0j9josdijfo394",
+        destinationShortAddress: "EldorTheCoolest.ton",
+        userAddress: "User Addre",
         amount: 121.2231,
         comment: "Testing Time. Hello world!",
         fee: 0.0023123,
