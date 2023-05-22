@@ -22,7 +22,8 @@ struct SendReducer: ReducerProtocol {
         static let preview: State = .init(
             userWallet: .preview,
             events: .init(
-                createEnterAmountReducerState: { _, _, _ in .preview }
+                createEnterAmountReducerState: { _, _, _ in .preview },
+                createScanQRCodeReducerState: { .preview }
             )
         )
     }
@@ -36,10 +37,12 @@ struct SendReducer: ReducerProtocol {
         case clearTransactions
         case changeAddress(String)
         case loading(Bool)
+        case scanButtonTapped
     }
 
     struct Events: AlwaysEquitable {
         var createEnterAmountReducerState: (String, String, UserSettings.UserWallet) async ->  EnterAmountReducer.State
+        var createScanQRCodeReducerState: () async ->  ScanQRCodeReducer.State
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -47,6 +50,15 @@ struct SendReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .destination(.presented(.scanQRCodeView(.scanSuccess(let address)))):
+                state.destination = nil
+                state.address = address
+                return .none
+            case .scanButtonTapped:
+
+                return .run { [events = state.events] send in
+                    await send(.destinationState(.scanQRCodeView(await events.createScanQRCodeReducerState())))
+                }
             case .loading(let isLoading):
                 state.isLoading = isLoading
                 return .none
@@ -97,21 +109,28 @@ extension SendReducer {
     struct Destination: ReducerProtocol {
         enum State: Equatable, Identifiable {
             case enterAmountView(EnterAmountReducer.State)
+            case scanQRCodeView(ScanQRCodeReducer.State)
 
             var id: AnyHashable {
                 switch self {
                 case let .enterAmountView(state):
+                    return state.id
+                case let .scanQRCodeView(state):
                     return state.id
                 }
             }
         }
         enum Action: Equatable {
             case enterAmountView(EnterAmountReducer.Action)
+            case scanQRCodeView(ScanQRCodeReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
             Scope(state: /State.enterAmountView, action: /Action.enterAmountView) {
                 EnterAmountReducer()
+            }
+            Scope(state: /State.scanQRCodeView, action: /Action.scanQRCodeView) {
+                ScanQRCodeReducer()
             }
         }
     }

@@ -54,6 +54,7 @@ struct ScanQRCodeReducer: ReducerProtocol {
                 return .none
 
             case .scanFail:
+                state.galleryPresented = false
                 return .none
 
             case .scanSuccess(let address):

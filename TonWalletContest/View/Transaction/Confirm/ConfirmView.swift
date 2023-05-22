@@ -66,7 +66,7 @@ struct ConfirmView: View {
                         HStack {
                             Text("Recipient")
                             Spacer()
-                            Text(viewStore.transaction.humanAddress)
+                            Text(viewStore.transaction.destinationShortAddress)
                                 .frame(width: 100)
                                 .lineLimit(1)
                                 .truncationMode(.middle)

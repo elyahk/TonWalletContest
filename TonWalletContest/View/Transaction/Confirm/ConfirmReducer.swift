@@ -77,7 +77,7 @@ struct ConfirmReducer: ReducerProtocol {
                     await send(.loading(true))
                     try await events.sendTon(state.transaction)
 
-                    let state = await events.createPendingReducerState(state.transaction.humanAddress)
+                    let state = await events.createPendingReducerState(state.transaction.destinationShortAddress)
                     await send(.loading(false))
                     await send(.destinationState(.pendingView(state)))
                 }

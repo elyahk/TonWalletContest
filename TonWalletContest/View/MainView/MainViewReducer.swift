@@ -45,6 +45,7 @@ struct MainViewReducer: ReducerProtocol {
         case tappedTransaction(Transaction1)
         case tappedScanButton
         case tappedSettingsButton
+        case openEnterAmountView(String, String)
     }
 
     @Dependency(\.dismiss) var presentationMode
@@ -52,6 +53,11 @@ struct MainViewReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .destination(.presented(.scanQRCodeView(.scanSuccess(let address)))):
+
+                return .run { send in
+                    await send(.openEnterAmountView(address, ""))
+                }
             case .tappedScanButton:
 
                 return .run { [events = state.events] send in
@@ -64,13 +70,21 @@ struct MainViewReducer: ReducerProtocol {
 
                 state.transactionReducerState = .init(transaction: transaction, isShowing: true, events: .init())
                 return .none
+
             case let .transactionView(.sendTransaction(transaction)):
                 state.transactionReducerState = nil
+
+                return .run { send in
+                    await send(.openEnterAmountView(transaction.destinationAddress, transaction.destinationShortAddress))
+                }
+
+            case let .openEnterAmountView(address, shortAddres):
 
                 return .run { [events = state.events, state] send in
                     guard let userWallet = state.userWallet else { return }
                     var state = await events.createSendReducerState(userWallet)
-                    state.destination = .enterAmountView(await events.createEnterAmountReducerState(transaction.senderAddress, transaction.humanAddress, userWallet))
+                    state.address = address
+                    state.destination = .enterAmountView(await events.createEnterAmountReducerState(address, shortAddres, userWallet))
                     await send(.destinationState(.sendView(state)))
                 }
 

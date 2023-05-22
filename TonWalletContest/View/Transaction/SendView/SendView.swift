@@ -16,9 +16,6 @@ struct SendView: View {
         self.store = store
     }
 
-    @State var isShowingScanner: Bool = false
-    @State var rotationAngle: CGFloat = 360.0
-
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading) {
@@ -55,13 +52,20 @@ struct SendView: View {
                     }
                     .padding(.trailing)
 
-                    Button {
-                        isShowingScanner = true
+                    NavigationLinkStore (
+                        self.store.scope(state: \.$destination, action: SendReducer.Action.destination),
+                        state: /SendReducer.Destination.State.scanQRCodeView,
+                        action: SendReducer.Destination.Action.scanQRCodeView
+                    ) {
+                        viewStore.send(.scanButtonTapped)
+                    } destination: { store in
+                        ScanQRCodeView(store: store)
                     } label: {
                         HStack {
-                            Image("scan")
+                            Image("ic_scan_blue")
                             Text("Scan")
                         }
+
                     }
                 }
                 .padding(.horizontal, 16)
@@ -71,27 +75,36 @@ struct SendView: View {
                         Section {
                             ForEach(viewStore.transactions) { transaction in
                                 VStack(alignment: .leading) {
-                                    if !transaction.humanAddress.isEmpty {
-                                        Text(transaction.humanAddress)
+                                    if !transaction.destinationShortAddress.isEmpty {
+                                        Text(transaction.destinationShortAddress)
+                                            .frame(width: 100)
+                                            .truncationMode(.middle)
+                                            .font(.system(size: 16, weight: .regular))
+                                            .lineLimit(1)
                                     } else {
-                                        Text(transaction.senderAddress.prefix(4) + "..." + transaction.senderAddress.suffix(4))
+                                        Text(transaction.destinationAddress)
+                                            .frame(width: 100)
+                                            .truncationMode(.middle)
+                                            .lineLimit(1)
+                                            .font(.system(size: 16, weight: .regular))
                                     }
 
-                                    Text("")
-                                        .font(.callout)
-                                        .foregroundColor(.gray)
+                                    Text("sdfsd")
+                                        .font(.system(size: 16, weight: .regular))
+                                        .foregroundColor(.init(UIColor(red: 0.557, green: 0.557, blue: 0.573, alpha: 1)))
                                 }
                             }
                         } header: {
                             HStack {
                                 Text("RECENTS")
-                                    .font(.callout)
+                                    .font(.system(size: 13, weight: .regular))
                                 Spacer()
                                 Button {
                                     viewStore.send(.clearTransactions)
                                 } label: {
                                     Text("CLEAR")
-                                        .font(.callout)
+                                        .font(.system(size: 13, weight: .regular))
+
                                 }
                             }
                         }
@@ -129,24 +142,6 @@ struct SendView: View {
             .padding(.vertical)
             .navigationTitle("Send TON")
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $isShowingScanner) {
-                CodeScannerView(codeTypes: [.qr], simulatedData: "asdfkjm934orjo23de") { result in
-                    if let value = handleScan(result: result) {
-                        viewStore.send(.changeAddress(value))
-                    }
-                }
-            }
-        }
-    }
-
-    func handleScan(result: Result<ScanResult, ScanError>) -> String? {
-        isShowingScanner = false
-        switch result {
-        case .success(let result):
-            return result.string
-        case .failure(let error):
-            print("Scanning failure \(error.localizedDescription)")
-            return nil
         }
     }
 }

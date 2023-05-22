@@ -24,7 +24,7 @@ struct TransactionListItemView: View {
                     .foregroundColor(.secondary)
             }
 
-            Text(transaction.senderAddress)
+            Text(transaction.destinationAddress)
                 .font(.system(size: 15, weight: .regular))
                 .lineLimit(1)
                 .frame(width: 100, alignment: .leading)
