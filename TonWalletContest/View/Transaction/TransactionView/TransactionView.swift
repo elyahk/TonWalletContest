@@ -29,14 +29,32 @@ struct TransactionView: View {
 
                         let transactionDirection = viewStore.transaction.isTransactionSend ? "Recepient" : "Sender"
 
-                        VStack(spacing: 4) {
+                        VStack(spacing: 0) {
+                            ZStack(alignment: .trailing) {
+                                Text("Transaction")
+                                    .font(.system(size: 17.0, weight: .semibold))
+                                    .foregroundColor(.black)
+                                    .frame(maxWidth: .infinity)
+
+
+                                Button {
+
+                                } label: {
+                                    Text("Done")
+                                        .font(.system(size: 17.0, weight: .semibold))
+                                        .foregroundColor(.accentColor)
+                                }
+                            }
+                            .padding([.top, .bottom], 17)
 
                             TransactionAmountView(amount: viewStore.transaction.amount, isSent: viewStore.transaction.isTransactionSend)
+                                .padding(.top, 20)
 
                             Text(String(viewStore.transaction.fee) + " transaction fee")
                                 .font(.callout)
                                 .foregroundColor(.gray)
-                                .padding(.bottom, 1)
+                                .padding(.bottom, 4)
+                                .padding(.top, 6)
 
                             switch viewStore.transaction.status {
                             case .cancelled:
@@ -51,7 +69,6 @@ struct TransactionView: View {
                                 if !viewStore.transaction.comment.isEmpty {
                                     ZStack {
                                         Text(viewStore.transaction.comment)
-                                            .padding(.horizontal, 10)
                                             .padding(.vertical, 8)
                                             .background(Color("LightGray"))
                                             .clipShape(RoundedRectangle(cornerRadius: 17.0, style: .continuous))
@@ -71,8 +88,8 @@ struct TransactionView: View {
 
                             VStack(alignment: .leading, spacing: 0.0) {
                                 Text("DETAILS")
-                                    .foregroundColor(.gray)
-                                    .font(.footnote)
+                                    .font(.system(size: 13, weight: .regular))
+                                    .foregroundColor(.init(UIColor(red: 0.235, green: 0.235, blue: 0.263, alpha: 0.6)))
                                     .padding(.bottom, 4)
                                     .padding(.top, 22)
                                     .padding(.top, 16)
@@ -88,41 +105,54 @@ struct TransactionView: View {
 
                                 HStack {
                                     Text("\(transactionDirection) address")
+                                        .font(.system(size: 17, weight: .regular))
+                                        .foregroundColor(.black)
+
                                     Spacer()
-                                    Text(viewStore.transaction.senderAddress.prefix(4) + "..." + viewStore.transaction.senderAddress.suffix(4))
+
+                                    Text(viewStore.transaction.senderAddress)
+                                        .frame(width: 100)
+                                        .truncationMode(.middle)
+                                        .lineLimit(1)
                                         .foregroundColor(.gray)
+                                        .foregroundColor(.init(UIColor(red: 0.235, green: 0.235, blue: 0.263, alpha: 0.6)))
                                 }
                                 .padding([.top, .bottom], 11)
                                 Divider()
                                     .frame(height: 0.33)
-                                    .background(Color.init(UIColor(red: 0.235, green: 0.235, blue: 0.263, alpha: 0.36).cgColor))
+                                    .padding(.trailing, -16)
+                                    .background(Color.init(UIColor(red: 0.235, green: 0.235, blue: 0.263, alpha: 0.36)))
 
 
                                 HStack {
                                     Text("Transaction")
+                                        .font(.system(size: 17, weight: .regular))
+                                        .foregroundColor(.black)
                                     Spacer()
-                                    Text(viewStore.transaction.transactionId.prefix(6) + "..." + viewStore.transaction.transactionId.suffix(6))
+                                    Text(viewStore.transaction.transactionId)
+                                        .frame(width: 131)
+                                        .truncationMode(.middle)
+                                        .lineLimit(1)
                                         .foregroundColor(.gray)
+                                        .foregroundColor(.init(UIColor(red: 0.235, green: 0.235, blue: 0.263, alpha: 0.6)))
+
                                 }
                                 .padding([.top, .bottom], 11)
 
                                 Divider()
                                     .frame(height: 0.33)
                                     .background(Color.init(UIColor(red: 0.235, green: 0.235, blue: 0.263, alpha: 0.36).cgColor))
-
+                                    .padding(.trailing, -16)
 
                                 Button {
                                     //action
                                 } label: {
                                     Text("View in explorer")
                                         .foregroundColor(.blue)
-                                    //                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                                    //                            .padding(.leading, 16)
-
+                                        .font(.system(size: 17, weight: .regular))
                                 }
                                 .padding([.top, .bottom], 11)
                             }
-                            .padding(.leading, 20)
                             .padding(.bottom, 24)
 
 
@@ -133,7 +163,6 @@ struct TransactionView: View {
                                     Text("Retry transaction")
                                         .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                                         .customWideBlueButtonStyle()
-                                        .padding(.horizontal, 16)
                                         .padding(.bottom)
                                 }
                             } else {
@@ -152,20 +181,18 @@ struct TransactionView: View {
                                         Text("Send TON to this address")
                                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                                             .customWideBlueButtonStyle()
-                                            .padding(.horizontal, 16)
                                             .padding(.bottom)
                                     }
                                 }
                             }
                         }
-                        .padding(.init(top: 32.0, leading: 16.0, bottom: geo.safeAreaInsets.bottom + 24.0, trailing: 16.0))
+                        .padding(.init(top: 0.0, leading: 16.0, bottom: geo.safeAreaInsets.bottom + 24.0, trailing: 16.0))
                         .transition(.move(edge: .bottom))
                         .background(
                             Color(.white)
                         )
 
                         .cornerRadius(12, corners: [.topLeft, .topRight])
-                        .padding(.top, 76)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
