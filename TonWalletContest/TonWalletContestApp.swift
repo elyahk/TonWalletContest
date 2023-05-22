@@ -287,8 +287,10 @@ class ComposableAuthenticationViews {
             },
             createEnterAmountReducerState: { recieverAddress, recieverShortAddress, userWallet in
                 self.makeEnterAmountReducerState(recieverAddress: recieverAddress, recieverShortAddress: recieverShortAddress, userWallet: userWallet)
+            },
+            createScanQRCodeReducerState: {
+                .init(events: .init())
             }
-
         ))
         
         return state
@@ -492,7 +494,7 @@ struct TonWalletContestApp: App {
             NavigationView {
 //                EnterAmountView(address: .constant("dlofjmo349rhfjdifcn3i4rhfkqjrh439qeifhu"))
                 composableArchitecture.getFirtView()
-//                TransactionView(transaction: .previewInstance)
+//                ScanQRCodeView(store: .init(initialState: .init(events: .init()), reducer: ScanQRCodeReducer()))
             }
         }
     }

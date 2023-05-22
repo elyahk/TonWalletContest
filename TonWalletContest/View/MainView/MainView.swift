@@ -31,8 +31,14 @@ struct MainView: View {
                 VStack {
                     VStack {
                         HStack {
-                            Button {
-
+                            NavigationLinkStore (
+                                self.store.scope(state: \.$destination, action: MainViewReducer.Action.destination),
+                                state: /MainViewReducer.Destination.State.scanQRCodeView,
+                                action: MainViewReducer.Destination.Action.scanQRCodeView
+                            ) {
+                                viewStore.send(.tappedScanButton)
+                            } destination: { store in
+                                ScanQRCodeView(store: store)
                             } label: {
                                 Image("ic_scan")
                                     .resizable()
