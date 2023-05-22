@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyTON
+import TON3
 import IdentifiedCollections
 
 enum DebugType: String {
@@ -172,23 +173,6 @@ class TonWalletManager {
         return wallet
     }
 
-    func sendMoney(wallet: Wallet3, with key: Key, to address: String) async throws {
-        guard let concreateAddress = ConcreteAddress(string: address) else { throw WalletManagerErrors.invalidAddress }
-
-        let message = try await wallet.subsequentTransferMessage(
-            to: concreateAddress,
-            amount: Currency(0.01), // 0.5 TON
-            message: ("My test message".data(using: .utf8), nil),
-            key: key,
-            passcode: data
-        )
-
-        let fees = try await message.fees() // get estimated fees
-        print("Estimated fees - \(fees)")
-//        try await message.send()
-        print("Send money")
-    }
-
     func getMessage(
         wallet: Wallet3,
         with key: Key,
@@ -198,25 +182,10 @@ class TonWalletManager {
     ) async throws -> Message {
         guard let displayableAddress = await DisplayableAddress(string: address) else { throw WalletManagerErrors.invalidAddress }
 
-        let message = try await wallet.subsequentTransferMessage(
+        let message = try await wallet.subsequentTransferMessage2(
             to: displayableAddress.concreteAddress,
-            amount: Currency(value: amount)!, // 0.5 TON
+            amount: Currency.init(value: Int64(amount.toDouble() * 1_000_000_000.0)),
             message: (comment.data(using: .utf8), nil),
-            key: key,
-            passcode: data
-        )
-        debug(.createMassage)
-
-        return message
-    }
-
-    func getMessage(wallet: AnyWallet, with key: Key, to address: String) async throws -> Message {
-        guard let displayableAddress = await DisplayableAddress(string: address) else { throw WalletManagerErrors.invalidAddress }
-
-        let message = try await wallet.subsequentTransferMessage(
-            to: displayableAddress.concreteAddress,
-            amount: Currency(value: "0.01")!, // 0.5 TON
-            message: ("My test message".data(using: .utf8), nil),
             key: key,
             passcode: data
         )
@@ -256,5 +225,45 @@ extension IdentifiedArrayOf where Element == TestTimeReducer.Word {
         let words: IdentifiedArrayOf<TestTimeReducer.Word> = .words24()
 
         return IdentifiedArrayOf(words[0...2])
+    }
+}
+
+extension Wallet {
+    func subsequentTransferMessage2(
+        to concreteAddress: ConcreteAddress,
+        amount: Currency,
+        message: (body: Data?, initial: Data?),
+        key: Key,
+        passcode: Data
+    ) async throws -> Message {
+        let updated = try await Contract(address: contract.address)
+        guard updated.info.balance > amount
+        else {
+            throw ContractError.notEnaughtBalance
+        }
+
+        let subsequentExternalMessageBody = try await TON3.transfer(
+            external: try await subsequentExternalMessage(),
+            workchain: concreteAddress.address.workchain,
+            address: concreteAddress.address.hash,
+            amount: amount.value,
+            bounceable: false,
+            payload: message.body?.bytes,
+            state: message.initial?.bytes
+        )
+
+        var subsequentInitialCondition: Contract.InitialCondition?
+        if updated.kind == .uninitialized {
+            subsequentInitialCondition = try await subsequentExternalMessageInitialCondition(
+                key: key
+            )
+        }
+
+        let boc = BOC(bytes: subsequentExternalMessageBody)
+        return try await Message(
+            destination: contract.address,
+            initial: subsequentInitialCondition,
+            body: try await boc.signed(with: key, localUserPassword: passcode)
+        )
     }
 }

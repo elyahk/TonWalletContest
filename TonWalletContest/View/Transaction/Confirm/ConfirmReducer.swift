@@ -6,7 +6,7 @@ struct ConfirmReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         var transaction: Transaction1
-        var numberCharacter: Int = 10
+        var numberCharacter: Int = 200
         var isTextEditor = false
         var isOverLimit = false
         var isLoading: Bool = false
