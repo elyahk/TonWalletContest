@@ -6,6 +6,15 @@ struct UserSettings: Equatable, Codable {
     var userWallet: UserWallet
     var key: Key
     var wallet: Wallet3
+    var settings: Settings = .init()
+
+    struct Settings: Equatable, Codable {
+        var faceId: Bool = false
+        var activeAddress: ActiveAddress = .v3R2
+        var currency: ActiveCurrency = .TON
+        var isNotificationOn: Bool = false
+
+    }
 
     struct UserWallet: Equatable, Codable {
         var allAmmount: Double
