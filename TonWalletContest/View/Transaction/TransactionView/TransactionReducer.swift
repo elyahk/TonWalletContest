@@ -6,6 +6,7 @@ struct TransactionReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         var transaction: Transaction1
+        var isShowing: Bool = true
 
         @PresentationState var destination: Destination.State?
         var events: Events

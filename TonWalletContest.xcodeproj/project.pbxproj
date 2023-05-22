@@ -54,6 +54,7 @@
 		613E65EF2A1B313C009BC34B /* TransactionReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613E65EE2A1B313C009BC34B /* TransactionReducer.swift */; };
 		613E65F42A1B31AA009BC34B /* Date+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613E65F32A1B31AA009BC34B /* Date+String.swift */; };
 		613E65F62A1B3209009BC34B /* TransactionAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613E65F52A1B3209009BC34B /* TransactionAmountView.swift */; };
+		613E65FA2A1B3881009BC34B /* View+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613E65F92A1B3881009BC34B /* View+CornerRadius.swift */; };
 		615017B829E0055500AF963D /* TestTimeReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017B729E0055500AF963D /* TestTimeReducer.swift */; };
 		615017BA29E0056D00AF963D /* TestTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017B929E0056D00AF963D /* TestTimeView.swift */; };
 		615017BF29E019A200AF963D /* PasscodeView+Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615017BE29E019A200AF963D /* PasscodeView+Reducer.swift */; };
@@ -209,6 +210,7 @@
 		613E65EE2A1B313C009BC34B /* TransactionReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionReducer.swift; sourceTree = "<group>"; };
 		613E65F32A1B31AA009BC34B /* Date+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+String.swift"; sourceTree = "<group>"; };
 		613E65F52A1B3209009BC34B /* TransactionAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionAmountView.swift; sourceTree = "<group>"; };
+		613E65F92A1B3881009BC34B /* View+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+CornerRadius.swift"; sourceTree = "<group>"; };
 		615017B729E0055500AF963D /* TestTimeReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTimeReducer.swift; sourceTree = "<group>"; };
 		615017B929E0056D00AF963D /* TestTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTimeView.swift; sourceTree = "<group>"; };
 		615017BE29E019A200AF963D /* PasscodeView+Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasscodeView+Reducer.swift"; sourceTree = "<group>"; };
@@ -771,6 +773,7 @@
 				131044FA29DE072500987E07 /* BlankTextButtonStyle.swift */,
 				6E62AEB92A0FBBE6002EB7ED /* String+Double.swift */,
 				613E65F32A1B31AA009BC34B /* Date+String.swift */,
+				613E65F92A1B3881009BC34B /* View+CornerRadius.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -986,6 +989,7 @@
 				61931DC529FE662B00F54C64 /* Disposable.swift in Sources */,
 				6EBB474E29F1303D00216832 /* ReadyToGoView.swift in Sources */,
 				13FDFEC129FBFA7200402AF9 /* SuccessReducer.swift in Sources */,
+				613E65FA2A1B3881009BC34B /* View+CornerRadius.swift in Sources */,
 				612828382A18BD1D00C5F5BA /* SendReducer.swift in Sources */,
 				615EDE2B29EB4B1400D3A220 /* ImportSuccessView.swift in Sources */,
 				6152F1842A04193500F97845 /* SSignal+Multicast.m in Sources */,
