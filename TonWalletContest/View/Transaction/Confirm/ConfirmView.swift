@@ -18,7 +18,6 @@ struct ConfirmView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack {
-                Spacer()
                 List {
                     Section {
                         ZStack(alignment: .leading) {
@@ -108,7 +107,7 @@ struct ConfirmView: View {
                     PendingView(store: store)
                 } label: {
                     ZStack(alignment: .trailing) {
-                        Text("View my wallet")
+                        Text("Confirm and send")
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                             .customWideBlueButtonStyle()
 

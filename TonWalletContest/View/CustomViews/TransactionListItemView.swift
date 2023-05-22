@@ -34,14 +34,16 @@ struct TransactionListItemView: View {
             Text("\(transaction.fee) storage fee")
                 .font(.system(size: 15, weight: .regular))
                 .foregroundColor(.secondary)
-            ChatBubble {
-                Text(transaction.comment)
-                    .font(.system(size: 15, weight: .regular))
-                    .padding([.trailing], 10)
-                    .padding([.leading], 15)
-                    .padding([.bottom, .top], 8)
-                    .multilineTextAlignment(.leading)
-                    .background(Color(UIColor(red: 0.937, green: 0.937, blue: 0.953, alpha: 1).cgColor))
+            if !transaction.comment.isEmpty {
+                ChatBubble {
+                    Text(transaction.comment)
+                        .font(.system(size: 15, weight: .regular))
+                        .padding([.trailing], 10)
+                        .padding([.leading], 15)
+                        .padding([.bottom, .top], 8)
+                        .multilineTextAlignment(.leading)
+                        .background(Color(UIColor(red: 0.937, green: 0.937, blue: 0.953, alpha: 1).cgColor))
+                }
             }
         }
     }

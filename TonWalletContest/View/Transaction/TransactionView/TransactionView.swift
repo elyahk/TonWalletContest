@@ -48,7 +48,7 @@ struct TransactionView: View {
                             }
                             .padding([.top, .bottom], 17)
 
-                            TransactionAmountView(amount: viewStore.transaction.amount, color: viewStore.transaction.isTransactionSend ? .red : .green)
+                            TransactionAmountView(amount: viewStore.transaction.amount, color: viewStore.transaction.isTransactionSend ? .systemRed : .systemGreen)
                                 .padding(.top, 20)
 
                             Text(String(viewStore.transaction.fee) + " transaction fee")

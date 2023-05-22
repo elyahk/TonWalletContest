@@ -22,7 +22,9 @@ struct SendView: View {
                 LegacyTextField(
                     text: viewStore.binding(get: { $0.address }, send: { return .changedAddress($0) } ),
                     placeHolderText: .constant("Enter Wallet Address or Domain..."),
-                    isFirstResponder: .constant(true)
+                    isFirstResponder: viewStore.binding(
+                        get: { !$0.isLoading }, send: .noAction
+                    )
                 )
                 .clearButton(isHidden: viewStore.address.isEmpty, action: {
                     viewStore.send(.changeAddress(""))

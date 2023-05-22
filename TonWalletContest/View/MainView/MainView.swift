@@ -11,17 +11,20 @@ import ComposableArchitecture
 
 struct MainView: View {
     let store: StoreOf<MainViewReducer>
-    @State var isModal: Bool = false
 
     init(store: StoreOf<MainViewReducer>) {
         self.store = store
     }
 
     struct ViewState: Equatable {
-        var userWallet: UserSettings.UserWallet?
+        var userWallet: UserWalletSettings.UserWallet?
+        var balance: Double
+        var timer: Int
 
         init(state: MainViewReducer.State) {
             self.userWallet = state.userWallet
+            self.timer = state.timer
+            self.balance = state.balance
         }
     }
 
@@ -46,8 +49,15 @@ struct MainView: View {
                                     .padding()
                             }
                             Spacer()
-                            Button {
 
+                            NavigationLinkStore (
+                                self.store.scope(state: \.$destination, action: MainViewReducer.Action.destination),
+                                state: /MainViewReducer.Destination.State.settingsView,
+                                action: MainViewReducer.Destination.Action.settingsView
+                            ) {
+                                viewStore.send(.tappedSettingsButton)
+                            } destination: { store in
+                                SettingsView(store: store)
                             } label: {
                                 Image(systemName: "gear")
                                     .resizable()
@@ -65,9 +75,23 @@ struct MainView: View {
                                 .truncationMode(.middle)
                                 .font(.system(size: 17, weight: .regular))
 
-                            TransactionAmountView(
-                                amount: viewStore.userWallet?.allAmmount ?? 0,
-                                color: .white)
+                            HStack(alignment: .center) {
+                                Image("ic_ton")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 36, height: 36, alignment: .center)
+                                (
+                                    Text(viewStore.balance.integerString())
+                                        .font(.system(size: 48, weight: .semibold, design: .rounded))
+                                    + Text(viewStore.balance.fractionalString())
+                                        .font(.system(size: 30, weight: .semibold, design: .rounded))
+                                )
+                                .foregroundColor(.init(.white))
+                            }
+//
+//                            TransactionAmountView(
+//                                amount: viewStore.balance,
+//                                color: .white)
                         }
                         .padding(.top, 28.0)
 
@@ -132,6 +156,9 @@ struct MainView: View {
             .onAppear {
                 viewStore.send(.onAppear)
             }
+            .onChange(of: viewStore.timer, perform: { newValue in
+                viewStore.send(.startTimer)
+            })
             .sheet(
                 store: self.store.scope(
                     state: \.$destination,

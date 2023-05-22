@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TransactionAmountView: View {
     typealias Size = (largeSize: CGFloat, smallSize: CGFloat, iconSize: CGFloat)
-    var amount: Double
+    @State var amount: Double
     @State var size: Size
     @State var integerString: String
     @State var fractionalString: String
