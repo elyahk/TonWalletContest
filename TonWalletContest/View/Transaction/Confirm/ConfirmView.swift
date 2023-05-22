@@ -18,7 +18,6 @@ struct ConfirmView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack {
-                Spacer()
                 List {
                     Section {
                         ZStack(alignment: .leading) {

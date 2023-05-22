@@ -70,6 +70,7 @@ struct EnterAmountReducer: ReducerProtocol {
         case changed(StateType)
         case loading(Bool)
         case editButtonTapped
+        case noAction
     }
 
     enum StateType: Equatable {
@@ -87,6 +88,7 @@ struct EnterAmountReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .noAction: return .none
             case .editButtonTapped:
 
                 return .run { _ in await dismiss() }

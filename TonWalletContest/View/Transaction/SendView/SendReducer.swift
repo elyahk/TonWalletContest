@@ -29,6 +29,7 @@ struct SendReducer: ReducerProtocol {
     }
 
     enum Action: Equatable {
+        case noAction
         case destination(PresentationAction<Destination.Action>)
         case continueButtonTapped
         case editButtonTapped
@@ -50,6 +51,8 @@ struct SendReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .noAction: return .none
+
             case .destination(.presented(.scanQRCodeView(.scanSuccess(let address)))):
                 state.destination = nil
                 state.address = address

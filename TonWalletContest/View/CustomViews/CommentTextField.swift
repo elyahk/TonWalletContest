@@ -21,6 +21,7 @@ struct CommentTextField: UIViewRepresentable {
         textView.backgroundColor = .clear
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.delegate = context.coordinator
+        textView.returnKeyType = .done
         return textView
     }
 
@@ -51,6 +52,15 @@ struct CommentTextField: UIViewRepresentable {
         func textViewDidChange(_ textView: UITextView) {
             parent.text = textView.text
             parent.isOverLimit = textView.text.count > parent.numberCharacter
+        }
+
+        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+            if text == "\n" {
+                textView.resignFirstResponder()
+                return false
+            }
+
+            return true
         }
     }
 }

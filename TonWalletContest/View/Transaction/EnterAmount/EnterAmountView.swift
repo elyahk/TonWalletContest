@@ -71,7 +71,7 @@ struct EnterAmountView: View {
                             ),
                             isOverLimit: .constant(false),
                             size: .constant((48, 30)),
-                            isFirstResponder: .constant(true)
+                            isFirstResponder: viewStore.binding(get: { !$0.isLoading }, send: { _ in .noAction})
                         )
                     }
                 }
