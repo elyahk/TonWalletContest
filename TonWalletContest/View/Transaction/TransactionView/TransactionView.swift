@@ -37,6 +37,7 @@ struct TransactionView: View {
                                 .font(.callout)
                                 .foregroundColor(.gray)
                                 .padding(.bottom, 1)
+
                             switch viewStore.transaction.status {
                             case .cancelled:
                                 Text("Canceled")
@@ -68,45 +69,62 @@ struct TransactionView: View {
                                 }
                             }
 
-                            Text("DETAILS")
-                                .foregroundColor(.gray)
-                                .font(.footnote)
-                                .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                                .padding(.leading, 20)
-                                .padding(.bottom, -20)
+                            VStack(alignment: .leading, spacing: 0.0) {
+                                Text("DETAILS")
+                                    .foregroundColor(.gray)
+                                    .font(.footnote)
+                                    .padding(.bottom, 4)
+                                    .padding(.top, 22)
+                                    .padding(.top, 16)
 
-                                Section {
-
-                                    if !viewStore.transaction.humanAddress.isEmpty && !viewStore.transaction.isTransactionSend {
-                                        HStack {
-                                            Text(transactionDirection)
-                                            Spacer()
-                                            Text(viewStore.transaction.humanAddress)
-                                                .foregroundColor(.gray)
-                                        }
-                                    }
+                                if !viewStore.transaction.humanAddress.isEmpty && !viewStore.transaction.isTransactionSend {
                                     HStack {
-                                        Text("\(transactionDirection) address")
+                                        Text(transactionDirection)
                                         Spacer()
-                                        Text(viewStore.transaction.senderAddress.prefix(4) + "..." + viewStore.transaction.senderAddress.suffix(4))
+                                        Text(viewStore.transaction.humanAddress)
                                             .foregroundColor(.gray)
-                                    }
-                                    HStack {
-                                        Text("Transaction")
-                                        Spacer()
-                                        Text(viewStore.transaction.transactionId.prefix(6) + "..." + viewStore.transaction.transactionId.suffix(6))
-                                            .foregroundColor(.gray)
-                                    }
-                                } footer: {
-                                    Button {
-                                        //action
-                                    } label: {
-                                        Text("View in explorer")
-                                            .foregroundColor(.blue)
-                                        //                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                                        //                            .padding(.leading, 16)
                                     }
                                 }
+
+                                HStack {
+                                    Text("\(transactionDirection) address")
+                                    Spacer()
+                                    Text(viewStore.transaction.senderAddress.prefix(4) + "..." + viewStore.transaction.senderAddress.suffix(4))
+                                        .foregroundColor(.gray)
+                                }
+                                .padding([.top, .bottom], 11)
+                                Divider()
+                                    .frame(height: 0.33)
+                                    .background(Color.init(UIColor(red: 0.235, green: 0.235, blue: 0.263, alpha: 0.36).cgColor))
+
+
+                                HStack {
+                                    Text("Transaction")
+                                    Spacer()
+                                    Text(viewStore.transaction.transactionId.prefix(6) + "..." + viewStore.transaction.transactionId.suffix(6))
+                                        .foregroundColor(.gray)
+                                }
+                                .padding([.top, .bottom], 11)
+
+                                Divider()
+                                    .frame(height: 0.33)
+                                    .background(Color.init(UIColor(red: 0.235, green: 0.235, blue: 0.263, alpha: 0.36).cgColor))
+
+
+                                Button {
+                                    //action
+                                } label: {
+                                    Text("View in explorer")
+                                        .foregroundColor(.blue)
+                                    //                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+                                    //                            .padding(.leading, 16)
+
+                                }
+                                .padding([.top, .bottom], 11)
+                            }
+                            .padding(.leading, 20)
+                            .padding(.bottom, 24)
+
 
                             if viewStore.transaction.status == .cancelled {
                                 Button {
