@@ -19,6 +19,7 @@ struct AppState {
         case state(Cases)
         case wallet(AnyWallet)
         case wallet3(Wallet3)
+        case userSettings(UserSettings)
         
         var description: String {
             switch self {
@@ -33,6 +34,9 @@ struct AppState {
                 
             case let .state(cases):
                 return "AppState changed to: \(cases.rawValue)"
+
+            case let .userSettings(userSettings):
+                return "User Settings changed: \(userSettings)"
             
             }
         }
@@ -43,6 +47,7 @@ struct AppState {
         case key = "key"
         case keyWords = "keyWords"
         case wallet = "wallet"
+        case userSettings = "userSettings"
     }
     
     enum Cases: String {
@@ -65,7 +70,6 @@ struct AppState {
     
     static func set(key: Key, words: [String]) {
         set(.keyCreated)
-//        try await TonKeyStore.shared.save(key: key)
         let encoder = PropertyListEncoder()
         let data = try? encoder.encode(key)
         UserDefaults.standard.set(data, forKey: Keys.key.rawValue)
@@ -97,12 +101,28 @@ struct AppState {
         UserDefaults.standard.set(data, forKey: Keys.wallet.rawValue)
         debug(.wallet3(wallet3))
     }
+
+    static func set(userSettings: UserSettings) {
+        let encoder = PropertyListEncoder()
+        let data = try? encoder.encode(userSettings)
+        UserDefaults.standard.set(data, forKey: Keys.userSettings.rawValue)
+    }
+
+    static func getUserSettings() throws -> UserSettings {
+        let decoder = PropertyListDecoder()
+
+        guard let data = UserDefaults.standard.data(forKey: Keys.userSettings.rawValue), let userSettings = try? decoder.decode(UserSettings.self, from: data) else {
+            throw WalletManagerErrors.userSettingsNotFoundInMemory
+        }
+
+        return userSettings
+    }
     
     static func getWallet() throws -> Wallet3 {
         let decoder = PropertyListDecoder()
         
         guard let data = UserDefaults.standard.data(forKey: Keys.wallet.rawValue), let wallet = try? decoder.decode(Wallet3.self, from: data) else {
-            throw WalletManagerErrors.keyNotFoundInMemory
+            throw WalletManagerErrors.walletNotFoundInMemory
         }
         
         return wallet
@@ -197,8 +217,13 @@ class ComposableAuthenticationViews {
 
     func makeMainViewReducerState() -> MainViewReducer.State {
         let state = MainViewReducer.State(events: .init(
+            getLocalUserSettings: {
+                let userSeetings = try AppState.getUserSettings()
+                return userSeetings
+            },
             getUserWallet: {
                 let wallet = try AppState.getWallet()
+                let key = try AppState.getKey()
                 let balance = wallet.contract.info.balance.string(with: .maximum9).toDouble()
                 let address = wallet.contract.address.description
                 let transactions = try await wallet.contract.transactions(after: nil).map { transaction in
@@ -217,7 +242,7 @@ class ComposableAuthenticationViews {
                         case .text(value: let text):
                             comment = text
                         default:
-                            comment = "Encrepted: \(value.body)"
+                            comment = ""
                         }
 
                     } else if let value = transaction.in {
@@ -235,7 +260,7 @@ class ComposableAuthenticationViews {
                     }
 
                     return Transaction1(
-                        senderAddress: transaction.in?.sourceAccountAddress?.displayName ?? "Empty",
+                        senderAddress: destinationAddress,
                         humanAddress: destinationAddress,
                         amount: amount,
                         comment: comment,
@@ -247,7 +272,11 @@ class ComposableAuthenticationViews {
                     )
                 }
 
-                return UserSettings.UserWallet(allAmmount: balance, address: address, transactions: transactions)
+                let userWallet = UserSettings.UserWallet(allAmmount: balance, address: address, transactions: transactions)
+                let userSettings = UserSettings(userWallet: userWallet, key: key, wallet: wallet)
+                AppState.set(userSettings: userSettings)
+
+                return userWallet
 
             },
             createRecieveTonReducerState: {

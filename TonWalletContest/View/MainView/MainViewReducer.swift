@@ -14,6 +14,7 @@ struct MainViewReducer: ReducerProtocol {
 
         static let preview: State = .init(
             events: .init(
+                getLocalUserSettings: { nil },
                 getUserWallet: { .preview },
                 createRecieveTonReducerState: { .preview },
                 createSendReducerState: { _ in .preview },
@@ -23,6 +24,7 @@ struct MainViewReducer: ReducerProtocol {
     }
 
     struct Events: AlwaysEquitable {
+        var getLocalUserSettings: () async throws -> UserSettings?
         var getUserWallet: () async throws -> UserSettings.UserWallet
         var createRecieveTonReducerState: () async -> RecieveTonReducer.State
         var createSendReducerState: (UserSettings.UserWallet) async -> SendReducer.State
@@ -79,6 +81,10 @@ struct MainViewReducer: ReducerProtocol {
                 return .none
             case .onAppear:
                 return .run { [events = state.events] send in
+                    if let userSettings = try? await events.getLocalUserSettings() {
+                        await send(.configure(userWallet: userSettings.userWallet))
+                    }
+
                     let userWallet = try await events.getUserWallet()
                     await send(.configure(userWallet: userWallet))
                 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Transaction1: Identifiable, Equatable {
+struct Transaction1: Identifiable, Equatable, Codable {
     var id = UUID()
     let senderAddress: String
     let humanAddress: String
@@ -19,7 +19,7 @@ struct Transaction1: Identifiable, Equatable {
     let isTransactionSend: Bool
     let transactionId: String
 
-    enum Status {
+    enum Status: Codable {
         case success
         case cancelled
         case pending

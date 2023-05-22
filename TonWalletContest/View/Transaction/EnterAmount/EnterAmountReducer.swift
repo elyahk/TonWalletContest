@@ -2,18 +2,20 @@ import ComposableArchitecture
 import SwiftyTON
 import Foundation
 
-struct UserSettings: Equatable {
+struct UserSettings: Equatable, Codable {
     var userWallet: UserWallet
     var key: Key
     var wallet: Wallet3
 
-    struct UserWallet: Equatable {
+    struct UserWallet: Equatable, Codable {
         var allAmmount: Double
         var address: String
         var transactions: [Transaction1]
 
         static let preview: UserWallet = .init(allAmmount: 2.00333, address: "AsfdsfsdSDFSdfsDfsdfsD", transactions: [.previewInstance, .previewInstance])
     }
+
+    static let preview: UserSettings = .init(userWallet: .preview, key: .demoKey, wallet: .demoWallet)
 }
 
 struct EnterAmountReducer: ReducerProtocol {

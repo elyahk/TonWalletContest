@@ -24,6 +24,7 @@ enum WalletManagerErrors: Error {
     case invalidAddress
     case invalidWallet
     case keyNotFoundInMemory
+    case userSettingsNotFoundInMemory
     case keyWordsNotFoundInMemory
     case walletNotFoundInMemory
 }
@@ -227,6 +228,10 @@ class TonWalletManager {
 
 extension Key {
     static let demoKey: Key = try! .init(publicKey: "Pua9oBjA-siFCL6ViKk5hyw57jfuzSiZUvMwshrYv9m-MdVc", encryptedSecretKey: Data())
+}
+
+extension Wallet3 {
+    static let demoWallet: Wallet3 = .init(contract: .init(address: .init(workchain: 0, hash: []), info: .init(balance: .zero, synchronizationDate: .init()), kind: nil, data: .init(bytes: [])))!
 }
 
 extension Array where Element == String {

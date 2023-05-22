@@ -59,7 +59,9 @@ struct MainView: View {
                                 .truncationMode(.middle)
                                 .font(.system(size: 17, weight: .regular))
 
-                            TransactionAmountView(amount: viewStore.userWallet?.allAmmount ?? 0, isSent: false)
+                            TransactionAmountView(
+                                amount: viewStore.userWallet?.allAmmount ?? 0,
+                                color: .white)
                         }
                         .padding(.top, 28.0)
 
@@ -100,48 +102,12 @@ struct MainView: View {
                     VStack {
                         List {
                             ForEach(viewStore.userWallet?.transactions ?? []) { transaction in
-                                VStack(alignment: .leading, spacing: 8.0) {
-                                    HStack(spacing: 3.0) {
-                                        TransactionAmountView(
-                                            amount: transaction.amount,
-                                            isSent: transaction.isTransactionSend,
-                                            size: (19, 18, 16)
-                                        )
-                                        Text(transaction.isTransactionSend ? "to" : "from")
-                                            .font(.system(size: 18, weight: .regular))
-                                            .foregroundColor(.secondary)
-                                        Spacer()
-                                        Text(transaction.date.formattedDateString(type: .short))
-                                            .font(.system(size: 15, weight: .regular))
-                                            .foregroundColor(.secondary)
+                                TransactionListItemView(transaction: transaction)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        viewStore.send(.tappedTransaction(transaction))
+
                                     }
-
-                                    Text(transaction.senderAddress)
-                                        .font(.system(size: 15, weight: .regular))
-                                        .lineLimit(1)
-                                        .frame(width: 100)
-                                        .truncationMode(.middle)
-                                        .padding(.top, -2.0)
-
-                                    Text("\(transaction.fee) storage fee")
-                                        .font(.system(size: 15, weight: .regular))
-                                        .foregroundColor(.secondary)
-                                    ChatBubble {
-                                        Text(transaction.comment)
-                                            .font(.system(size: 15, weight: .regular))
-                                            .padding([.trailing], 10)
-                                            .padding([.leading], 15)
-                                            .padding([.bottom, .top], 8)
-                                            .multilineTextAlignment(.center)
-                                            .background(Color(UIColor(red: 0.937, green: 0.937, blue: 0.953, alpha: 1).cgColor))
-                                    }
-                                }
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    viewStore.send(.tappedTransaction(transaction))
-
-
-                                }
                             }
 
                         }
