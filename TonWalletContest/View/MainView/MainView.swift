@@ -18,7 +18,7 @@ struct MainView: View {
     }
 
     struct ViewState: Equatable {
-        var userWallet: UserSettings.UserWallet?
+        var userWallet: UserWalletSettings.UserWallet?
 
         init(state: MainViewReducer.State) {
             self.userWallet = state.userWallet
@@ -46,8 +46,15 @@ struct MainView: View {
                                     .padding()
                             }
                             Spacer()
-                            Button {
 
+                            NavigationLinkStore (
+                                self.store.scope(state: \.$destination, action: MainViewReducer.Action.destination),
+                                state: /MainViewReducer.Destination.State.settingsView,
+                                action: MainViewReducer.Destination.Action.settingsView
+                            ) {
+                                viewStore.send(.tappedSettingsButton)
+                            } destination: { store in
+                                SettingsView(store: store)
                             } label: {
                                 Image(systemName: "gear")
                                     .resizable()

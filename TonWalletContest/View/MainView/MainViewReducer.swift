@@ -7,7 +7,7 @@ struct MainViewReducer: ReducerProtocol {
         var events: Events
         @PresentationState var destination: Destination.State?
         var id: UUID = .init()
-        var userWallet: UserSettings.UserWallet?
+        var userWallet: UserWalletSettings.UserWallet?
         var walletAddress: String = ""
         var transactions: [Transaction1] = []
         var transactionReducerState: TransactionReducer.State?
@@ -19,23 +19,25 @@ struct MainViewReducer: ReducerProtocol {
                 createRecieveTonReducerState: { .preview },
                 createSendReducerState: { _ in .preview },
                 createEnterAmountReducerState: { _, _, _ in .preview },
-                createScanQRCodeReducerState: { .init(events: .init()) }
+                createScanQRCodeReducerState: { .init(events: .init()) },
+                createSettingsReducerState: { .preview }
             )
         )
     }
 
     struct Events: AlwaysEquitable {
-        var getLocalUserSettings: () async throws -> UserSettings?
-        var getUserWallet: () async throws -> UserSettings.UserWallet
+        var getLocalUserSettings: () async throws -> UserWalletSettings?
+        var getUserWallet: () async throws -> UserWalletSettings.UserWallet
         var createRecieveTonReducerState: () async -> RecieveTonReducer.State
-        var createSendReducerState: (UserSettings.UserWallet) async -> SendReducer.State
-        var createEnterAmountReducerState: (String, String, UserSettings.UserWallet) async -> EnterAmountReducer.State
+        var createSendReducerState: (UserWalletSettings.UserWallet) async -> SendReducer.State
+        var createEnterAmountReducerState: (String, String, UserWalletSettings.UserWallet) async -> EnterAmountReducer.State
         var createScanQRCodeReducerState: () async -> ScanQRCodeReducer.State
+        var createSettingsReducerState: () async throws -> SettingsReducer.State
     }
 
     enum Action: Equatable {
         case onAppear
-        case configure(userWallet: UserSettings.UserWallet)
+        case configure(userWallet: UserWalletSettings.UserWallet)
         case tappedRecieveButton
         case tappedSendButton
         case tappedBackButton
@@ -64,7 +66,10 @@ struct MainViewReducer: ReducerProtocol {
                     await send(.destinationState(.scanQRCodeView(await events.createScanQRCodeReducerState())))
                 }
             case .tappedSettingsButton:
-                return .none
+
+                return .run { [events = state.events] send in
+                    await send(.destinationState(.settingsView(try await events.createSettingsReducerState())))
+                }
             case let .tappedTransaction(transaction):
                 print("Transaction Tapped: \(transaction)")
 
@@ -147,6 +152,7 @@ extension MainViewReducer {
             case recieveTonView(RecieveTonReducer.State)
             case sendView(SendReducer.State)
             case scanQRCodeView(ScanQRCodeReducer.State)
+            case settingsView(SettingsReducer.State)
 
             var id: AnyHashable {
                 switch self {
@@ -158,6 +164,8 @@ extension MainViewReducer {
 
                 case let .scanQRCodeView(state):
                     return state.id
+                case let .settingsView(state):
+                    return state.id
                 }
             }
         }
@@ -165,6 +173,7 @@ extension MainViewReducer {
             case recieveTonView(RecieveTonReducer.Action)
             case sendView(SendReducer.Action)
             case scanQRCodeView(ScanQRCodeReducer.Action)
+            case settingsView(SettingsReducer.Action)
         }
 
         var body: some ReducerProtocolOf<Self> {
@@ -176,6 +185,9 @@ extension MainViewReducer {
             }
             Scope(state: /State.scanQRCodeView, action: /Action.scanQRCodeView) {
                 ScanQRCodeReducer()
+            }
+            Scope(state: /State.settingsView, action: /Action.settingsView) {
+                SettingsReducer()
             }
         }
     }

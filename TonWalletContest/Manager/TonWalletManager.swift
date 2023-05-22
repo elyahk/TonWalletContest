@@ -25,6 +25,7 @@ enum WalletManagerErrors: Error {
     case invalidWallet
     case keyNotFoundInMemory
     case userSettingsNotFoundInMemory
+    case userWalletSettingsNotFoundInMemory
     case keyWordsNotFoundInMemory
     case walletNotFoundInMemory
 }

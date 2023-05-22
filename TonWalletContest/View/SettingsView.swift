@@ -14,20 +14,16 @@ struct SettingsReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
-        var events: Events
-        var userSettings: UserSettings.Settings
+        var userSettings: UserSettings
 
-        init(userSettings: UserSettings.Settings, destination: Destination.State? = nil, events: Events) {
+        init(userSettings: UserSettings, destination: Destination.State? = nil) {
             self.destination = destination
-            self.events = events
             self.userSettings = userSettings
         }
 
         static let preview: State = .init(
-            userSettings: UserSettings.Settings(),
-            events: .init(
-            createMainViewReducerState: { .preview }
-        ))
+            userSettings: UserSettings()
+        )
     }
 
     enum ChangeType: Equatable {
@@ -41,10 +37,7 @@ struct SettingsReducer: ReducerProtocol {
         case destination(PresentationAction<Destination.Action>)
         case destinationState(Destination.State)
         case changed(ChangeType)
-    }
-
-    struct Events: AlwaysEquitable {
-        var createMainViewReducerState: () async ->  MainViewReducer.State
+        case saveSettings(UserSettings)
     }
 
     @Dependency(\.dismiss) var presentationMode
@@ -52,7 +45,10 @@ struct SettingsReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case .saveSettings:
+                return .none
             case let .changed(type):
+
                 switch type {
                 case let .activeAddress(activeWalletAddress):
                     state.userSettings.activeAddress = activeWalletAddress

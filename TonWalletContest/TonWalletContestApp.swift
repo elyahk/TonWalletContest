@@ -19,7 +19,7 @@ struct AppState {
         case state(Cases)
         case wallet(AnyWallet)
         case wallet3(Wallet3)
-        case userSettings(UserSettings)
+        case userSettings(UserWalletSettings)
         
         var description: String {
             switch self {
@@ -47,6 +47,7 @@ struct AppState {
         case key = "key"
         case keyWords = "keyWords"
         case wallet = "wallet"
+        case userWalletSettings = "userWalletSettings"
         case userSettings = "userSettings"
     }
     
@@ -102,17 +103,33 @@ struct AppState {
         debug(.wallet3(wallet3))
     }
 
+    static func set(userWalletSettings: UserWalletSettings) {
+        let encoder = PropertyListEncoder()
+        let data = try? encoder.encode(userWalletSettings)
+        UserDefaults.standard.set(data, forKey: Keys.userWalletSettings.rawValue)
+    }
+
     static func set(userSettings: UserSettings) {
         let encoder = PropertyListEncoder()
         let data = try? encoder.encode(userSettings)
         UserDefaults.standard.set(data, forKey: Keys.userSettings.rawValue)
     }
 
-    static func getUserSettings() throws -> UserSettings {
+    static func getUserWalletSettings() throws -> UserWalletSettings {
+        let decoder = PropertyListDecoder()
+
+        guard let data = UserDefaults.standard.data(forKey: Keys.userWalletSettings.rawValue), let userSettings = try? decoder.decode(UserWalletSettings.self, from: data) else {
+            throw WalletManagerErrors.userWalletSettingsNotFoundInMemory
+        }
+
+        return userSettings
+    }
+
+    static func getUserSettings() -> UserSettings {
         let decoder = PropertyListDecoder()
 
         guard let data = UserDefaults.standard.data(forKey: Keys.userSettings.rawValue), let userSettings = try? decoder.decode(UserSettings.self, from: data) else {
-            throw WalletManagerErrors.userSettingsNotFoundInMemory
+            return .init()
         }
 
         return userSettings
@@ -164,7 +181,7 @@ class ComposableAuthenticationViews {
         return state
     }
 
-    func makeEnterAmountReducerState(recieverAddress: String, recieverShortAddress: String = "", userWallet: UserSettings.UserWallet) -> EnterAmountReducer.State {
+    func makeEnterAmountReducerState(recieverAddress: String, recieverShortAddress: String = "", userWallet: UserWalletSettings.UserWallet) -> EnterAmountReducer.State {
         let state = EnterAmountReducer.State(
             reciverAddress: recieverAddress,
             recieverShortAddress: recieverShortAddress,
@@ -204,7 +221,7 @@ class ComposableAuthenticationViews {
         return RecieveTonReducer.State.init()
     }
 
-    func makeSendReducerState(userWallet: UserSettings.UserWallet) -> SendReducer.State {
+    func makeSendReducerState(userWallet: UserWalletSettings.UserWallet) -> SendReducer.State {
         let state = SendReducer.State(
             userWallet: userWallet,
             events: .init(
@@ -224,7 +241,7 @@ class ComposableAuthenticationViews {
     func makeMainViewReducerState() -> MainViewReducer.State {
         let state = MainViewReducer.State(events: .init(
             getLocalUserSettings: {
-                let userSeetings = try AppState.getUserSettings()
+                let userSeetings = try AppState.getUserWalletSettings()
                 return userSeetings
             },
             getUserWallet: {
@@ -283,9 +300,9 @@ class ComposableAuthenticationViews {
                     )
                 }
 
-                let userWallet = UserSettings.UserWallet(allAmmount: balance, address: userAddress, transactions: transactions)
-                let userSettings = UserSettings(userWallet: userWallet, key: key, wallet: wallet)
-                AppState.set(userSettings: userSettings)
+                let userWallet = UserWalletSettings.UserWallet(allAmmount: balance, address: userAddress, transactions: transactions)
+                let userWalletSettings = UserWalletSettings(userWallet: userWallet, key: key, wallet: wallet)
+                AppState.set(userWalletSettings: userWalletSettings)
 
                 return userWallet
 
@@ -301,6 +318,11 @@ class ComposableAuthenticationViews {
             },
             createScanQRCodeReducerState: {
                 .init(events: .init())
+            },
+            createSettingsReducerState: {
+                let userSettings = AppState.getUserSettings()
+
+                return .init(userSettings: userSettings)
             }
         ))
         

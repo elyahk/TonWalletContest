@@ -3,18 +3,16 @@ import SwiftyTON
 import Foundation
 
 struct UserSettings: Equatable, Codable {
+    var faceId: Bool = false
+    var activeAddress: ActiveAddress = .v3R2
+    var currency: ActiveCurrency = .TON
+    var isNotificationOn: Bool = false
+}
+
+struct UserWalletSettings: Equatable, Codable {
     var userWallet: UserWallet
     var key: Key
     var wallet: Wallet3
-    var settings: Settings = .init()
-
-    struct Settings: Equatable, Codable {
-        var faceId: Bool = false
-        var activeAddress: ActiveAddress = .v3R2
-        var currency: ActiveCurrency = .TON
-        var isNotificationOn: Bool = false
-
-    }
 
     struct UserWallet: Equatable, Codable {
         var allAmmount: Double
@@ -24,7 +22,7 @@ struct UserSettings: Equatable, Codable {
         static let preview: UserWallet = .init(allAmmount: 2.00333, address: "AsfdsfsdSDFSdfsDfsdfsD", transactions: [.previewInstance, .previewInstance])
     }
 
-    static let preview: UserSettings = .init(userWallet: .preview, key: .demoKey, wallet: .demoWallet)
+    static let preview: UserWalletSettings = .init(userWallet: .preview, key: .demoKey, wallet: .demoWallet)
 }
 
 struct EnterAmountReducer: ReducerProtocol {
@@ -36,7 +34,7 @@ struct EnterAmountReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var recieverAddress: String
         var recieverShortAddress: String
-        var userWallet: UserSettings.UserWallet
+        var userWallet: UserWalletSettings.UserWallet
         var events: Events
         var amount: String = ""
         var isAllAmount = false
@@ -45,7 +43,7 @@ struct EnterAmountReducer: ReducerProtocol {
         var id: UUID = .init()
         @PresentationState var destination: Destination.State?
         
-        init(reciverAddress: String, recieverShortAddress: String = "", userWallet: UserSettings.UserWallet, destination: Destination.State? = nil, events: Events) {
+        init(reciverAddress: String, recieverShortAddress: String = "", userWallet: UserWalletSettings.UserWallet, destination: Destination.State? = nil, events: Events) {
             self.recieverAddress = reciverAddress
             self.recieverShortAddress = recieverShortAddress
             self.userWallet = userWallet

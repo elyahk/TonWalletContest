@@ -4,7 +4,7 @@ import Foundation
 
 struct SendReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
-        var userWallet: UserSettings.UserWallet
+        var userWallet: UserWalletSettings.UserWallet
         var events: Events
         @PresentationState var destination: Destination.State?
         var id: UUID = .init()
@@ -12,7 +12,7 @@ struct SendReducer: ReducerProtocol {
         var transactions: [Transaction1]
         var isLoading: Bool = false
 
-        init(userWallet: UserSettings.UserWallet, destination: Destination.State? = nil, events: Events) {
+        init(userWallet: UserWalletSettings.UserWallet, destination: Destination.State? = nil, events: Events) {
             self.destination = destination
             self.events = events
             self.userWallet = userWallet
@@ -41,7 +41,7 @@ struct SendReducer: ReducerProtocol {
     }
 
     struct Events: AlwaysEquitable {
-        var createEnterAmountReducerState: (String, String, UserSettings.UserWallet) async ->  EnterAmountReducer.State
+        var createEnterAmountReducerState: (String, String, UserWalletSettings.UserWallet) async ->  EnterAmountReducer.State
         var createScanQRCodeReducerState: () async ->  ScanQRCodeReducer.State
     }
 
