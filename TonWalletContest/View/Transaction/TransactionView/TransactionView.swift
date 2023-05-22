@@ -113,14 +113,24 @@ struct TransactionView: View {
                             .padding(.bottom)
                     }
                 } else {
-                    NavigationLink {
-                        //                EnterAmountView(address: $address)
+                    NavigationLinkStore (
+                        self.store.scope(
+                            state: \.$destination,
+                            action: TransactionReducer.Action.destination),
+                        state: /TransactionReducer.Destination.State.enterAmoutView,
+                        action: TransactionReducer.Destination.Action.enterAmoutView
+                    ) {
+                        ViewStore(store).send(.sendButtonTapped)
+                    } destination: { store in
+                        EnterAmountView(store: store)
                     } label: {
-                        Text("Send TON to this address")
-                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                            .customWideBlueButtonStyle()
-                            .padding(.horizontal, 16)
-                            .padding(.bottom)
+                        ZStack(alignment: .trailing) {
+                            Text("Send TON to this address")
+                                .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                                .customWideBlueButtonStyle()
+                                .padding(.horizontal, 16)
+                                .padding(.bottom)
+                        }
                     }
                 }
             }
