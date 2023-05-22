@@ -6,19 +6,21 @@ struct TransactionReducer: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID = .init()
         var transaction: Transaction1
-        var isShowing: Bool = true
+        var isShowing: Bool
 
         @PresentationState var destination: Destination.State?
         var events: Events
 
-        init(transaction: Transaction1, destination: Destination.State? = nil, events: Events) {
+        init(transaction: Transaction1, isShowing: Bool, destination: Destination.State? = nil, events: Events) {
             self.destination = destination
+            self.isShowing = isShowing
             self.events = events
             self.transaction = transaction
         }
 
         static let preview: State = .init(
             transaction: .previewInstance,
+            isShowing: true,
             events: .init(
             ))
     }
@@ -30,6 +32,7 @@ struct TransactionReducer: ReducerProtocol {
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
         case destinationState(Destination.State)
+        case doneButtonTapped
         case sendButtonTapped
     }
 
@@ -38,7 +41,9 @@ struct TransactionReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
-
+            case .doneButtonTapped:
+                state.isShowing = false
+                return .none
 
             case let .destinationState(destinationState):
                 state.destination = destinationState

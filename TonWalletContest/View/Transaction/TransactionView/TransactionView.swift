@@ -38,7 +38,7 @@ struct TransactionView: View {
 
 
                                 Button {
-
+                                    viewStore.send(.doneButtonTapped)
                                 } label: {
                                     Text("Done")
                                         .font(.system(size: 17.0, weight: .semibold))
@@ -166,16 +166,8 @@ struct TransactionView: View {
                                         .padding(.bottom)
                                 }
                             } else {
-                                NavigationLinkStore (
-                                    self.store.scope(
-                                        state: \.$destination,
-                                        action: TransactionReducer.Action.destination),
-                                    state: /TransactionReducer.Destination.State.enterAmoutView,
-                                    action: TransactionReducer.Destination.Action.enterAmoutView
-                                ) {
-                                    ViewStore(store).send(.sendButtonTapped)
-                                } destination: { store in
-                                    EnterAmountView(store: store)
+                                Button {
+                                    viewStore.send(.sendButtonTapped)
                                 } label: {
                                     ZStack(alignment: .trailing) {
                                         Text("Send TON to this address")

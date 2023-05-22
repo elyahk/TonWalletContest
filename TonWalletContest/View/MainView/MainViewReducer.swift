@@ -10,6 +10,7 @@ struct MainViewReducer: ReducerProtocol {
         var userWallet: UserSettings.UserWallet?
         var walletAddress: String = ""
         var transactions: [Transaction1] = []
+        var transactionReducerState: TransactionReducer.State?
 
         static let preview: State = .init(
             events: .init(
@@ -34,6 +35,8 @@ struct MainViewReducer: ReducerProtocol {
         case tappedBackButton
         case destinationState(Destination.State)
         case destination(PresentationAction<Destination.Action>)
+        case transactionView(TransactionReducer.Action)
+        case tappedTransaction(Transaction1)
     }
 
     @Dependency(\.dismiss) var presentationMode
@@ -41,6 +44,17 @@ struct MainViewReducer: ReducerProtocol {
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
+            case let .tappedTransaction(transaction):
+                print("Transaction Tapped: \(transaction)")
+                state.transactionReducerState = .init(transaction: transaction, isShowing: true, events: .init())
+                return .none
+            case .transactionView(.doneButtonTapped):
+                state.transactionReducerState = nil
+                return .none
+
+            case .transactionView:
+                return .none
+
             case .tappedSendButton:
 
                 return .run { [events = state.events, state] send in
@@ -73,6 +87,9 @@ struct MainViewReducer: ReducerProtocol {
             case .destination:
                 return .none
             }
+        }
+        .ifLet(\.transactionReducerState, action: /Action.transactionView) {
+            TransactionReducer()
         }
         .ifLet(\.$destination, action: /Action.destination) {
             Destination()
